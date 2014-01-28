@@ -6,7 +6,6 @@ using System.Text;
 namespace sfBotti {
 	class Program {
 		static void Main(string[] args) {
-			//test
 		}
 	}
 }
