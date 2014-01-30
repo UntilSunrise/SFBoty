@@ -35,8 +35,6 @@ namespace SFBoty.Mechanic.Areas {
 				return;
 			}
 
-			//TODO: Bei Erreichen von Lvl 100 Toilette automatisch zur Verfügung stellen.
-
 			string s;
 			if ((Account.Level >= 100 || Account.ToiletIsAvailable) && !Account.ToiletAlreadyUsedToday) {
 				ThreadSleep(Account.Settings.minTimeToJoinToilet, Account.Settings.maxTimeToJoinToilet);

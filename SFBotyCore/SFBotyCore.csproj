@@ -50,10 +50,14 @@
     <Compile Include="Mechanic\Areas\StadtwacheArea.cs" />
     <Compile Include="Mechanic\Areas\LoginArea.cs" />
     <Compile Include="Mechanic\Areas\TarvernArea.cs" />
+    <Compile Include="Mechanic\Areas\ToiletArea.cs" />
     <Compile Include="Mechanic\BaseArea.cs" />
     <Compile Include="Mechanic\Bot.cs" />
     <Compile Include="Mechanic\IMenuArea.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Docs\SfConstantsOriginal.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
