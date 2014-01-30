@@ -165,6 +165,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			acc.Pilze = Convert.ToInt32(answerTavern[14]);
 			acc.Level = Convert.ToInt32(answerTavern[7]);
             acc.Honor = Convert.ToInt32(answerTavern[10]);
+            acc.Rang  = Convert.ToInt32(answerTavern[11]);
 		}
 	}
 }

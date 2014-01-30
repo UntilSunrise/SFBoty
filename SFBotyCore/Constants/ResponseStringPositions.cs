@@ -35,5 +35,13 @@ namespace SFBotyCore.Constants {
         public static int ItemEnchantmentPower = 602;
         public static int ItemSocketPower = 603;
 		#endregion
-	}
+
+        #region HallOfFamepositions
+        public static int HoFRang = 0;
+        public static int HoFCharacternick = 1;
+        public static int HoFGildennick = 2;
+        public static int HoFLevel = 3;
+        public static int HoFHonor = 4;
+        #endregion
+    }
 }

@@ -51,7 +51,7 @@
     <Compile Include="Constants\ActionTypes.cs" />
     <Compile Include="Mechanic\Areas\CharScreenArea.cs" />
     <Compile Include="Mechanic\Areas\DungeonArea.cs" />
-    <Compile Include="Mechanic\Areas\HallOfFameArea.cs" />
+    <Compile Include="Mechanic\Areas\ArenaArea.cs" />
     <Compile Include="Mechanic\Areas\StadtwacheArea.cs" />
     <Compile Include="Mechanic\Areas\LoginArea.cs" />
     <Compile Include="Mechanic\Areas\TarvernArea.cs" />

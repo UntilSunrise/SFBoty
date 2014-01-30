@@ -36,6 +36,7 @@ namespace SFBotyCore.Mechanic.Account {
 		public int Pilze { get; set; }
 		public int Level { get; set; }
         public int Honor { get; set; }
+        public int Rang { get; set; }
 
 		public Account(AccountSettings settings) {
 			Settings = settings;
@@ -68,6 +69,7 @@ namespace SFBotyCore.Mechanic.Account {
 			Pilze = 0;
 			Level = 0;
             Honor = 0;
+            Rang = 0;
 		}
 
 		public void Logout() {

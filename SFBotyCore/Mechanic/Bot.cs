@@ -22,6 +22,7 @@ namespace SFBotyCore.Mechanic {
 		private CharScreenArea CharArea;
 		private DungeonArea DungeonArea;
 		private ToiletArea ToiletArea;
+        private ArenaArea ArenaArea;
 
 		#region Events
 		public event EventHandler<MessageEventsArgs> MessageOutput;
@@ -61,6 +62,10 @@ namespace SFBotyCore.Mechanic {
 			ToiletArea = new ToiletArea();
 			ToiletArea.Initialize(Account, Client);
 			ToiletArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
+
+            ArenaArea = new ArenaArea();
+            ArenaArea.Initialize(Account, Client);
+            ArenaArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
 		}
 
 		void Event_MessageOutput(object sender, MessageEventsArgs e) {
@@ -86,6 +91,7 @@ namespace SFBotyCore.Mechanic {
 				if (Account.Settings.HasLogin) {
 					TarvernArea.PerformArea();
 					ToiletArea.PerformArea();
+                    ArenaArea.PerformArea();
 					CharArea.PerformArea();
 					DungeonArea.PerformArea();
 					StadtwacheArea.PerformArea();
@@ -104,6 +110,8 @@ namespace SFBotyCore.Mechanic {
 			Client.Dispose();
 			LoginArea.Dispose();
 			TarvernArea.Dispose();
+            ToiletArea.Dispose();
+            ArenaArea.Dispose();
 			CharArea.Dispose();
 			StadtwacheArea.Dispose();
 			DungeonArea.Dispose();
