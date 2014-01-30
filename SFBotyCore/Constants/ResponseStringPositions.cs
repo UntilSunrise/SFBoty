@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SFBoty.Mechanic {
+namespace SFBotyCore.Constants {
 	public static class ResponseStringPositions {
 		public static int ShakesFirstItemPosition = 288;
 		public static int FidgetFirstItemPosition = 361;

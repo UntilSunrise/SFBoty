@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SFBoty.Mechanic {
+namespace SFBotyCore.Constants {
 	public static class ActionTypes {
 		public static string LoginToSF = "002";
 		public static string LogOut = "535";

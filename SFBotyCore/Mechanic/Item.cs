@@ -58,15 +58,16 @@ namespace SFBotyCore.Mechanic {
 			attributeValue3 = Convert.ToInt32(responseString[(offset + ResponseStringPositions.ItemAttributeValue3)]);
 			goldValue = Convert.ToInt32(responseString[(offset + ResponseStringPositions.ItemGoldValue)]);
 
-			Typ = (ItemTypes)Enum.Parse(typeof(double), this.typeOriginal.ToString());
+			Typ = (ItemTypes)this.typeOriginal;
 			DamageMin = this.damageMin;
 			DamageMax = this.damageMax;
-			AttributeType1 = (AttributeTypes)Enum.Parse(typeof(int), this.attributeValue1.ToString());
-			AttributeType2 = (AttributeTypes)Enum.Parse(typeof(int), this.attributeValue2.ToString());
-			AttributeType3 = (AttributeTypes)Enum.Parse(typeof(int), this.attributeValue3.ToString());
+			AttributeType1 = (AttributeTypes)this.attributeValue1;
+			AttributeType2 = (AttributeTypes)this.attributeValue2;
+			AttributeType3 = (AttributeTypes)this.attributeValue3;
 			AttributeValue1 = this.attributeValue1;
 			AttributeValue2 = this.attributeValue2;
 			AttributeValue3 = this.attributeValue3;
+			GoldValue = this.goldValue;
 
         }
 	}
