@@ -42,9 +42,13 @@
   <ItemGroup>
     <Compile Include="Assert\AssertException.cs" />
     <Compile Include="Assert\Asserts.cs" />
+    <Compile Include="Constants\AttributeTypes.cs" />
+    <Compile Include="Constants\ClassTypes.cs" />
+    <Compile Include="Constants\ItemTypes.cs" />
+    <Compile Include="Constants\ResponseStringPositions.cs" />
     <Compile Include="Mechanic\Account\Account.cs" />
     <Compile Include="Mechanic\Account\AccountSettings.cs" />
-    <Compile Include="Mechanic\ActionTypes.cs" />
+    <Compile Include="Constants\ActionTypes.cs" />
     <Compile Include="Mechanic\Areas\CharScreenArea.cs" />
     <Compile Include="Mechanic\Areas\DungeonArea.cs" />
     <Compile Include="Mechanic\Areas\StadtwacheArea.cs" />
@@ -54,6 +58,7 @@
     <Compile Include="Mechanic\BaseArea.cs" />
     <Compile Include="Mechanic\Bot.cs" />
     <Compile Include="Mechanic\IMenuArea.cs" />
+    <Compile Include="Mechanic\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

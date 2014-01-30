@@ -6,6 +6,7 @@ using SFBoty.Mechanic.Account;
 using System.Net;
 using System.Threading;
 using Assert;
+using SFBotyCore.Mechanic;
 
 namespace SFBoty.Mechanic.Areas {
 	public class ToiletArea : BaseArea {
@@ -76,14 +77,15 @@ namespace SFBoty.Mechanic.Areas {
 						Account.ToiletPointsForNewLevel = Convert.ToInt32(answerToilet[(int)ToiletAnswer.ExpToNextLevel]);
 						RaiseMessageEvent("Spülung gedrückt, Aurastufe: " + Account.CurrentToiletLevel);
 					} // else do nothing
+					
+					int i = 0;
+					Dictionary<int,Item> BackpackItems = new Dictionary<int,Item>();
+					while (i < ResponseStringPositions.BackpackSize) {
+						BackpackItems.Add(i, new Item(answerToilet, ResponseStringPositions.BackpackFirstItemPosition + (i * ResponseStringPositions.ItemSize)));
+						i++;
+					}
 
-					//TODO: Item in Toilette werfen
-
-					// Inventar Platz 1: Goldwert s[178]
-					// Inventar Platz 2: Goldwert s[190]
-					// Inventar Platz 3: Goldwert s[202]
-					// Inventar Platz 4: Goldwert s[214]
-					// Inventar Platz 5: Goldwert s[226]
+					//TODO: ?günstiges? Item heraussuchen und ins Klo werfen.
 				}
 
 			} // else do nothing
