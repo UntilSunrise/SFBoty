@@ -10,33 +10,33 @@ using SFBotyCore.Mechanic;
 using SFBotyCore.Constants;
 
 namespace SFBoty.Mechanic.Areas {
-	public class ToiletArea : BaseArea {
+    public class ToiletArea : BaseArea {
 
-		private enum ToiletAnswer { 
-			Status = 0,
-			Level = 1,
-			Exp = 2,
-			ExpToNextLevel = 3
-		};
+        private enum ToiletAnswer {
+            Status = 0,
+            Level = 1,
+            Exp = 2,
+            ExpToNextLevel = 3
+        };
 
-		#region Events
-		public override event EventHandler<MessageEventsArgs> MessageOutput;
-		#endregion
+        #region Events
+        public override event EventHandler<MessageEventsArgs> MessageOutput;
+        #endregion
 
-		public ToiletArea()
-			: base() {
+        public ToiletArea()
+            : base() {
 
-		}
+        }
 
-		public override void Initialize(Account.Account account, WebClient refClient) {
-			base.Initialize(account, refClient);
-		}
+        public override void Initialize(Account.Account account, WebClient refClient) {
+            base.Initialize(account, refClient);
+        }
 
-		public override void Dispose() {
-			base.Dispose();
-		}
+        public override void Dispose() {
+            base.Dispose();
+        }
 
-		public override void PerformArea() {
+        public override void PerformArea() {
 			base.PerformArea();
 
 			//Wenn das WC nicht genutzt werden soll, tue nichts.
@@ -62,26 +62,38 @@ namespace SFBoty.Mechanic.Areas {
 					if (answerToilet[(int)ToiletAnswer.Status] == "1") {
 						RaiseMessageEvent("WC wurde heute schon benutzt!");
 						Account.ToiletAlreadyUsedToday = true;
-						return;
+						return; //TODO: Andere Lösung finden?
 					} // else do nothing
-
-                    s = CheckAndFlushToilette(s);
-					
-					int i = 0;
+                    
+                    int i = 0;
 					Dictionary<int,Item> BackpackItems = new Dictionary<int,Item>();
 					while (i < ResponseStringPositions.BackpackSize) {
-						BackpackItems.Add(i, new Item(answerToilet, ResponseStringPositions.BackpackFirstItemPosition + (i * ResponseStringPositions.ItemSize)));
+						BackpackItems.Add(i, new Item(s.Split('/'), ResponseStringPositions.BackpackFirstItemPosition + (i * ResponseStringPositions.ItemSize)));
 						i++;
 					}
 
+                    int blub = BackpackItems.Count(b => b.Value.GoldValue != 0);
+                    if (BackpackItems.Count(b => b.Value.GoldValue != 0) < 5) {
+                        s = CheckAndFlushToilette(s);
+                    } else {
+                        RaiseMessageEvent("Inventar ist schon voll! Falls ein Epic erscheint, kann dies nicht aufgenommen werden.");
+                        return; // TODO: Andere Lösung finden?
+                    }
+
+                    ThreadSleep(Account.Settings.minTimeToDoToilet, Account.Settings.maxTimeToDoToilet);
                     //Rucksackslotnummer mit dem niedrigsten Gold Wert
                     //TODO Epics ignorieren
                     int backpackslotWithLowestItemValue = BackpackItems.Where(b => b.Value.GoldValue != 0).OrderBy(b => b.Value.GoldValue).First().Key + 1;
 
                     RaiseMessageEvent(string.Format("Item im Slot {0}, wird in die Toilette geschmissen.", backpackslotWithLowestItemValue));
-                    s = SendRequest(ActionTypes.PutItemIntoToilet + backpackslotWithLowestItemValue + ";10;0");
+                    s = SendRequest(ActionTypes.ItemAction + backpackslotWithLowestItemValue + ";10;0");
+                    answerToilet = s.Split('/');
 
-                    s = CheckAndFlushToilette(s);
+                    if (Account.Settings.SellToiletItemIfNotEpic && !answerToilet[0].Contains("E")){
+                        ThreadSleep(Account.Settings.minTimeToJoinShops, Account.Settings.maxTimeToJoinShops);
+                        RaiseMessageEvent(string.Format("Item im Slot {0}, wird verkauft. Kein Epic.", backpackslotWithLowestItemValue));
+                        s = SendRequest(ActionTypes.ItemAction + backpackslotWithLowestItemValue + ";0;0");
+                    }
 				}
 
 			} // else do nothing
@@ -91,6 +103,7 @@ namespace SFBoty.Mechanic.Areas {
             //Gucke, ob das WC schon voll ist und drücke die Spülung
             string[] answerToilet = s.Split('/');
             answerToilet = answerToilet[answerToilet.Length - 1].Split(';');
+
             if (answerToilet[(int)ToiletAnswer.Exp] == answerToilet[(int)ToiletAnswer.ExpToNextLevel]) {
                 RaiseMessageEvent("WC ist voll, Spülung wird gedrückt.");
                 s = SendRequest(ActionTypes.FlushToilet);
@@ -106,11 +119,11 @@ namespace SFBoty.Mechanic.Areas {
             return s;
         }
 
-		public override void RaiseMessageEvent(string s) {
-			if (MessageOutput != null) {
-				MessageOutput(this, new MessageEventsArgs(s));
-			}
-		}
+        public override void RaiseMessageEvent(string s) {
+            if (MessageOutput != null) {
+                MessageOutput(this, new MessageEventsArgs(s));
+            }
+        }
 
-	}
+    }
 }

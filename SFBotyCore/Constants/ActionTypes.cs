@@ -18,6 +18,8 @@ namespace SFBotyCore.Constants {
 		public static string JoinGuild = "006";
 		public static string JoinCharacter = "004";//Aufrufen des eigenen Chars
 		public static string JoinDungeon = "008";
+        public static string JoinForge = "013";
+        public static string JoinMagicshop = "014";
 
 		public static string GetChatHistory_NotSure = "5173"; //getChatHistory?
 		
@@ -30,9 +32,10 @@ namespace SFBotyCore.Constants {
 		public static string ResponseToiletFull = "306";
 		public static string ResponseToiletLocked = "304";
         /// <summary>
-        /// Achtung die Item Rucksackslot Nummer muss noch angehangen werden (1-5) 
+        /// Achtung die Item Rucksackslot Nummer muss noch angehangen werden (1-5)
+        /// und die entsprechende Action ";0;0" verkauft ein Item und ";10;0" packt es in das WC
         /// </summary>
-        public static string PutItemIntoToilet = "5042;";
+        public static string ItemAction = "5042;";
 
 		/// <summary>
 		/// Achtung DungeonID muss noch selbstständigangehangen werden
