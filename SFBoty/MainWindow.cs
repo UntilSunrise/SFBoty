@@ -12,8 +12,8 @@ using SFBoty.Mechanic;
 using SFBoty.Mechanic.Account;
 
 namespace SFBoty {
-	public partial class Form1 : Form {
-		public Form1() {
+	public partial class MainWindow : Form {
+		public MainWindow() {
 			InitializeComponent();
 			this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
 		}
