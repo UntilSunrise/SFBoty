@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SFBoty.Mechanic.Account {
+namespace SFBotyCore.Mechanic.Account {
 	[Serializable]
 	public class Account {
 		public AccountSettings Settings { get; set; }

@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SFBoty.Mechanic.Account;
+using SFBotyCore.Mechanic.Account;
 using System.Threading;
 using System.Net;
 using System.IO;
-using SFBoty.Mechanic.Areas;
 using SFBotyCore.Mechanic.Areas;
 
-namespace SFBoty.Mechanic {
+namespace SFBotyCore.Mechanic {
 	public class Bot {
 
 		public Account.Account Account { get; private set; }

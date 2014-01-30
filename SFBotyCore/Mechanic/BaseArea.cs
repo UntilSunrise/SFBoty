@@ -10,7 +10,7 @@ using Assert;
 using System.Threading;
 using SFBotyCore.Constants;
 
-namespace SFBoty.Mechanic {
+namespace SFBotyCore.Mechanic {
 	public abstract class BaseArea : IMenuArea {
 		private WebClient RefClient { get; set; }
 		protected Random random;
