@@ -65,61 +65,61 @@ namespace SFBoty.Mechanic.Areas {
 
 					while (canBuyStats) {
 						if (Account.BaseStr <= strLimit) {
-							RaiseMessageEvent("buying Str");
 							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatStr);
 							if (s.Split('/').Count() < 2) {
 								canBuyStats = false;
 								break;
 							}
+							RaiseMessageEvent("buying Str");
 							CharScreenArea.UpdateAccountStats(s, Account);
 							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Dex: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Luck: " + Account.BaseLuck.ToString());
 						}
 
 						if (Account.BaseDex <= dexLimit) {
-							RaiseMessageEvent("buying Dex");
 							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatDex);
 							if (s.Split('/').Count() < 2) {
 								canBuyStats = false;
 								break;
 							}
+							RaiseMessageEvent("buying Dex");
 							CharScreenArea.UpdateAccountStats(s, Account);
 							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Dex: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Luck: " + Account.BaseLuck.ToString());
 						}
 
 						if (Account.BaseInt <= intLimit) {
-							RaiseMessageEvent("buying Int");
 							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatInt);
 							if (s.Split('/').Count() < 2) {
 								canBuyStats = false;
 								break;
 							}
+							RaiseMessageEvent("buying Int");
 							CharScreenArea.UpdateAccountStats(s, Account);
 							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Dex: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Luck: " + Account.BaseLuck.ToString());
 						}
 
 						if (Account.BaseAus <= ausLimit) {
-							RaiseMessageEvent("buying Aus");
 							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatAus);
 							if (s.Split('/').Count() < 2) {
 								canBuyStats = false;
 								break;
 							}
+							RaiseMessageEvent("buying Aus");
 							CharScreenArea.UpdateAccountStats(s, Account);
 							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Dex: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Luck: " + Account.BaseLuck.ToString());
 						}
 
-						if (Account.BaseLuck <= LuckLimit) {
-							RaiseMessageEvent("buying Luck");
+						if (Account.BaseLuck <= LuckLimit) {				
 							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatLuck);
 							if (s.Split('/').Count() < 2) {
 								canBuyStats = false;
 								break;
 							}
+							RaiseMessageEvent("buying Luck");
 							CharScreenArea.UpdateAccountStats(s, Account);
 							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Dex: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Luck: " + Account.BaseLuck.ToString());
 						}

@@ -22,6 +22,7 @@ namespace SFBoty.Mechanic.Account {
 		public bool PerformQuesten { get; set; }
 		public bool PerformBuyStats { get; set; }
 		public bool PerformStadtwache { get; set; }
+		public bool PerformDungeons { get; set; }
 
 		public float StatStrFactor { get; set; }
 		public float StatDexFactor { get; set; }
@@ -78,6 +79,7 @@ namespace SFBoty.Mechanic.Account {
 			this.PerformQuesten = true;
 			this.PerformBuyStats = true;
 			this.PerformStadtwache = true;
+			this.PerformDungeons = true;
 
 			this.StatStrFactor = 0.45f;
 			this.StatDexFactor = 0.05f;

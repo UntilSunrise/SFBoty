@@ -13,7 +13,7 @@ namespace SFBoty.Mechanic {
 	public abstract class BaseArea : IMenuArea {
 		private WebClient RefClient { get; set; }
 		protected Random random;
-		protected int RandomValue { get { return random.Next(1, 300000000); } }
+		protected int RandomValue { get { return random.Next(1, 2000000000); } }
 
 		private Stream streamData;
 		private StreamReader streamReader;

@@ -123,7 +123,51 @@ namespace SFBotyCore.Mechanic.Areas {
 			new DungeonType(9, 7, 176),
 			new DungeonType(9, 8, 178),
 			new DungeonType(9, 9, 190),
-			new DungeonType(9, 10, 201) // ich weiß das lvl hier ist immer genau dein char lvl, aber so lässt es sich am besten berechnen das es der schwerste dungeonlvl ist (zumindest in den Standard dungeons 1-9)
+			new DungeonType(9, 10, 201), // ich weiß das lvl hier ist immer genau dein char lvl, aber so lässt es sich am besten berechnen das es der schwerste dungeonlvl ist (zumindest in den Standard dungeons 1-9)
+
+			new DungeonType(10, 1, 205),
+ 			new DungeonType(10, 2, 210),
+			new DungeonType(10, 3, 215),
+			new DungeonType(10, 4, 220),
+			new DungeonType(10, 5, 225),
+			new DungeonType(10, 6, 230),
+			new DungeonType(10, 7, 235),
+			new DungeonType(10, 8, 240),
+			new DungeonType(10, 9, 245),
+			new DungeonType(10, 10, 250),
+
+			new DungeonType(11, 1, 255),
+ 			new DungeonType(11, 2, 260),
+			new DungeonType(11, 3, 265),
+			new DungeonType(11, 4, 270),
+			new DungeonType(11, 5, 275),
+			new DungeonType(11, 6, 280),
+			new DungeonType(11, 7, 285),
+			new DungeonType(11, 8, 290),
+			new DungeonType(11, 9, 295),
+			new DungeonType(11, 10, 300),
+
+			new DungeonType(12, 1, 305),
+ 			new DungeonType(12, 2, 310),
+			new DungeonType(12, 3, 315),
+			new DungeonType(12, 4, 320),
+			new DungeonType(12, 5, 325),
+			new DungeonType(12, 6, 330),
+			new DungeonType(12, 7, 335),
+			new DungeonType(12, 8, 340),
+			new DungeonType(12, 9, 345),
+			new DungeonType(12, 10, 350),
+
+			new DungeonType(13, 1, 355),
+ 			new DungeonType(13, 2, 360),
+			new DungeonType(13, 3, 365),
+			new DungeonType(13, 4, 370),
+			new DungeonType(13, 5, 375),
+			new DungeonType(13, 6, 380),
+			new DungeonType(13, 7, 385),
+			new DungeonType(13, 8, 390),
+			new DungeonType(13, 9, 395),
+			new DungeonType(13, 10, 400)
 		};
 		#endregion
 				
@@ -143,11 +187,17 @@ namespace SFBotyCore.Mechanic.Areas {
 			base.PerformArea();
 			return;
 
-			if (Account.ALU_Seconds == 0 && !Account.QuestIsStarted && !Account.StadtwacheWurdeGestatet) {
+			if (!Account.Settings.PerformDungeons) {
+				return;
+			}
+
+			if ((Account.ALU_Seconds == 0 || !Account.Settings.PerformQuesten) && !Account.QuestIsStarted && !Account.StadtwacheWurdeGestatet) {
 				ThreadSleep(Account.Settings.minTimeToJoinDungeon, Account.Settings.maxTimeToJoinDungeon);
 				RaiseMessageEvent("Join Dungeonoverview");
 				string s = SendRequest(ActionTypes.JoinDungeon);
 				string[] anserRequest = s.Split('/');
+
+				//Take DungeonTime new DateTime(1970, 1, 1).AddMilliseconds(Convert.ToDouble(s.Split('/')[459]) * 1000 - (1000* 60 * 60)).ToLocalTime() public const SG_MQ_STATE = 459;
 
 				int d1Lvl = Convert.ToInt32(anserRequest[480]) - 1;
 				int d2Lvl = Convert.ToInt32(anserRequest[481]) - 1;
@@ -158,9 +208,13 @@ namespace SFBotyCore.Mechanic.Areas {
 				int d7Lvl = Convert.ToInt32(anserRequest[486]) - 1;
 				int d8Lvl = Convert.ToInt32(anserRequest[487]) - 1;
 				int d9Lvl = Convert.ToInt32(anserRequest[488]) - 1;
+				int d10Lvl = 0; //derzeit noch unbekannt wo diese Informationen gespeichert werden
+				int d11Lvl = 0;
+				int d12Lvl = 0;
+				int d13Lvl = 0;
 
 				DungeonType nextDungeon;
-				nextDungeon = FilterNextDungeon(d1Lvl, d2Lvl, d3Lvl, d4Lvl, d5Lvl, d6Lvl, d7Lvl, d8Lvl, d9Lvl);
+				nextDungeon = FilterNextDungeon(d1Lvl, d2Lvl, d3Lvl, d4Lvl, d5Lvl, d6Lvl, d7Lvl, d8Lvl, d9Lvl, d10Lvl, d11Lvl, d12Lvl, d13Lvl);
 
 				//sleep
 				ThreadSleep(Account.Settings.minTimeToJoinDungeon, Account.Settings.maxTimeToJoinDungeon);
@@ -172,7 +226,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			}
 		}
 
-		private static DungeonType FilterNextDungeon(int d1Lvl, int d2Lvl, int d3Lvl, int d4Lvl, int d5Lvl, int d6Lvl, int d7Lvl, int d8Lvl, int d9Lvl) {
+		private static DungeonType FilterNextDungeon(int d1Lvl, int d2Lvl, int d3Lvl, int d4Lvl, int d5Lvl, int d6Lvl, int d7Lvl, int d8Lvl, int d9Lvl, int d10Lvl, int d11Lvl, int d12Lvl, int d13Lvl) {
 			List<DungeonType> nextDungeons = new List<DungeonType>();
 			nextDungeons.AddRange(DungeonArea.Dungeons.Where(d => (d1Lvl <= 10 && d.DungeonID == 1 && d.DungeonEbene == d1Lvl && d1Lvl > 0)));
 			nextDungeons.AddRange(DungeonArea.Dungeons.Where(d => (d2Lvl <= 10 && d.DungeonID == 2 && d.DungeonEbene == d2Lvl && d2Lvl > 0)));
@@ -183,6 +237,10 @@ namespace SFBotyCore.Mechanic.Areas {
 			nextDungeons.AddRange(DungeonArea.Dungeons.Where(d => (d7Lvl <= 10 && d.DungeonID == 7 && d.DungeonEbene == d7Lvl && d7Lvl > 0)));
 			nextDungeons.AddRange(DungeonArea.Dungeons.Where(d => (d8Lvl <= 10 && d.DungeonID == 8 && d.DungeonEbene == d8Lvl && d8Lvl > 0)));
 			nextDungeons.AddRange(DungeonArea.Dungeons.Where(d => (d9Lvl <= 10 && d.DungeonID == 9 && d.DungeonEbene == d9Lvl && d9Lvl > 0)));
+			nextDungeons.AddRange(DungeonArea.Dungeons.Where(d => (d10Lvl <= 10 && d.DungeonID == 10 && d.DungeonEbene == d10Lvl && d10Lvl > 0)));
+			nextDungeons.AddRange(DungeonArea.Dungeons.Where(d => (d11Lvl <= 10 && d.DungeonID == 11 && d.DungeonEbene == d11Lvl && d11Lvl > 0)));
+			nextDungeons.AddRange(DungeonArea.Dungeons.Where(d => (d12Lvl <= 10 && d.DungeonID == 12 && d.DungeonEbene == d12Lvl && d12Lvl > 0)));
+			nextDungeons.AddRange(DungeonArea.Dungeons.Where(d => (d13Lvl <= 10 && d.DungeonID == 13 && d.DungeonEbene == d13Lvl && d13Lvl > 0)));
 			return nextDungeons.OrderBy(x => x.DungeonMonsterLvl).First();
 		}
 
