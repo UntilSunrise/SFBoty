@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assert\AssertException.cs" />
+    <Compile Include="Assert\Asserts.cs" />
     <Compile Include="Mechanic\Account\Account.cs" />
     <Compile Include="Mechanic\Account\AccountSettings.cs" />
     <Compile Include="Mechanic\ActionTypes.cs" />

@@ -6,6 +6,8 @@ using SFBoty.Mechanic.Account;
 using System.Net;
 using System.IO;
 using SFBoty.Mechanic.Areas;
+using Assert;
+using System.Threading;
 
 namespace SFBoty.Mechanic {
 	public abstract class BaseArea : IMenuArea {
@@ -64,6 +66,19 @@ namespace SFBoty.Mechanic {
 			streamReader = new StreamReader(streamData);
 			string s = streamReader.ReadToEnd();
 			return s;
+		}
+
+		/// <summary>
+		/// Lässt den aktuellen Thread schlafen.
+		/// </summary>
+		/// <param name="minTime">minimale Zeit in Sekunden</param>
+		/// <param name="maxTime">maximale Zeit in Sekunden</param>
+		protected void ThreadSleep(float minTime, float maxTime) {
+			Asserts.IsTrue(minTime != null && minTime > 0f, "minTime muss größer 0 sein");
+			Asserts.IsTrue(maxTime != null && maxTime > 0f, "maxTime muss größer 0 sein");
+			Asserts.IsTrue(minTime <= maxTime, "minTime muss kleiner gleich maxTime sein");
+
+			Thread.Sleep(random.Next((int)(minTime * 1000), (int)(maxTime * 1000)));
 		}
 
 		public abstract void RaiseMessageEvent(string s);

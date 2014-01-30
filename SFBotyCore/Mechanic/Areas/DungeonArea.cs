@@ -144,7 +144,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			return;
 
 			if (Account.ALU_Seconds == 0 && !Account.QuestIsStarted && !Account.StadtwacheWurdeGestatet) {
-				Thread.Sleep(random.Next((int)(Account.Settings.minTimeToJoinDungeon * 1000), (int)(Account.Settings.maxTimeToJoinDungeon * 1000)));
+				ThreadSleep(Account.Settings.minTimeToJoinDungeon, Account.Settings.maxTimeToJoinDungeon);
 				RaiseMessageEvent("Join Dungeonoverview");
 				string s = SendRequest(ActionTypes.JoinDungeon);
 				string[] anserRequest = s.Split('/');
@@ -163,10 +163,10 @@ namespace SFBotyCore.Mechanic.Areas {
 				nextDungeon = FilterNextDungeon(d1Lvl, d2Lvl, d3Lvl, d4Lvl, d5Lvl, d6Lvl, d7Lvl, d8Lvl, d9Lvl);
 
 				//sleep
-				Thread.Sleep(random.Next((int)(Account.Settings.minTimeToJoinDungeon * 1000), (int)(Account.Settings.maxTimeToJoinDungeon * 1000)));
+				ThreadSleep(Account.Settings.minTimeToJoinDungeon, Account.Settings.maxTimeToJoinDungeon);
 				s = SendRequest(String.Concat(ActionTypes.DoDungeon, nextDungeon.DungeonID));
 				//sleep
-				Thread.Sleep(random.Next((int)(Account.Settings.minTimeToJoinChar * 1000), (int)(Account.Settings.maxTimeToJoinChar * 1000)));
+				ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
 				s = SendRequest(ActionTypes.JoinCharacter);
 				//set 1h for next dungeon time
 			}

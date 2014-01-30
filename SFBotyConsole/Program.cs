@@ -10,8 +10,8 @@ namespace SFBotyConsole {
 	class Program {
 
 		static void Main(string[] args) {
-			AccountSettings settings = new AccountSettings("Myrkai", "X", "S");
-			//AccountSettings settings = new AccountSettings("Myrkai", "X", "X");
+			AccountSettings settings = new AccountSettings("Myrkai", "c3be50574698bc2a4dc566b4a42f7fca", "s23");
+			//AccountSettings settings = new AccountSettings("Myrkai", "c3be50574698bc2a4dc566b4a42f7fca", "xchar");
 			//settings.BuyBeer = true;
 			//settings.PerformQuesten = false;
 			//settings.PerformStadtwache = false;

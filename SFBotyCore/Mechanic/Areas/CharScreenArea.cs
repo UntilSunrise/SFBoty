@@ -30,9 +30,9 @@ namespace SFBoty.Mechanic.Areas {
 
 			//wenn stadtwache läuft tue nichts
 			string s;
-			if (Account.ALU_Seconds == 0 && !Account.QuestIsStarted && !Account.StadtwacheWurdeGestatet) {
+			if ((Account.ALU_Seconds == 0 || !Account.Settings.PerformQuesten) && !Account.QuestIsStarted && !Account.StadtwacheWurdeGestatet) {
 				RaiseMessageEvent("Join Char-Übersicht");
-				Thread.Sleep(random.Next((int)(Account.Settings.minTimeToJoinChar * 1000), (int)(Account.Settings.maxTimeToLogOut * 1000)));
+			  	ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToLogOut);
 				s = SendRequest(ActionTypes.JoinCharacter);
 				CharScreenArea.UpdateAccountStats(s, Account);
 
@@ -66,7 +66,7 @@ namespace SFBoty.Mechanic.Areas {
 					while (canBuyStats) {
 						if (Account.BaseStr <= strLimit) {
 							RaiseMessageEvent("buying Str");
-							Thread.Sleep(random.Next((int)(Account.Settings.minTimeToBuyStat * 1000), (int)(Account.Settings.maxTimeToBuyStat * 1000)));
+							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatStr);
 							if (s.Split('/').Count() < 2) {
 								canBuyStats = false;
@@ -78,7 +78,7 @@ namespace SFBoty.Mechanic.Areas {
 
 						if (Account.BaseDex <= dexLimit) {
 							RaiseMessageEvent("buying Dex");
-							Thread.Sleep(random.Next((int)(Account.Settings.minTimeToBuyStat * 1000), (int)(Account.Settings.maxTimeToBuyStat * 1000)));
+							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatDex);
 							if (s.Split('/').Count() < 2) {
 								canBuyStats = false;
@@ -90,7 +90,7 @@ namespace SFBoty.Mechanic.Areas {
 
 						if (Account.BaseInt <= intLimit) {
 							RaiseMessageEvent("buying Int");
-							Thread.Sleep(random.Next((int)(Account.Settings.minTimeToBuyStat * 1000), (int)(Account.Settings.maxTimeToBuyStat * 1000)));
+							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatInt);
 							if (s.Split('/').Count() < 2) {
 								canBuyStats = false;
@@ -102,7 +102,7 @@ namespace SFBoty.Mechanic.Areas {
 
 						if (Account.BaseAus <= ausLimit) {
 							RaiseMessageEvent("buying Aus");
-							Thread.Sleep(random.Next((int)(Account.Settings.minTimeToBuyStat * 1000), (int)(Account.Settings.maxTimeToBuyStat * 1000)));
+							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatAus);
 							if (s.Split('/').Count() < 2) {
 								canBuyStats = false;
@@ -114,7 +114,7 @@ namespace SFBoty.Mechanic.Areas {
 
 						if (Account.BaseLuck <= LuckLimit) {
 							RaiseMessageEvent("buying Luck");
-							Thread.Sleep(random.Next((int)(Account.Settings.minTimeToBuyStat * 1000), (int)(Account.Settings.maxTimeToBuyStat * 1000)));
+							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatLuck);
 							if (s.Split('/').Count() < 2) {
 								canBuyStats = false;
@@ -125,7 +125,6 @@ namespace SFBoty.Mechanic.Areas {
 						}
 					}
 				}		
-				//maybe try buy stat, and test of request has more then 2 in his array
 			}
 				
 		}
