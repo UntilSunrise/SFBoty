@@ -10,7 +10,8 @@ namespace SFBoty.Mechanic.Account {
 		BestTime,
 		HighstMountPerSecond
 	}
-	
+
+	[Serializable]
 	public class AccountSettings {
 		public string Username { get; set; }
 		public string PasswordHash { get; set; }
