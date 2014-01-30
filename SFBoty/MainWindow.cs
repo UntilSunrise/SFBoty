@@ -8,8 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
-using SFBoty.Mechanic;
-using SFBoty.Mechanic.Account;
+using SFBotyCore.Mechanic;
+using SFBotyCore.Mechanic.Account;
+using SFBotyCore.Mechanic.Areas;
 
 namespace SFBoty {
 	public partial class MainWindow : Form {
@@ -26,7 +27,7 @@ namespace SFBoty {
 			txtOutput.Invoke(() => txtOutput.Text += System.Environment.NewLine + "Quest was taken " + DateTime.Now.ToShortTimeString());
 		}
 
-		void bot_MessageOutput(object sender, Mechanic.Areas.MessageEventsArgs e) {
+        void bot_MessageOutput(object sender, SFBotyCore.Mechanic.Areas.MessageEventsArgs e) {
 			txtOutput.Invoke(() => txtOutput.Text += System.Environment.NewLine + e.Message + DateTime.Now.ToShortTimeString());
 		}
 
@@ -37,7 +38,7 @@ namespace SFBoty {
 			AccountSettings settings = new AccountSettings("Myrkai", "X", "S");
 			Account account = new Account(settings);
 			bot = new Bot(account);
-			bot.MessageOutput += new EventHandler<Mechanic.Areas.MessageEventsArgs>(bot_MessageOutput);
+            bot.MessageOutput += new EventHandler<SFBotyCore.Mechanic.Areas.MessageEventsArgs>(bot_MessageOutput);
 			bot.Run();
 		}
 	}
