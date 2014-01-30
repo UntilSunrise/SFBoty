@@ -79,7 +79,7 @@ namespace SFBoty.Mechanic.Areas {
                     int backpackslotWithLowestItemValue = BackpackItems.Where(b => b.Value.GoldValue != 0).OrderBy(b => b.Value.GoldValue).First().Key + 1;
 
                     RaiseMessageEvent(string.Format("Item im Slot {0}, wird in die Toilette geschmissen.", backpackslotWithLowestItemValue));
-                    s = SendRequest(ActionTypes.PutItemIntoToilet + backpackslotWithLowestItemValue);
+                    s = SendRequest(ActionTypes.PutItemIntoToilet + backpackslotWithLowestItemValue + ";10;0");
 
                     s = CheckAndFlushToilette(s);
 				}
