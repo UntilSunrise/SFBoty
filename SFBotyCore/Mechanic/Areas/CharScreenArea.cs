@@ -137,17 +137,17 @@ namespace SFBotyCore.Mechanic.Areas {
 		}
 
 		public static void UpdateAccountStats (string s, Account.Account acc) {
-			string[] answerTarvern = s.Split('/');
-			string str = answerTarvern[30];
-			string ges = answerTarvern[31];
-			string inte = answerTarvern[32];
-			string aus = answerTarvern[33];
-			string luck = answerTarvern[34];
-			string strAddon = answerTarvern[35];
-			string gesAddon = answerTarvern[36];
-			string inteAddon = answerTarvern[37];
-			string ausAddon = answerTarvern[38];
-			string luckAddon = answerTarvern[39];
+			string[] answerTavern = s.Split('/');
+			string str = answerTavern[30];
+			string ges = answerTavern[31];
+			string inte = answerTavern[32];
+			string aus = answerTavern[33];
+			string luck = answerTavern[34];
+			string strAddon = answerTavern[35];
+			string gesAddon = answerTavern[36];
+			string inteAddon = answerTavern[37];
+			string ausAddon = answerTavern[38];
+			string luckAddon = answerTavern[39];
 
 			acc.BaseStr = Convert.ToInt32(str);
 			acc.BaseDex = Convert.ToInt32(ges);
@@ -161,9 +161,10 @@ namespace SFBotyCore.Mechanic.Areas {
 			acc.AddonAus = Convert.ToInt32(ausAddon);
 			acc.AddonLuck = Convert.ToInt32(luckAddon);
 
-			acc.Silver = Convert.ToInt32(answerTarvern[13]);
-			acc.Pilze = Convert.ToInt32(answerTarvern[14]);
-			acc.Level = Convert.ToInt32(answerTarvern[7]);
+			acc.Silver = Convert.ToInt32(answerTavern[13]);
+			acc.Pilze = Convert.ToInt32(answerTavern[14]);
+			acc.Level = Convert.ToInt32(answerTavern[7]);
+            acc.Honor = Convert.ToInt32(answerTavern[10]);
 		}
 	}
 }

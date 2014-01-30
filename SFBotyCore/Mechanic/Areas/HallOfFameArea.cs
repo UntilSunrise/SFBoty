@@ -8,7 +8,6 @@ using System.Threading;
 using Assert;
 using SFBotyCore.Mechanic;
 using SFBotyCore.Constants;
-using SFBotyCore.Mechanic;
 
 namespace SFBotyCore.Mechanic.Areas {
     public class HallOfFameArea : BaseArea {
