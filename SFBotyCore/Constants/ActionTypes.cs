@@ -29,6 +29,10 @@ namespace SFBotyCore.Constants {
 		public static string FlushToilet = "302";
 		public static string ResponseToiletFull = "306";
 		public static string ResponseToiletLocked = "304";
+        /// <summary>
+        /// Achtung die Item Rucksackslot Nummer muss noch angehangen werden (1-5) 
+        /// </summary>
+        public static string PutItemIntoToilet = "5042;";
 
 		/// <summary>
 		/// Achtung DungeonID muss noch selbstständigangehangen werden

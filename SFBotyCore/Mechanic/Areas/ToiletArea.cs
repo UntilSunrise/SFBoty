@@ -65,19 +65,7 @@ namespace SFBoty.Mechanic.Areas {
 						return;
 					} // else do nothing
 
-					//Gucke, ob das WC schon voll ist und drücke die Spülung
-					if (answerToilet[(int)ToiletAnswer.Exp] == answerToilet[(int)ToiletAnswer.ExpToNextLevel]) {
-						RaiseMessageEvent("WC ist voll, Spülung wird gedrückt.");
-						s = SendRequest(ActionTypes.FlushToilet);
-
-						answerToilet = s.Split('/');
-						answerToilet = answerToilet[answerToilet.Length - 1].Split(';');
-
-						Account.CurrentToiletLevel = Convert.ToInt32(answerToilet[(int)ToiletAnswer.Level]);
-						Account.CurrentToiletPoints = Convert.ToInt32(answerToilet[(int)ToiletAnswer.Exp]);
-						Account.ToiletPointsForNewLevel = Convert.ToInt32(answerToilet[(int)ToiletAnswer.ExpToNextLevel]);
-						RaiseMessageEvent("Spülung gedrückt, Aurastufe: " + Account.CurrentToiletLevel);
-					} // else do nothing
+                    s = CheckAndFlushToilette(s);
 					
 					int i = 0;
 					Dictionary<int,Item> BackpackItems = new Dictionary<int,Item>();
@@ -86,11 +74,37 @@ namespace SFBoty.Mechanic.Areas {
 						i++;
 					}
 
-					//TODO: ?günstiges? Item heraussuchen und ins Klo werfen.
+                    //Rucksackslotnummer mit dem niedrigsten Gold Wert
+                    //TODO Epics ignorieren
+                    int backpackslotWithLowestItemValue = BackpackItems.Where(b => b.Value.GoldValue != 0).OrderBy(b => b.Value.GoldValue).First().Key + 1;
+
+                    RaiseMessageEvent(string.Format("Item im Slot {0}, wird in die Toilette geschmissen.", backpackslotWithLowestItemValue));
+                    s = SendRequest(ActionTypes.PutItemIntoToilet + backpackslotWithLowestItemValue);
+
+                    s = CheckAndFlushToilette(s);
 				}
 
 			} // else do nothing
 		}
+
+        private string CheckAndFlushToilette(string s) {
+            //Gucke, ob das WC schon voll ist und drücke die Spülung
+            string[] answerToilet = s.Split('/');
+            answerToilet = answerToilet[answerToilet.Length - 1].Split(';');
+            if (answerToilet[(int)ToiletAnswer.Exp] == answerToilet[(int)ToiletAnswer.ExpToNextLevel]) {
+                RaiseMessageEvent("WC ist voll, Spülung wird gedrückt.");
+                s = SendRequest(ActionTypes.FlushToilet);
+
+                answerToilet = s.Split('/');
+                answerToilet = answerToilet[answerToilet.Length - 1].Split(';');
+
+                Account.CurrentToiletLevel = Convert.ToInt32(answerToilet[(int)ToiletAnswer.Level]);
+                Account.CurrentToiletPoints = Convert.ToInt32(answerToilet[(int)ToiletAnswer.Exp]);
+                Account.ToiletPointsForNewLevel = Convert.ToInt32(answerToilet[(int)ToiletAnswer.ExpToNextLevel]);
+                RaiseMessageEvent("Spülung gedrückt, Aurastufe: " + Account.CurrentToiletLevel);
+            } // else do nothing
+            return s;
+        }
 
 		public override void RaiseMessageEvent(string s) {
 			if (MessageOutput != null) {
