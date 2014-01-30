@@ -10,6 +10,13 @@ using Assert;
 namespace SFBoty.Mechanic.Areas {
 	public class ToiletArea : BaseArea {
 
+		private enum ToiletAnswer { 
+			Status = 0,
+			Level = 1,
+			Exp = 2,
+			ExpToNextLevel = 3
+		};
+
 		#region Events
 		public override event EventHandler<MessageEventsArgs> MessageOutput;
 		#endregion
@@ -41,38 +48,32 @@ namespace SFBoty.Mechanic.Areas {
 				RaiseMessageEvent("WC betreten");
 				s = SendRequest(ActionTypes.JoinToilet);
 				string[] answerToilet = s.Split('/');
+				answerToilet = answerToilet[answerToilet.Length - 1].Split(';');
 
 				//Prüfung, ob das WC zur Verfügung steht und Speicherung für diese Ausführungszeit
 				if (s.Substring(0, 4).Contains(ActionTypes.ResponseToiletLocked)) {
 					RaiseMessageEvent("WC steht nicht zur Verfügung!");
 					Account.ToiletIsAvailable = false;
 				} else {
-					Account.ToiletIsAvailable = true;
+					Account.ToiletIsAvailable = true;					
 
-
-					// Wert 0 = 0/1 Wurde WC benutzt
-					// Wert 1 WC-Level
-					// Wert 2 WC-Punkte
-					// Wert 3 WC-Punkte für das nächste Level
-					answerToilet = answerToilet[answerToilet.Length - 1].Split(';');
-
-					if (answerToilet[0] == "1") {
+					if (answerToilet[(int)ToiletAnswer.Status] == "1") {
 						RaiseMessageEvent("WC wurde heute schon benutzt!");
 						Account.ToiletAlreadyUsedToday = true;
 						return;
 					} // else do nothing
 
 					//Gucke, ob das WC schon voll ist und drücke die Spülung
-					if (answerToilet[2] == answerToilet[3]) {
+					if (answerToilet[(int)ToiletAnswer.Exp] == answerToilet[(int)ToiletAnswer.ExpToNextLevel]) {
 						RaiseMessageEvent("WC ist voll, Spülung wird gedrückt.");
 						s = SendRequest(ActionTypes.FlushToilet);
 
 						answerToilet = s.Split('/');
 						answerToilet = answerToilet[answerToilet.Length - 1].Split(';');
 
-						Account.CurrentToiletLevel = Convert.ToInt32(answerToilet[1]);
-						Account.CurrentToiletPoints = Convert.ToInt32(answerToilet[2]);
-						Account.ToiletPointsForNewLevel = Convert.ToInt32(answerToilet[3]);
+						Account.CurrentToiletLevel = Convert.ToInt32(answerToilet[(int)ToiletAnswer.Level]);
+						Account.CurrentToiletPoints = Convert.ToInt32(answerToilet[(int)ToiletAnswer.Exp]);
+						Account.ToiletPointsForNewLevel = Convert.ToInt32(answerToilet[(int)ToiletAnswer.ExpToNextLevel]);
 						RaiseMessageEvent("Spülung gedrückt, Aurastufe: " + Account.CurrentToiletLevel);
 					} // else do nothing
 
