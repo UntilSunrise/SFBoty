@@ -128,10 +128,10 @@ namespace SFBoty.Mechanic.Account {
 			this.maxTimeToJoinDungeon = 6f;
 
 			this.minTimeToJoinToilet = 3f;
-			this.minTimeToJoinToilet = 5f;
+			this.maxTimeToJoinToilet = 5f;
 
 			this.minTimeToDoToilet = 3f;
-			this.minTimeToDoToilet = 5f;
+			this.maxTimeToDoToilet = 5f;
 
 			this.QuestMode = AutoQuestMode.BestXP;
 		}
