@@ -5,6 +5,7 @@ using System.Text;
 using SFBoty.Mechanic.Account;
 using System.Net;
 using System.Threading;
+using SFBotyCore.Constants;
 
 namespace SFBoty.Mechanic.Areas {
 	public class StadtwacheArea : BaseArea {

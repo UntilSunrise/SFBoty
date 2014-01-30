@@ -8,6 +8,7 @@ using System.IO;
 using SFBoty.Mechanic.Areas;
 using Assert;
 using System.Threading;
+using SFBotyCore.Constants;
 
 namespace SFBoty.Mechanic {
 	public abstract class BaseArea : IMenuArea {

@@ -2,7 +2,7 @@
 	/// <summary>
 	///     Enthält alle Attribut Typen
 	/// </summary>
-	internal enum AttributeTypes {
+	public enum AttributeTypes {
 		Strength = 1,
 		Agility = 2,
 		Intelligence = 3,

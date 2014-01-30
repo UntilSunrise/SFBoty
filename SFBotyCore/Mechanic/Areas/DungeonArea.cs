@@ -8,6 +8,7 @@ using SFBoty.Mechanic.Account;
 using System.Net;
 using System.Threading;
 using System.Collections.ObjectModel;
+using SFBotyCore.Constants;
 
 namespace SFBotyCore.Mechanic.Areas {
 	public class DungeonType {

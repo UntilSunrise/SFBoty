@@ -6,6 +6,7 @@ using SFBoty.Mechanic.Account;
 using System.Net;
 using System.Threading;
 using Assert;
+using SFBotyCore.Constants;
 
 namespace SFBoty.Mechanic.Areas {
 	public class TarvernArea : BaseArea {

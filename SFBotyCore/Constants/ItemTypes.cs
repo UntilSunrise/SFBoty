@@ -2,7 +2,7 @@
 	/// <summary>
 	///     Enthält alle ItemTypen
 	/// </summary>
-	internal enum ItemTypes {
+	public enum ItemTypes {
 		Leer = 0,
 		Waffe = 1,
 		Zweithand = 2,

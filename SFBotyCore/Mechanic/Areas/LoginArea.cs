@@ -5,6 +5,7 @@ using System.Text;
 using SFBoty.Mechanic.Account;
 using System.Threading;
 using System.Net;
+using SFBotyCore.Constants;
 
 namespace SFBoty.Mechanic.Areas {
 	public class LoginArea : BaseArea {

@@ -7,6 +7,7 @@ using System.Net;
 using System.Threading;
 using Assert;
 using SFBotyCore.Mechanic;
+using SFBotyCore.Constants;
 
 namespace SFBoty.Mechanic.Areas {
 	public class ToiletArea : BaseArea {
