@@ -162,6 +162,7 @@ namespace SFBoty.Mechanic.Areas {
 
 			acc.Silver = Convert.ToInt32(answerTarvern[13]);
 			acc.Pilze = Convert.ToInt32(answerTarvern[14]);
+			acc.Level = Convert.ToInt32(answerTarvern[7]);
 		}
 	}
 }

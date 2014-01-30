@@ -23,6 +23,7 @@ namespace SFBoty.Mechanic.Account {
 		public bool PerformBuyStats { get; set; }
 		public bool PerformStadtwache { get; set; }
 		public bool PerformDungeons { get; set; }
+		public bool PerformToilet { get; set; }
 
 		public float StatStrFactor { get; set; }
 		public float StatDexFactor { get; set; }
@@ -64,6 +65,12 @@ namespace SFBoty.Mechanic.Account {
 
 		public float minTimeToJoinDungeon { get; set; }
 		public float maxTimeToJoinDungeon { get; set; }
+
+		public float minTimeToJoinToilet { get; set; }
+		public float maxTimeToJoinToilet { get; set; }
+
+		public float minTimeToDoToilet { get; set; }
+		public float maxTimeToDoToilet { get; set; }
 		#endregion
 		
 
@@ -79,8 +86,8 @@ namespace SFBoty.Mechanic.Account {
 			this.PerformQuesten = true;
 			this.PerformBuyStats = true;
 			this.PerformStadtwache = true;
-			this.PerformDungeons = true;
-
+			this.PerformDungeons = true;	
+			this.PerformToilet = true;
 			this.StatStrFactor = 0.45f;
 			this.StatDexFactor = 0.05f;
 			this.StatIntFactor = 0.05f;
@@ -119,6 +126,12 @@ namespace SFBoty.Mechanic.Account {
 
 			this.minTimeToJoinDungeon = 3f;
 			this.maxTimeToJoinDungeon = 6f;
+
+			this.minTimeToJoinToilet = 3f;
+			this.minTimeToJoinToilet = 5f;
+
+			this.minTimeToDoToilet = 3f;
+			this.minTimeToDoToilet = 5f;
 
 			this.QuestMode = AutoQuestMode.BestXP;
 		}
