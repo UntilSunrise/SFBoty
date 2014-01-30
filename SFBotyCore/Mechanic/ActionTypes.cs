@@ -24,6 +24,12 @@ namespace SFBoty.Mechanic {
 		public static string JoinStadtwache = "012";
 		public static string DoStadtwache1Hour = "5021";
 		public static string DoStadtwache10Hour = "50210";
+
+		public static string JoinToilet = "303";
+		public static string FlushToilet = "302";
+		public static string ResponseToiletFull = "306";
+		public static string ResponseToiletLocked = "304";
+
 		/// <summary>
 		/// Achtung DungeonID muss noch selbstständigangehangen werden
 		/// </summary>

@@ -11,6 +11,12 @@ namespace SFBoty.Mechanic.Account {
 		public bool QuestIsStarted { get; set; }
 		public DateTime QuestEndTime { get; set; }
 
+		public bool ToiletIsAvailable { get; set; }
+		public bool ToiletAlreadyUsedToday { get; set; }
+		public int CurrentToiletLevel { get; set; }
+		public int CurrentToiletPoints { get; set; }
+		public int ToiletPointsForNewLevel { get; set; }
+
 		public bool StadtwacheWurdeGestatet { get; set; }
 		public DateTime StadtwacheEndTime { get; set; }
 
@@ -27,6 +33,7 @@ namespace SFBoty.Mechanic.Account {
 
 		public int Silver { get; set; }
 		public int Pilze { get; set; }
+		public int Level { get; set; }
 
 		public Account(AccountSettings settings) {
 			Settings = settings;
@@ -34,6 +41,12 @@ namespace SFBoty.Mechanic.Account {
 			ALU_Seconds = 100 * 60;
 			QuestIsStarted = false;
 			QuestEndTime = DateTime.Now;
+
+			ToiletIsAvailable = true;
+			ToiletAlreadyUsedToday = false;
+			CurrentToiletLevel = 0;
+			CurrentToiletPoints = 0;
+			ToiletPointsForNewLevel = 0;
 
 			StadtwacheWurdeGestatet = false;
 			StadtwacheEndTime = DateTime.Now;
@@ -51,6 +64,7 @@ namespace SFBoty.Mechanic.Account {
 
 			Silver = 0;
 			Pilze = 0;
+			Level = 0;
 		}
 
 		public void Logout() {

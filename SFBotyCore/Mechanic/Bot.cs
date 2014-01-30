@@ -22,6 +22,7 @@ namespace SFBoty.Mechanic {
 		private StadtwacheArea StadtwacheArea;
 		private CharScreenArea CharArea;
 		private DungeonArea DungeonArea;
+		private ToiletArea ToiletArea;
 
 		#region Events
 		public event EventHandler<MessageEventsArgs> MessageOutput;
@@ -57,6 +58,10 @@ namespace SFBoty.Mechanic {
 			DungeonArea = new DungeonArea();
 			DungeonArea.Initialize(Account, Client);
 			DungeonArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
+
+			ToiletArea = new ToiletArea();
+			ToiletArea.Initialize(Account, Client);
+			ToiletArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
 		}
 
 		void Event_MessageOutput(object sender, MessageEventsArgs e) {
@@ -81,6 +86,7 @@ namespace SFBoty.Mechanic {
 			while (true) {
 				if (Account.Settings.HasLogin) {
 					TarvernArea.PerformArea();
+					ToiletArea.PerformArea();
 					CharArea.PerformArea();
 					DungeonArea.PerformArea();
 					StadtwacheArea.PerformArea();
