@@ -102,23 +102,21 @@ namespace SFBotyCore.Mechanic.Areas {
 				int honorChange = Convert.ToInt32(fightAnswer[7]);
 				double goldChange = Convert.ToDouble(fightAnswer[8]) / 100;
 
-					if (win) {
-						RaiseMessageEvent(string.Format("Du hast gegen {0} gewonnen. Ehre: +{1} Gold: +{2}", enemyNick, honorChange, goldChange));
-					} else {
-						RaiseMessageEvent(string.Format("Du hast gegen {0} verloren. Ehre: -{1} Gold: -{2}", enemyNick, honorChange, goldChange));
-					}
-					Account.ArenaEndTime = DateTime.Now.AddMinutes(10);
+				if (win) {
+					RaiseMessageEvent(string.Format("Du hast gegen {0} gewonnen. Ehre: +{1} Gold: +{2}", enemyNick, honorChange, goldChange));
 				} else {
-					RaiseMessageEvent("Es wurde kein passender Gegner gefunden.");
-					return;
+					RaiseMessageEvent(string.Format("Du hast gegen {0} verloren. Ehre: -{1} Gold: -{2}", enemyNick, honorChange, goldChange));
 				}
-
-			//Account Daten aktualisieren
-			s = SendRequest(ActionTypes.JoinCharacter);
-			Account.ArenaEndTime = s.Split('/')[ResponseTypes.NextFreeDuellTimestamp].MillisecondsToDateTime();
-			Account.Silver = Convert.ToInt64(s.Split('/')[ResponseTypes.Silver]);
-			Account.Rang = Convert.ToInt32(s.Split('/')[ResponseTypes.Rang]);
-			Account.Honor = Convert.ToInt32(s.Split('/')[ResponseTypes.Honor]);
+				//Account Daten aktualisieren
+				s = SendRequest(ActionTypes.JoinCharacter);
+				Account.ArenaEndTime = s.Split('/')[ResponseTypes.NextFreeDuellTimestamp].MillisecondsToDateTime();
+				Account.Silver = Convert.ToInt64(s.Split('/')[ResponseTypes.Silver]);
+				Account.Rang = Convert.ToInt32(s.Split('/')[ResponseTypes.Rang]);
+				Account.Honor = Convert.ToInt32(s.Split('/')[ResponseTypes.Honor]);
+			} else {
+				RaiseMessageEvent("Es wurde kein passender Gegner gefunden.");
+				return;
+			}
 		}
 
 		public override void RaiseMessageEvent(string s) {
