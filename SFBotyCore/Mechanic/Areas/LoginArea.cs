@@ -30,23 +30,27 @@ namespace SFBotyCore.Mechanic.Areas {
 
 		public override void PerformArea() {
 			base.PerformArea();
-			if (!base.Account.Settings.HasLogin && !Account.QuestIsStarted && DateTime.Now > Account.StadtwacheEndTime) {
+			if (!base.Account.Settings.HasLogin && !Account.QuestIsStarted && DateTime.Now > Account.TownWatchEndTime) {
 
 				Account.Logout();
 				base.RecreateClient();
 				
 				string s = SendRequest(ActionTypes.LoginToSF);
 				RaiseMessageEvent("Login");
-				RaiseMessageEvent("Request String: " + s);
+				//RaiseMessageEvent("Request String: " + s);
 
 				//read SessionID
-				RaiseMessageEvent("Old SessionID: " + Account.Settings.SessionID + " new ID: " + s.Split('/')[511].Split(';')[2]);
-				Account.Settings.SessionID = s.Split('/')[511].Split(';')[2];
-				Account.Silver = Convert.ToInt32(s.Split('/')[13]);
-				Account.Pilze = Convert.ToInt32(s.Split('/')[14]);
-				Account.DungeonEndTime = s.Split('/')[459].ToSFDateTime();
+				RaiseMessageEvent("Old SessionID: " + Account.Settings.SessionID + " new ID: " + s.Split('/')[ResponseTypes.SessionID].Split(';')[2]);
+				Account.Settings.SessionID = s.Split('/')[ResponseTypes.SessionID].Split(';')[2];
+				Account.Silver = Convert.ToInt32(s.Split('/')[ResponseTypes.Silver]);
+				Account.Mushroom = Convert.ToInt32(s.Split('/')[ResponseTypes.Mushrooms]);
+				Account.Level = Convert.ToInt32(s.Split('/')[ResponseTypes.Level]);
+				Account.Rang = Convert.ToInt32(s.Split('/')[ResponseTypes.Rang]);
+				Account.Honor = Convert.ToInt32(s.Split('/')[ResponseTypes.Honor]);
+				Account.DungeonEndTime = s.Split('/')[ResponseTypes.NextFreeDungeonTimestamp].MillisecondsToDateTime();
+				Account.ArenaEndTime = s.Split('/')[ResponseTypes.NextFreeDuellTimestamp].MillisecondsToDateTime();
 
-				RaiseMessageEvent("Login ALU: " + s.Split('/')[456]);
+				RaiseMessageEvent("Login ALU: " + s.Split('/')[ResponseTypes.ALU]);
 			}
 		}
 

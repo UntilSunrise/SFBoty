@@ -32,39 +32,64 @@ namespace SFBotyCore.Mechanic.Areas {
             base.PerformArea();
 
             //Wenn die Arena nicht genutzt werden soll, tue nichts.
-            if (!Account.Settings.PerformArena) {
+			if (!Account.Settings.PerformArena || DateTime.Now < Account.ArenaEndTime) {
                 return;
             }
 
             List<string> guildFilter = Account.Settings.IgnoreGuilds.Split('/').ToList<string>();
             List<string> playerFilter = Account.Settings.IgnorePlayers.Split('/').ToList<string>();
+			int levelDifference = Account.Settings.LevelDifference;
+			int myLevel = Account.Level;
+			int maxTries = Account.Settings.MaxTriesToFindEnemy;
 
             string s;
-            //TODO: Prüfung, ob die Arena schon wieder verfügbar ist.
-            
-
+			string[] fightAnswer;
+			string[] arenaAnswer;
             if (Account.Settings.AttackSuggestedEnemy) {
-                RaiseMessageEvent("Arena wird betreten");
+                RaiseMessageEvent("Arena betreten");
                 
-                string[] arenaAnswer;
+				int tries = 0;
                 do {
                     ThreadSleep(Account.Settings.minTimeToJoinHoF, Account.Settings.maxTimeToJoinHoF);
                     s = SendRequest(ActionTypes.JoinArena);
-                    arenaAnswer = s.Substring(3, s.Length - 1).Split(';');
-                } while (playerFilter.Contains(arenaAnswer[0]) || guildFilter.Contains(arenaAnswer[2]));
+					arenaAnswer = s.Substring(4, s.Length - 5).Split(';');
+					tries++;
+					if (tries == maxTries) {
+						break;
+					} //else do nothing
+                } while (playerFilter.Contains(arenaAnswer[ResponseTypes.ArenaEnemyNick]) 
+						|| guildFilter.Contains(arenaAnswer[ResponseTypes.ArenaGildenNick])
+						|| Convert.ToInt32(arenaAnswer[ResponseTypes.ArenaEnemyLevel]) >= (myLevel + levelDifference)
+						|| Convert.ToInt32(arenaAnswer[ResponseTypes.ArenaEnemyLevel]) <= (myLevel - levelDifference));
 
-                RaiseMessageEvent(string.Format("Greife Spieler: {0} an.", arenaAnswer[0]));
-                s = SendRequest(string.Concat(ActionTypes.AttackEnemy, arenaAnswer[0]));
+				if (tries <= maxTries) {
+					RaiseMessageEvent(string.Format("Greife Spieler: {0} an.", arenaAnswer[0]));
+					s = SendRequest(string.Concat(ActionTypes.AttackEnemy, arenaAnswer[0]));
 
-                //TODO:Auswertung des Kampfes
+					fightAnswer = s.Split(';');
+
+					bool win = Convert.ToInt32(fightAnswer[1].Split('/')[18]) > 0 ? true : false;
+					int honorChange = Convert.ToInt32(fightAnswer[7]);
+					double goldChange = Convert.ToDouble(fightAnswer[8]) / 100;
+
+					if (win) {
+						RaiseMessageEvent(string.Format("Du hast gegen {0} gewonnen. Ehre: +{1} Gold: +{2}", arenaAnswer[ResponseTypes.ArenaEnemyNick], honorChange, goldChange));
+					} else {
+						RaiseMessageEvent(string.Format("Du hast gegen {0} verloren. Ehre: -{1} Gold: -{2}", arenaAnswer[ResponseTypes.ArenaEnemyNick], honorChange, goldChange));
+					}
+
+				} else {
+					RaiseMessageEvent("Es wurde kein passender Gegner gefunden.");
+					return;
+				}
+
             } else {
                 ThreadSleep(Account.Settings.minTimeToJoinHoF, Account.Settings.maxTimeToJoinHoF);
                 RaiseMessageEvent("Ehrenhalle wird betreten");
                 s = SendRequest(ActionTypes.JoinHallOfFame + Account.Rang);
 
                 //TODO: Kampf mit Rangbereich
-            }
-            
+            }  
         }
 
         public override void RaiseMessageEvent(string s) {

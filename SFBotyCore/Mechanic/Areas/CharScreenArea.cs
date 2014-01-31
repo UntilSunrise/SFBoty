@@ -31,14 +31,13 @@ namespace SFBotyCore.Mechanic.Areas {
 
 			//wenn stadtwache läuft tue nichts
 			string s;
-			if ((Account.ALU_Seconds == 0 || !Account.Settings.PerformQuesten) && !Account.QuestIsStarted && !Account.StadtwacheWurdeGestatet) {
-				RaiseMessageEvent("Join Char-Übersicht");
+			if ((Account.ALU_Seconds == 0 || !Account.Settings.PerformQuesten) && !Account.QuestIsStarted && !Account.TownWatchIsStarted) {
+				RaiseMessageEvent("Charakterübersicht betreten");
 			  	ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToLogOut);
 				s = SendRequest(ActionTypes.JoinCharacter);
 				CharScreenArea.UpdateAccountStats(s, Account);
 
 				if (Account.Settings.PerformBuyStats) {
-					RaiseMessageEvent("Check To Buy Stats");
 
 					int sumStats = 0;
 					if (Account.Settings.StatStrFactor > 0f) {
@@ -72,9 +71,9 @@ namespace SFBotyCore.Mechanic.Areas {
 								canBuyStats = false;
 								break;
 							}
-							RaiseMessageEvent("buying Str");
+							RaiseMessageEvent("Kaufe Stärke");
 							CharScreenArea.UpdateAccountStats(s, Account);
-							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Dex: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Luck: " + Account.BaseLuck.ToString());
+							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Ges: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Glück: " + Account.BaseLuck.ToString());
 						}
 
 						if (Account.BaseDex <= dexLimit) {
@@ -84,9 +83,9 @@ namespace SFBotyCore.Mechanic.Areas {
 								canBuyStats = false;
 								break;
 							}
-							RaiseMessageEvent("buying Dex");
+							RaiseMessageEvent("Kaufe Geschicklichkeit");
 							CharScreenArea.UpdateAccountStats(s, Account);
-							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Dex: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Luck: " + Account.BaseLuck.ToString());
+							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Ges: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Glück: " + Account.BaseLuck.ToString());
 						}
 
 						if (Account.BaseInt <= intLimit) {
@@ -96,9 +95,9 @@ namespace SFBotyCore.Mechanic.Areas {
 								canBuyStats = false;
 								break;
 							}
-							RaiseMessageEvent("buying Int");
+							RaiseMessageEvent("Kaufe Intelligenz");
 							CharScreenArea.UpdateAccountStats(s, Account);
-							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Dex: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Luck: " + Account.BaseLuck.ToString());
+							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Ges: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Glück: " + Account.BaseLuck.ToString());
 						}
 
 						if (Account.BaseAus <= ausLimit) {
@@ -108,9 +107,9 @@ namespace SFBotyCore.Mechanic.Areas {
 								canBuyStats = false;
 								break;
 							}
-							RaiseMessageEvent("buying Aus");
+							RaiseMessageEvent("Kaufe Ausdauer");
 							CharScreenArea.UpdateAccountStats(s, Account);
-							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Dex: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Luck: " + Account.BaseLuck.ToString());
+							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Ges: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Glück: " + Account.BaseLuck.ToString());
 						}
 
 						if (Account.BaseLuck <= LuckLimit) {				
@@ -120,9 +119,9 @@ namespace SFBotyCore.Mechanic.Areas {
 								canBuyStats = false;
 								break;
 							}
-							RaiseMessageEvent("buying Luck");
+							RaiseMessageEvent("Kaufe Glück");
 							CharScreenArea.UpdateAccountStats(s, Account);
-							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Dex: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Luck: " + Account.BaseLuck.ToString());
+							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Ges: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Glück: " + Account.BaseLuck.ToString());
 						}
 					}
 				}		
@@ -138,16 +137,16 @@ namespace SFBotyCore.Mechanic.Areas {
 
 		public static void UpdateAccountStats (string s, Account.Account acc) {
 			string[] answerTavern = s.Split('/');
-			string str = answerTavern[30];
-			string ges = answerTavern[31];
-			string inte = answerTavern[32];
-			string aus = answerTavern[33];
-			string luck = answerTavern[34];
-			string strAddon = answerTavern[35];
-			string gesAddon = answerTavern[36];
-			string inteAddon = answerTavern[37];
-			string ausAddon = answerTavern[38];
-			string luckAddon = answerTavern[39];
+			string str = answerTavern[ResponseTypes.str];
+			string ges = answerTavern[ResponseTypes.ges];
+			string inte = answerTavern[ResponseTypes.inte];
+			string aus = answerTavern[ResponseTypes.aus];
+			string luck = answerTavern[ResponseTypes.luck];
+			string strAddon = answerTavern[ResponseTypes.strAddon];
+			string gesAddon = answerTavern[ResponseTypes.gesAddon];
+			string inteAddon = answerTavern[ResponseTypes.inteAddon];
+			string ausAddon = answerTavern[ResponseTypes.ausAddon];
+			string luckAddon = answerTavern[ResponseTypes.luckAddon];
 
 			acc.BaseStr = Convert.ToInt32(str);
 			acc.BaseDex = Convert.ToInt32(ges);
@@ -161,11 +160,11 @@ namespace SFBotyCore.Mechanic.Areas {
 			acc.AddonAus = Convert.ToInt32(ausAddon);
 			acc.AddonLuck = Convert.ToInt32(luckAddon);
 
-			acc.Silver = Convert.ToInt32(answerTavern[13]);
-			acc.Pilze = Convert.ToInt32(answerTavern[14]);
-			acc.Level = Convert.ToInt32(answerTavern[7]);
-            acc.Honor = Convert.ToInt32(answerTavern[10]);
-            acc.Rang  = Convert.ToInt32(answerTavern[11]);
+			acc.Silver = Convert.ToInt32(answerTavern[ResponseTypes.Silver]);
+			acc.Mushroom = Convert.ToInt32(answerTavern[ResponseTypes.Mushrooms]);
+			acc.Level = Convert.ToInt32(answerTavern[ResponseTypes.Level]);
+            acc.Honor = Convert.ToInt32(answerTavern[ResponseTypes.Honor]);
+            acc.Rang  = Convert.ToInt32(answerTavern[ResponseTypes.Rang]);
 		}
 	}
 }

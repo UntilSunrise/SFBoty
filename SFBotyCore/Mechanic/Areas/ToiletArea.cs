@@ -67,8 +67,8 @@ namespace SFBotyCore.Mechanic.Areas {
                     
                     int i = 0;
 					Dictionary<int,Item> BackpackItems = new Dictionary<int,Item>();
-					while (i < ResponseStringPositions.BackpackSize) {
-						BackpackItems.Add(i, new Item(s.Split('/'), ResponseStringPositions.BackpackFirstItemPosition + (i * ResponseStringPositions.ItemSize)));
+					while (i < ResponseTypes.BackpackSize) {
+						BackpackItems.Add(i, new Item(s.Split('/'), ResponseTypes.BackpackFirstItemPosition + (i * ResponseTypes.ItemSize)));
 						i++;
 					}
 
