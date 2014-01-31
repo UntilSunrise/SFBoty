@@ -220,6 +220,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				//sleep
 				ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
 				s = SendRequest(ActionTypes.JoinCharacter);
+				Account.DungeonEndTime = DateTime.Now.AddHours(1);
 				//set 1h for next dungeon time
 			}
 		}
