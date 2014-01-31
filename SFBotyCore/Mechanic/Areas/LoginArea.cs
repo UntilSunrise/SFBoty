@@ -49,11 +49,11 @@ namespace SFBotyCore.Mechanic.Areas {
 				Account.Honor = Convert.ToInt32(s.Split('/')[ResponseTypes.Honor]);
 				Account.DungeonEndTime = s.Split('/')[ResponseTypes.NextFreeDungeonTimestamp].MillisecondsToDateTime();
 				Account.ArenaEndTime = s.Split('/')[ResponseTypes.NextFreeDuellTimestamp].MillisecondsToDateTime();
-				DateTime actionDate = s.Split('/')[47].ToSFDateTime();
+				DateTime actionDate = s.Split('/')[47].MillisecondsToDateTime();
 				if (DateTime.Now < actionDate) {
 					if ((actionDate - DateTime.Now).TotalMinutes > 30) {
-						Account.StadtwacheEndTime = actionDate;
-						Account.StadtwacheWurdeGestatet = true;
+						Account.TownWatchEndTime = actionDate;
+						Account.TownWatchIsStarted = true;
 					} else {
 						Account.QuestEndTime = actionDate;
 						Account.QuestIsStarted = true;
