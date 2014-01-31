@@ -64,7 +64,8 @@ namespace SFBotyCore.Mechanic.Areas {
 					int LuckLimit = (int)(sumStats * Account.Settings.StatLuckFactor);
 
 					while (canBuyStats) {
-						if (Account.BaseStr <= strLimit) {
+						bool haveBuy = false;
+						if (Account.BaseStr <= strLimit && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.BuyedStr)) {
 							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatStr);
 							if (s.Split('/').Count() < 2) {
@@ -74,9 +75,13 @@ namespace SFBotyCore.Mechanic.Areas {
 							RaiseMessageEvent("Kaufe Stärke");
 							CharScreenArea.UpdateAccountStats(s, Account);
 							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Ges: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Glück: " + Account.BaseLuck.ToString());
+							Account.BuyedStr += 1;
+							Account.BaseStr += 1;
+							Account.Silver -= Helper.GetGoldMountFromGoldCurve(Account.BuyedStr - 1);
+							haveBuy = true;
 						}
 
-						if (Account.BaseDex <= dexLimit) {
+						if (Account.BaseDex <= dexLimit && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.BuyedDex)) {
 							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatDex);
 							if (s.Split('/').Count() < 2) {
@@ -86,9 +91,13 @@ namespace SFBotyCore.Mechanic.Areas {
 							RaiseMessageEvent("Kaufe Geschicklichkeit");
 							CharScreenArea.UpdateAccountStats(s, Account);
 							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Ges: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Glück: " + Account.BaseLuck.ToString());
+							Account.BuyedDex += 1;
+							Account.BaseDex += 1;
+							Account.Silver -= Helper.GetGoldMountFromGoldCurve(Account.BuyedDex - 1);
+							haveBuy = true;
 						}
 
-						if (Account.BaseInt <= intLimit) {
+						if (Account.BaseInt <= intLimit && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.BuyedInt)) {
 							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatInt);
 							if (s.Split('/').Count() < 2) {
@@ -98,9 +107,13 @@ namespace SFBotyCore.Mechanic.Areas {
 							RaiseMessageEvent("Kaufe Intelligenz");
 							CharScreenArea.UpdateAccountStats(s, Account);
 							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Ges: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Glück: " + Account.BaseLuck.ToString());
+							Account.BuyedInt += 1;
+							Account.BaseInt += 1;
+							Account.Silver -= Helper.GetGoldMountFromGoldCurve(Account.BuyedInt - 1);
+							haveBuy = true;
 						}
 
-						if (Account.BaseAus <= ausLimit) {
+						if (Account.BaseAus <= ausLimit && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.BuyedAus)) {
 							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatAus);
 							if (s.Split('/').Count() < 2) {
@@ -110,9 +123,13 @@ namespace SFBotyCore.Mechanic.Areas {
 							RaiseMessageEvent("Kaufe Ausdauer");
 							CharScreenArea.UpdateAccountStats(s, Account);
 							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Ges: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Glück: " + Account.BaseLuck.ToString());
+							Account.BuyedAus += 1;
+							Account.BaseAus += 1;
+							Account.Silver -= Helper.GetGoldMountFromGoldCurve(Account.BuyedAus - 1);
+							haveBuy = true;
 						}
 
-						if (Account.BaseLuck <= LuckLimit) {				
+						if (Account.BaseLuck <= LuckLimit && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.BuyedLuck)) {				
 							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatLuck);
 							if (s.Split('/').Count() < 2) {
@@ -122,6 +139,14 @@ namespace SFBotyCore.Mechanic.Areas {
 							RaiseMessageEvent("Kaufe Glück");
 							CharScreenArea.UpdateAccountStats(s, Account);
 							RaiseMessageEvent("Stats: Str: " + Account.BaseStr.ToString() + " Ges: " + Account.BaseDex.ToString() + " Int: " + Account.BaseInt.ToString() + " Aus: " + Account.BaseAus.ToString() + " Glück: " + Account.BaseLuck.ToString());
+							Account.BuyedLuck += 1;
+							Account.BaseLuck += 1;
+							Account.Silver -= Helper.GetGoldMountFromGoldCurve(Account.BuyedLuck - 1);
+							haveBuy = true;
+						}
+
+						if (!haveBuy) {
+							canBuyStats = false;
 						}
 					}
 				}		
@@ -147,6 +172,11 @@ namespace SFBotyCore.Mechanic.Areas {
 			string inteAddon = answerTavern[ResponseTypes.inteAddon];
 			string ausAddon = answerTavern[ResponseTypes.ausAddon];
 			string luckAddon = answerTavern[ResponseTypes.luckAddon];
+			string strBuyed = answerTavern[ResponseTypes.strBuyed];
+			string gesBuyed = answerTavern[ResponseTypes.gesBuyed];
+			string inteBuyed = answerTavern[ResponseTypes.inteBuyed];
+			string ausBuyed = answerTavern[ResponseTypes.ausBuyed];
+			string luckBuyed = answerTavern[ResponseTypes.luckBuyed];
 
 			acc.BaseStr = Convert.ToInt32(str);
 			acc.BaseDex = Convert.ToInt32(ges);
@@ -159,6 +189,12 @@ namespace SFBotyCore.Mechanic.Areas {
 			acc.AddonInt = Convert.ToInt32(inteAddon);
 			acc.AddonAus = Convert.ToInt32(ausAddon);
 			acc.AddonLuck = Convert.ToInt32(luckAddon);
+
+			acc.BuyedStr = Convert.ToInt32(strBuyed);
+			acc.BuyedDex = Convert.ToInt32(gesBuyed);
+			acc.BuyedInt = Convert.ToInt32(inteBuyed);
+			acc.BuyedAus = Convert.ToInt32(ausBuyed);
+			acc.BuyedLuck = Convert.ToInt32(luckBuyed);
 
 			acc.Silver = Convert.ToInt32(answerTavern[ResponseTypes.Silver]);
 			acc.Mushroom = Convert.ToInt32(answerTavern[ResponseTypes.Mushrooms]);

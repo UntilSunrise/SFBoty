@@ -102,15 +102,16 @@ namespace SFBotyCore.Mechanic.Areas {
 				int honorChange = Convert.ToInt32(fightAnswer[7]);
 				double goldChange = Convert.ToDouble(fightAnswer[8]) / 100;
 
-				if (win) {
-					RaiseMessageEvent(string.Format("Du hast gegen {0} gewonnen. Ehre: +{1} Gold: +{2}", enemyNick, honorChange, goldChange));
+					if (win) {
+						RaiseMessageEvent(string.Format("Du hast gegen {0} gewonnen. Ehre: +{1} Gold: +{2}", arenaAnswer[ResponseTypes.ArenaEnemyNick], honorChange, goldChange));
+					} else {
+						RaiseMessageEvent(string.Format("Du hast gegen {0} verloren. Ehre: -{1} Gold: -{2}", arenaAnswer[ResponseTypes.ArenaEnemyNick], honorChange, goldChange));
+					}
+					Account.ArenaEndTime = DateTime.Now.AddMinutes(10);
 				} else {
-					RaiseMessageEvent(string.Format("Du hast gegen {0} verloren. Ehre: {1} Gold: {2}", enemyNick, honorChange, goldChange));
+					RaiseMessageEvent("Es wurde kein passender Gegner gefunden.");
+					return;
 				}
-			} else {
-				RaiseMessageEvent("Es wurde kein passender Gegner gefunden.");
-				return;
-			}
 
 			//Account Daten aktualisieren
 			s = SendRequest(ActionTypes.JoinCharacter);
