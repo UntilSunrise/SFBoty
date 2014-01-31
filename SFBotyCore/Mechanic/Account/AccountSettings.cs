@@ -24,6 +24,7 @@ namespace SFBoty.Mechanic.Account {
 		public bool PerformStadtwache { get; set; }
 		public bool PerformDungeons { get; set; }
 		public bool PerformToilet { get; set; }
+        public bool SellToiletItemIfNotEpic { get; set; }
 
 		public float StatStrFactor { get; set; }
 		public float StatDexFactor { get; set; }
@@ -66,6 +67,9 @@ namespace SFBoty.Mechanic.Account {
 		public float minTimeToJoinDungeon { get; set; }
 		public float maxTimeToJoinDungeon { get; set; }
 
+        public float minTimeToJoinShops { get; set; }
+        public float maxTimeToJoinShops { get; set; }
+
 		public float minTimeToJoinToilet { get; set; }
 		public float maxTimeToJoinToilet { get; set; }
 
@@ -88,6 +92,8 @@ namespace SFBoty.Mechanic.Account {
 			this.PerformStadtwache = true;
 			this.PerformDungeons = true;	
 			this.PerformToilet = true;
+            this.SellToiletItemIfNotEpic = true;
+
 			this.StatStrFactor = 0.45f;
 			this.StatDexFactor = 0.05f;
 			this.StatIntFactor = 0.05f;
@@ -126,6 +132,9 @@ namespace SFBoty.Mechanic.Account {
 
 			this.minTimeToJoinDungeon = 3f;
 			this.maxTimeToJoinDungeon = 6f;
+
+            this.minTimeToJoinShops = 2f;
+            this.maxTimeToJoinShops = 5f;
 
 			this.minTimeToJoinToilet = 3f;
 			this.maxTimeToJoinToilet = 5f;
