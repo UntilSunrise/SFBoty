@@ -45,8 +45,15 @@ namespace SFBotyCore.Mechanic.Areas {
 				Account.Silver = Convert.ToInt32(s.Split('/')[13]);
 				Account.Pilze = Convert.ToInt32(s.Split('/')[14]);
 				Account.DungeonEndTime = s.Split('/')[459].ToSFDateTime();
-				Account.StadtwacheEndTime = s.Split('/')[47].ToSFDateTime();
-				if (DateTime.Now < Account.StadtwacheEndTime) {
+				DateTime actionDate = s.Split('/')[47].ToSFDateTime();
+				if (DateTime.Now < actionDate) {
+					if ((actionDate - DateTime.Now).TotalMinutes > 30) {
+						Account.StadtwacheEndTime = actionDate;
+						Account.StadtwacheWurdeGestatet = true;
+					} else {
+						Account.QuestEndTime = actionDate;
+						Account.QuestIsStarted = true;
+					}
 					Account.StadtwacheWurdeGestatet = true;
 				}
 
