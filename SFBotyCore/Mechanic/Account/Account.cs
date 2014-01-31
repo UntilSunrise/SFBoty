@@ -17,8 +17,8 @@ namespace SFBotyCore.Mechanic.Account {
 		public bool ToiletIsAvailable { get; set; }
 		public DateTime ToiletEndTime { get; set; }
 		public int CurrentToiletLevel { get; set; }
-		public int CurrentToiletPoints { get; set; }
-		public int ToiletPointsForNewLevel { get; set; }
+		public Int64 CurrentToiletPoints { get; set; }
+		public Int64 ToiletPointsForNewLevel { get; set; }
 
 		public bool TownWatchIsStarted { get; set; }
 		public DateTime TownWatchEndTime { get; set; }
@@ -84,7 +84,6 @@ namespace SFBotyCore.Mechanic.Account {
 
 		public void Logout() {
 			Settings.ResetSessionID();
-			//TODO FIX: try to set to 100 alu after echt logout;
 		}
 	}
 }
