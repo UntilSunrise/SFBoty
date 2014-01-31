@@ -54,7 +54,6 @@ namespace SFBotyCore.Mechanic.Areas {
 						Account.QuestEndTime = actionDate;
 						Account.QuestIsStarted = true;
 					}
-					Account.StadtwacheWurdeGestatet = true;
 				}
 
 				RaiseMessageEvent("Login ALU: " + s.Split('/')[456]);
