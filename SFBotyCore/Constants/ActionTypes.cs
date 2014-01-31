@@ -22,9 +22,9 @@ namespace SFBotyCore.Constants {
         public static string JoinMagicshop = "014";
         /// <summary>
         /// Es kann auch noch die Obergrenze des Rangbereiches angegeben werden
-        /// Bsp: 0071 Zeigt die Ränge 1-15 an.
+        /// Bsp: 007;1 Zeigt die Ränge 1-15 an.
         /// </summary>
-        public static string JoinHallOfFame = "007";
+        public static string JoinHallOfFame = "007;";
         
         /// <summary>
         /// Es muss noch der Nick des Spielers angehangen werden.

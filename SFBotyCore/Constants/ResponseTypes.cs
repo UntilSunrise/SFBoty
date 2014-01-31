@@ -65,9 +65,11 @@ namespace SFBotyCore.Constants {
 		#endregion
 
         #region HallOfFamepositions
+		public static int HoFOffset = 5;
+
         public static int HoFRang = 0;
         public static int HoFCharacternick = 1;
-        public static int HoFGildennick = 2;
+        public static int HoFGuildnick = 2;
         public static int HoFLevel = 3;
         public static int HoFHonor = 4;
         #endregion
@@ -75,7 +77,7 @@ namespace SFBotyCore.Constants {
 		#region Arenapositions
 		public static int ArenaEnemyNick = 0;
 		public static int ArenaEnemyLevel = 1;
-		public static int ArenaGildenNick = 2;
+		public static int ArenaGuildNick = 2;
 		public static int ArenaNextFreeDuellTimestamp = 3;
 		#endregion
     }

@@ -59,6 +59,7 @@
     <Compile Include="Mechanic\Areas\ToiletArea.cs" />
     <Compile Include="Mechanic\BaseArea.cs" />
     <Compile Include="Mechanic\Bot.cs" />
+    <Compile Include="Mechanic\HoFCharacter.cs" />
     <Compile Include="Mechanic\IMenuArea.cs" />
     <Compile Include="Mechanic\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
