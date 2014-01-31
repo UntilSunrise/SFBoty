@@ -29,6 +29,9 @@ namespace SFBotyCore.Constants {
 		public static int NextFreeDungeonTimestamp = 459;
 		public static int NextFreeDuellTimestamp = 460;
 
+		public static int ActionDateTimestamp = 47;
+		public static int ActionStatus = 45;
+
 		#region CharacterAttributes
 		public static int str = 30;
 		public static int ges = 31;

@@ -37,10 +37,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				
 				string s = SendRequest(ActionTypes.LoginToSF);
 				RaiseMessageEvent("Login");
-				//RaiseMessageEvent("Request String: " + s);
 
-				//read SessionID
-				RaiseMessageEvent("Old SessionID: " + Account.Settings.SessionID + " new ID: " + s.Split('/')[ResponseTypes.SessionID].Split(';')[2]);
 				Account.Settings.SessionID = s.Split('/')[ResponseTypes.SessionID].Split(';')[2];
 				Account.Silver = Convert.ToInt32(s.Split('/')[ResponseTypes.Silver]);
 				Account.Mushroom = Convert.ToInt32(s.Split('/')[ResponseTypes.Mushrooms]);
@@ -49,8 +46,8 @@ namespace SFBotyCore.Mechanic.Areas {
 				Account.Honor = Convert.ToInt32(s.Split('/')[ResponseTypes.Honor]);
 				Account.DungeonEndTime = s.Split('/')[ResponseTypes.NextFreeDungeonTimestamp].MillisecondsToDateTime();
 				Account.ArenaEndTime = s.Split('/')[ResponseTypes.NextFreeDuellTimestamp].MillisecondsToDateTime();
-				DateTime actionDate = s.Split('/')[47].MillisecondsToDateTime();
-				string actionStatus = s.Split('/')[45];
+				DateTime actionDate = s.Split('/')[ResponseTypes.ActionDateTimestamp].MillisecondsToDateTime();
+				string actionStatus = s.Split('/')[ResponseTypes.ActionStatus];
 				if (DateTime.Now < actionDate) {
 					if (actionStatus == ActionStatusTypes.TownWatchTaken) {
 						Account.TownWatchEndTime = actionDate;
@@ -61,7 +58,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					}
 				}
 
-				RaiseMessageEvent("Login ALU: " + s.Split('/')[ResponseTypes.ALU]);
+				Account.ALU_Seconds = Convert.ToInt32(s.Split('/')[ResponseTypes.ALU]);
 			}
 		}
 
