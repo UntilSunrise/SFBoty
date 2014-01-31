@@ -21,6 +21,8 @@ namespace SFBotyCore.Mechanic.Account {
 		public bool StadtwacheWurdeGestatet { get; set; }
 		public DateTime StadtwacheEndTime { get; set; }
 
+		public DateTime DungeonEndTime {get; set;}
+
 		public int BaseStr { get; set; }
 		public int BaseDex { get; set; }
 		public int BaseInt { get; set; }
@@ -53,6 +55,7 @@ namespace SFBotyCore.Mechanic.Account {
 
 			StadtwacheWurdeGestatet = false;
 			StadtwacheEndTime = DateTime.Now;
+			DungeonEndTime = DateTime.Now;
 
 			BaseStr = 0;
 			BaseDex = 0;

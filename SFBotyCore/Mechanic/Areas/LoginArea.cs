@@ -6,6 +6,7 @@ using SFBotyCore.Mechanic.Account;
 using System.Threading;
 using System.Net;
 using SFBotyCore.Constants;
+using SFBotyCore;
 
 namespace SFBotyCore.Mechanic.Areas {
 	public class LoginArea : BaseArea {
@@ -43,6 +44,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				Account.Settings.SessionID = s.Split('/')[511].Split(';')[2];
 				Account.Silver = Convert.ToInt32(s.Split('/')[13]);
 				Account.Pilze = Convert.ToInt32(s.Split('/')[14]);
+				Account.DungeonEndTime = s.Split('/')[459].ToSFDateTime();
 
 				RaiseMessageEvent("Login ALU: " + s.Split('/')[456]);
 			}
