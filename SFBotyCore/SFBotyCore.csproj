@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Assert\AssertException.cs" />
     <Compile Include="Assert\Asserts.cs" />
+    <Compile Include="Constants\ActionIndexTypes.cs" />
     <Compile Include="Constants\AttributeTypes.cs" />
     <Compile Include="Constants\ClassTypes.cs" />
     <Compile Include="Constants\ItemTypes.cs" />
