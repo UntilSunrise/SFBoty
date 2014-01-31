@@ -32,13 +32,19 @@ namespace SFBotyCore.Mechanic.Areas {
             base.PerformArea();
 
             //Wenn die Arena nicht genutzt werden soll, tue nichts.
-			if (!Account.Settings.PerformArena || DateTime.Now < Account.ArenaEndTime || Account.QuestIsStarted || Account.TownWatchIsStarted) {
+			if (!Account.Settings.PerformArena) {
+				return;
+			}
+			if ((Account.QuestIsStarted || Account.TownWatchIsStarted) && !Account.MirrorIsCompleted || DateTime.Now < Account.ArenaEndTime ) {
                 return;
             }
 
             List<string> guildFilter = Account.Settings.IgnoreGuilds.Split('/').ToList<string>();
             List<string> playerFilter = Account.Settings.IgnorePlayers.Split('/').ToList<string>();
 			int levelDifference = Account.Settings.LevelDifference;
+			int rang = Account.Rang;
+			int maxRangeLimit = rang + Account.Settings.UpperRangeLimit;
+			int minRangeLimit = rang - Account.Settings.LowerRangeLimit;
 			int myLevel = Account.Level;
 			int maxTries = Account.Settings.MaxTriesToFindEnemy;
 
@@ -89,7 +95,14 @@ namespace SFBotyCore.Mechanic.Areas {
                 s = SendRequest(ActionTypes.JoinHallOfFame + Account.Rang);
 
                 //TODO: Kampf mit Rangbereich
-            }  
+            }
+
+			//Account Daten aktualisieren
+			s = SendRequest(ActionTypes.JoinCharacter);
+			Account.ArenaEndTime = s.Split('/')[ResponseTypes.NextFreeDuellTimestamp].MillisecondsToDateTime();
+			Account.Silver = Convert.ToInt64(s.Split('/')[ResponseTypes.Silver]);
+			Account.Rang = Convert.ToInt32(s.Split('/')[ResponseTypes.Rang]);
+			Account.Honor = Convert.ToInt32(s.Split('/')[ResponseTypes.Honor]);
         }
 
         public override void RaiseMessageEvent(string s) {

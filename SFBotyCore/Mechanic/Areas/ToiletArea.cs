@@ -43,9 +43,12 @@ namespace SFBotyCore.Mechanic.Areas {
 			if (!Account.Settings.PerformToilet || Account.QuestIsStarted || Account.TownWatchIsStarted) {
 				return;
 			}
+			if ((Account.QuestIsStarted || Account.TownWatchIsStarted) && !Account.MirrorIsCompleted || DateTime.Now < Account.ToiletEndTime) {
+				return;
+			}
 
 			string s;
-			if ((Account.Level >= 100 || Account.ToiletIsAvailable) && !Account.ToiletAlreadyUsedToday) {
+			if ((Account.Level >= 100 || Account.ToiletIsAvailable)) {
 				ThreadSleep(Account.Settings.minTimeToJoinToilet, Account.Settings.maxTimeToJoinToilet);
 				RaiseMessageEvent("WC betreten");
 				s = SendRequest(ActionTypes.JoinToilet);
@@ -61,7 +64,7 @@ namespace SFBotyCore.Mechanic.Areas {
 
 					if (answerToilet[(int)ToiletAnswer.Status] == "1") {
 						RaiseMessageEvent("WC wurde heute schon benutzt!");
-						Account.ToiletAlreadyUsedToday = true;
+						Account.ToiletEndTime = (DateTime.Now - DateTime.Now.TimeOfDay).AddDays(1);
 						return; //TODO: Andere Lösung finden?
 					} // else do nothing
                     
@@ -88,6 +91,7 @@ namespace SFBotyCore.Mechanic.Areas {
                     RaiseMessageEvent(string.Format("Item im Slot {0}, wird in die Toilette geschmissen.", backpackslotWithLowestItemValue));
                     s = SendRequest(ActionTypes.ItemAction + backpackslotWithLowestItemValue + ";10;0");
                     answerToilet = s.Split('/');
+					Account.ToiletEndTime = (DateTime.Now - DateTime.Now.TimeOfDay).AddDays(1);
 
                     if (Account.Settings.SellToiletItemIfNotEpic && !answerToilet[0].Contains("E")){
                         ThreadSleep(Account.Settings.minTimeToJoinShops, Account.Settings.maxTimeToJoinShops);

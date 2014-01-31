@@ -12,8 +12,10 @@ namespace SFBotyCore.Mechanic.Account {
 		public bool QuestIsStarted { get; set; }
 		public DateTime QuestEndTime { get; set; }
 
+		public bool MirrorIsCompleted { get; set; }
+
 		public bool ToiletIsAvailable { get; set; }
-		public bool ToiletAlreadyUsedToday { get; set; }
+		public DateTime ToiletEndTime { get; set; }
 		public int CurrentToiletLevel { get; set; }
 		public Int64 CurrentToiletPoints { get; set; }
 		public Int64 ToiletPointsForNewLevel { get; set; }
@@ -54,8 +56,10 @@ namespace SFBotyCore.Mechanic.Account {
 			QuestIsStarted = false;
 			QuestEndTime = DateTime.Now;
 
+			MirrorIsCompleted = false;
+
 			ToiletIsAvailable = true;
-			ToiletAlreadyUsedToday = false;
+			ToiletEndTime = DateTime.Now;
 			CurrentToiletLevel = 0;
 			CurrentToiletPoints = 0;
 			ToiletPointsForNewLevel = 0;
