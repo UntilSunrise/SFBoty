@@ -46,6 +46,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				Account.Honor = Convert.ToInt32(s.Split('/')[ResponseTypes.Honor]);
 				Account.DungeonEndTime = s.Split('/')[ResponseTypes.NextFreeDungeonTimestamp].MillisecondsToDateTime();
 				Account.ArenaEndTime = s.Split('/')[ResponseTypes.NextFreeDuellTimestamp].MillisecondsToDateTime();
+				Account.MirrorIsCompleted = s.Split('/').HasMirror();
 				DateTime actionDate = s.Split('/')[ResponseTypes.ActionDateTimestamp].MillisecondsToDateTime();
 				string actionStatus = s.Split('/')[ResponseTypes.ActionStatus];
 				if (DateTime.Now < actionDate) {
