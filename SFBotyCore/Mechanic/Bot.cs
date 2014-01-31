@@ -23,6 +23,7 @@ namespace SFBotyCore.Mechanic {
 		private DungeonArea DungeonArea;
 		private ToiletArea ToiletArea;
         private ArenaArea ArenaArea;
+		private GuildArea GuildArea;
 
 		#region Events
 		public event EventHandler<MessageEventsArgs> MessageOutput;
@@ -66,6 +67,10 @@ namespace SFBotyCore.Mechanic {
             ArenaArea = new ArenaArea();
             ArenaArea.Initialize(Account, Client);
             ArenaArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
+
+			GuildArea = new GuildArea();
+			GuildArea.Initialize(Account, Client);
+			GuildArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
 		}
 
 		void Event_MessageOutput(object sender, MessageEventsArgs e) {
@@ -92,6 +97,7 @@ namespace SFBotyCore.Mechanic {
 					TarvernArea.PerformArea();
 					ToiletArea.PerformArea();
                     ArenaArea.PerformArea();
+					GuildArea.PerformArea();
 					CharArea.PerformArea();
 					DungeonArea.PerformArea();
 					StadtwacheArea.PerformArea();

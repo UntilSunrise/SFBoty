@@ -85,5 +85,9 @@ namespace SFBotyCore.Constants {
 		public static int ArenaGuildNick = 2;
 		public static int ArenaNextFreeDuellTimestamp = 3;
 		#endregion
+
+		#region GuildTypes
+		public static string PlayerHasNoGuild = "017";
+		#endregion
     }
 }

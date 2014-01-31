@@ -23,9 +23,9 @@ namespace SFBotyCore.Mechanic.Account {
 		public bool TownWatchIsStarted { get; set; }
 		public DateTime TownWatchEndTime { get; set; }
 
-		public DateTime DungeonEndTime {get; set;}
-
+		public DateTime DungeonEndTime { get; set; }
 		public DateTime ArenaEndTime { get; set; }
+		public DateTime NextGuildVisit { get; set; }
 
 		public int BaseStr { get; set; }
 		public int BaseDex { get; set; }
@@ -46,8 +46,11 @@ namespace SFBotyCore.Mechanic.Account {
 		public Int64 Silver { get; set; }
 		public int Mushroom { get; set; }
 		public int Level { get; set; }
-        public int Honor { get; set; }
-        public int Rang { get; set; }
+		public int Honor { get; set; }
+		public int Rang { get; set; }
+
+		public Guild Guild { get; set; }
+		public bool HasAGuild { get; set; }
 
 		public Account(AccountSettings settings) {
 			Settings = settings;
@@ -68,6 +71,7 @@ namespace SFBotyCore.Mechanic.Account {
 			TownWatchEndTime = DateTime.Now;
 			DungeonEndTime = DateTime.Now;
 			ArenaEndTime = DateTime.Now;
+			NextGuildVisit = DateTime.Now;
 
 			BaseStr = 0;
 			BaseDex = 0;
@@ -83,8 +87,11 @@ namespace SFBotyCore.Mechanic.Account {
 			Silver = 0;
 			Mushroom = 0;
 			Level = 0;
-            Honor = 0;
-            Rang = 0;
+			Honor = 0;
+			Rang = 0;
+
+			Guild = new Guild();
+			HasAGuild = true;
 		}
 
 		public void Logout() {
