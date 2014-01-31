@@ -12,8 +12,10 @@ namespace SFBotyCore.Mechanic.Account {
 		public bool QuestIsStarted { get; set; }
 		public DateTime QuestEndTime { get; set; }
 
+		public bool MirrorIsCompleted { get; set; }
+
 		public bool ToiletIsAvailable { get; set; }
-		public bool ToiletAlreadyUsedToday { get; set; }
+		public DateTime ToiletEndTime { get; set; }
 		public int CurrentToiletLevel { get; set; }
 		public int CurrentToiletPoints { get; set; }
 		public int ToiletPointsForNewLevel { get; set; }
@@ -36,7 +38,7 @@ namespace SFBotyCore.Mechanic.Account {
 		public int AddonAus { get; set; }
 		public int AddonLuck { get; set; }
 
-		public int Silver { get; set; }
+		public Int64 Silver { get; set; }
 		public int Mushroom { get; set; }
 		public int Level { get; set; }
         public int Honor { get; set; }
@@ -49,8 +51,10 @@ namespace SFBotyCore.Mechanic.Account {
 			QuestIsStarted = false;
 			QuestEndTime = DateTime.Now;
 
+			MirrorIsCompleted = false;
+
 			ToiletIsAvailable = true;
-			ToiletAlreadyUsedToday = false;
+			ToiletEndTime = DateTime.Now;
 			CurrentToiletLevel = 0;
 			CurrentToiletPoints = 0;
 			ToiletPointsForNewLevel = 0;
