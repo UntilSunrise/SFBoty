@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SFBoty.Mechanic.Account;
+using SFBotyCore.Mechanic.Account;
 using System.Threading;
 using System.Net;
 using System.IO;
-using SFBoty.Mechanic.Areas;
 using SFBotyCore.Mechanic.Areas;
 
-namespace SFBoty.Mechanic {
+namespace SFBotyCore.Mechanic {
 	public class Bot {
 
 		public Account.Account Account { get; private set; }
@@ -23,6 +22,7 @@ namespace SFBoty.Mechanic {
 		private CharScreenArea CharArea;
 		private DungeonArea DungeonArea;
 		private ToiletArea ToiletArea;
+        private ArenaArea ArenaArea;
 
 		#region Events
 		public event EventHandler<MessageEventsArgs> MessageOutput;
@@ -62,6 +62,10 @@ namespace SFBoty.Mechanic {
 			ToiletArea = new ToiletArea();
 			ToiletArea.Initialize(Account, Client);
 			ToiletArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
+
+            ArenaArea = new ArenaArea();
+            ArenaArea.Initialize(Account, Client);
+            ArenaArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
 		}
 
 		void Event_MessageOutput(object sender, MessageEventsArgs e) {
@@ -87,6 +91,7 @@ namespace SFBoty.Mechanic {
 				if (Account.Settings.HasLogin) {
 					TarvernArea.PerformArea();
 					ToiletArea.PerformArea();
+                    ArenaArea.PerformArea();
 					CharArea.PerformArea();
 					DungeonArea.PerformArea();
 					StadtwacheArea.PerformArea();
@@ -105,6 +110,8 @@ namespace SFBoty.Mechanic {
 			Client.Dispose();
 			LoginArea.Dispose();
 			TarvernArea.Dispose();
+            ToiletArea.Dispose();
+            ArenaArea.Dispose();
 			CharArea.Dispose();
 			StadtwacheArea.Dispose();
 			DungeonArea.Dispose();

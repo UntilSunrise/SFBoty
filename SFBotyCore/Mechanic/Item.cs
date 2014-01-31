@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SFBoty.Mechanic;
+using SFBotyCore.Mechanic;
 using SFBotyCore.Constants;
 
 namespace SFBotyCore.Mechanic {

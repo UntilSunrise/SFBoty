@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SFBoty.Mechanic;
-using SFBoty.Mechanic.Account;
-using SFBoty.Mechanic.Areas;
+using SFBotyCore.Mechanic;
+using SFBotyCore.Mechanic.Account;
+using SFBotyCore.Mechanic.Areas;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SFBoty.Mechanic.Account;
+using SFBotyCore.Mechanic.Account;
 using System.Net;
 
-namespace SFBoty.Mechanic {
+namespace SFBotyCore.Mechanic {
 	public interface IMenuArea {
 		void Initialize(Account.Account account, WebClient refClient);
 		void PerformArea();

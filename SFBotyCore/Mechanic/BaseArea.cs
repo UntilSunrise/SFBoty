@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SFBoty.Mechanic.Account;
+using SFBotyCore.Mechanic.Account;
 using System.Net;
 using System.IO;
-using SFBoty.Mechanic.Areas;
+using SFBotyCore.Mechanic.Areas;
 using Assert;
 using System.Threading;
 using SFBotyCore.Constants;
 
-namespace SFBoty.Mechanic {
+namespace SFBotyCore.Mechanic {
 	public abstract class BaseArea : IMenuArea {
 		private WebClient RefClient { get; set; }
 		protected Random random;

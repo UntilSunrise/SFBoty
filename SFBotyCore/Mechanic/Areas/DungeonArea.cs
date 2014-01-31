@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SFBoty.Mechanic;
-using SFBoty.Mechanic.Areas;
-using SFBoty.Mechanic.Account;
+using SFBotyCore.Mechanic;
+using SFBotyCore.Mechanic.Areas;
+using SFBotyCore.Mechanic.Account;
 using System.Net;
 using System.Threading;
 using System.Collections.ObjectModel;
@@ -180,7 +180,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			}
 		}
 
-		public override void Initialize(Account account, WebClient refClient) {
+		public override void Initialize(Account.Account account, WebClient refClient) {
 			base.Initialize(account, refClient);
 		}
 

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SFBoty.Mechanic.Account;
+using SFBotyCore.Mechanic.Account;
 using System.Net;
 using System.Threading;
 using SFBotyCore.Constants;
 
-namespace SFBoty.Mechanic.Areas {
+namespace SFBotyCore.Mechanic.Areas {
 	public class StadtwacheArea : BaseArea {
 
 		#region Events

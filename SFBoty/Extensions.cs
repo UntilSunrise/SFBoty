@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SFBoty.Mechanic {
+namespace SFBotyCore.Mechanic {
 	public static class Extensions {
 		public static void Invoke<TControl>(this TControl control, Action action) where TControl : Control {
 			if (!control.InvokeRequired) {
