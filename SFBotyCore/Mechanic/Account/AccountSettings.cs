@@ -118,7 +118,7 @@ namespace SFBotyCore.Mechanic.Account {
             this.AttackEnemyBetweenRange = false;
             this.UpperRangeLimit = 10;
             this.LowerRangeLimit = 10;
-            this.LevelDifference = -5;
+            this.LevelDifference = 5;
             this.IgnoreGuilds = "AssertFail";
             this.IgnorePlayers = "Tendil/Myrkai";
 

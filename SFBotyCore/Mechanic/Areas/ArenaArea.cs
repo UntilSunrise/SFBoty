@@ -68,7 +68,7 @@ namespace SFBotyCore.Mechanic.Areas {
 
 					fightAnswer = s.Split(';');
 
-					bool win = Convert.ToInt32(fightAnswer[1].Split('/')[18]) > 0 ? true : false;
+					bool win = Convert.ToInt32(fightAnswer[1].Split('/')[fightAnswer[1].Split('/').Length - 7]) > 0 ? true : false;
 					int honorChange = Convert.ToInt32(fightAnswer[7]);
 					double goldChange = Convert.ToDouble(fightAnswer[8]) / 100;
 
@@ -77,7 +77,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					} else {
 						RaiseMessageEvent(string.Format("Du hast gegen {0} verloren. Ehre: -{1} Gold: -{2}", arenaAnswer[ResponseTypes.ArenaEnemyNick], honorChange, goldChange));
 					}
-
+					Account.ArenaEndTime = DateTime.Now.AddMinutes(10);
 				} else {
 					RaiseMessageEvent("Es wurde kein passender Gegner gefunden.");
 					return;
