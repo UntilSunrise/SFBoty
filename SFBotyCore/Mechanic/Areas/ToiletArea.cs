@@ -13,10 +13,10 @@ namespace SFBotyCore.Mechanic.Areas {
     public class ToiletArea : BaseArea {
 
         private enum ToiletAnswer {
-            Status = 0,
-            Level = 1,
-            Exp = 2,
-            ExpToNextLevel = 3
+            Status = 1,
+            Level = 2,
+            Exp = 3,
+            ExpToNextLevel = 4
         };
 
         #region Events
@@ -67,8 +67,8 @@ namespace SFBotyCore.Mechanic.Areas {
                     
                     int i = 0;
 					Dictionary<int,Item> BackpackItems = new Dictionary<int,Item>();
-					while (i < ResponseStringPositions.BackpackSize) {
-						BackpackItems.Add(i, new Item(s.Split('/'), ResponseStringPositions.BackpackFirstItemPosition + (i * ResponseStringPositions.ItemSize)));
+					while (i < ResponseTypes.BackpackSize) {
+						BackpackItems.Add(i, new Item(s.Split('/'), ResponseTypes.BackpackFirstItemPosition + (i * ResponseTypes.ItemSize)));
 						i++;
 					}
 

@@ -18,10 +18,12 @@ namespace SFBotyCore.Mechanic.Account {
 		public int CurrentToiletPoints { get; set; }
 		public int ToiletPointsForNewLevel { get; set; }
 
-		public bool StadtwacheWurdeGestatet { get; set; }
-		public DateTime StadtwacheEndTime { get; set; }
+		public bool TownWatchIsStarted { get; set; }
+		public DateTime TownWatchEndTime { get; set; }
 
 		public DateTime DungeonEndTime {get; set;}
+
+		public DateTime ArenaEndTime { get; set; }
 
 		public int BaseStr { get; set; }
 		public int BaseDex { get; set; }
@@ -35,7 +37,7 @@ namespace SFBotyCore.Mechanic.Account {
 		public int AddonLuck { get; set; }
 
 		public int Silver { get; set; }
-		public int Pilze { get; set; }
+		public int Mushroom { get; set; }
 		public int Level { get; set; }
         public int Honor { get; set; }
         public int Rang { get; set; }
@@ -53,9 +55,10 @@ namespace SFBotyCore.Mechanic.Account {
 			CurrentToiletPoints = 0;
 			ToiletPointsForNewLevel = 0;
 
-			StadtwacheWurdeGestatet = false;
-			StadtwacheEndTime = DateTime.Now;
+			TownWatchIsStarted = false;
+			TownWatchEndTime = DateTime.Now;
 			DungeonEndTime = DateTime.Now;
+			ArenaEndTime = DateTime.Now;
 
 			BaseStr = 0;
 			BaseDex = 0;
@@ -69,7 +72,7 @@ namespace SFBotyCore.Mechanic.Account {
 			AddonLuck = 0;
 
 			Silver = 0;
-			Pilze = 0;
+			Mushroom = 0;
 			Level = 0;
             Honor = 0;
             Rang = 0;

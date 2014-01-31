@@ -191,21 +191,21 @@ namespace SFBotyCore.Mechanic.Areas {
 				return;
 			}
 
-			if ((Account.ALU_Seconds == 0 || !Account.Settings.PerformQuesten) && !Account.QuestIsStarted && !Account.StadtwacheWurdeGestatet) {
+			if ((Account.ALU_Seconds == 0 || !Account.Settings.PerformQuesten) && !Account.QuestIsStarted && !Account.TownWatchIsStarted) {
 				ThreadSleep(Account.Settings.minTimeToJoinDungeon, Account.Settings.maxTimeToJoinDungeon);
-				RaiseMessageEvent("Join Dungeonoverview");
+				RaiseMessageEvent("Dungeonübersicht betreten");
 				string s = SendRequest(ActionTypes.JoinDungeon);
-				string[] anserRequest = s.Split('/');
+				string[] answerRequest = s.Split('/');
 
-				int d1Lvl = Convert.ToInt32(anserRequest[480]) - 1;
-				int d2Lvl = Convert.ToInt32(anserRequest[481]) - 1;
-				int d3Lvl = Convert.ToInt32(anserRequest[482]) - 1;
-				int d4Lvl = Convert.ToInt32(anserRequest[483]) - 1;
-				int d5Lvl = Convert.ToInt32(anserRequest[484]) - 1;
-				int d6Lvl = Convert.ToInt32(anserRequest[485]) - 1;
-				int d7Lvl = Convert.ToInt32(anserRequest[486]) - 1;
-				int d8Lvl = Convert.ToInt32(anserRequest[487]) - 1;
-				int d9Lvl = Convert.ToInt32(anserRequest[488]) - 1;
+				int d1Lvl = Convert.ToInt32(answerRequest[480]) - 1;
+				int d2Lvl = Convert.ToInt32(answerRequest[481]) - 1;
+				int d3Lvl = Convert.ToInt32(answerRequest[482]) - 1;
+				int d4Lvl = Convert.ToInt32(answerRequest[483]) - 1;
+				int d5Lvl = Convert.ToInt32(answerRequest[484]) - 1;
+				int d6Lvl = Convert.ToInt32(answerRequest[485]) - 1;
+				int d7Lvl = Convert.ToInt32(answerRequest[486]) - 1;
+				int d8Lvl = Convert.ToInt32(answerRequest[487]) - 1;
+				int d9Lvl = Convert.ToInt32(answerRequest[488]) - 1;
 				int d10Lvl = 0; //derzeit noch unbekannt wo diese Informationen gespeichert werden
 				int d11Lvl = 0;
 				int d12Lvl = 0;

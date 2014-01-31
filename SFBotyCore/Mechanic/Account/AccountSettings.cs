@@ -28,6 +28,7 @@ namespace SFBotyCore.Mechanic.Account {
         public bool SellToiletItemIfNotEpic { get; set; }
 
         public bool PerformArena { get; set; }
+		public int MaxTriesToFindEnemy { get; set; }
         public bool AttackSuggestedEnemy { get; set; }
         public bool AttackEnemyBetweenRange { get; set; }
         public int UpperRangeLimit { get; set; }
@@ -112,6 +113,7 @@ namespace SFBotyCore.Mechanic.Account {
             this.SellToiletItemIfNotEpic = true;
 
             this.PerformArena = true;
+			this.MaxTriesToFindEnemy = 10;
             this.AttackSuggestedEnemy = true;
             this.AttackEnemyBetweenRange = false;
             this.UpperRangeLimit = 10;

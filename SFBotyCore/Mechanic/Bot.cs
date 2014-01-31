@@ -17,7 +17,7 @@ namespace SFBotyCore.Mechanic {
 		private Random random;
 
 		private LoginArea LoginArea;
-		private TarvernArea TarvernArea;
+		private TavernArea TarvernArea;
 		private StadtwacheArea StadtwacheArea;
 		private CharScreenArea CharArea;
 		private DungeonArea DungeonArea;
@@ -43,7 +43,7 @@ namespace SFBotyCore.Mechanic {
 			LoginArea.Initialize(Account, Client);
 			LoginArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
 
-			TarvernArea = new TarvernArea();
+			TarvernArea = new TavernArea();
 			TarvernArea.Initialize(Account, Client);
 			TarvernArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
 

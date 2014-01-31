@@ -37,9 +37,9 @@ namespace SFBotyCore.Mechanic {
 
 		public Item(string[] responseString, int offset){
 
-            typeOriginal = Convert.ToInt32(responseString[(offset + ResponseStringPositions.ItemTyp)]);
-			picOriginal = Convert.ToInt32(responseString[(offset + ResponseStringPositions.ItemPicture)]);
-			mushroomValue = Convert.ToInt32(responseString[(offset + ResponseStringPositions.ItemMushroomValue)]);
+            typeOriginal = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemTyp)]);
+			picOriginal = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemPicture)]);
+			mushroomValue = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemMushroomValue)]);
             enchantment = (int)(typeOriginal / Math.Pow(2, 24));
             socket = (int)(typeOriginal - (enchantment * Math.Pow(2, 24)));
             socket = (int)(socket / Math.Pow(2, 16));
@@ -48,15 +48,15 @@ namespace SFBotyCore.Mechanic {
             picOriginal = (picOriginal - (enchantmentPower * Math.Pow(2, 16)));
             socketPower = (int)(mushroomValue / Math.Pow(2, 16));
             mushroomValue = (mushroomValue - (socketPower * Math.Pow(2, 16)));
-			damageMin = Convert.ToInt32(responseString[(offset + ResponseStringPositions.ItemDamageMin)]);
-			damageMax = Convert.ToInt32(responseString[(offset + ResponseStringPositions.ItemDamageMax)]);
-			attributeType1 = Convert.ToInt32(responseString[(offset + ResponseStringPositions.ItemAttributeType1)]);
-			attributeType2 = Convert.ToInt32(responseString[(offset + ResponseStringPositions.ItemAttributeType2)]);
-			attributeType3 = Convert.ToInt32(responseString[(offset + ResponseStringPositions.ItemAttributeType3)]);
-			attributeValue1 = Convert.ToInt32(responseString[(offset + ResponseStringPositions.ItemAttributeValue1)]);
-			attributeValue2 = Convert.ToInt32(responseString[(offset + ResponseStringPositions.ItemAttributeValue2)]);
-			attributeValue3 = Convert.ToInt32(responseString[(offset + ResponseStringPositions.ItemAttributeValue3)]);
-			goldValue = Convert.ToInt32(responseString[(offset + ResponseStringPositions.ItemGoldValue)]);
+			damageMin = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemDamageMin)]);
+			damageMax = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemDamageMax)]);
+			attributeType1 = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemAttributeType1)]);
+			attributeType2 = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemAttributeType2)]);
+			attributeType3 = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemAttributeType3)]);
+			attributeValue1 = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemAttributeValue1)]);
+			attributeValue2 = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemAttributeValue2)]);
+			attributeValue3 = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemAttributeValue3)]);
+			goldValue = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemGoldValue)]);
 
 			Typ = (ItemTypes)this.typeOriginal;
 			DamageMin = this.damageMin;

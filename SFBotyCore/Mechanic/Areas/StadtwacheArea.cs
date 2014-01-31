@@ -37,31 +37,31 @@ namespace SFBotyCore.Mechanic.Areas {
 			}
 
 			string s;
-			if ((Account.ALU_Seconds == 0 || !Account.Settings.PerformQuesten) && !Account.QuestIsStarted && !Account.StadtwacheWurdeGestatet) {
+			if ((Account.ALU_Seconds == 0 || !Account.Settings.PerformQuesten) && !Account.QuestIsStarted && !Account.TownWatchIsStarted) {
 				ThreadSleep(Account.Settings.minTimeToJoinStadtwache, Account.Settings.maxTimeToJoinStadtwache);
 				RaiseMessageEvent("Stadtwache betreten");
-				s = SendRequest(ActionTypes.JoinStadtwache);
+				s = SendRequest(ActionTypes.JoinTownWatch);
 					
 				ThreadSleep(Account.Settings.minTimeToDoStadtwache, Account.Settings.maxTimeToDoStadtwache);
-				s = SendRequest(ActionTypes.DoStadtwache10Hour);
-				Account.StadtwacheWurdeGestatet = true;
-				Account.StadtwacheEndTime = DateTime.Now.AddHours(10);
-				RaiseMessageEvent("10h Stadtwache ausführen. Stadtwache ende: " + Account.StadtwacheEndTime.ToString());
+				s = SendRequest(ActionTypes.DoTownWatch10Hour);
+				Account.TownWatchIsStarted = true;
+				Account.TownWatchEndTime = DateTime.Now.AddHours(10);
+				RaiseMessageEvent("10h Stadtwache ausführen. Stadtwache ende: " + Account.TownWatchEndTime.ToString());
 				
 				ThreadSleep(Account.Settings.minTimeToLogOut, Account.Settings.maxTimeToLogOut);
 				s = SendRequest(ActionTypes.LogOut);
 				Account.Logout();
 				Thread.Sleep(1000 * 60 * 60 * 10);
 			} else {
-				if (DateTime.Now > Account.StadtwacheEndTime && Account.StadtwacheWurdeGestatet) {
+				if (DateTime.Now > Account.TownWatchEndTime && Account.TownWatchIsStarted) {
 					ThreadSleep(Account.Settings.minTimeToJoinStadtwache, Account.Settings.maxTimeToJoinStadtwache);
 					RaiseMessageEvent("Stadtwache betreten");
 
-					s = SendRequest(ActionTypes.JoinStadtwache);
+					s = SendRequest(ActionTypes.JoinTownWatch);
 					RaiseMessageEvent("Stadtwache beendet");
 					ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
 					s = SendRequest(ActionTypes.JoinCharacter);
-					Account.StadtwacheWurdeGestatet = false;
+					Account.TownWatchIsStarted = false;
 					CharScreenArea.UpdateAccountStats(s, Account);
 				}
 			}
