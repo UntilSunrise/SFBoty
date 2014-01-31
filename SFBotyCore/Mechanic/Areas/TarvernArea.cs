@@ -36,7 +36,6 @@ namespace SFBoty.Mechanic.Areas {
 				ThreadSleep(Account.Settings.minTimeToJoinTarvern, Account.Settings.maxTimeToJoinTarvern);
 				RaiseMessageEvent("Tarverne betretten");
 				s = SendRequest(ActionTypes.JoinTarvern);
-				RaiseMessageEvent("Tarvern S-String: " + s);
 				string[] answerTarvern = s.Split('/');
 
 				Asserts.IsFalse(s.Substring(0, 4).Contains("103"), "Stadtwache wurde nicht beendet");
@@ -44,7 +43,6 @@ namespace SFBoty.Mechanic.Areas {
 
 				int alu = Convert.ToInt32(answerTarvern[456]);
 				Account.ALU_Seconds = alu;
-				RaiseMessageEvent("Acc Alu: " + Account.ALU_Seconds.ToString() + " S-String Alu: " + answerTarvern[456]);
 
 				if (Account.Settings.BuyBeer) {
 					//answerTarvern[457] //usedBeerAmount
@@ -185,13 +183,11 @@ namespace SFBoty.Mechanic.Areas {
 							break;
 					}
 					RaiseMessageEvent("Quest ends " + Account.QuestEndTime.ToString());
-					RaiseMessageEvent("Quest RequestString: " + s);
 				}
 			} else {
 				if (DateTime.Now > Account.QuestEndTime && Account.QuestIsStarted) {
 					ThreadSleep(Account.Settings.minTimeToTakeQuest, Account.Settings.maxTimeToTakeQuest);
 					string t = SendRequest(ActionTypes.JoinTarvern);
-					RaiseMessageEvent("Tarvern S-String: " + t);
 					ThreadSleep(Account.Settings.minTimeToEndAQuest, Account.Settings.maxTimeToEndAQuest);
 					string returnString = SendRequest(ActionTypes.JoinCharacter);
 					Account.QuestIsStarted = false;

@@ -41,20 +41,16 @@ namespace SFBoty.Mechanic.Areas {
 				ThreadSleep(Account.Settings.minTimeToJoinStadtwache, Account.Settings.maxTimeToJoinStadtwache);
 				RaiseMessageEvent("Stadtwache betreten");
 				s = SendRequest(ActionTypes.JoinStadtwache);
-				RaiseMessageEvent("10h Stadtwache ausführen");
-				
+					
 				ThreadSleep(Account.Settings.minTimeToDoStadtwache, Account.Settings.maxTimeToDoStadtwache);
 				s = SendRequest(ActionTypes.DoStadtwache10Hour);
 				Account.StadtwacheWurdeGestatet = true;
 				Account.StadtwacheEndTime = DateTime.Now.AddHours(10);
-				RaiseMessageEvent("Stadtwache ende: " + Account.StadtwacheEndTime.ToString());
+				RaiseMessageEvent("10h Stadtwache ausführen. Stadtwache ende: " + Account.StadtwacheEndTime.ToString());
 				
 				ThreadSleep(Account.Settings.minTimeToLogOut, Account.Settings.maxTimeToLogOut);
-				RaiseMessageEvent("Logout");
-				RaiseMessageEvent("SessionID: " + Account.Settings.SessionID);
 				s = SendRequest(ActionTypes.LogOut);
 				Account.Logout();
-				RaiseMessageEvent("SessionID: " + Account.Settings.SessionID);
 				Thread.Sleep(1000 * 60 * 60 * 10);
 			} else {
 				if (DateTime.Now > Account.StadtwacheEndTime && Account.StadtwacheWurdeGestatet) {
@@ -65,7 +61,6 @@ namespace SFBoty.Mechanic.Areas {
 					RaiseMessageEvent("Stadtwache beendet");
 					ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
 					s = SendRequest(ActionTypes.JoinCharacter);
-					RaiseMessageEvent("Stadtwache S-String: " + s);
 					Account.StadtwacheWurdeGestatet = false;
 					CharScreenArea.UpdateAccountStats(s, Account);
 				}

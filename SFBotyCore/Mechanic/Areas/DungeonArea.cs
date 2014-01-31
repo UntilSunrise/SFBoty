@@ -186,9 +186,8 @@ namespace SFBotyCore.Mechanic.Areas {
 
 		public override void PerformArea() {
 			base.PerformArea();
-			return;
 
-			if (!Account.Settings.PerformDungeons) {
+			if (!Account.Settings.PerformDungeons || DateTime.Now < Account.DungeonEndTime) {
 				return;
 			}
 
@@ -197,8 +196,6 @@ namespace SFBotyCore.Mechanic.Areas {
 				RaiseMessageEvent("Join Dungeonoverview");
 				string s = SendRequest(ActionTypes.JoinDungeon);
 				string[] anserRequest = s.Split('/');
-
-				//Take DungeonTime new DateTime(1970, 1, 1).AddMilliseconds(Convert.ToDouble(s.Split('/')[459]) * 1000 - (1000* 60 * 60)).ToLocalTime() public const SG_MQ_STATE = 459;
 
 				int d1Lvl = Convert.ToInt32(anserRequest[480]) - 1;
 				int d2Lvl = Convert.ToInt32(anserRequest[481]) - 1;
