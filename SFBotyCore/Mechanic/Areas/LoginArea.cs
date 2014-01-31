@@ -45,6 +45,10 @@ namespace SFBotyCore.Mechanic.Areas {
 				Account.Silver = Convert.ToInt32(s.Split('/')[13]);
 				Account.Pilze = Convert.ToInt32(s.Split('/')[14]);
 				Account.DungeonEndTime = s.Split('/')[459].ToSFDateTime();
+				Account.StadtwacheEndTime = s.Split('/')[47].ToSFDateTime();
+				if (DateTime.Now < Account.StadtwacheEndTime) {
+					Account.StadtwacheWurdeGestatet = true;
+				}
 
 				RaiseMessageEvent("Login ALU: " + s.Split('/')[456]);
 			}
