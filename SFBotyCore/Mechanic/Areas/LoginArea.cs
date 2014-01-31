@@ -16,8 +16,9 @@ namespace SFBotyCore.Mechanic.Areas {
 		#endregion
 
 
-		public LoginArea() : base() { 
-		
+		public LoginArea()
+			: base() {
+
 		}
 
 		public override void Initialize(Account.Account account, System.Net.WebClient refClient) {
@@ -34,7 +35,7 @@ namespace SFBotyCore.Mechanic.Areas {
 
 				Account.Logout();
 				base.RecreateClient();
-				
+
 				string s = SendRequest(ActionTypes.LoginToSF);
 				RaiseMessageEvent("Login");
 

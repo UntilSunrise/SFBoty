@@ -40,7 +40,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			base.PerformArea();
 
 			//Wenn das WC nicht genutzt werden soll, tue nichts.
-			if (!Account.Settings.PerformToilet) {
+			if (!Account.Settings.PerformToilet || Account.QuestIsStarted || Account.TownWatchIsStarted) {
 				return;
 			}
 

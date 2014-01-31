@@ -43,6 +43,11 @@ namespace SFBotyCore.Constants {
 		public static int inteAddon = 37;
 		public static int ausAddon = 38;
 		public static int luckAddon = 39;
+		public static int strBuyed = 40;
+		public static int gesBuyed = 41;
+		public static int inteBuyed = 42;
+		public static int ausBuyed = 43;
+		public static int luckBuyed = 44;
 		#endregion
 
 		#region Itempositions

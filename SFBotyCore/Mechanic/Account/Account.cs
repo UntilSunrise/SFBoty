@@ -35,6 +35,11 @@ namespace SFBotyCore.Mechanic.Account {
 		public int AddonInt { get; set; }
 		public int AddonAus { get; set; }
 		public int AddonLuck { get; set; }
+		public int BuyedStr { get; set; }
+		public int BuyedDex { get; set; }
+		public int BuyedInt { get; set; }
+		public int BuyedAus { get; set; }
+		public int BuyedLuck { get; set; }
 
 		public Int64 Silver { get; set; }
 		public int Mushroom { get; set; }

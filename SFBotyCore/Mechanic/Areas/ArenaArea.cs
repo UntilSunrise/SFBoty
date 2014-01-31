@@ -32,7 +32,7 @@ namespace SFBotyCore.Mechanic.Areas {
             base.PerformArea();
 
             //Wenn die Arena nicht genutzt werden soll, tue nichts.
-			if (!Account.Settings.PerformArena || DateTime.Now < Account.ArenaEndTime) {
+			if (!Account.Settings.PerformArena || DateTime.Now < Account.ArenaEndTime || Account.QuestIsStarted || Account.TownWatchIsStarted) {
                 return;
             }
 
