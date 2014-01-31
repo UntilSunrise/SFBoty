@@ -50,8 +50,9 @@ namespace SFBotyCore.Mechanic.Areas {
 				Account.DungeonEndTime = s.Split('/')[ResponseTypes.NextFreeDungeonTimestamp].MillisecondsToDateTime();
 				Account.ArenaEndTime = s.Split('/')[ResponseTypes.NextFreeDuellTimestamp].MillisecondsToDateTime();
 				DateTime actionDate = s.Split('/')[47].MillisecondsToDateTime();
+				string actionStatus = s.Split('/')[45];
 				if (DateTime.Now < actionDate) {
-					if ((actionDate - DateTime.Now).TotalMinutes > 30) {
+					if (actionStatus == ActionStatusTypes.TownWatchTaken) {
 						Account.TownWatchEndTime = actionDate;
 						Account.TownWatchIsStarted = true;
 					} else {
