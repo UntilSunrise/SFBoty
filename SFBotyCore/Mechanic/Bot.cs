@@ -22,7 +22,7 @@ namespace SFBotyCore.Mechanic {
 		private CharScreenArea CharArea;
 		private DungeonArea DungeonArea;
 		private ToiletArea ToiletArea;
-        private ArenaArea ArenaArea;
+		private ArenaArea ArenaArea;
 		private GuildArea GuildArea;
 
 		#region Events
@@ -32,7 +32,7 @@ namespace SFBotyCore.Mechanic {
 		public Bot(Account.Account account) {
 			this.Account = account;
 			this.CurrentThread = new Thread(new ThreadStart(PerformAction));
-			
+
 			this.Client = new WebClient();
 			Client.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:26.0) Gecko/20100101 Firefox/26.0");
 			Client.Headers.Add(HttpRequestHeader.AcceptLanguage, "de-DE,de;q=0.8,en-US;q=0.6,en;q=0.4");
@@ -64,9 +64,9 @@ namespace SFBotyCore.Mechanic {
 			ToiletArea.Initialize(Account, Client);
 			ToiletArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
 
-            ArenaArea = new ArenaArea();
-            ArenaArea.Initialize(Account, Client);
-            ArenaArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
+			ArenaArea = new ArenaArea();
+			ArenaArea.Initialize(Account, Client);
+			ArenaArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
 
 			GuildArea = new GuildArea();
 			GuildArea.Initialize(Account, Client);
@@ -96,7 +96,7 @@ namespace SFBotyCore.Mechanic {
 				if (Account.Settings.HasLogin) {
 					TarvernArea.PerformArea();
 					ToiletArea.PerformArea();
-                    ArenaArea.PerformArea();
+					ArenaArea.PerformArea();
 					GuildArea.PerformArea();
 					CharArea.PerformArea();
 					DungeonArea.PerformArea();
@@ -116,8 +116,8 @@ namespace SFBotyCore.Mechanic {
 			Client.Dispose();
 			LoginArea.Dispose();
 			TarvernArea.Dispose();
-            ToiletArea.Dispose();
-            ArenaArea.Dispose();
+			ToiletArea.Dispose();
+			ArenaArea.Dispose();
 			CharArea.Dispose();
 			StadtwacheArea.Dispose();
 			DungeonArea.Dispose();

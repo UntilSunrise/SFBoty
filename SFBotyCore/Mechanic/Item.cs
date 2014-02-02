@@ -35,19 +35,19 @@ namespace SFBotyCore.Mechanic {
 		public int AttributeValue3 { get; private set; }
 		public int GoldValue { get; private set; }
 
-		public Item(string[] responseString, int offset){
+		public Item(string[] responseString, int offset) {
 
-            typeOriginal = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemTyp)]);
+			typeOriginal = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemTyp)]);
 			picOriginal = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemPicture)]);
 			mushroomValue = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemMushroomValue)]);
-            enchantment = (int)(typeOriginal / Math.Pow(2, 24));
-            socket = (int)(typeOriginal - (enchantment * Math.Pow(2, 24)));
-            socket = (int)(socket / Math.Pow(2, 16));
-            typeOriginal = ((typeOriginal - (enchantment * Math.Pow(2, 24))) - (socket * Math.Pow(2, 16)));
-            enchantmentPower = (int)(picOriginal / Math.Pow(2, 16));
-            picOriginal = (picOriginal - (enchantmentPower * Math.Pow(2, 16)));
-            socketPower = (int)(mushroomValue / Math.Pow(2, 16));
-            mushroomValue = (mushroomValue - (socketPower * Math.Pow(2, 16)));
+			enchantment = (int)(typeOriginal / Math.Pow(2, 24));
+			socket = (int)(typeOriginal - (enchantment * Math.Pow(2, 24)));
+			socket = (int)(socket / Math.Pow(2, 16));
+			typeOriginal = ((typeOriginal - (enchantment * Math.Pow(2, 24))) - (socket * Math.Pow(2, 16)));
+			enchantmentPower = (int)(picOriginal / Math.Pow(2, 16));
+			picOriginal = (picOriginal - (enchantmentPower * Math.Pow(2, 16)));
+			socketPower = (int)(mushroomValue / Math.Pow(2, 16));
+			mushroomValue = (mushroomValue - (socketPower * Math.Pow(2, 16)));
 			damageMin = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemDamageMin)]);
 			damageMax = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemDamageMax)]);
 			attributeType1 = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemAttributeType1)]);
@@ -69,6 +69,6 @@ namespace SFBotyCore.Mechanic {
 			AttributeValue3 = this.attributeValue3;
 			GoldValue = this.goldValue;
 
-        }
+		}
 	}
 }

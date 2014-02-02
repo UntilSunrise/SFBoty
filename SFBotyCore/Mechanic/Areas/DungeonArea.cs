@@ -171,7 +171,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			new DungeonType(13, 10, 400)
 		};
 		#endregion
-				
+
 		public override event EventHandler<MessageEventsArgs> MessageOutput;
 
 		public override void RaiseMessageEvent(string s) {

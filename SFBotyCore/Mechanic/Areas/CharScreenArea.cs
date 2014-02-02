@@ -14,8 +14,9 @@ namespace SFBotyCore.Mechanic.Areas {
 		public override event EventHandler<MessageEventsArgs> MessageOutput;
 		#endregion
 
-		public CharScreenArea() : base() { 
-		
+		public CharScreenArea()
+			: base() {
+
 		}
 
 		public override void Initialize(Account.Account account, WebClient refClient) {
@@ -33,7 +34,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			string s;
 			if ((Account.ALU_Seconds == 0 || !Account.Settings.PerformQuesten) && !Account.QuestIsStarted && !Account.TownWatchIsStarted) {
 				RaiseMessageEvent("Charakterübersicht betreten");
-			  	ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToLogOut);
+				ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToLogOut);
 				s = SendRequest(ActionTypes.JoinCharacter);
 				CharScreenArea.UpdateAccountStats(s, Account);
 
@@ -129,7 +130,7 @@ namespace SFBotyCore.Mechanic.Areas {
 							haveBuy = true;
 						}
 
-						if (Account.BaseLuck <= LuckLimit && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.BuyedLuck)) {				
+						if (Account.BaseLuck <= LuckLimit && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.BuyedLuck)) {
 							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatLuck);
 							if (s.Split('/').Count() < 2) {
@@ -149,9 +150,9 @@ namespace SFBotyCore.Mechanic.Areas {
 							canBuyStats = false;
 						}
 					}
-				}		
+				}
 			}
-				
+
 		}
 
 		public override void RaiseMessageEvent(string s) {
@@ -160,7 +161,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			}
 		}
 
-		public static void UpdateAccountStats (string s, Account.Account acc) {
+		public static void UpdateAccountStats(string s, Account.Account acc) {
 			string[] answerTavern = s.Split('/');
 			string str = answerTavern[ResponseTypes.str];
 			string ges = answerTavern[ResponseTypes.ges];
@@ -199,8 +200,8 @@ namespace SFBotyCore.Mechanic.Areas {
 			acc.Silver = Convert.ToInt32(answerTavern[ResponseTypes.Silver]);
 			acc.Mushroom = Convert.ToInt32(answerTavern[ResponseTypes.Mushrooms]);
 			acc.Level = Convert.ToInt32(answerTavern[ResponseTypes.Level]);
-            acc.Honor = Convert.ToInt32(answerTavern[ResponseTypes.Honor]);
-            acc.Rang  = Convert.ToInt32(answerTavern[ResponseTypes.Rang]);
+			acc.Honor = Convert.ToInt32(answerTavern[ResponseTypes.Honor]);
+			acc.Rang = Convert.ToInt32(answerTavern[ResponseTypes.Rang]);
 		}
 	}
 }

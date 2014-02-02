@@ -29,7 +29,7 @@ namespace SFBotyCore.Mechanic {
 		}
 
 		public virtual void PerformArea() {
-			
+
 		}
 
 		public void RecreateClient() {
@@ -37,7 +37,7 @@ namespace SFBotyCore.Mechanic {
 				RefClient.Dispose();
 				RefClient = null;
 			}
-			
+
 			RefClient = new WebClient();
 			RefClient.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:26.0) Gecko/20100101 Firefox/26.0");
 			RefClient.Headers.Add(HttpRequestHeader.AcceptLanguage, "de-DE,de;q=0.8,en-US;q=0.6,en;q=0.4");
@@ -68,7 +68,7 @@ namespace SFBotyCore.Mechanic {
 				streamReader = new StreamReader(streamData);
 				s = streamReader.ReadToEnd();
 			} while (s == "E065");
-			
+
 			return s;
 		}
 

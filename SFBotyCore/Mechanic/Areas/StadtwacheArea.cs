@@ -41,13 +41,13 @@ namespace SFBotyCore.Mechanic.Areas {
 				ThreadSleep(Account.Settings.minTimeToJoinStadtwache, Account.Settings.maxTimeToJoinStadtwache);
 				RaiseMessageEvent("Stadtwache betreten");
 				s = SendRequest(ActionTypes.JoinTownWatch);
-					
+
 				ThreadSleep(Account.Settings.minTimeToDoStadtwache, Account.Settings.maxTimeToDoStadtwache);
 				s = SendRequest(ActionTypes.DoTownWatch10Hour);
 				Account.TownWatchIsStarted = true;
 				Account.TownWatchEndTime = DateTime.Now.AddHours(10);
 				RaiseMessageEvent("10h Stadtwache ausführen. Stadtwache ende: " + Account.TownWatchEndTime.ToString());
-				
+
 				ThreadSleep(Account.Settings.minTimeToLogOut, Account.Settings.maxTimeToLogOut);
 				s = SendRequest(ActionTypes.LogOut);
 				Account.Logout();
