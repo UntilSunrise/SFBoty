@@ -27,6 +27,17 @@ namespace SFBotyCore.Constants {
 		public static string JoinHallOfFame = "007;";
 
 		/// <summary>
+		/// Anzahl muss noch angehangen werden
+		/// </summary>
+		public static string GuildDonateGold = "1111%3B";
+		/// <summary>
+		/// Anzahl muss noch angehangen werden
+		/// </summary>
+		public static string GuildDonateMushroom = "1112%3B";
+		public static string GuildJoinAttack = "112";
+		public static string GuildJoinDefence = "113";
+
+		/// <summary>
 		/// Es muss noch der Nick des Spielers angehangen werden.
 		/// </summary>
 		public static string AttackEnemy = "512";

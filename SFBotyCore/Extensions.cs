@@ -18,5 +18,9 @@ namespace SFBotyCore {
 
 			return (blub.Substring(23, 1) == "1" ? true : false);
 		}
+
+		public static bool IsOtherDay(this DateTime source, DateTime target) {
+			return source.Day != target.Day || source.Month != target.Month || source.Year != target.Year;
+		}
 	}
 }

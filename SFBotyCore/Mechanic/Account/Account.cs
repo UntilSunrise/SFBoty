@@ -51,6 +51,7 @@ namespace SFBotyCore.Mechanic.Account {
 
 		public Guild Guild { get; set; }
 		public bool HasAGuild { get; set; }
+		public DateTime LastDonateTime { get; set; }
 
 		public Account(AccountSettings settings) {
 			Settings = settings;
@@ -92,6 +93,8 @@ namespace SFBotyCore.Mechanic.Account {
 
 			Guild = new Guild();
 			HasAGuild = true;
+
+			LastDonateTime = DateTime.Now;
 		}
 
 		public void Logout() {

@@ -30,10 +30,33 @@ namespace SFBotyCore.Mechanic.Areas {
 				return;
 			}
 
+			string s = "";
+			bool hasJoinIn = false;
+			if ((Account.ALU_Seconds == 0 || !Account.Settings.PerformQuesten) && !Account.TownWatchIsStarted && !Account.QuestIsStarted && Account.LastDonateTime.IsOtherDay(DateTime.Now) && Account.Settings.DonateGold) { //einmal spenden nach dem Questen am Tag
+				RaiseMessageEvent("Betrete die Gilde");
+				ThreadSleep(Account.Settings.minTimeToJoinGuild, Account.Settings.maxTimeToJoinGuild);
+				s = SendRequest(ActionTypes.JoinGuild);
+
+				Account.LastDonateTime = DateTime.Now;
+				ThreadSleep(Account.Settings.minTimeToDonate, Account.Settings.maxTimeToDonate);
+				int silver = (int)(Account.Silver * Account.Settings.FactorToDonate);
+				silver = silver - silver % 100;
+				SendRequest(String.Concat(ActionTypes.GuildDonateGold, silver));
+				Account.Silver -= silver;
+				RaiseMessageEvent(String.Concat("Es wurde ", (int)(silver / 100), " Gold an die Gilde ", Account.Guild.Name, " gespendet"));
+
+				hasJoinIn = true;
+			}
+
 			//check of has a guild
 			if (DateTime.Now > Account.NextGuildVisit) {
-				ThreadSleep(Account.Settings.minTimeToJoinGuild, Account.Settings.maxTimeToJoinGuild);
-				string s = SendRequest(ActionTypes.JoinGuild);
+				if (!hasJoinIn) {
+					RaiseMessageEvent("Betrete die Gilde");
+					ThreadSleep(Account.Settings.minTimeToJoinGuild, Account.Settings.maxTimeToJoinGuild);
+					s = SendRequest(ActionTypes.JoinGuild);
+				}
+
+				Assert.Asserts.IsFalse(s == "", "Schwerer Fehler im Guildenbreich");
 
 				if (s == ResponseTypes.PlayerHasNoGuild) {
 					Account.HasAGuild = false;
@@ -58,23 +81,6 @@ namespace SFBotyCore.Mechanic.Areas {
 		}
 	}
 }
-
-/*
- * 
- * DoDonate = function (evt:Event=undefined){
-                    DonateTimeout.stop();
-                    if (GoldToDonate > 0){
-                        SendAction(ACT_GUILD_DONATE, 1, String((GoldToDonate * 100)));
-                    } else {
-                        if (MushToDonate > 0){
-                            SendAction(ACT_GUILD_DONATE, 2, String(MushToDonate));
-                        };
-                    };
-                    GoldToDonate = 0;
-                    MushToDonate = 0;
-                };
- * 
-*/
 
 /*
 DateTime t = mfbot.TimeReturnUnix2DateUtc((long)Convert.ToInt32(array.GetValue(365)));

@@ -55,6 +55,8 @@ namespace SFBotyCore.Mechanic.Account {
 		public int MaxBeerToBuy { get; set; }
 
 		public bool PerformGuild { get; set; }
+		public bool DonateGold { get; set; }
+		public float FactorToDonate { get; set; }
 
 		//times are in Sekunds
 		#region Times
@@ -107,8 +109,9 @@ namespace SFBotyCore.Mechanic.Account {
 		public float maxTimeToJoinGuild { get; set; }
 
 		public float guildVisitInterval { get; set; }
+		public float minTimeToDonate { get; set; }
+		public float maxTimeToDonate { get; set; }
 		#endregion
-
 
 		public bool HasLogin { get { return SessionID != EmpytSessionID; } }
 		public AutoQuestMode QuestMode { get; set; }
@@ -139,6 +142,8 @@ namespace SFBotyCore.Mechanic.Account {
 
 			this.PerformGuild = true;
 			this.guildVisitInterval = 60 * 90; //1.5h
+			this.DonateGold = true;
+			this.FactorToDonate = 0.1f;
 
 			this.StatStrFactor = 0.45f;
 			this.StatDexFactor = 0.05f;
@@ -196,6 +201,8 @@ namespace SFBotyCore.Mechanic.Account {
 
 			this.minTimeToJoinGuild = 3f;
 			this.maxTimeToJoinGuild = 5.5f;
+			this.minTimeToDonate = 2f;
+			this.maxTimeToDonate = 4f;
 
 			this.QuestMode = AutoQuestMode.BestXP;
 		}
