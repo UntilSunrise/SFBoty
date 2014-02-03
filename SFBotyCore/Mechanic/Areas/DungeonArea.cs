@@ -213,6 +213,10 @@ namespace SFBotyCore.Mechanic.Areas {
 
 				DungeonType nextDungeon;
 				nextDungeon = FilterNextDungeon(d1Lvl, d2Lvl, d3Lvl, d4Lvl, d5Lvl, d6Lvl, d7Lvl, d8Lvl, d9Lvl, d10Lvl, d11Lvl, d12Lvl, d13Lvl);
+				if (nextDungeon == null) {
+					return;
+				}
+				RaiseMessageEvent(String.Concat("Es wird Dungeon ", nextDungeon.DungeonID, " mit der Ebene ", nextDungeon.DungeonEbene, " versucht (MonsterLvl ist ", nextDungeon.DungeonMonsterLvl, ")"));
 
 				//sleep
 				ThreadSleep(Account.Settings.minTimeToJoinDungeon, Account.Settings.maxTimeToJoinDungeon);
@@ -240,6 +244,11 @@ namespace SFBotyCore.Mechanic.Areas {
 			nextDungeons.AddRange(DungeonArea.Dungeons.Where(d => (d11Lvl <= 10 && d.DungeonID == 11 && d.DungeonEbene == d11Lvl && d11Lvl > 0)));
 			nextDungeons.AddRange(DungeonArea.Dungeons.Where(d => (d12Lvl <= 10 && d.DungeonID == 12 && d.DungeonEbene == d12Lvl && d12Lvl > 0)));
 			nextDungeons.AddRange(DungeonArea.Dungeons.Where(d => (d13Lvl <= 10 && d.DungeonID == 13 && d.DungeonEbene == d13Lvl && d13Lvl > 0)));
+
+			if (nextDungeons.Count() == 0) {
+				return null;
+			}
+
 			return nextDungeons.OrderBy(x => x.DungeonMonsterLvl).First();
 		}
 
