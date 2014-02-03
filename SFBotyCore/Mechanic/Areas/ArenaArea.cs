@@ -63,7 +63,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					s = SendRequest(ActionTypes.JoinArena);
 					string[] arenaAnswer = s.Substring(4, s.Length - 5).Split(';');
 
-					if (arenaAnswer.Count() >= ResponseTypes.ArenaEnemyLevel && arenaAnswer.Count() >= ResponseTypes.ArenaEnemyNick && arenaAnswer.Count() >= ResponseTypes.ArenaGuildNick) {
+					if (arenaAnswer.Count() - 1 >= ResponseTypes.ArenaEnemyLevel && arenaAnswer.Count() - 1 >= ResponseTypes.ArenaEnemyNick && arenaAnswer.Count() - 1 >= ResponseTypes.ArenaGuildNick) {
 						enemyLevel = Convert.ToInt32(arenaAnswer[ResponseTypes.ArenaEnemyLevel]);
 						enemyNick = arenaAnswer[ResponseTypes.ArenaEnemyNick];
 						enemyGuildNick = arenaAnswer[ResponseTypes.ArenaGuildNick];
@@ -82,9 +82,9 @@ namespace SFBotyCore.Mechanic.Areas {
 						i++;
 					}
 
-					int myRandomEnemy = Math.Min(random.Next(1, 16), HoFCharacters.Count());
+					int myRandomEnemy = Math.Min(random.Next(1, 16), HoFCharacters.Count() - 1);
 
-					if (HoFCharacters.Count() >= myRandomEnemy) {
+					if (HoFCharacters.Count() > myRandomEnemy) {
 						enemyLevel = HoFCharacters[myRandomEnemy].Level;
 						enemyNick = HoFCharacters[myRandomEnemy].CharacterNick;
 						enemyGuildNick = HoFCharacters[myRandomEnemy].GuildNick;

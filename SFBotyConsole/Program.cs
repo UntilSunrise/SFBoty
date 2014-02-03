@@ -12,6 +12,10 @@ namespace SFBotyConsole {
 	class Program {
 
 		static void Main(string[] args) {
+			Console.BufferWidth += 50;
+			Console.BufferHeight += 200;
+			Console.WindowWidth += 50;
+
 			List<Account> accounts = new List<Account>();
 			accounts = LoadAccounts();
 			//AccountSettings settings = new AccountSettings("Nickname", "passwordhash", "server");
