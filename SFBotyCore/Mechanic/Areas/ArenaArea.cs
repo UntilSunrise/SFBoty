@@ -82,7 +82,7 @@ namespace SFBotyCore.Mechanic.Areas {
 						i++;
 					}
 
-					int myRandomEnemy = random.Next(1, 16);
+					int myRandomEnemy = Math.Min(random.Next(1, 16), HoFCharacters.Count());
 
 					if (HoFCharacters.Count() >= myRandomEnemy) {
 						enemyLevel = HoFCharacters[myRandomEnemy].Level;
