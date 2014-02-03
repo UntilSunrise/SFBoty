@@ -96,6 +96,9 @@ namespace SFBotyCore.Mechanic.Account {
 
 		public void Logout() {
 			Settings.ResetSessionID();
+			if (Level >= 100 && !ToiletIsAvailable) {
+				ToiletIsAvailable = true;
+			}
 		}
 	}
 }

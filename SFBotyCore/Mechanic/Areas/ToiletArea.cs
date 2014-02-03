@@ -40,7 +40,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			base.PerformArea();
 
 			//Wenn das WC nicht genutzt werden soll, tue nichts.
-			if (!Account.Settings.PerformToilet || Account.QuestIsStarted || Account.TownWatchIsStarted) {
+			if (!Account.Settings.PerformToilet || Account.QuestIsStarted || Account.TownWatchIsStarted || Account.Level < 100) {
 				return;
 			}
 			if ((Account.QuestIsStarted || Account.TownWatchIsStarted) && !Account.MirrorIsCompleted || DateTime.Now < Account.ToiletEndTime) {
@@ -48,7 +48,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			}
 
 			string s;
-			if ((Account.Level >= 100 || Account.ToiletIsAvailable)) {
+			if ((Account.Level >= 100 && Account.ToiletIsAvailable)) {
 				ThreadSleep(Account.Settings.minTimeToJoinToilet, Account.Settings.maxTimeToJoinToilet);
 				RaiseMessageEvent("WC betreten");
 				s = SendRequest(ActionTypes.JoinToilet);
