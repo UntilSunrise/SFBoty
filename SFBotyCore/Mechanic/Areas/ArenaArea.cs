@@ -63,9 +63,13 @@ namespace SFBotyCore.Mechanic.Areas {
 					s = SendRequest(ActionTypes.JoinArena);
 					string[] arenaAnswer = s.Substring(4, s.Length - 5).Split(';');
 
-					enemyLevel = Convert.ToInt32(arenaAnswer[ResponseTypes.ArenaEnemyLevel]);
-					enemyNick = arenaAnswer[ResponseTypes.ArenaEnemyNick];
-					enemyGuildNick = arenaAnswer[ResponseTypes.ArenaGuildNick];
+					if (arenaAnswer.Count() >= ResponseTypes.ArenaEnemyLevel && arenaAnswer.Count() >= ResponseTypes.ArenaEnemyNick && arenaAnswer.Count() >= ResponseTypes.ArenaGuildNick) {
+						enemyLevel = Convert.ToInt32(arenaAnswer[ResponseTypes.ArenaEnemyLevel]);
+						enemyNick = arenaAnswer[ResponseTypes.ArenaEnemyNick];
+						enemyGuildNick = arenaAnswer[ResponseTypes.ArenaGuildNick];
+					} else {
+						return;
+					}
 				} else {
 					Random random = new Random(System.Environment.TickCount);
 
@@ -77,10 +81,16 @@ namespace SFBotyCore.Mechanic.Areas {
 						HoFCharacters.Add(i, new HoFCharacter(s.Split('/'), i * ResponseTypes.HoFOffset));
 						i++;
 					}
+
 					int myRandomEnemy = random.Next(1, 16);
-					enemyLevel = HoFCharacters[myRandomEnemy].Level;
-					enemyNick = HoFCharacters[myRandomEnemy].CharacterNick;
-					enemyGuildNick = HoFCharacters[myRandomEnemy].GuildNick;
+
+					if (HoFCharacters.Count() >= myRandomEnemy) {
+						enemyLevel = HoFCharacters[myRandomEnemy].Level;
+						enemyNick = HoFCharacters[myRandomEnemy].CharacterNick;
+						enemyGuildNick = HoFCharacters[myRandomEnemy].GuildNick;
+					} else {
+						return;
+					}
 				}
 				tries++;
 				if (tries == maxTries) {
@@ -98,6 +108,8 @@ namespace SFBotyCore.Mechanic.Areas {
 
 				fightAnswer = s.Split(';');
 
+				Asserts.IsTrue(fightAnswer.Count() >= 8, "Unerwarteter Fehler im Arena-Bereich");
+
 				bool win = Convert.ToInt32(fightAnswer[1].Split('/')[fightAnswer[1].Split('/').Length - 7]) > 0 ? true : false;
 				int honorChange = Convert.ToInt32(fightAnswer[7]);
 				double goldChange = Convert.ToDouble(fightAnswer[8]) / 100;
@@ -109,10 +121,9 @@ namespace SFBotyCore.Mechanic.Areas {
 				}
 				//Account Daten aktualisieren
 				s = SendRequest(ActionTypes.JoinCharacter);
+				Asserts.IsTrue(s.Split('/').Count() >= 2, "Unerwarteter Fehler im Arena-Bereich");
+				CharScreenArea.UpdateAccountStats(s, Account);
 				Account.ArenaEndTime = s.Split('/')[ResponseTypes.NextFreeDuellTimestamp].MillisecondsToDateTime();
-				Account.Silver = Convert.ToInt64(s.Split('/')[ResponseTypes.Silver]);
-				Account.Rang = Convert.ToInt32(s.Split('/')[ResponseTypes.Rang]);
-				Account.Honor = Convert.ToInt32(s.Split('/')[ResponseTypes.Honor]);
 			} else {
 				RaiseMessageEvent("Es wurde kein passender Gegner gefunden.");
 				return;
