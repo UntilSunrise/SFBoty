@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace SFBotyCore.Mechanic.Account {
+	[Serializable]
 	public class Guild {
 		public string Name { get; set; }
 		public string[] MemberNames { get; set; }

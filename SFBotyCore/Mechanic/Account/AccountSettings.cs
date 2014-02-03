@@ -30,8 +30,16 @@ namespace SFBotyCore.Mechanic.Account {
 		public bool PerformArena { get; set; }
 		public int MaxTriesToFindEnemy { get; set; }
 		public bool AttackSuggestedEnemy { get; set; }
-		public bool AttackEnemyBetweenRange { get; set; }
+		public bool AttackEnemyBetweenRange { get; set; } //Ist eine ungenutzte Variable
+		/// <summary>
+		/// Oberegrenze des Ranges zum Angriff.
+		/// z.B. 5 = Rang + 5;
+		/// </summary>
 		public int UpperRangeLimit { get; set; }
+		/// <summary>
+		/// Untere Ranggrenze zum Angriff.
+		/// z.B. 100 = Rang - 100;
+		/// </summary>
 		public int LowerRangeLimit { get; set; }
 		public int LevelDifference { get; set; }
 		public string IgnoreGuilds { get; set; }

@@ -43,8 +43,8 @@ namespace SFBotyCore.Mechanic.Areas {
 			List<string> playerFilter = Account.Settings.IgnorePlayers.Split('/').ToList<string>();
 			int levelDifference = Account.Settings.LevelDifference;
 			int rang = Account.Rang;
-			int maxRangeLimit = rang - Account.Settings.UpperRangeLimit;
-			int minRangeLimit = rang + Account.Settings.LowerRangeLimit;
+			int maxRangeLimit = rang + Account.Settings.UpperRangeLimit;
+			int minRangeLimit = rang - Account.Settings.LowerRangeLimit;
 			int myLevel = Account.Level;
 			int maxTries = Account.Settings.MaxTriesToFindEnemy;
 
@@ -73,7 +73,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				} else {
 					Random random = new Random(System.Environment.TickCount);
 
-					s = SendRequest(string.Concat(ActionTypes.JoinHallOfFame, random.Next(maxRangeLimit, minRangeLimit))).Remove(0, 4);
+					s = SendRequest(string.Concat(ActionTypes.JoinHallOfFame, random.Next(minRangeLimit, maxRangeLimit))).Remove(0, 4);
 
 					int i = 0;
 					Dictionary<int, HoFCharacter> HoFCharacters = new Dictionary<int, HoFCharacter>();
@@ -104,6 +104,7 @@ namespace SFBotyCore.Mechanic.Areas {
 
 			if (tries <= maxTries) {
 				RaiseMessageEvent(string.Format("Greife Spieler: {0} an.", enemyNick));
+				ThreadSleep(Account.Settings.minTimeToJoinHoF, Account.Settings.maxTimeToJoinHoF);
 				s = SendRequest(string.Concat(ActionTypes.AttackEnemy, enemyNick));
 
 				fightAnswer = s.Split(';');
@@ -120,6 +121,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					RaiseMessageEvent(string.Format("Du hast gegen {0} verloren. Ehre: -{1} Gold: -{2}", enemyNick, honorChange, goldChange));
 				}
 				//Account Daten aktualisieren
+				ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
 				s = SendRequest(ActionTypes.JoinCharacter);
 				Asserts.IsTrue(s.Split('/').Count() >= 2, "Unerwarteter Fehler im Arena-Bereich");
 				CharScreenArea.UpdateAccountStats(s, Account);
