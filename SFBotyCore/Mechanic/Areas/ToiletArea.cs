@@ -110,6 +110,7 @@ namespace SFBotyCore.Mechanic.Areas {
 
 			if (answerToilet[(int)ToiletAnswer.Exp] == answerToilet[(int)ToiletAnswer.ExpToNextLevel]) {
 				RaiseMessageEvent("WC ist voll, Spülung wird gedrückt.");
+				ThreadSleep(Account.Settings.minTimeToDoToilet, Account.Settings.maxTimeToDoToilet);
 				s = SendRequest(ActionTypes.FlushToilet);
 
 				answerToilet = s.Split('/');
