@@ -105,7 +105,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			if (tries <= maxTries) {
 				RaiseMessageEvent(string.Format("Greife Spieler: {0} an.", enemyNick));
 				ThreadSleep(Account.Settings.minTimeToJoinHoF, Account.Settings.maxTimeToJoinHoF);
-				s = SendRequest(string.Concat(ActionTypes.AttackEnemy, enemyNick));
+				s = SendRequest(string.Concat(ActionTypes.AttackEnemy, enemyNick.Replace(" ", "%20")));
 
 				fightAnswer = s.Split(';');
 
