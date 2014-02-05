@@ -64,12 +64,19 @@ namespace SFBotyCore.Mechanic {
 				}
 			}
 
+			int count = 3;
 			do {
 				if (s == "E065") {
 					Account.Logout();
 					ThreadSleep(1f, 2f);
 					s = SendRequest(ActionTypes.LoginToSF);
 					LoginArea.UpdateLoginData(s, Account);
+					ThreadSleep(5f, 6f);
+					count -= 1;
+				}
+
+				if (count < 0) {
+					throw new Exception("Can't login anymore");
 				}
 
 				streamData = RefClient.OpenRead(String.Concat("http://", Account.Settings.Server, ".sfgame.de/request.php?req=", Account.Settings.SessionID, action, "&random=%2&rnd=", RandomValue, (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds));

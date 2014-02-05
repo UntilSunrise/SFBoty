@@ -22,7 +22,7 @@ namespace SFBotyConsole {
 			//AccountSettings settings = new AccountSettings("nickname", "passworthash", "server");
 			//accountSettings.Add(settings);
 
-			SaveSettings(accountSettings);
+			//SaveSettings(accountSettings);
 
 			List<Account> accounts = new List<Account>();
 			accountSettings.ForEach(s => accounts.Add(new Account(s)));
