@@ -22,5 +22,9 @@ namespace SFBotyCore {
 		public static bool IsOtherDay(this DateTime source, DateTime target) {
 			return source.Day != target.Day || source.Month != target.Month || source.Year != target.Year;
 		}
+
+		public static bool IsBetween(this int source, int min, int max) {
+			return source >= min && source <= max;
+		}
 	}
 }

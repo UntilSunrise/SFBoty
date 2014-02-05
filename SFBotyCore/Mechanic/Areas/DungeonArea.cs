@@ -191,7 +191,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				return;
 			}
 
-			if ((Account.ALU_Seconds == 0 || !Account.Settings.PerformQuesten) && !Account.QuestIsStarted && !Account.TownWatchIsStarted) {
+			if (!Account.QuestIsStarted && !Account.TownWatchIsStarted || Account.MirrorIsCompleted) {
 				ThreadSleep(Account.Settings.minTimeToJoinDungeon, Account.Settings.maxTimeToJoinDungeon);
 				RaiseMessageEvent("Dungeonübersicht betreten");
 				string s = SendRequest(ActionTypes.JoinDungeon);

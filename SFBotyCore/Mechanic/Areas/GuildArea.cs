@@ -48,7 +48,6 @@ namespace SFBotyCore.Mechanic.Areas {
 				hasJoinIn = true;
 			}
 
-			//check of has a guild
 			if (DateTime.Now > Account.NextGuildVisit) {
 				if (!hasJoinIn) {
 					RaiseMessageEvent("Betrete die Gilde");
@@ -83,22 +82,8 @@ namespace SFBotyCore.Mechanic.Areas {
 }
 
 /*
-DateTime t = mfbot.TimeReturnUnix2DateUtc((long)Convert.ToInt32(array.GetValue(365)));
-					DateTime t2 = mfbot.TimeReturnUnix2DateUtc((long)Convert.ToInt32(array.GetValue(367)));
-					if (t > DateTime.UtcNow)
-					{
-						string hTML2 = this.getHTML(name, "112", this.v);
-						if (!hTML2.Substring(0, 2).Contains("E") || hTML2.Substring(0, 2).Contains("E064"))
-						{
-							this.writeLog(name, string.Format(this.rm.GetString("Charakter wurde zum Gildenangriff am {0} gemeldet."), t.ToString()), "INFO-GLD");
-						}
-					}
-					if (t2 > DateTime.UtcNow)
-					{
-						string hTML3 = this.getHTML(name, "113", this.v);
-						if (!hTML3.Substring(0, 2).Contains("E") || hTML3.Substring(0, 2).Contains("E064"))
-						{
-							this.writeLog(name, string.Format(this.rm.GetString("Charakter wurde zur Gildenverteidigung am {0} gemeldet."), t2.ToString()), "INFO-GLD");
-						}
-					}
-*/
+ * 365 AngriffsZeit
+ * 376 Verteidigungszeit
+ * 1 - Gilden Silber
+ * 2 - Gilden Pilze 
+ */

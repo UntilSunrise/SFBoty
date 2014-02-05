@@ -39,6 +39,7 @@ namespace SFBotyCore.Constants {
 
 		/// <summary>
 		/// Es muss noch der Nick des Spielers angehangen werden.
+		/// Eventuelle Leerzeichen in Namen müssen nachträglich entsprechend ersetzt werden.
 		/// </summary>
 		public static string AttackEnemy = "512";
 
@@ -47,6 +48,10 @@ namespace SFBotyCore.Constants {
 		public static string JoinTownWatch = "012";
 		public static string DoTownWatch1Hour = "5021";
 		public static string DoTownWatch10Hour = "50210";
+		/// <summary>
+		/// Arbeitszeit in Stunden muss noch angehangen werden
+		/// </summary>
+		public static string DoTownWatchHour = "502";
 
 		public static string JoinToilet = "303";
 		public static string FlushToilet = "302";

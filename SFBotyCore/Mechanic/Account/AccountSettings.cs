@@ -23,11 +23,12 @@ namespace SFBotyCore.Mechanic.Account {
 		public bool PerformBuyStats { get; set; }
 		public bool PerformStadtwache { get; set; }
 		public bool PerformDungeons { get; set; }
-
 		public bool PerformToilet { get; set; }
+		public bool PerformArena { get; set; }
+		public bool PerformGuild { get; set; }
+
 		public bool SellToiletItemIfNotEpic { get; set; }
 
-		public bool PerformArena { get; set; }
 		public int MaxTriesToFindEnemy { get; set; }
 		public bool AttackSuggestedEnemy { get; set; }
 		public bool AttackEnemyBetweenRange { get; set; } //Ist eine ungenutzte Variable
@@ -54,9 +55,11 @@ namespace SFBotyCore.Mechanic.Account {
 		public bool BuyBeer { get; set; }
 		public int MaxBeerToBuy { get; set; }
 
-		public bool PerformGuild { get; set; }
 		public bool DonateGold { get; set; }
 		public float FactorToDonate { get; set; }
+
+		public int TownWatchMinHourForShortWork { get; set; }
+		public int TownWatchMaxHourForShortWork { get; set; }
 
 		//times are in Sekunds
 		#region Times
@@ -153,6 +156,9 @@ namespace SFBotyCore.Mechanic.Account {
 
 			this.BuyBeer = false;
 			this.MaxBeerToBuy = 10;
+
+			this.TownWatchMinHourForShortWork = 9;
+			this.TownWatchMaxHourForShortWork = 21;
 
 			this.minTimeToJoinTarvern = 2f;
 			this.maxTimeToJoinTarvern = 5f;
