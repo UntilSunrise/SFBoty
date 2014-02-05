@@ -19,10 +19,8 @@ namespace SFBotyConsole {
 
 			List<AccountSettings> accountSettings = new List<AccountSettings>();
 			accountSettings = LoadSettings();
-			//AccountSettings settings = new AccountSettings("Nickname", "passwordhash", "server");
-			//Account acc = new Account(settings);
-			//accounts.Add(acc);
-			//SaveAccounts(accounts);
+			//AccountSettings settings = new AccountSettings("nickname", "passworthash", "server");
+			//accountSettings.Add(settings);
 
 			SaveSettings(accountSettings);
 
@@ -36,11 +34,7 @@ namespace SFBotyConsole {
 				bots.Add(bot);
 			}
 
-			System.IO.StreamWriter writer = new System.IO.StreamWriter(String.Concat("log", DateTime.Now.ToShortDateString(), ".log"), true);
 			Console.WriteLine(DateTime.Now.ToString() + ": Bot wurde gestartet");
-			writer.WriteLine(DateTime.Now.ToString() + ": Bot wurde gestartet");
-			writer.Close();
-			writer.Dispose();
 
 			bots.ForEach(b => b.Run());
 		}
@@ -70,11 +64,16 @@ namespace SFBotyConsole {
 		}
 
 		static void bot_MessageOutput(object sender, MessageEventsArgs e) {
-			System.IO.StreamWriter writer = new System.IO.StreamWriter(String.Concat("log", DateTime.Now.ToShortDateString(), ".log"), true);
-
 			Bot tmp = (Bot)sender;
+
+			if (!System.IO.Directory.Exists("Logs")) {
+				System.IO.Directory.CreateDirectory("Logs");
+			}
+
+			System.IO.StreamWriter writer = new System.IO.StreamWriter(String.Concat("Logs/", tmp.Account.Settings.Server, "-", tmp.Account.Settings.Username, "-log-", DateTime.Now.ToShortDateString(), ".log"), true);
+
 			Console.WriteLine(DateTime.Now.ToString() + " " + tmp.Account.Settings.Username + "(" + tmp.Account.Settings.Server + "): " + e.Message);
-			writer.WriteLine(DateTime.Now.ToString() + " " + tmp.Account.Settings.Username + "(" + tmp.Account.Settings.Server + "): " + e.Message);
+			writer.WriteLine(DateTime.Now.ToString() + ": " + e.Message);
 
 			writer.Close();
 			writer.Dispose();
