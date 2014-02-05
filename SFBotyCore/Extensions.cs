@@ -26,5 +26,15 @@ namespace SFBotyCore {
 		public static bool IsBetween(this int source, int min, int max) {
 			return source >= min && source <= max;
 		}
+
+		public static string Escape(this string s) {
+			return s.Replace(" ", "%20")
+					.Replace("Ä", "%C4")
+					.Replace("Ö", "%D6")
+					.Replace("Ü", "%DC")
+					.Replace("ü", "%FC")
+					.Replace("ä", "%E4")
+					.Replace("ö", "%FC"); //Ich weiß selbst das diese Stelle hier hässlich ist, aber flash escaped ihre werte sehr seltsam und ich hab in C# kein identisches Verfahren gefunden
+		}
 	}
 }
