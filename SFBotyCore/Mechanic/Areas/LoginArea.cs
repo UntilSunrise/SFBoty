@@ -39,29 +39,33 @@ namespace SFBotyCore.Mechanic.Areas {
 				string s = SendRequest(ActionTypes.LoginToSF);
 				RaiseMessageEvent("Login");
 
-				Account.Settings.SessionID = s.Split('/')[ResponseTypes.SessionID].Split(';')[2];
-				Account.Silver = Convert.ToInt32(s.Split('/')[ResponseTypes.Silver]);
-				Account.Mushroom = Convert.ToInt32(s.Split('/')[ResponseTypes.Mushrooms]);
-				Account.Level = Convert.ToInt32(s.Split('/')[ResponseTypes.Level]);
-				Account.Rang = Convert.ToInt32(s.Split('/')[ResponseTypes.Rang]);
-				Account.Honor = Convert.ToInt32(s.Split('/')[ResponseTypes.Honor]);
-				Account.DungeonEndTime = s.Split('/')[ResponseTypes.NextFreeDungeonTimestamp].MillisecondsToDateTime();
-				Account.ArenaEndTime = s.Split('/')[ResponseTypes.NextFreeDuellTimestamp].MillisecondsToDateTime();
-				Account.MirrorIsCompleted = s.Split('/').HasMirror();
-				DateTime actionDate = s.Split('/')[ResponseTypes.ActionDateTimestamp].MillisecondsToDateTime();
-				string actionStatus = s.Split('/')[ResponseTypes.ActionStatus];
-				if (DateTime.Now < actionDate) {
-					if (actionStatus == ActionStatusTypes.TownWatchTaken) {
-						Account.TownWatchEndTime = actionDate;
-						Account.TownWatchIsStarted = true;
-					} else {
-						Account.QuestEndTime = actionDate;
-						Account.QuestIsStarted = true;
-					}
-				}
-
-				Account.ALU_Seconds = Convert.ToInt32(s.Split('/')[ResponseTypes.ALU]);
+				UpdateLoginData(s, Account);
 			}
+		}
+
+		public static void UpdateLoginData(string s, Account.Account acc) {
+			acc.Settings.SessionID = s.Split('/')[ResponseTypes.SessionID].Split(';')[2];
+			acc.Silver = Convert.ToInt32(s.Split('/')[ResponseTypes.Silver]);
+			acc.Mushroom = Convert.ToInt32(s.Split('/')[ResponseTypes.Mushrooms]);
+			acc.Level = Convert.ToInt32(s.Split('/')[ResponseTypes.Level]);
+			acc.Rang = Convert.ToInt32(s.Split('/')[ResponseTypes.Rang]);
+			acc.Honor = Convert.ToInt32(s.Split('/')[ResponseTypes.Honor]);
+			acc.DungeonEndTime = s.Split('/')[ResponseTypes.NextFreeDungeonTimestamp].MillisecondsToDateTime();
+			acc.ArenaEndTime = s.Split('/')[ResponseTypes.NextFreeDuellTimestamp].MillisecondsToDateTime();
+			acc.MirrorIsCompleted = s.Split('/').HasMirror();
+			DateTime actionDate = s.Split('/')[ResponseTypes.ActionDateTimestamp].MillisecondsToDateTime();
+			string actionStatus = s.Split('/')[ResponseTypes.ActionStatus];
+			if (DateTime.Now < actionDate) {
+				if (actionStatus == ActionStatusTypes.TownWatchTaken) {
+					acc.TownWatchEndTime = actionDate;
+					acc.TownWatchIsStarted = true;
+				} else {
+					acc.QuestEndTime = actionDate;
+					acc.QuestIsStarted = true;
+				}
+			}
+
+			acc.ALU_Seconds = Convert.ToInt32(s.Split('/')[ResponseTypes.ALU]);
 		}
 
 		public override void RaiseMessageEvent(string s) {

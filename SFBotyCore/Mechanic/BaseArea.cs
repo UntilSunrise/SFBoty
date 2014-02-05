@@ -52,7 +52,7 @@ namespace SFBotyCore.Mechanic {
 		}
 
 		protected string SendRequest(string action) {
-			string s;
+			string s = "";
 			if (action == ActionTypes.LoginToSF) {
 				if (Account.Settings.HasLogin) {
 					throw new Exception("Fehler im SendRequest");
@@ -63,7 +63,14 @@ namespace SFBotyCore.Mechanic {
 					return sData;
 				}
 			}
+
 			do {
+				if (s == "E065") {
+					Account.Logout();
+					s = SendRequest(ActionTypes.LoginToSF);
+					LoginArea.UpdateLoginData(s, Account);
+				}
+
 				streamData = RefClient.OpenRead(String.Concat("http://", Account.Settings.Server, ".sfgame.de/request.php?req=", Account.Settings.SessionID, action, "&random=%2&rnd=", RandomValue, (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds));
 				streamReader = new StreamReader(streamData);
 				s = streamReader.ReadToEnd();
