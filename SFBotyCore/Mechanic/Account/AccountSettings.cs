@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace SFBotyCore.Mechanic.Account {
 	public enum AutoQuestMode {
@@ -11,12 +12,14 @@ namespace SFBotyCore.Mechanic.Account {
 		HighstMountPerSecond
 	}
 
-	[Serializable]
 	public class AccountSettings {
 		public string Username { get; set; }
 		public string PasswordHash { get; set; }
 		public string Server { get; set; }
-		public string SessionID { get; set; }
+		
+		private string _sessionID = null;
+		[XmlIgnoreAttribute]
+		public string SessionID { get { return _sessionID == null ? EmpytSessionID : _sessionID; } set { _sessionID = value; } }
 		private static string EmpytSessionID = "00000000000000000000000000000000";
 
 		public bool PerformQuesten { get; set; }
@@ -118,6 +121,10 @@ namespace SFBotyCore.Mechanic.Account {
 
 		public bool HasLogin { get { return SessionID != EmpytSessionID; } }
 		public AutoQuestMode QuestMode { get; set; }
+
+		public AccountSettings() {
+			//only for Serialization
+		}
 
 		public AccountSettings(string username, string passwortHash, string server) {
 			this.Username = username;
