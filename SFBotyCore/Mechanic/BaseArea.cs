@@ -67,6 +67,7 @@ namespace SFBotyCore.Mechanic {
 			do {
 				if (s == "E065") {
 					Account.Logout();
+					ThreadSleep(1f, 2f);
 					s = SendRequest(ActionTypes.LoginToSF);
 					LoginArea.UpdateLoginData(s, Account);
 				}
