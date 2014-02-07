@@ -69,21 +69,42 @@ namespace SFBotyCore.Mechanic.Areas {
 				string guildHonor = guildInformation[3];
 				string guildRang = guildInformation[4];
 
+				string[] answer = s.Split('/');
+				string guildSilver = answer[1];
+				string guildMushrooms = answer[2];
+
 				Account.Guild.MemberNames = members.Split('/');
 				Account.Guild.WellcomeText = wellcomeText;
 				Account.Guild.Name = guildName;
 				Account.Guild.Honor = Convert.ToInt32(guildHonor);
 				Account.Guild.Rang = Convert.ToInt32(guildRang);
+				Account.Guild.Silver = Convert.ToInt32(guildSilver);
+				Account.Guild.Mushrooms = Convert.ToInt32(guildMushrooms);
+
+				if (answer[365].MillisecondsToDateTime() > DateTime.Now) {
+					if (!Account.HasJoinAttack) {
+						ThreadSleep(Account.Settings.minTimeToJoinGuild, Account.Settings.maxTimeToJoinGuild);
+						SendRequest(ActionTypes.GuildJoinAttack);
+						Account.HasJoinAttack = true;
+						RaiseMessageEvent("Hat sich um Angriff gemeldet");
+					}
+				} else {
+					Account.HasJoinAttack = false;
+				}
+
+				if (answer[367].MillisecondsToDateTime() > DateTime.Now) {
+					if (!Account.HasJoinDefence) {
+						ThreadSleep(Account.Settings.minTimeToJoinGuild, Account.Settings.maxTimeToJoinGuild);
+						SendRequest(ActionTypes.GuildJoinDefence);
+						Account.HasJoinDefence = true;
+						RaiseMessageEvent("Hat sich zur Verteidigung gemeldet");
+					}
+				} else {
+					Account.HasJoinDefence = false;
+				}
 
 				Account.NextGuildVisit = DateTime.Now.AddSeconds(Account.Settings.guildVisitInterval);
 			}
 		}
 	}
 }
-
-/*
- * 365 AngriffsZeit
- * 376 Verteidigungszeit
- * 1 - Gilden Silber
- * 2 - Gilden Pilze 
- */

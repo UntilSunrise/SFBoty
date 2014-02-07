@@ -9,6 +9,7 @@ using SFBotyCore.Mechanic.Areas;
 using Assert;
 using System.Threading;
 using SFBotyCore.Constants;
+using System.Net.NetworkInformation;
 
 namespace SFBotyCore.Mechanic {
 	public abstract class BaseArea : IMenuArea {
@@ -53,6 +54,11 @@ namespace SFBotyCore.Mechanic {
 
 		protected string SendRequest(string action) {
 			string s = "";
+			int foo = 0;
+			if (CheckInternetConnection()) {
+				DoReLogin(ref s, ref foo);
+			}
+			
 			if (action == ActionTypes.LoginToSF) {
 				if (Account.Settings.HasLogin) {
 					throw new Exception("Fehler im SendRequest");
@@ -67,12 +73,7 @@ namespace SFBotyCore.Mechanic {
 			int count = 3;
 			do {
 				if (s == "E065") {
-					Account.Logout();
-					ThreadSleep(1f, 2f);
-					s = SendRequest(ActionTypes.LoginToSF);
-					LoginArea.UpdateLoginData(s, Account);
-					ThreadSleep(5f, 6f);
-					count -= 1;
+					DoReLogin(ref s, ref count);
 				}
 
 				if (count < 0) {
@@ -85,6 +86,28 @@ namespace SFBotyCore.Mechanic {
 			} while (s == "E065");
 
 			return s;
+		}
+
+		private void DoReLogin(ref string s, ref int count) {
+			Account.Logout();
+			ThreadSleep(1f, 2f);
+			s = SendRequest(ActionTypes.LoginToSF);
+			LoginArea.UpdateLoginData(s, Account);
+			ThreadSleep(5f, 6f);
+			count -= 1;
+		}
+
+		private bool CheckInternetConnection() {
+			PingReply reply;
+			Ping ping = new Ping();
+			int pingCount = 0;
+			do {
+				pingCount += 1;
+				reply = ping.Send("8.8.8.8");
+				ThreadSleep(0.25f, 0.30f);
+			} while (reply.Status != IPStatus.Success);
+
+			return pingCount > 1;
 		}
 
 		/// <summary>

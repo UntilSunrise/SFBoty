@@ -53,6 +53,8 @@ namespace SFBotyCore.Mechanic.Account {
 		public Guild Guild { get; set; }
 		public bool HasAGuild { get; set; }
 		public DateTime LastDonateTime { get; set; }
+		public bool HasJoinAttack { get; set; }
+		public bool HasJoinDefence { get; set; }
 
 		public Account(AccountSettings settings) {
 			Settings = settings;
@@ -94,6 +96,8 @@ namespace SFBotyCore.Mechanic.Account {
 
 			Guild = new Guild();
 			HasAGuild = true;
+			HasJoinAttack = false;
+			HasJoinDefence = false;
 
 			LastDonateTime = DateTime.Now;
 		}

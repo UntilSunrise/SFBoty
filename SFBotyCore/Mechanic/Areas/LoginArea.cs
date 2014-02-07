@@ -44,17 +44,19 @@ namespace SFBotyCore.Mechanic.Areas {
 		}
 
 		public static void UpdateLoginData(string s, Account.Account acc) {
-			acc.Settings.SessionID = s.Split('/')[ResponseTypes.SessionID].Split(';')[2];
-			acc.Silver = Convert.ToInt32(s.Split('/')[ResponseTypes.Silver]);
-			acc.Mushroom = Convert.ToInt32(s.Split('/')[ResponseTypes.Mushrooms]);
-			acc.Level = Convert.ToInt32(s.Split('/')[ResponseTypes.Level]);
-			acc.Rang = Convert.ToInt32(s.Split('/')[ResponseTypes.Rang]);
-			acc.Honor = Convert.ToInt32(s.Split('/')[ResponseTypes.Honor]);
-			acc.DungeonEndTime = s.Split('/')[ResponseTypes.NextFreeDungeonTimestamp].MillisecondsToDateTime();
-			acc.ArenaEndTime = s.Split('/')[ResponseTypes.NextFreeDuellTimestamp].MillisecondsToDateTime();
-			acc.MirrorIsCompleted = s.Split('/').HasMirror();
-			DateTime actionDate = s.Split('/')[ResponseTypes.ActionDateTimestamp].MillisecondsToDateTime();
-			string actionStatus = s.Split('/')[ResponseTypes.ActionStatus];
+			string[] answer = s.Split('/');
+
+			acc.Settings.SessionID = answer[ResponseTypes.SessionID].Split(';')[2];
+			acc.Silver = Convert.ToInt32(answer[ResponseTypes.Silver]);
+			acc.Mushroom = Convert.ToInt32(answer[ResponseTypes.Mushrooms]);
+			acc.Level = Convert.ToInt32(answer[ResponseTypes.Level]);
+			acc.Rang = Convert.ToInt32(answer[ResponseTypes.Rang]);
+			acc.Honor = Convert.ToInt32(answer[ResponseTypes.Honor]);
+			acc.DungeonEndTime = answer[ResponseTypes.NextFreeDungeonTimestamp].MillisecondsToDateTime();
+			acc.ArenaEndTime = answer[ResponseTypes.NextFreeDuellTimestamp].MillisecondsToDateTime();
+			acc.MirrorIsCompleted = answer.HasMirror();
+			DateTime actionDate = answer[ResponseTypes.ActionDateTimestamp].MillisecondsToDateTime();
+			string actionStatus = answer[ResponseTypes.ActionStatus];
 			if (DateTime.Now < actionDate) {
 				if (actionStatus == ActionStatusTypes.TownWatchTaken) {
 					acc.TownWatchEndTime = actionDate;
@@ -65,7 +67,27 @@ namespace SFBotyCore.Mechanic.Areas {
 				}
 			}
 
-			acc.ALU_Seconds = Convert.ToInt32(s.Split('/')[ResponseTypes.ALU]);
+			acc.ALU_Seconds = Convert.ToInt32(answer[ResponseTypes.ALU]);
+
+			GuildAttackDefenceTypes type = answer[ResponseTypes.GuildAttackDefenceEnum].ToEnum<GuildAttackDefenceTypes>();
+			switch (type) {
+				case GuildAttackDefenceTypes.NoAction:
+					acc.HasJoinAttack = false;
+					acc.HasJoinDefence = false;
+					break;
+				case GuildAttackDefenceTypes.JoinAttack:
+					acc.HasJoinAttack = true;
+					acc.HasJoinDefence = false;
+					break;
+				case GuildAttackDefenceTypes.JoinDefence:
+					acc.HasJoinAttack = false;
+					acc.HasJoinDefence = true;
+					break;
+				case GuildAttackDefenceTypes.JoinBoth:
+					acc.HasJoinAttack = true;
+					acc.HasJoinDefence = true;
+					break;
+			}
 		}
 
 		public override void RaiseMessageEvent(string s) {

@@ -11,6 +11,8 @@ namespace SFBotyCore.Mechanic.Account {
 		public string WellcomeText { get; set; }
 		public int Honor { get; set; }
 		public int Rang { get; set; }
+		public int Silver { get; set; }
+		public int Mushrooms { get; set; }
 
 		public Guild() {
 			Name = "None";
@@ -18,6 +20,9 @@ namespace SFBotyCore.Mechanic.Account {
 			WellcomeText = "";
 			Honor = 0;
 			Rang = 0;
+
+			Silver = 0;
+			Mushrooms = 0;
 		}
 	}
 }

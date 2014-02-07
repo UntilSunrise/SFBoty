@@ -88,6 +88,7 @@ namespace SFBotyCore.Constants {
 
 		#region GuildTypes
 		public static string PlayerHasNoGuild = "017";
+		public static int GuildAttackDefenceEnum = 508;
 		#endregion
 	}
 }

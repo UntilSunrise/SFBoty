@@ -45,6 +45,7 @@
     <Compile Include="Constants\ActionStatusTypes.cs" />
     <Compile Include="Constants\AttributeTypes.cs" />
     <Compile Include="Constants\ClassTypes.cs" />
+    <Compile Include="Constants\GuildAttackDefenceTypes.cs" />
     <Compile Include="Constants\ItemTypes.cs" />
     <Compile Include="Constants\ResponseTypes.cs" />
     <Compile Include="Helper.cs" />
