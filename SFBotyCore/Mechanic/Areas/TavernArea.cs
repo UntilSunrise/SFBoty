@@ -40,7 +40,9 @@ namespace SFBotyCore.Mechanic.Areas {
 
 				//Stadtwache oder Quest bestätigen
 				if (s.Substring(0,4).Contains("103") || s.Substring(0, 4).Contains("106")) {
+					ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
 					s = SendRequest(ActionTypes.JoinCharacter);
+					ThreadSleep(Account.Settings.minTimeToJoinTarvern, Account.Settings.maxTimeToJoinTarvern);
 					s = SendRequest(ActionTypes.JoinTarvern);
 					answerTavern = s.Split('/');
 				}
