@@ -39,7 +39,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				string[] answerTavern = s.Split('/');
 
 				//Stadtwache oder Quest bestätigen
-				if (s.Substring(0,4).Contains("103") || s.Substring(0, 4).Contains("106")) {
+				if (s.Substring(0, 4).Contains("103") || s.Substring(0, 4).Contains("106")) {
 					ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
 					s = SendRequest(ActionTypes.JoinCharacter);
 					ThreadSleep(Account.Settings.minTimeToJoinTarvern, Account.Settings.maxTimeToJoinTarvern);
@@ -77,6 +77,10 @@ namespace SFBotyCore.Mechanic.Areas {
 				int quest2Dauer = Convert.ToInt32(answerTavern[242]);
 				int quest3Dauer = Convert.ToInt32(answerTavern[243]);
 
+				ItemTypes quest1ItemType = (ItemTypes)Convert.ToInt32(answerTavern[244]);
+				ItemTypes quest2ItemType = (ItemTypes)Convert.ToInt32(answerTavern[256]);
+				ItemTypes quest3ItemType = (ItemTypes)Convert.ToInt32(answerTavern[278]);
+
 				int quest1XP = Convert.ToInt32(answerTavern[280]);
 				int quest2XP = Convert.ToInt32(answerTavern[281]);
 				int quest3XP = Convert.ToInt32(answerTavern[282]);
@@ -85,108 +89,133 @@ namespace SFBotyCore.Mechanic.Areas {
 				int quest2Gold = Convert.ToInt32(answerTavern[284]);
 				int quest3Gold = Convert.ToInt32(answerTavern[285]);
 
+				// 30 - 42 => Spiegelstück
+				// 1 - 10 => Dungeonschlüssel
+				// 20 => Kloschlüssel
+				int keyOrMirrorDescription = Convert.ToInt32(answerTavern[245]);
+
 				if (Account.Settings.PerformQuesten) {
 					ThreadSleep(Account.Settings.minTimeToTakeQuest, Account.Settings.maxTimeToTakeQuest);
-					switch (Account.Settings.QuestMode) {
-						case AutoQuestMode.BestXP:
-							int xpSecondQuest1 = quest1XP / quest1Dauer;
-							int xpSecondQuest2 = quest2XP / quest2Dauer;
-							int xpSecondQuest3 = quest3XP / quest3Dauer;
-							if (xpSecondQuest1 >= xpSecondQuest2 && xpSecondQuest1 >= xpSecondQuest3) {
-								s = SendRequest(ActionTypes.TakeQuest1);
-								Account.ALU_Seconds -= quest1Dauer;
-								Account.QuestIsStarted = true;
-								Account.QuestEndTime = DateTime.Now.AddSeconds(quest1Dauer);
-							} else if (xpSecondQuest2 >= xpSecondQuest1 && xpSecondQuest2 >= xpSecondQuest3) {
-								s = SendRequest(ActionTypes.TakeQuest2);
-								Account.ALU_Seconds -= quest2Dauer;
-								Account.QuestIsStarted = true;
-								Account.QuestEndTime = DateTime.Now.AddSeconds(quest2Dauer);
-							} else if (xpSecondQuest3 >= xpSecondQuest1 && xpSecondQuest3 >= xpSecondQuest2) {
-								s = SendRequest(ActionTypes.TakeQuest3);
-								Account.ALU_Seconds -= xpSecondQuest3;
-								Account.QuestIsStarted = true;
-								Account.QuestEndTime = DateTime.Now.AddSeconds(quest3Dauer);
-							}
-							break;
-						case AutoQuestMode.BestGold:
-							int goldSecondQuest1 = quest1Gold / quest1Dauer;
-							int goldSecondQuest2 = quest2Gold / quest2Dauer;
-							int goldSecondQuest3 = quest3Gold / quest3Dauer;
-							if (goldSecondQuest1 >= goldSecondQuest2 && goldSecondQuest1 >= goldSecondQuest3) {
-								s = SendRequest(ActionTypes.TakeQuest1);
-								Account.ALU_Seconds -= quest1Dauer;
-								Account.QuestIsStarted = true;
-								Account.QuestEndTime = DateTime.Now.AddSeconds(quest1Dauer);
-							} else if (goldSecondQuest2 >= goldSecondQuest1 && goldSecondQuest2 >= goldSecondQuest3) {
-								s = SendRequest(ActionTypes.TakeQuest2);
-								Account.ALU_Seconds -= quest2Dauer;
-								Account.QuestIsStarted = true;
-								Account.QuestEndTime = DateTime.Now.AddSeconds(quest2Dauer);
-							} else if (goldSecondQuest3 >= goldSecondQuest1 && goldSecondQuest3 >= goldSecondQuest2) {
-								s = SendRequest(ActionTypes.TakeQuest3);
-								Account.ALU_Seconds -= quest3Dauer;
-								Account.QuestIsStarted = true;
-								Account.QuestEndTime = DateTime.Now.AddSeconds(quest3Dauer);
-							}
-							break;
-						case AutoQuestMode.BestTime:
-							if (quest1Dauer <= quest2Dauer && quest1Dauer <= quest3Dauer) {
-								s = SendRequest(ActionTypes.TakeQuest1);
-								Account.ALU_Seconds -= quest1Dauer;
-								Account.QuestIsStarted = true;
-								Account.QuestEndTime = DateTime.Now.AddSeconds(quest1Dauer);
-							} else if (quest2Dauer <= quest1Dauer && quest2Dauer <= quest3Dauer) {
-								s = SendRequest(ActionTypes.TakeQuest2);
-								Account.ALU_Seconds -= quest2Dauer;
-								Account.QuestIsStarted = true;
-								Account.QuestEndTime = DateTime.Now.AddSeconds(quest2Dauer);
-							} else if (quest3Dauer <= quest1Dauer && quest3Dauer <= quest2Dauer) {
-								s = SendRequest(ActionTypes.TakeQuest3);
-								Account.ALU_Seconds -= quest3Dauer;
-								Account.QuestIsStarted = true;
-								Account.QuestEndTime = DateTime.Now.AddSeconds(quest3Dauer);
-							}
-							break;
-						case AutoQuestMode.HighstMountPerSecond:
-							int _xpSecondQuest1 = quest1XP / quest1Dauer;
-							int _xpSecondQuest2 = quest2XP / quest2Dauer;
-							int _xpSecondQuest3 = quest3XP / quest3Dauer;
-							int _goldSecondQuest1 = quest1Gold / quest1Dauer;
-							int _goldSecondQuest2 = quest2Gold / quest2Dauer;
-							int _goldSecondQuest3 = quest3Gold / quest3Dauer;
-							if (GreaterThen(_xpSecondQuest1, _xpSecondQuest1, _xpSecondQuest2, _xpSecondQuest3, _goldSecondQuest1, _goldSecondQuest2, _goldSecondQuest3)) {
-								s = SendRequest(ActionTypes.TakeQuest1);
-								Account.ALU_Seconds -= quest1Dauer;
-								Account.QuestIsStarted = true;
-								Account.QuestEndTime = DateTime.Now.AddSeconds(quest1Dauer);
-							} else if (GreaterThen(_xpSecondQuest2, _xpSecondQuest1, _xpSecondQuest2, _xpSecondQuest3, _goldSecondQuest1, _goldSecondQuest2, _goldSecondQuest3)) {
-								s = SendRequest(ActionTypes.TakeQuest2);
-								Account.ALU_Seconds -= quest2Dauer;
-								Account.QuestIsStarted = true;
-								Account.QuestEndTime = DateTime.Now.AddSeconds(quest2Dauer);
-							} else if (GreaterThen(_xpSecondQuest3, _xpSecondQuest1, _xpSecondQuest2, _xpSecondQuest3, _goldSecondQuest1, _goldSecondQuest2, _goldSecondQuest3)) {
-								s = SendRequest(ActionTypes.TakeQuest3);
-								Account.ALU_Seconds -= quest3Dauer;
-								Account.QuestIsStarted = true;
-								Account.QuestEndTime = DateTime.Now.AddSeconds(quest3Dauer);
-							} else if (GreaterThen(_goldSecondQuest1, _xpSecondQuest1, _xpSecondQuest2, _xpSecondQuest3, _goldSecondQuest1, _goldSecondQuest2, _goldSecondQuest3)) {
-								s = SendRequest(ActionTypes.TakeQuest1);
-								Account.ALU_Seconds -= quest1Dauer;
-								Account.QuestIsStarted = true;
-								Account.QuestEndTime = DateTime.Now.AddSeconds(quest1Dauer);
-							} else if (GreaterThen(_goldSecondQuest2, _xpSecondQuest1, _xpSecondQuest2, _xpSecondQuest3, _goldSecondQuest1, _goldSecondQuest2, _goldSecondQuest3)) {
-								s = SendRequest(ActionTypes.TakeQuest2);
-								Account.ALU_Seconds -= quest2Dauer;
-								Account.QuestIsStarted = true;
-								Account.QuestEndTime = DateTime.Now.AddSeconds(quest2Dauer);
-							} else if (GreaterThen(_goldSecondQuest3, _xpSecondQuest1, _xpSecondQuest2, _xpSecondQuest3, _goldSecondQuest1, _goldSecondQuest2, _goldSecondQuest3)) {
-								s = SendRequest(ActionTypes.TakeQuest3);
-								Account.ALU_Seconds -= quest3Dauer;
-								Account.QuestIsStarted = true;
-								Account.QuestEndTime = DateTime.Now.AddSeconds(quest3Dauer);
-							}
-							break;
+					if (quest1ItemType == ItemTypes.SpiegelOderSchlüssel || quest2ItemType == ItemTypes.SpiegelOderSchlüssel || quest3ItemType == ItemTypes.SpiegelOderSchlüssel) {
+						RaiseMessageEvent("Schlüssel oder Spiegelstück gefunden.");
+						if (quest1ItemType == ItemTypes.SpiegelOderSchlüssel) {
+							s = SendRequest(ActionTypes.TakeQuest1);
+									Account.ALU_Seconds -= quest1Dauer;
+									Account.QuestIsStarted = true;
+									Account.QuestEndTime = DateTime.Now.AddSeconds(quest1Dauer);
+						} else if (quest2ItemType == ItemTypes.SpiegelOderSchlüssel ) {
+							s = SendRequest(ActionTypes.TakeQuest2);
+							Account.ALU_Seconds -= quest2Dauer;
+							Account.QuestIsStarted = true;
+							Account.QuestEndTime = DateTime.Now.AddSeconds(quest2Dauer);
+						} else if (quest3ItemType == ItemTypes.SpiegelOderSchlüssel ) {
+							s = SendRequest(ActionTypes.TakeQuest3);
+							Account.ALU_Seconds -= quest3Dauer;
+							Account.QuestIsStarted = true;
+							Account.QuestEndTime = DateTime.Now.AddSeconds(quest3Dauer);
+						}
+					} else {
+						switch (Account.Settings.QuestMode) {
+							case AutoQuestMode.BestXP:
+								int xpSecondQuest1 = quest1XP / quest1Dauer;
+								int xpSecondQuest2 = quest2XP / quest2Dauer;
+								int xpSecondQuest3 = quest3XP / quest3Dauer;
+								if (xpSecondQuest1 >= xpSecondQuest2 && xpSecondQuest1 >= xpSecondQuest3) {
+									s = SendRequest(ActionTypes.TakeQuest1);
+									Account.ALU_Seconds -= quest1Dauer;
+									Account.QuestIsStarted = true;
+									Account.QuestEndTime = DateTime.Now.AddSeconds(quest1Dauer);
+								} else if (xpSecondQuest2 >= xpSecondQuest1 && xpSecondQuest2 >= xpSecondQuest3) {
+									s = SendRequest(ActionTypes.TakeQuest2);
+									Account.ALU_Seconds -= quest2Dauer;
+									Account.QuestIsStarted = true;
+									Account.QuestEndTime = DateTime.Now.AddSeconds(quest2Dauer);
+								} else if (xpSecondQuest3 >= xpSecondQuest1 && xpSecondQuest3 >= xpSecondQuest2) {
+									s = SendRequest(ActionTypes.TakeQuest3);
+									Account.ALU_Seconds -= quest3Dauer;
+									Account.QuestIsStarted = true;
+									Account.QuestEndTime = DateTime.Now.AddSeconds(quest3Dauer);
+								}
+								break;
+							case AutoQuestMode.BestGold:
+								int goldSecondQuest1 = quest1Gold / quest1Dauer;
+								int goldSecondQuest2 = quest2Gold / quest2Dauer;
+								int goldSecondQuest3 = quest3Gold / quest3Dauer;
+								if (goldSecondQuest1 >= goldSecondQuest2 && goldSecondQuest1 >= goldSecondQuest3) {
+									s = SendRequest(ActionTypes.TakeQuest1);
+									Account.ALU_Seconds -= quest1Dauer;
+									Account.QuestIsStarted = true;
+									Account.QuestEndTime = DateTime.Now.AddSeconds(quest1Dauer);
+								} else if (goldSecondQuest2 >= goldSecondQuest1 && goldSecondQuest2 >= goldSecondQuest3) {
+									s = SendRequest(ActionTypes.TakeQuest2);
+									Account.ALU_Seconds -= quest2Dauer;
+									Account.QuestIsStarted = true;
+									Account.QuestEndTime = DateTime.Now.AddSeconds(quest2Dauer);
+								} else if (goldSecondQuest3 >= goldSecondQuest1 && goldSecondQuest3 >= goldSecondQuest2) {
+									s = SendRequest(ActionTypes.TakeQuest3);
+									Account.ALU_Seconds -= quest3Dauer;
+									Account.QuestIsStarted = true;
+									Account.QuestEndTime = DateTime.Now.AddSeconds(quest3Dauer);
+								}
+								break;
+							case AutoQuestMode.BestTime:
+								if (quest1Dauer <= quest2Dauer && quest1Dauer <= quest3Dauer) {
+									s = SendRequest(ActionTypes.TakeQuest1);
+									Account.ALU_Seconds -= quest1Dauer;
+									Account.QuestIsStarted = true;
+									Account.QuestEndTime = DateTime.Now.AddSeconds(quest1Dauer);
+								} else if (quest2Dauer <= quest1Dauer && quest2Dauer <= quest3Dauer) {
+									s = SendRequest(ActionTypes.TakeQuest2);
+									Account.ALU_Seconds -= quest2Dauer;
+									Account.QuestIsStarted = true;
+									Account.QuestEndTime = DateTime.Now.AddSeconds(quest2Dauer);
+								} else if (quest3Dauer <= quest1Dauer && quest3Dauer <= quest2Dauer) {
+									s = SendRequest(ActionTypes.TakeQuest3);
+									Account.ALU_Seconds -= quest3Dauer;
+									Account.QuestIsStarted = true;
+									Account.QuestEndTime = DateTime.Now.AddSeconds(quest3Dauer);
+								}
+								break;
+							case AutoQuestMode.HighstMountPerSecond:
+								int _xpSecondQuest1 = quest1XP / quest1Dauer;
+								int _xpSecondQuest2 = quest2XP / quest2Dauer;
+								int _xpSecondQuest3 = quest3XP / quest3Dauer;
+								int _goldSecondQuest1 = quest1Gold / quest1Dauer;
+								int _goldSecondQuest2 = quest2Gold / quest2Dauer;
+								int _goldSecondQuest3 = quest3Gold / quest3Dauer;
+								if (GreaterThen(_xpSecondQuest1, _xpSecondQuest1, _xpSecondQuest2, _xpSecondQuest3, _goldSecondQuest1, _goldSecondQuest2, _goldSecondQuest3)) {
+									s = SendRequest(ActionTypes.TakeQuest1);
+									Account.ALU_Seconds -= quest1Dauer;
+									Account.QuestIsStarted = true;
+									Account.QuestEndTime = DateTime.Now.AddSeconds(quest1Dauer);
+								} else if (GreaterThen(_xpSecondQuest2, _xpSecondQuest1, _xpSecondQuest2, _xpSecondQuest3, _goldSecondQuest1, _goldSecondQuest2, _goldSecondQuest3)) {
+									s = SendRequest(ActionTypes.TakeQuest2);
+									Account.ALU_Seconds -= quest2Dauer;
+									Account.QuestIsStarted = true;
+									Account.QuestEndTime = DateTime.Now.AddSeconds(quest2Dauer);
+								} else if (GreaterThen(_xpSecondQuest3, _xpSecondQuest1, _xpSecondQuest2, _xpSecondQuest3, _goldSecondQuest1, _goldSecondQuest2, _goldSecondQuest3)) {
+									s = SendRequest(ActionTypes.TakeQuest3);
+									Account.ALU_Seconds -= quest3Dauer;
+									Account.QuestIsStarted = true;
+									Account.QuestEndTime = DateTime.Now.AddSeconds(quest3Dauer);
+								} else if (GreaterThen(_goldSecondQuest1, _xpSecondQuest1, _xpSecondQuest2, _xpSecondQuest3, _goldSecondQuest1, _goldSecondQuest2, _goldSecondQuest3)) {
+									s = SendRequest(ActionTypes.TakeQuest1);
+									Account.ALU_Seconds -= quest1Dauer;
+									Account.QuestIsStarted = true;
+									Account.QuestEndTime = DateTime.Now.AddSeconds(quest1Dauer);
+								} else if (GreaterThen(_goldSecondQuest2, _xpSecondQuest1, _xpSecondQuest2, _xpSecondQuest3, _goldSecondQuest1, _goldSecondQuest2, _goldSecondQuest3)) {
+									s = SendRequest(ActionTypes.TakeQuest2);
+									Account.ALU_Seconds -= quest2Dauer;
+									Account.QuestIsStarted = true;
+									Account.QuestEndTime = DateTime.Now.AddSeconds(quest2Dauer);
+								} else if (GreaterThen(_goldSecondQuest3, _xpSecondQuest1, _xpSecondQuest2, _xpSecondQuest3, _goldSecondQuest1, _goldSecondQuest2, _goldSecondQuest3)) {
+									s = SendRequest(ActionTypes.TakeQuest3);
+									Account.ALU_Seconds -= quest3Dauer;
+									Account.QuestIsStarted = true;
+									Account.QuestEndTime = DateTime.Now.AddSeconds(quest3Dauer);
+								}
+								break;
+						}
 					}
 					RaiseMessageEvent("Quest ends " + Account.QuestEndTime.ToString());
 				}
