@@ -73,7 +73,7 @@ namespace SFBotyConsole {
 
 			CultureInfo culture = new CultureInfo("de-DE");
 
-			System.IO.StreamWriter writer = new System.IO.StreamWriter(String.Concat("Logs/", tmp.Account.Settings.Server, "-", tmp.Account.Settings.Username, "-log-", DateTime.Now.ToShortDateString().ToString(culture), ".log"), true);
+			System.IO.StreamWriter writer = new System.IO.StreamWriter(String.Concat("Logs/", tmp.Account.Settings.Server, "-", tmp.Account.Settings.Username, "-log-", DateTime.Now.ToString(culture).Remove(DateTime.Now.ToString(culture).Length - 9), ".log"), true);
 
 			Console.WriteLine(DateTime.Now.ToString() + " " + tmp.Account.Settings.Username + "(" + tmp.Account.Settings.Server + "): " + e.Message);
 			writer.WriteLine(DateTime.Now.ToString() + ": " + e.Message);
