@@ -47,7 +47,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			string[] answer = s.Split('/');
 
 			acc.Settings.SessionID = answer[ResponseTypes.SessionID].Split(';')[2];
-			acc.Silver = Convert.ToInt32(answer[ResponseTypes.Silver]);
+			acc.Silver = Convert.ToInt64(answer[ResponseTypes.Silver]);
 			acc.Mushroom = Convert.ToInt32(answer[ResponseTypes.Mushrooms]);
 			acc.Level = Convert.ToInt32(answer[ResponseTypes.Level]);
 			acc.Rang = Convert.ToInt32(answer[ResponseTypes.Rang]);
