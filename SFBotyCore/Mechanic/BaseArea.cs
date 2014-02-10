@@ -98,13 +98,15 @@ namespace SFBotyCore.Mechanic {
 		}
 
 		private bool CheckInternetConnection() {
-			PingReply reply;
+			PingReply reply = null;
 			Ping ping = new Ping();
 			int pingCount = 0;
 			do {
-				pingCount += 1;
-				reply = ping.Send("8.8.8.8");
-				ThreadSleep(0.25f, 0.30f);
+				try {
+					pingCount += 1;
+					reply = ping.Send("8.8.8.8");
+					ThreadSleep(0.25f, 0.30f);
+				} catch { }
 			} while (reply.Status != IPStatus.Success);
 
 			return pingCount > 1;
