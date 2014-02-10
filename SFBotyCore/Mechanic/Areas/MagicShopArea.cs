@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using SFBotyCore.Constants;
+using SFBotyCore.Mechanic;
 
 namespace SFBotyCore.Mechanic.Areas {
 	class MagicShopArea : BaseArea {
@@ -29,25 +30,27 @@ namespace SFBotyCore.Mechanic.Areas {
 		public override void PerformArea() {
 			base.PerformArea();
 
+			ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
 			string s = SendRequest(ActionTypes.JoinMagicshop);
 
 			int i = 1;
 			Dictionary<int, Item> BackpackItems = new Dictionary<int, Item>();
 			while (i <= ResponseTypes.BackpackSize) {
-				BackpackItems.Add(i, new Item(s.Split('/'), ResponseTypes.BackpackFirstItemPosition + (i * ResponseTypes.ItemSize)));
+				BackpackItems.Add(i, new Item(s.Split('/'), ResponseTypes.BackpackFirstItemPosition + ((i - 1) * ResponseTypes.ItemSize)));
 				i++;
 			}
 
-			ThreadSleep(Account.Settings.minTimeToDoToilet, Account.Settings.maxTimeToDoToilet);
-			//Rucksackslotnummer mit dem niedrigsten Gold Wert
-			//TODO Epics ignorieren
-			int backpackslotWithLowestItemValue = BackpackItems.Where(b => b.Value.GoldValue != 0 && b.Value.Typ != ItemTypes.Buff).OrderBy(b => b.Value.GoldValue).First().Key;
+			if (BackpackItems.Where(b => b.Value.Typ != ItemTypes.Leer).Count() == 5) {
+			int backpackslotWithLowestItemValue = BackpackItems.Where(b => b.Value.GoldValue != 0 && b.Value.Typ != ItemTypes.Buff && b.Value.IsEpic == false).OrderBy(b => b.Value.GoldValue).First().Key;
+
+			s = SellItemWithLowestValue(backpackslotWithLowestItemValue, s);
+			}// else do nothing
 		}
 
-		public void SellItemWithLowestValue(int InventoryID, string s) {
+		private string SellItemWithLowestValue(int InventoryID, string s) {
 			RaiseMessageEvent(string.Format("Item im Slot {0}, wird verkauft.", InventoryID));
 			ThreadSleep(Account.Settings.minTimeToSellItem, Account.Settings.maxTimeToSellItem);
-			s = SendRequest(ActionTypes.ItemAction + InventoryID + ";0;0");
+			return SendRequest(ActionTypes.ItemAction + InventoryID + ";0;0");
 		}
 
 		public override void RaiseMessageEvent(string s) {

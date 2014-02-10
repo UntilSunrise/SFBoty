@@ -65,28 +65,22 @@ namespace SFBotyCore.Mechanic.Areas {
 					if (answerToilet[(int)ToiletAnswer.Status] == "1") {
 						RaiseMessageEvent("WC wurde heute schon benutzt!");
 						Account.ToiletEndTime = (DateTime.Now - DateTime.Now.TimeOfDay).AddDays(1);
-						return; //TODO: Andere Lösung finden?
+						return;
 					} // else do nothing
 
 					int i = 1;
 					Dictionary<int, Item> BackpackItems = new Dictionary<int, Item>();
 					while (i <= ResponseTypes.BackpackSize) {
-						BackpackItems.Add(i, new Item(s.Split('/'), ResponseTypes.BackpackFirstItemPosition + (i * ResponseTypes.ItemSize)));
+						BackpackItems.Add(i, new Item(s.Split('/'), ResponseTypes.BackpackFirstItemPosition + ((i - 1) * ResponseTypes.ItemSize)));
 						i++;
 					}
 
-					int blub = BackpackItems.Count(b => b.Value.GoldValue != 0);
-					if (BackpackItems.Count(b => b.Value.GoldValue != 0) < 5) {
-						s = CheckAndFlushToilette(s);
-					} else {
-						RaiseMessageEvent("Inventar ist schon voll! Falls ein Epic erscheint, kann dies nicht aufgenommen werden.");
-						return; // TODO: Andere Lösung finden?
-					}
+					s = CheckAndFlushToilette(s);
 
 					ThreadSleep(Account.Settings.minTimeToDoToilet, Account.Settings.maxTimeToDoToilet);
+
 					//Rucksackslotnummer mit dem niedrigsten Gold Wert
-					//TODO Epics ignorieren
-					int backpackslotWithLowestItemValue = BackpackItems.Where(b => b.Value.GoldValue != 0 && b.Value.Typ != ItemTypes.Buff).OrderBy(b => b.Value.GoldValue).First().Key;
+					int backpackslotWithLowestItemValue = BackpackItems.Where(b => b.Value.GoldValue != 0 && b.Value.Typ != ItemTypes.Buff && b.Value.IsEpic == false).OrderBy(b => b.Value.GoldValue).First().Key;
 
 					RaiseMessageEvent(string.Format("Item im Slot {0}, wird in die Toilette geschmissen.", backpackslotWithLowestItemValue));
 					s = SendRequest(ActionTypes.ItemAction + backpackslotWithLowestItemValue + ";10;0");
