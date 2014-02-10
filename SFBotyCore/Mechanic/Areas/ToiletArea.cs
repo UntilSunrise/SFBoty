@@ -68,9 +68,9 @@ namespace SFBotyCore.Mechanic.Areas {
 						return; //TODO: Andere Lösung finden?
 					} // else do nothing
 
-					int i = 0;
+					int i = 1;
 					Dictionary<int, Item> BackpackItems = new Dictionary<int, Item>();
-					while (i < ResponseTypes.BackpackSize) {
+					while (i <= ResponseTypes.BackpackSize) {
 						BackpackItems.Add(i, new Item(s.Split('/'), ResponseTypes.BackpackFirstItemPosition + (i * ResponseTypes.ItemSize)));
 						i++;
 					}
@@ -86,7 +86,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					ThreadSleep(Account.Settings.minTimeToDoToilet, Account.Settings.maxTimeToDoToilet);
 					//Rucksackslotnummer mit dem niedrigsten Gold Wert
 					//TODO Epics ignorieren
-					int backpackslotWithLowestItemValue = BackpackItems.Where(b => b.Value.GoldValue != 0).OrderBy(b => b.Value.GoldValue).First().Key + 1;
+					int backpackslotWithLowestItemValue = BackpackItems.Where(b => b.Value.GoldValue != 0 && b.Value.Typ != ItemTypes.Buff).OrderBy(b => b.Value.GoldValue).First().Key;
 
 					RaiseMessageEvent(string.Format("Item im Slot {0}, wird in die Toilette geschmissen.", backpackslotWithLowestItemValue));
 					s = SendRequest(ActionTypes.ItemAction + backpackslotWithLowestItemValue + ";10;0");

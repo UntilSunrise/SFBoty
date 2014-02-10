@@ -7,6 +7,7 @@ using SFBotyCore.Constants;
 
 namespace SFBotyCore.Mechanic {
 	public class Item {
+		private int inventoryID;
 		private double typeOriginal;
 		private double picOriginal;
 		private int damageMin;
@@ -24,6 +25,7 @@ namespace SFBotyCore.Mechanic {
 		private int enchantmentPower;
 		private int socketPower;
 
+		public int InventoryID { get; private set; }
 		public ItemTypes Typ { get; private set; }
 		public int DamageMin { get; private set; }
 		public int DamageMax { get; private set; }
@@ -36,7 +38,7 @@ namespace SFBotyCore.Mechanic {
 		public int GoldValue { get; private set; }
 
 		public Item(string[] responseString, int offset) {
-
+			inventoryID = (offset - ResponseTypes.BackpackFirstItemPosition) /  ResponseTypes.ItemSize;
 			typeOriginal = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemTyp)]);
 			picOriginal = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemPicture)]);
 			mushroomValue = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemMushroomValue)]);
@@ -68,7 +70,6 @@ namespace SFBotyCore.Mechanic {
 			AttributeValue2 = this.attributeValue2;
 			AttributeValue3 = this.attributeValue3;
 			GoldValue = this.goldValue;
-
 		}
 	}
 }
