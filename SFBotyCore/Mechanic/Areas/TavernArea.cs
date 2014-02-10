@@ -38,8 +38,12 @@ namespace SFBotyCore.Mechanic.Areas {
 				s = SendRequest(ActionTypes.JoinTarvern);
 				string[] answerTavern = s.Split('/');
 
-				Asserts.IsFalse(s.Substring(0, 4).Contains("103"), "Stadtwache wurde nicht beendet");
-				Asserts.IsFalse(s.Substring(0, 4).Contains("106"), "Quest wurde nicht beendet");
+				//Stadtwache oder Quest bestätigen
+				if (s.Substring(0,4).Contains("103") || s.Substring(0, 4).Contains("106")) {
+					s = SendRequest(ActionTypes.JoinCharacter);
+					s = SendRequest(ActionTypes.JoinTarvern);
+					answerTavern = s.Split('/');
+				}
 
 				int alu = Convert.ToInt32(answerTavern[456]);
 				Account.ALU_Seconds = alu;
