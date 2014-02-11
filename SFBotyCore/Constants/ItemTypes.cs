@@ -14,6 +14,9 @@
 		Kette = 8,
 		Ring = 9,
 		Talisman = 10,
-		Buff = 12
+		SpiegelOderSchlüssel = 11,
+		Buff = 12,
+		KeineAhnung2 = 13,
+		Verzauberung = 14
 	}
 }

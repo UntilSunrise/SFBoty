@@ -1,0 +1,21 @@
+﻿Allg.:
+
+- Reittiere hinzufügen
+- Rote Quests erkennen
+- Events erkennen und Quests danach richten
+- Hexe hinzufügen
+- Schlüssel/Spiegelteile benutzen
+- Dungeons 10-13 hinzufügen
+- Turm hinzufügen
+- Turmverbündete ausrüsten
+- Flaschen kaufen/benutzen
+- Gegenstände kaufen/ausrüsten
+- Sammelalbum
+- Gildenstatistiks?
+- Mailversand bei Fehlern
+- Erkennung des SendRequest-Intervalls (Request nicht unter einer 1 Sec hintereinander)
+
+GUI:
+
+- Einstellungen über GUI wartbar
+- weitere Controls hinzufügen

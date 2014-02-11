@@ -7,6 +7,7 @@ using SFBotyCore.Constants;
 
 namespace SFBotyCore.Mechanic {
 	public class Item {
+		private int inventoryID;
 		private double typeOriginal;
 		private double picOriginal;
 		private int damageMin;
@@ -24,6 +25,7 @@ namespace SFBotyCore.Mechanic {
 		private int enchantmentPower;
 		private int socketPower;
 
+		public int InventoryID { get; private set; }
 		public ItemTypes Typ { get; private set; }
 		public int DamageMin { get; private set; }
 		public int DamageMax { get; private set; }
@@ -34,11 +36,12 @@ namespace SFBotyCore.Mechanic {
 		public int AttributeValue2 { get; private set; }
 		public int AttributeValue3 { get; private set; }
 		public int GoldValue { get; private set; }
+		public bool IsEpic { get; private set; }
 
 		public Item(string[] responseString, int offset) {
-
+			inventoryID = (offset - ResponseTypes.BackpackFirstItemPosition) /  ResponseTypes.ItemSize;
 			typeOriginal = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemTyp)]);
-			picOriginal = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemPicture)]);
+			picOriginal = Convert.ToDouble(responseString[(offset + ResponseTypes.ItemPicture)]);
 			mushroomValue = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemMushroomValue)]);
 			enchantment = (int)(typeOriginal / Math.Pow(2, 24));
 			socket = (int)(typeOriginal - (enchantment * Math.Pow(2, 24)));
@@ -58,17 +61,25 @@ namespace SFBotyCore.Mechanic {
 			attributeValue3 = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemAttributeValue3)]);
 			goldValue = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemGoldValue)]);
 
+			InventoryID = this.inventoryID;
+			IsEpic = IsEpicCheck(this.picOriginal);
 			Typ = (ItemTypes)this.typeOriginal;
 			DamageMin = this.damageMin;
 			DamageMax = this.damageMax;
-			AttributeType1 = (AttributeTypes)this.attributeValue1;
-			AttributeType2 = (AttributeTypes)this.attributeValue2;
-			AttributeType3 = (AttributeTypes)this.attributeValue3;
+			AttributeType1 = (AttributeTypes)this.attributeType1;
+			AttributeType2 = (AttributeTypes)this.attributeType2;
+			AttributeType3 = (AttributeTypes)this.attributeType3;
 			AttributeValue1 = this.attributeValue1;
 			AttributeValue2 = this.attributeValue2;
 			AttributeValue3 = this.attributeValue3;
 			GoldValue = this.goldValue;
+		}
 
+		private bool IsEpicCheck(double picNumber) {
+			while (picNumber > 1000) {
+				picNumber = picNumber - 1000;
+			}
+			return (picNumber >= 50);
 		}
 	}
 }

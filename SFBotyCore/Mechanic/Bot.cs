@@ -24,6 +24,7 @@ namespace SFBotyCore.Mechanic {
 		private ToiletArea ToiletArea;
 		private ArenaArea ArenaArea;
 		private GuildArea GuildArea;
+		private MagicShopArea MagicShopArea;
 
 		#region Events
 		public event EventHandler<MessageEventsArgs> MessageOutput;
@@ -71,6 +72,10 @@ namespace SFBotyCore.Mechanic {
 			GuildArea = new GuildArea();
 			GuildArea.Initialize(Account, Client);
 			GuildArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
+
+			MagicShopArea = new MagicShopArea();
+			MagicShopArea.Initialize(Account, Client);
+			MagicShopArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
 		}
 
 		void Event_MessageOutput(object sender, MessageEventsArgs e) {
@@ -94,11 +99,14 @@ namespace SFBotyCore.Mechanic {
 		private void PerformAction() {
 			while (true) {
 				if (Account.Settings.HasLogin) {
+					MagicShopArea.PerformArea();
 					TarvernArea.PerformArea();
+					MagicShopArea.PerformArea();
 					ToiletArea.PerformArea();
 					ArenaArea.PerformArea();
 					GuildArea.PerformArea();
 					CharArea.PerformArea();
+					MagicShopArea.PerformArea();
 					DungeonArea.PerformArea();
 					StadtwacheArea.PerformArea();
 				} else {
@@ -121,6 +129,7 @@ namespace SFBotyCore.Mechanic {
 			CharArea.Dispose();
 			StadtwacheArea.Dispose();
 			DungeonArea.Dispose();
+			MagicShopArea.Dispose();
 		}
 	}
 }

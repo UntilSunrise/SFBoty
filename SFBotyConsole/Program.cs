@@ -8,6 +8,7 @@ using SFBotyCore.Mechanic.Areas;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Xml.Serialization;
+using System.Globalization;
 
 namespace SFBotyConsole {
 	class Program {
@@ -70,7 +71,9 @@ namespace SFBotyConsole {
 				System.IO.Directory.CreateDirectory("Logs");
 			}
 
-			System.IO.StreamWriter writer = new System.IO.StreamWriter(String.Concat("Logs/", tmp.Account.Settings.Server, "-", tmp.Account.Settings.Username, "-log-", DateTime.Now.ToShortDateString(), ".log"), true);
+			CultureInfo culture = new CultureInfo("de-DE");
+
+			System.IO.StreamWriter writer = new System.IO.StreamWriter(String.Concat("Logs/", tmp.Account.Settings.Server, "-", tmp.Account.Settings.Username, "-log-", DateTime.Now.ToString(culture).Remove(DateTime.Now.ToString(culture).Length - 9), ".log"), true);
 
 			Console.WriteLine(DateTime.Now.ToString() + " " + tmp.Account.Settings.Username + "(" + tmp.Account.Settings.Server + "): " + e.Message);
 			writer.WriteLine(DateTime.Now.ToString() + ": " + e.Message);

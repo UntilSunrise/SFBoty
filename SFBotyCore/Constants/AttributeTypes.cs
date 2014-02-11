@@ -7,6 +7,7 @@
 		Agility = 2,
 		Intelligence = 3,
 		Stamina = 4,
-		Luck = 5
+		Luck = 5,
+		All = 6
 	}
 }

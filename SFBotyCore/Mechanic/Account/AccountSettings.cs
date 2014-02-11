@@ -111,6 +111,9 @@ namespace SFBotyCore.Mechanic.Account {
 		public float minTimeToDoToilet { get; set; }
 		public float maxTimeToDoToilet { get; set; }
 
+		public float minTimeToSellItem { get; set; }
+		public float maxTimeToSellItem { get; set; }
+
 		public float minTimeToJoinGuild { get; set; }
 		public float maxTimeToJoinGuild { get; set; }
 
@@ -211,6 +214,9 @@ namespace SFBotyCore.Mechanic.Account {
 
 			this.minTimeToDoToilet = 3f;
 			this.maxTimeToDoToilet = 5f;
+
+			this.minTimeToSellItem = 1f;
+			this.maxTimeToSellItem = 3f;
 
 			this.minTimeToJoinGuild = 3f;
 			this.maxTimeToJoinGuild = 5.5f;

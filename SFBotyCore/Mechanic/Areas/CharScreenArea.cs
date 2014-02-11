@@ -197,7 +197,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			acc.BuyedAus = Convert.ToInt32(ausBuyed);
 			acc.BuyedLuck = Convert.ToInt32(luckBuyed);
 
-			acc.Silver = Convert.ToInt32(answerTavern[ResponseTypes.Silver]);
+			acc.Silver = Convert.ToInt64(answerTavern[ResponseTypes.Silver]);
 			acc.Mushroom = Convert.ToInt32(answerTavern[ResponseTypes.Mushrooms]);
 			acc.Level = Convert.ToInt32(answerTavern[ResponseTypes.Level]);
 			acc.Honor = Convert.ToInt32(answerTavern[ResponseTypes.Honor]);
