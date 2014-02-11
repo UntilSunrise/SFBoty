@@ -38,8 +38,14 @@ namespace SFBotyCore.Mechanic.Areas {
 				s = SendRequest(ActionTypes.JoinTarvern);
 				string[] answerTavern = s.Split('/');
 
-				Asserts.IsFalse(s.Substring(0, 4).Contains("103"), "Stadtwache wurde nicht beendet");
-				Asserts.IsFalse(s.Substring(0, 4).Contains("106"), "Quest wurde nicht beendet");
+				if (s.Substring(0,4).Contains("103") || s.Substring(0, 4).Contains("106")) {
+					ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
+					s = SendRequest(ActionTypes.JoinCharacter);
+					ThreadSleep(Account.Settings.minTimeToJoinTarvern, Account.Settings.maxTimeToJoinTarvern);
+					s = SendRequest(ActionTypes.JoinTarvern);
+					answerTavern = s.Split('/');
+
+				}
 
 				int alu = Convert.ToInt32(answerTavern[456]);
 				Account.ALU_Seconds = alu;
@@ -50,7 +56,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					int usedBeer = Convert.ToInt32(answerTavern[457]);
 					int maxBeer = answerTavern[108].Length > 2 ? 11 : 10;
 					if (usedBeer < maxBeer && usedBeer < Account.Settings.MaxBeerToBuy && Account.ALU_Seconds <= 20 * 60) {
-						while (Account.ALU_Seconds + 20 * 60 < 100 * 60 && Account.Mushroom > 0) {
+						while (Account.ALU_Seconds + 20 * 60 < 100 * 60 && Account.Mushroom > 1 && usedBeer < maxBeer) {
 							ThreadSleep(Account.Settings.minTimeToBuyBeer, Account.Settings.maxTimeToBuyBeer);
 							SendRequest(ActionTypes.BuyBeer);
 							Account.ALU_Seconds += 20 * 60;
@@ -70,6 +76,12 @@ namespace SFBotyCore.Mechanic.Areas {
 				int quest1Dauer = Convert.ToInt32(answerTavern[241]);
 				int quest2Dauer = Convert.ToInt32(answerTavern[242]);
 				int quest3Dauer = Convert.ToInt32(answerTavern[243]);
+
+				if (Account.ALU_Seconds < quest1Dauer && Account.ALU_Seconds < quest2Dauer && Account.ALU_Seconds < quest3Dauer) {
+					Account.ALU_Seconds = 0;
+					RaiseMessageEvent("Alu reicht für keine Quest mehr aus.");
+					return;
+				}
 
 				int quest1XP = Convert.ToInt32(answerTavern[280]);
 				int quest2XP = Convert.ToInt32(answerTavern[281]);

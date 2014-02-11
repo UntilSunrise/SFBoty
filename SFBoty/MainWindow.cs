@@ -17,29 +17,11 @@ namespace SFBoty {
 		public MainWindow() {
 			InitializeComponent();
 			this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
+			//accountOverview1.LoadAllAccountsFromXML();
 		}
 
 		void Form1_FormClosing(object sender, FormClosingEventArgs e) {
-			bot.Stop();
-		}
-
-		public void bot_QuestWasTaken(object sender, EventArgs e) {
-			txtOutput.Invoke(() => txtOutput.Text += System.Environment.NewLine + "Quest was taken " + DateTime.Now.ToShortTimeString());
-		}
-
-        void bot_MessageOutput(object sender, SFBotyCore.Mechanic.Areas.MessageEventsArgs e) {
-			txtOutput.Invoke(() => txtOutput.Text += System.Environment.NewLine + e.Message + DateTime.Now.ToShortTimeString());
-		}
-
-		private Bot bot;
-		private void btnConnect_Click(object sender, EventArgs e) {
-			txtOutput.Text = "Bot is startet";
-
-			AccountSettings settings = new AccountSettings("Myrkai", "X", "S");
-			Account account = new Account(settings);
-			bot = new Bot(account);
-            bot.MessageOutput += new EventHandler<SFBotyCore.Mechanic.Areas.MessageEventsArgs>(bot_MessageOutput);
-			bot.Run();
+			
 		}
 	}
 }

@@ -62,7 +62,13 @@ namespace SFBotyCore.Mechanic.Areas {
 					return;
 				}
 
+				if (s.Split('$').Count() < 2) {
+					return;
+				}
 				string[] guildInformation = s.Split('§')[1].Split(';');
+				if (guildInformation.Count() < 4) {
+					return;
+				}
 				string wellcomeText = guildInformation[0].Replace("#", Environment.NewLine);
 				string members = guildInformation[1];
 				string guildName = guildInformation[2];
@@ -70,6 +76,9 @@ namespace SFBotyCore.Mechanic.Areas {
 				string guildRang = guildInformation[4];
 
 				string[] answer = s.Split('/');
+				if (answer.Count() < 367) {
+					return;
+				}
 				string guildSilver = answer[1];
 				string guildMushrooms = answer[2];
 

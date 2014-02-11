@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\AccountOverview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Extensions.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -55,6 +58,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\AccountOverview.resx">
+      <DependentUpon>AccountOverview.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>

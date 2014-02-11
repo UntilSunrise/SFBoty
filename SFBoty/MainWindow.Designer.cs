@@ -23,46 +23,54 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.btnConnect = new System.Windows.Forms.Button();
-			this.txtOutput = new System.Windows.Forms.TextBox();
+			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.accountOverview1 = new SFBoty.Controls.AccountOverview();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+			this.splitContainer1.Panel1.SuspendLayout();
+			this.splitContainer1.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// btnConnect
+			// splitContainer1
 			// 
-			this.btnConnect.Location = new System.Drawing.Point(12, 12);
-			this.btnConnect.Name = "btnConnect";
-			this.btnConnect.Size = new System.Drawing.Size(75, 23);
-			this.btnConnect.TabIndex = 0;
-			this.btnConnect.Text = "connect";
-			this.btnConnect.UseVisualStyleBackColor = true;
-			this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+			this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+			this.splitContainer1.Name = "splitContainer1";
 			// 
-			// txtOutput
+			// splitContainer1.Panel1
 			// 
-			this.txtOutput.Location = new System.Drawing.Point(13, 42);
-			this.txtOutput.Multiline = true;
-			this.txtOutput.Name = "txtOutput";
-			this.txtOutput.Size = new System.Drawing.Size(1035, 453);
-			this.txtOutput.TabIndex = 1;
+			this.splitContainer1.Panel1.Controls.Add(this.accountOverview1);
+			this.splitContainer1.Size = new System.Drawing.Size(1060, 507);
+			this.splitContainer1.SplitterDistance = 353;
+			this.splitContainer1.TabIndex = 0;
 			// 
-			// Form1
+			// accountOverview1
+			// 
+			this.accountOverview1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.accountOverview1.Location = new System.Drawing.Point(0, 0);
+			this.accountOverview1.Name = "accountOverview1";
+			this.accountOverview1.Size = new System.Drawing.Size(353, 507);
+			this.accountOverview1.TabIndex = 0;
+			// 
+			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1060, 507);
-			this.Controls.Add(this.txtOutput);
-			this.Controls.Add(this.btnConnect);
-			this.Name = "Form1";
+			this.Controls.Add(this.splitContainer1);
+			this.Name = "MainWindow";
 			this.Text = "Form1";
+			this.splitContainer1.Panel1.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+			this.splitContainer1.ResumeLayout(false);
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.Button btnConnect;
-		private System.Windows.Forms.TextBox txtOutput;
+		private System.Windows.Forms.SplitContainer splitContainer1;
+		private Controls.AccountOverview accountOverview1;
+
 	}
 }
 
