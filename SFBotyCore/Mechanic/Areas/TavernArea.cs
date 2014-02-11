@@ -38,7 +38,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				s = SendRequest(ActionTypes.JoinTarvern);
 				string[] answerTavern = s.Split('/');
 
-				if (s.Substring(0,4).Contains("103") || s.Substring(0, 4).Contains("106")) {
+				if (s.Substring(0, 4).Contains("103") || s.Substring(0, 4).Contains("106")) {
 					ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
 					s = SendRequest(ActionTypes.JoinCharacter);
 					ThreadSleep(Account.Settings.minTimeToJoinTarvern, Account.Settings.maxTimeToJoinTarvern);
@@ -55,7 +55,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					int usedBeer = Convert.ToInt32(answerTavern[457]);
 					int maxBeer = answerTavern[108].Length > 2 ? 11 : 10;
 					if (usedBeer < maxBeer && usedBeer < Account.Settings.MaxBeerToBuy && Account.ALU_Seconds <= 20 * 60) {
-						while (Account.ALU_Seconds + 20 * 60 < 100 * 60 && Account.Mushroom > 0) {
+						while (Account.ALU_Seconds + 20 * 60 < 100 * 60 && Account.Mushroom > 1 && usedBeer < maxBeer) {
 							ThreadSleep(Account.Settings.minTimeToBuyBeer, Account.Settings.maxTimeToBuyBeer);
 							SendRequest(ActionTypes.BuyBeer);
 							Account.ALU_Seconds += 20 * 60;
@@ -66,7 +66,6 @@ namespace SFBotyCore.Mechanic.Areas {
 					}
 				}
 
-
 				if (Account.ALU_Seconds == 0) {
 					RaiseMessageEvent("Keine Alu mehr");
 					return;
@@ -76,15 +75,15 @@ namespace SFBotyCore.Mechanic.Areas {
 				int quest2Dauer = Convert.ToInt32(answerTavern[242]);
 				int quest3Dauer = Convert.ToInt32(answerTavern[243]);
 
-if (Account.ALU_Seconds < quest1Dauer && Account.ALU_Seconds < quest2Dauer && Account.ALU_Seconds < quest3Dauer) {
+				if (Account.ALU_Seconds < quest1Dauer && Account.ALU_Seconds < quest2Dauer && Account.ALU_Seconds < quest3Dauer) {
 					Account.ALU_Seconds = 0;
 					RaiseMessageEvent("Alu reicht für keine Quest mehr aus.");
 					return;
-				}				
+				}
 
-				ItemTypes quest1ItemType = (ItemTypes)Convert.ToInt32(answerTavern[244]);
-				ItemTypes quest2ItemType = (ItemTypes)Convert.ToInt32(answerTavern[256]);
-				ItemTypes quest3ItemType = (ItemTypes)Convert.ToInt32(answerTavern[278]);
+				ItemTypes quest1ItemType = answerTavern[244].ToEnum<ItemTypes>();
+				ItemTypes quest2ItemType = answerTavern[256].ToEnum<ItemTypes>();
+				ItemTypes quest3ItemType = answerTavern[278].ToEnum<ItemTypes>();
 
 				int quest1XP = Convert.ToInt32(answerTavern[280]);
 				int quest2XP = Convert.ToInt32(answerTavern[281]);
@@ -105,15 +104,15 @@ if (Account.ALU_Seconds < quest1Dauer && Account.ALU_Seconds < quest2Dauer && Ac
 						RaiseMessageEvent("Schlüssel oder Spiegelstück gefunden.");
 						if (quest1ItemType == ItemTypes.SpiegelOderSchlüssel) {
 							s = SendRequest(ActionTypes.TakeQuest1);
-									Account.ALU_Seconds -= quest1Dauer;
-									Account.QuestIsStarted = true;
-									Account.QuestEndTime = DateTime.Now.AddSeconds(quest1Dauer);
-						} else if (quest2ItemType == ItemTypes.SpiegelOderSchlüssel ) {
+							Account.ALU_Seconds -= quest1Dauer;
+							Account.QuestIsStarted = true;
+							Account.QuestEndTime = DateTime.Now.AddSeconds(quest1Dauer);
+						} else if (quest2ItemType == ItemTypes.SpiegelOderSchlüssel) {
 							s = SendRequest(ActionTypes.TakeQuest2);
 							Account.ALU_Seconds -= quest2Dauer;
 							Account.QuestIsStarted = true;
 							Account.QuestEndTime = DateTime.Now.AddSeconds(quest2Dauer);
-						} else if (quest3ItemType == ItemTypes.SpiegelOderSchlüssel ) {
+						} else if (quest3ItemType == ItemTypes.SpiegelOderSchlüssel) {
 							s = SendRequest(ActionTypes.TakeQuest3);
 							Account.ALU_Seconds -= quest3Dauer;
 							Account.QuestIsStarted = true;
