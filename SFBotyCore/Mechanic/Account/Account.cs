@@ -58,6 +58,19 @@ namespace SFBotyCore.Mechanic.Account {
 		public bool HasJoinAttack { get; set; }
 		public bool HasJoinDefence { get; set; }
 		public bool BackpackIsFull { get { return BackpackItems.Where(b => b.Typ != ItemTypes.Leer).Count() == 5; } }
+		public bool BackpackHasToiletItem { 
+			get { 
+				return BackpackItems.Where(
+					b => 
+						b.GoldValue != 0 
+						&& b.Typ != ItemTypes.Buff 
+						&& b.Typ != ItemTypes.Leer 
+						&& b.Typ != ItemTypes.SpiegelOderSchlüssel 
+						&& b.Typ != ItemTypes.KeineAhnung2
+						&& b.IsEpic == false)
+					.Count() > 0; 
+			} 
+		}
 
 		public Account(AccountSettings settings) {
 			Settings = settings;

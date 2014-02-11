@@ -40,7 +40,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			base.PerformArea();
 
 			//Wenn das WC nicht genutzt werden soll, tue nichts.
-			if (!Account.Settings.PerformToilet || Account.QuestIsStarted || Account.TownWatchIsStarted || Account.Level < 100 || Account.BackpackIsFull) {
+			if (!Account.Settings.PerformToilet || Account.QuestIsStarted || Account.TownWatchIsStarted || Account.Level < 100 || Account.BackpackIsFull || !Account.BackpackHasToiletItem) {
 				return;
 			}
 			if ((Account.QuestIsStarted || Account.TownWatchIsStarted) && !Account.MirrorIsCompleted || DateTime.Now < Account.ToiletEndTime) {
@@ -73,7 +73,15 @@ namespace SFBotyCore.Mechanic.Areas {
 					CharScreenArea.UpdateAccountStats(s, Account);
 
 					//Rucksackslotnummer mit dem niedrigsten Gold Wert
-					int backpackslotWithLowestItemValue = Account.BackpackItems.Where(b => b.GoldValue != 0 && b.Typ != ItemTypes.Buff && b.IsEpic == false).OrderBy(b => b.GoldValue).First().InventoryID;
+					int backpackslotWithLowestItemValue = Account.BackpackItems.Where(
+																						b =>
+																							b.GoldValue != 0
+																							&& b.Typ != ItemTypes.Buff
+																							&& b.Typ != ItemTypes.Leer
+																							&& b.Typ != ItemTypes.SpiegelOderSchlüssel
+																							&& b.Typ != ItemTypes.KeineAhnung2
+																							&& b.IsEpic == false
+																						).OrderBy(b => b.GoldValue).First().InventoryID;
 					
 					ThreadSleep(Account.Settings.minTimeToDoToilet, Account.Settings.maxTimeToDoToilet);
 					RaiseMessageEvent(string.Format("Item im Slot {0}, wird in die Toilette geschmissen.", backpackslotWithLowestItemValue));
