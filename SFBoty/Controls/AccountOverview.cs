@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using SFBotyCore.Mechanic.Account;
 using System.IO;
 using System.Xml.Serialization;
+using SFBoty.NewAccounts;
 
 namespace SFBoty.Controls {
 	public class AccountOverview : UserControl {
@@ -14,7 +15,11 @@ namespace SFBoty.Controls {
 		private DataGridViewTextBoxColumn ID;
 		private DataGridViewTextBoxColumn Test1;
 		private DataGridViewTextBoxColumn Test2;
+		private Button btnCreateAccount;
+		private Button btnSaveAll;
 		private DataGridView dgvAccountList;
+
+		private List<AccountSettings> Settings = new List<AccountSettings>();
 		#endregion	
 
 		private void InitializeComponent() {
@@ -23,6 +28,8 @@ namespace SFBoty.Controls {
 			this.Test1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Test2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.btnLoadAccounts = new System.Windows.Forms.Button();
+			this.btnCreateAccount = new System.Windows.Forms.Button();
+			this.btnSaveAll = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dgvAccountList)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -32,6 +39,9 @@ namespace SFBoty.Controls {
 			this.dgvAccountList.AllowUserToDeleteRows = false;
 			this.dgvAccountList.AllowUserToResizeColumns = false;
 			this.dgvAccountList.AllowUserToResizeRows = false;
+			this.dgvAccountList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dgvAccountList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.dgvAccountList.BackgroundColor = System.Drawing.Color.White;
 			this.dgvAccountList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -39,7 +49,6 @@ namespace SFBoty.Controls {
             this.ID,
             this.Test1,
             this.Test2});
-			this.dgvAccountList.Dock = System.Windows.Forms.DockStyle.Top;
 			this.dgvAccountList.EnableHeadersVisualStyles = false;
 			this.dgvAccountList.GridColor = System.Drawing.Color.Black;
 			this.dgvAccountList.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -53,8 +62,9 @@ namespace SFBoty.Controls {
 			this.dgvAccountList.ShowCellToolTips = false;
 			this.dgvAccountList.ShowEditingIcon = false;
 			this.dgvAccountList.ShowRowErrors = false;
-			this.dgvAccountList.Size = new System.Drawing.Size(575, 481);
+			this.dgvAccountList.Size = new System.Drawing.Size(575, 491);
 			this.dgvAccountList.TabIndex = 0;
+			this.dgvAccountList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAccountList_CellContentClick);
 			// 
 			// ID
 			// 
@@ -76,17 +86,42 @@ namespace SFBoty.Controls {
 			// 
 			// btnLoadAccounts
 			// 
-			this.btnLoadAccounts.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.btnLoadAccounts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.btnLoadAccounts.Location = new System.Drawing.Point(0, 497);
 			this.btnLoadAccounts.Name = "btnLoadAccounts";
-			this.btnLoadAccounts.Size = new System.Drawing.Size(575, 23);
+			this.btnLoadAccounts.Size = new System.Drawing.Size(92, 23);
 			this.btnLoadAccounts.TabIndex = 1;
-			this.btnLoadAccounts.Text = "Load Accounts From XML";
+			this.btnLoadAccounts.Text = "Load Accounts";
 			this.btnLoadAccounts.UseVisualStyleBackColor = true;
 			this.btnLoadAccounts.Click += new System.EventHandler(this.btnLoadAccounts_Click);
 			// 
+			// btnCreateAccount
+			// 
+			this.btnCreateAccount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnCreateAccount.Location = new System.Drawing.Point(98, 497);
+			this.btnCreateAccount.Name = "btnCreateAccount";
+			this.btnCreateAccount.Size = new System.Drawing.Size(368, 23);
+			this.btnCreateAccount.TabIndex = 2;
+			this.btnCreateAccount.Text = "Create New Account";
+			this.btnCreateAccount.UseVisualStyleBackColor = true;
+			this.btnCreateAccount.Click += new System.EventHandler(this.btnCreateAccount_Click);
+			// 
+			// btnSaveAll
+			// 
+			this.btnSaveAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnSaveAll.Location = new System.Drawing.Point(472, 497);
+			this.btnSaveAll.Name = "btnSaveAll";
+			this.btnSaveAll.Size = new System.Drawing.Size(103, 23);
+			this.btnSaveAll.TabIndex = 3;
+			this.btnSaveAll.Text = "Save all Accounts";
+			this.btnSaveAll.UseVisualStyleBackColor = true;
+			this.btnSaveAll.Click += new System.EventHandler(this.btnSaveAll_Click);
+			// 
 			// AccountOverview
 			// 
+			this.Controls.Add(this.btnSaveAll);
+			this.Controls.Add(this.btnCreateAccount);
 			this.Controls.Add(this.btnLoadAccounts);
 			this.Controls.Add(this.dgvAccountList);
 			this.Name = "AccountOverview";
@@ -100,20 +135,55 @@ namespace SFBoty.Controls {
 		private void btnLoadAccounts_Click(object sender, EventArgs e) {
 			LoadAllAccountsFromXML();
 		}
+
+		private void btnCreateAccount_Click(object sender, EventArgs e) {
+			NewAccount frm = new NewAccount();
+			DialogResult result = frm.ShowDialog();
+
+			if (result == DialogResult.OK) {
+				AccountSettings s = frm.Setting;
+				Settings.Add(s);
+				dgvAccountList.Rows.Add(s.Server, s.Username, "gestopt");
+			}		
+		}
+
+		private void btnSaveAll_Click(object sender, EventArgs e) {
+			SaveSettings(Settings);
+			MessageBox.Show("Einstellungen wurden gespeichert");
+		}
+
+		private void dgvAccountList_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+			if (dgvAccountList.SelectedRows.Count > 0) {
+				EditSettings frm = new EditSettings(Settings[0]);
+				DialogResult result = frm.ShowDialog();
+
+				if (result == DialogResult.OK) {
+					Refresh();
+				}
+			}
+		}
 		#endregion
 
 		#region Public Methoden
 		public void LoadAllAccountsFromXML() {
 			dgvAccountList.Rows.Clear();
 			List<AccountSettings> settings = AccountSettings();
+			Settings = settings;
 			foreach (AccountSettings setting in settings) {
+				dgvAccountList.Rows.Add(setting.Server, setting.Username, "gestopt");
+			}
+		}
+
+		public void Refresh() {
+			dgvAccountList.Rows.Clear();
+			foreach (AccountSettings setting in Settings) {
 				dgvAccountList.Rows.Add(setting.Server, setting.Username, "gestopt");
 			}
 		}
 		#endregion
 
 		#region Private Methoden
-		private static List<AccountSettings> AccountSettings() {
+		private List<AccountSettings> AccountSettings() {
 			if (File.Exists("acc.sav")) {
 				FileStream fs = new FileStream("acc.sav", FileMode.Open);
 				List<AccountSettings> acc;
@@ -126,6 +196,15 @@ namespace SFBoty.Controls {
 			} else {
 				return new List<AccountSettings>();
 			}
+		}
+
+		private void SaveSettings(List<AccountSettings> accounts) {
+			TextWriter writer = new StreamWriter("acc.sav");
+
+			XmlSerializer xml = new XmlSerializer(accounts.GetType());
+			xml.Serialize(writer, accounts);
+
+			writer.Close();
 		}
 		#endregion
 
