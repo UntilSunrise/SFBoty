@@ -206,8 +206,8 @@ namespace SFBotyCore.Mechanic.Areas {
 				int d7Lvl = Convert.ToInt32(answerRequest[486]) - 1;
 				int d8Lvl = Convert.ToInt32(answerRequest[487]) - 1;
 				int d9Lvl = Convert.ToInt32(answerRequest[488]) - 1;
-				int d10Lvl = 0; //derzeit noch unbekannt wo diese Informationen gespeichert werden
-				int d11Lvl = 0;
+				int d10Lvl = Convert.ToInt32(answerRequest[489]) - 1;
+				int d11Lvl = 0; //derzeit noch unbekannt wo diese Informationen gespeichert werden
 				int d12Lvl = 0;
 				int d13Lvl = 0;
 
