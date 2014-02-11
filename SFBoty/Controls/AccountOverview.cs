@@ -143,7 +143,7 @@ namespace SFBoty.Controls {
 			if (result == DialogResult.OK) {
 				AccountSettings s = frm.Setting;
 				Settings.Add(s);
-				dgvAccountList.Rows.Add(s.Server, s.Username, "gestopt");
+				dgvAccountList.Rows.Add(s.Username, s.Server, "gestopt");
 			}		
 		}
 
@@ -154,12 +154,12 @@ namespace SFBoty.Controls {
 
 		private void dgvAccountList_CellContentClick(object sender, DataGridViewCellEventArgs e) {
 			if (dgvAccountList.SelectedRows.Count > 0) {
-				EditSettings frm = new EditSettings(Settings[0]);
+				EditSettings frm = new EditSettings(Settings.Single(x => x.Username == dgvAccountList.SelectedRows[0].Cells[0].Value && x.Server == dgvAccountList.SelectedRows[0].Cells[1].Value));
 				DialogResult result = frm.ShowDialog();
 
 				if (result == DialogResult.OK) {
 					Refresh();
-				}
+				}		
 			}
 		}
 		#endregion
@@ -170,14 +170,14 @@ namespace SFBoty.Controls {
 			List<AccountSettings> settings = AccountSettings();
 			Settings = settings;
 			foreach (AccountSettings setting in settings) {
-				dgvAccountList.Rows.Add(setting.Server, setting.Username, "gestopt");
+				dgvAccountList.Rows.Add(setting.Username, setting.Server, "gestopt");
 			}
 		}
 
 		public void Refresh() {
 			dgvAccountList.Rows.Clear();
 			foreach (AccountSettings setting in Settings) {
-				dgvAccountList.Rows.Add(setting.Server, setting.Username, "gestopt");
+				dgvAccountList.Rows.Add(setting.Username, setting.Server, "gestopt");
 			}
 		}
 		#endregion

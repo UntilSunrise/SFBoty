@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using SFBotyCore.Constants;
 
 namespace SFBotyCore.Mechanic.Account {
 
@@ -56,6 +57,7 @@ namespace SFBotyCore.Mechanic.Account {
 		public DateTime LastDonateTime { get; set; }
 		public bool HasJoinAttack { get; set; }
 		public bool HasJoinDefence { get; set; }
+		public bool BackpackIsFull { get { return BackpackItems.Where(b => b.Typ != ItemTypes.Leer).Count() == 5; } }
 
 		public Account(AccountSettings settings) {
 			Settings = settings;

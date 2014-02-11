@@ -30,7 +30,7 @@ namespace SFBotyCore.Mechanic.Areas {
 		public override void PerformArea() {
 			base.PerformArea();
 
-			if (Account.BackpackItems.Where(b => b.Typ != ItemTypes.Leer).Count() == 5) {
+			if (Account.BackpackIsFull) {
 				RaiseMessageEvent("Betrete Zauberladen");
 				ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
 				string s = SendRequest(ActionTypes.JoinMagicshop);
