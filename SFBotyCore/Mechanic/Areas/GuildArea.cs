@@ -62,7 +62,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					return;
 				}
 
-				if (s.Split('$').Count() < 2) {
+				if (s.Split('§').Count() < 2) {
 					return;
 				}
 				string[] guildInformation = s.Split('§')[1].Split(';');
