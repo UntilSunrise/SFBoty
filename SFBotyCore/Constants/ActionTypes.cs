@@ -57,9 +57,12 @@ namespace SFBotyCore.Constants {
 		public static string FlushToilet = "302";
 		public static string ResponseToiletFull = "306";
 		public static string ResponseToiletLocked = "304";
+
 		/// <summary>
-		/// Achtung die Item Rucksackslot Nummer muss noch angehangen werden (1-5)
-		/// und die entsprechende Action ";0;0" verkauft ein Item und ";10;0" packt es in das WC. 
+		/// Achtung die Item Rucksackslot Nummer muss noch angehangen werden (1-5) und die entsprechende Action
+		/// ";0;0" verkauft ein Item 
+		/// ";10;0" packt es in das WC. 
+		/// ";1;-1" setzt es ein
 		/// Bsp.: 50425;0;0 verkauft das Item in Slot 5
 		/// </summary>
 		public static string ItemAction = "5042;";

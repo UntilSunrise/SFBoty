@@ -13,7 +13,6 @@
 - Sammelalbum
 - Gildenstatistiks?
 - Mailversand bei Fehlern
-- Erkennung des SendRequest-Intervalls (Request nicht unter einer 1 Sec hintereinander)
 
 GUI:
 
