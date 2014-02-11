@@ -37,6 +37,11 @@ namespace SFBotyCore.Mechanic.Areas {
 				ThreadSleep(Account.Settings.minTimeToJoinGuild, Account.Settings.maxTimeToJoinGuild);
 				s = SendRequest(ActionTypes.JoinGuild);
 
+				if (s.Contains("178")) {
+					ThreadSleep(Account.Settings.minTimeToJoinGuild, Account.Settings.maxTimeToJoinGuild);
+					s = SendRequest(ActionTypes.JoinGuild);
+				}
+
 				Account.LastDonateTime = DateTime.Now;
 				ThreadSleep(Account.Settings.minTimeToDonate, Account.Settings.maxTimeToDonate);
 				int silver = (int)(Account.Silver * Account.Settings.FactorToDonate);
@@ -53,6 +58,11 @@ namespace SFBotyCore.Mechanic.Areas {
 					RaiseMessageEvent("Betrete die Gilde");
 					ThreadSleep(Account.Settings.minTimeToJoinGuild, Account.Settings.maxTimeToJoinGuild);
 					s = SendRequest(ActionTypes.JoinGuild);
+
+					if (s.Contains("178")) {
+						ThreadSleep(Account.Settings.minTimeToJoinGuild, Account.Settings.maxTimeToJoinGuild);
+						s = SendRequest(ActionTypes.JoinGuild);
+					}
 				}
 
 				Assert.Asserts.IsFalse(s == "", "Schwerer Fehler im Guildenbreich");
