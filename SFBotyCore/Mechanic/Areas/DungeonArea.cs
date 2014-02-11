@@ -187,7 +187,7 @@ namespace SFBotyCore.Mechanic.Areas {
 		public override void PerformArea() {
 			base.PerformArea();
 
-			if (!Account.Settings.PerformDungeons || DateTime.Now < Account.DungeonEndTime) {
+			if (!Account.Settings.PerformDungeons || DateTime.Now < Account.DungeonEndTime || Account.BackpackItems.Where(b => b.Typ != ItemTypes.Leer).Count() == 5) {
 				return;
 			}
 
@@ -226,6 +226,8 @@ namespace SFBotyCore.Mechanic.Areas {
 				s = SendRequest(ActionTypes.JoinCharacter);
 				Account.DungeonEndTime = DateTime.Now.AddHours(1);
 				//set 1h for next dungeon time
+
+				CharScreenArea.UpdateAccountStats(s, Account);
 			}
 		}
 

@@ -40,7 +40,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			base.PerformArea();
 
 			//Wenn das WC nicht genutzt werden soll, tue nichts.
-			if (!Account.Settings.PerformToilet || Account.QuestIsStarted || Account.TownWatchIsStarted || Account.Level < 100) {
+			if (!Account.Settings.PerformToilet || Account.QuestIsStarted || Account.TownWatchIsStarted || Account.Level < 100 || Account.BackpackItems.Where(b => b.Typ != ItemTypes.Leer).Count() == 5) {
 				return;
 			}
 			if ((Account.QuestIsStarted || Account.TownWatchIsStarted) && !Account.MirrorIsCompleted || DateTime.Now < Account.ToiletEndTime) {
@@ -68,20 +68,14 @@ namespace SFBotyCore.Mechanic.Areas {
 						return;
 					} // else do nothing
 
-					int i = 1;
-					Dictionary<int, Item> BackpackItems = new Dictionary<int, Item>();
-					while (i <= ResponseTypes.BackpackSize) {
-						BackpackItems.Add(i, new Item(s.Split('/'), ResponseTypes.BackpackFirstItemPosition + ((i - 1) * ResponseTypes.ItemSize)));
-						i++;
-					}
-
 					s = CheckAndFlushToilette(s);
 
-					ThreadSleep(Account.Settings.minTimeToDoToilet, Account.Settings.maxTimeToDoToilet);
+					CharScreenArea.UpdateAccountStats(s, Account);
 
 					//Rucksackslotnummer mit dem niedrigsten Gold Wert
-					int backpackslotWithLowestItemValue = BackpackItems.Where(b => b.Value.GoldValue != 0 && b.Value.Typ != ItemTypes.Buff && b.Value.IsEpic == false).OrderBy(b => b.Value.GoldValue).First().Key;
-
+					int backpackslotWithLowestItemValue = Account.BackpackItems.Where(b => b.GoldValue != 0 && b.Typ != ItemTypes.Buff && b.IsEpic == false).OrderBy(b => b.GoldValue).First().InventoryID;
+					
+					ThreadSleep(Account.Settings.minTimeToDoToilet, Account.Settings.maxTimeToDoToilet);
 					RaiseMessageEvent(string.Format("Item im Slot {0}, wird in die Toilette geschmissen.", backpackslotWithLowestItemValue));
 					s = SendRequest(ActionTypes.ItemAction + backpackslotWithLowestItemValue + ";10;0");
 					answerToilet = s.Split('/');
@@ -92,6 +86,7 @@ namespace SFBotyCore.Mechanic.Areas {
 						RaiseMessageEvent(string.Format("Item im Slot {0}, wird verkauft. Kein Epic.", backpackslotWithLowestItemValue));
 						s = SendRequest(ActionTypes.ItemAction + backpackslotWithLowestItemValue + ";0;0");
 					}
+					CharScreenArea.UpdateAccountStats(s, Account);
 				}
 
 			} // else do nothing

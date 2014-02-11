@@ -105,7 +105,7 @@ namespace SFBotyCore.Mechanic.Areas {
 						ThreadSleep(Account.Settings.minTimeToJoinGuild, Account.Settings.maxTimeToJoinGuild);
 						SendRequest(ActionTypes.GuildJoinAttack);
 						Account.HasJoinAttack = true;
-						RaiseMessageEvent("Hat sich um Angriff gemeldet");
+						RaiseMessageEvent("Hat sich zum Angriff gemeldet");
 					}
 				} else {
 					Account.HasJoinAttack = false;

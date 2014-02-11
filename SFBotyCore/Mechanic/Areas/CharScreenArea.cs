@@ -202,6 +202,13 @@ namespace SFBotyCore.Mechanic.Areas {
 			acc.Level = Convert.ToInt32(answerTavern[ResponseTypes.Level]);
 			acc.Honor = Convert.ToInt32(answerTavern[ResponseTypes.Honor]);
 			acc.Rang = Convert.ToInt32(answerTavern[ResponseTypes.Rang]);
+
+			int i = 1;
+			acc.BackpackItems.Clear();
+			while (i <= ResponseTypes.BackpackSize) {
+				acc.BackpackItems.Add(new Item(s.Split('/'), ResponseTypes.BackpackFirstItemPosition + ((i - 1) * ResponseTypes.ItemSize)));
+				i++;
+			}
 		}
 	}
 }

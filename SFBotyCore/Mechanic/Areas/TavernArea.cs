@@ -31,6 +31,10 @@ namespace SFBotyCore.Mechanic.Areas {
 		public override void PerformArea() {
 			base.PerformArea();
 
+			if (Account.BackpackItems.Where(b => b.Typ != ItemTypes.Leer).Count() == 5) {
+				return;
+			}
+
 			string s;
 			if (!Account.QuestIsStarted && !Account.TownWatchIsStarted) {
 				ThreadSleep(Account.Settings.minTimeToJoinTarvern, Account.Settings.maxTimeToJoinTarvern);

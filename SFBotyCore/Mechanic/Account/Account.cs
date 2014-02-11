@@ -49,6 +49,7 @@ namespace SFBotyCore.Mechanic.Account {
 		public int Level { get; set; }
 		public int Honor { get; set; }
 		public int Rang { get; set; }
+		public List<Item> BackpackItems { get; set; }
 
 		public Guild Guild { get; set; }
 		public bool HasAGuild { get; set; }
@@ -93,6 +94,7 @@ namespace SFBotyCore.Mechanic.Account {
 			Level = 0;
 			Honor = 0;
 			Rang = 0;
+			BackpackItems = new List<Item>();
 
 			Guild = new Guild();
 			HasAGuild = true;

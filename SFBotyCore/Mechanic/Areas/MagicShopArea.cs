@@ -30,20 +30,16 @@ namespace SFBotyCore.Mechanic.Areas {
 		public override void PerformArea() {
 			base.PerformArea();
 
-			ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
-			string s = SendRequest(ActionTypes.JoinMagicshop);
+			if (Account.BackpackItems.Where(b => b.Typ != ItemTypes.Leer).Count() == 5) {
+				RaiseMessageEvent("Betrete Zauberladen");
+				ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
+				string s = SendRequest(ActionTypes.JoinMagicshop);
+				int backpackslotWithLowestItemValue = Account.BackpackItems.Where(b => b.GoldValue != 0 && b.Typ != ItemTypes.Buff && b.IsEpic == false).OrderBy(b => b.GoldValue).First().InventoryID;
 
-			int i = 1;
-			Dictionary<int, Item> BackpackItems = new Dictionary<int, Item>();
-			while (i <= ResponseTypes.BackpackSize) {
-				BackpackItems.Add(i, new Item(s.Split('/'), ResponseTypes.BackpackFirstItemPosition + ((i - 1) * ResponseTypes.ItemSize)));
-				i++;
-			}
+				s = SellItemWithLowestValue(backpackslotWithLowestItemValue, s);
 
-			if (BackpackItems.Where(b => b.Value.Typ != ItemTypes.Leer).Count() == 5) {
-			int backpackslotWithLowestItemValue = BackpackItems.Where(b => b.Value.GoldValue != 0 && b.Value.Typ != ItemTypes.Buff && b.Value.IsEpic == false).OrderBy(b => b.Value.GoldValue).First().Key;
+				CharScreenArea.UpdateAccountStats(s, Account);
 
-			s = SellItemWithLowestValue(backpackslotWithLowestItemValue, s);
 			}// else do nothing
 		}
 

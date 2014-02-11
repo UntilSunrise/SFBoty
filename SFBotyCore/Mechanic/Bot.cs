@@ -101,12 +101,10 @@ namespace SFBotyCore.Mechanic {
 				if (Account.Settings.HasLogin) {
 					MagicShopArea.PerformArea();
 					TarvernArea.PerformArea();
-					MagicShopArea.PerformArea();
 					ToiletArea.PerformArea();
 					ArenaArea.PerformArea();
 					GuildArea.PerformArea();
 					CharArea.PerformArea();
-					MagicShopArea.PerformArea();
 					DungeonArea.PerformArea();
 					StadtwacheArea.PerformArea();
 				} else {
