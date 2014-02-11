@@ -19,9 +19,10 @@ namespace SFBotyConsole {
 			Console.WindowWidth += 50;
 
 			List<AccountSettings> accountSettings = new List<AccountSettings>();
-			accountSettings = LoadSettings();
-			//AccountSettings settings = new AccountSettings("nickname", "passworthash", "server");
-			//accountSettings.Add(settings);
+			//accountSettings = LoadSettings();
+			AccountSettings settings = new AccountSettings("Myrkai", "c3be50574698bc2a4dc566b4a42f7fca", "XCHAR");
+			settings.MinSendRequestInterval = 30f;
+			accountSettings.Add(settings);
 
 			//SaveSettings(accountSettings);
 

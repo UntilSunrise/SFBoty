@@ -21,12 +21,14 @@ namespace SFBotyCore.Mechanic {
 		private StreamReader streamReader;
 		protected Account.Account Account;
 		public abstract event EventHandler<MessageEventsArgs> MessageOutput;
+		private DateTime LastSendRequestTimeStamp;
 
 		public virtual void Initialize(Account.Account account, WebClient refClient) {
 			this.Account = account;
 			this.RefClient = refClient;
 
 			random = new Random(System.Environment.TickCount);
+			LastSendRequestTimeStamp = DateTime.Now;
 		}
 
 		public virtual void PerformArea() {
@@ -53,6 +55,10 @@ namespace SFBotyCore.Mechanic {
 		}
 
 		protected string SendRequest(string action) {
+			if ((DateTime.Now - LastSendRequestTimeStamp).TotalSeconds < Account.Settings.MinSendRequestInterval) {
+				ThreadSleep(Account.Settings.MinSendRequestInterval, Account.Settings.MinSendRequestInterval);
+			}
+			
 			string s = "";
 			int foo = 0;
 			if (CheckInternetConnection()) {
@@ -85,6 +91,7 @@ namespace SFBotyCore.Mechanic {
 				s = streamReader.ReadToEnd();
 			} while (s == "E065");
 
+			LastSendRequestTimeStamp = DateTime.Now;
 			return s;
 		}
 

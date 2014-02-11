@@ -120,6 +120,8 @@ namespace SFBotyCore.Mechanic.Account {
 		public float guildVisitInterval { get; set; }
 		public float minTimeToDonate { get; set; }
 		public float maxTimeToDonate { get; set; }
+
+		public float MinSendRequestInterval { get; set; }
 		#endregion
 
 		public bool HasLogin { get { return SessionID != EmpytSessionID; } }
@@ -222,6 +224,8 @@ namespace SFBotyCore.Mechanic.Account {
 			this.maxTimeToJoinGuild = 5.5f;
 			this.minTimeToDonate = 2f;
 			this.maxTimeToDonate = 4f;
+
+			this.MinSendRequestInterval = 1f;
 
 			this.QuestMode = AutoQuestMode.BestXP;
 		}
