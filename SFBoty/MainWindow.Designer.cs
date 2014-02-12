@@ -25,8 +25,10 @@
 		private void InitializeComponent() {
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.accountOverview1 = new SFBoty.Controls.AccountOverview();
+			this.console1 = new SFBoty.Controls.Console();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
+			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -39,6 +41,10 @@
 			// splitContainer1.Panel1
 			// 
 			this.splitContainer1.Panel1.Controls.Add(this.accountOverview1);
+			// 
+			// splitContainer1.Panel2
+			// 
+			this.splitContainer1.Panel2.Controls.Add(this.console1);
 			this.splitContainer1.Size = new System.Drawing.Size(1060, 507);
 			this.splitContainer1.SplitterDistance = 353;
 			this.splitContainer1.TabIndex = 0;
@@ -51,6 +57,14 @@
 			this.accountOverview1.Size = new System.Drawing.Size(353, 507);
 			this.accountOverview1.TabIndex = 0;
 			// 
+			// console1
+			// 
+			this.console1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.console1.Location = new System.Drawing.Point(0, 0);
+			this.console1.Name = "console1";
+			this.console1.Size = new System.Drawing.Size(703, 507);
+			this.console1.TabIndex = 0;
+			// 
 			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -60,6 +74,7 @@
 			this.Name = "MainWindow";
 			this.Text = "Form1";
 			this.splitContainer1.Panel1.ResumeLayout(false);
+			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
 			this.ResumeLayout(false);
@@ -70,6 +85,7 @@
 
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private Controls.AccountOverview accountOverview1;
+		private Controls.Console console1;
 
 	}
 }

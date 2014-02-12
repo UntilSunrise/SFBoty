@@ -123,7 +123,10 @@ namespace SFBotyCore.Mechanic.Areas {
 				//Account Daten aktualisieren
 				ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
 				s = SendRequest(ActionTypes.JoinCharacter);
-				Asserts.IsTrue(s.Split('/').Count() >= 2, "Unerwarteter Fehler im Arena-Bereich");
+				if (s.Split('/').Count() < ResponseTypes.NextFreeDuellTimestamp) {
+					Account.ArenaEndTime = DateTime.Now.AddMinutes(10);
+					return;
+				}
 				CharScreenArea.UpdateAccountStats(s, Account);
 				Account.ArenaEndTime = s.Split('/')[ResponseTypes.NextFreeDuellTimestamp].MillisecondsToDateTime();
 			} else {

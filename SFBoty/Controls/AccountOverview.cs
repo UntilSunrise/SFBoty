@@ -18,9 +18,16 @@ namespace SFBoty.Controls {
 		private Button btnCreateAccount;
 		private Button btnSaveAll;
 		private DataGridView dgvAccountList;
+		private Button btnStop;
+		private Button btnStart;
+		private Button btnStartAll;
 
 		private List<AccountSettings> Settings = new List<AccountSettings>();
-		#endregion	
+		public event EventHandler<EventSelltingsArgs> StartBot;
+		public event EventHandler<EventSelltingsArgs> StopBot;
+		public event EventHandler<EventSelltingsArgs> StartAllBots;
+		public event EventHandler<EventSelltingsArgs> SelectedAccountChanged;
+		#endregion
 
 		private void InitializeComponent() {
 			this.dgvAccountList = new System.Windows.Forms.DataGridView();
@@ -30,6 +37,9 @@ namespace SFBoty.Controls {
 			this.btnLoadAccounts = new System.Windows.Forms.Button();
 			this.btnCreateAccount = new System.Windows.Forms.Button();
 			this.btnSaveAll = new System.Windows.Forms.Button();
+			this.btnStop = new System.Windows.Forms.Button();
+			this.btnStart = new System.Windows.Forms.Button();
+			this.btnStartAll = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dgvAccountList)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -39,9 +49,9 @@ namespace SFBoty.Controls {
 			this.dgvAccountList.AllowUserToDeleteRows = false;
 			this.dgvAccountList.AllowUserToResizeColumns = false;
 			this.dgvAccountList.AllowUserToResizeRows = false;
-			this.dgvAccountList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dgvAccountList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			| System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.dgvAccountList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.dgvAccountList.BackgroundColor = System.Drawing.Color.White;
 			this.dgvAccountList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -62,9 +72,10 @@ namespace SFBoty.Controls {
 			this.dgvAccountList.ShowCellToolTips = false;
 			this.dgvAccountList.ShowEditingIcon = false;
 			this.dgvAccountList.ShowRowErrors = false;
-			this.dgvAccountList.Size = new System.Drawing.Size(575, 491);
+			this.dgvAccountList.Size = new System.Drawing.Size(575, 467);
 			this.dgvAccountList.TabIndex = 0;
 			this.dgvAccountList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAccountList_CellContentClick);
+			this.dgvAccountList.SelectionChanged += new System.EventHandler(this.dgvAccountList_SelectionChanged);
 			// 
 			// ID
 			// 
@@ -87,7 +98,7 @@ namespace SFBoty.Controls {
 			// btnLoadAccounts
 			// 
 			this.btnLoadAccounts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.btnLoadAccounts.Location = new System.Drawing.Point(0, 497);
+			this.btnLoadAccounts.Location = new System.Drawing.Point(0, 473);
 			this.btnLoadAccounts.Name = "btnLoadAccounts";
 			this.btnLoadAccounts.Size = new System.Drawing.Size(92, 23);
 			this.btnLoadAccounts.TabIndex = 1;
@@ -97,9 +108,9 @@ namespace SFBoty.Controls {
 			// 
 			// btnCreateAccount
 			// 
-			this.btnCreateAccount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnCreateAccount.Location = new System.Drawing.Point(98, 497);
+			this.btnCreateAccount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right)));
+			this.btnCreateAccount.Location = new System.Drawing.Point(98, 473);
 			this.btnCreateAccount.Name = "btnCreateAccount";
 			this.btnCreateAccount.Size = new System.Drawing.Size(368, 23);
 			this.btnCreateAccount.TabIndex = 2;
@@ -110,7 +121,7 @@ namespace SFBoty.Controls {
 			// btnSaveAll
 			// 
 			this.btnSaveAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSaveAll.Location = new System.Drawing.Point(472, 497);
+			this.btnSaveAll.Location = new System.Drawing.Point(469, 473);
 			this.btnSaveAll.Name = "btnSaveAll";
 			this.btnSaveAll.Size = new System.Drawing.Size(103, 23);
 			this.btnSaveAll.TabIndex = 3;
@@ -118,14 +129,51 @@ namespace SFBoty.Controls {
 			this.btnSaveAll.UseVisualStyleBackColor = true;
 			this.btnSaveAll.Click += new System.EventHandler(this.btnSaveAll_Click);
 			// 
+			// btnStop
+			// 
+			this.btnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnStop.Location = new System.Drawing.Point(1, 500);
+			this.btnStop.Name = "btnStop";
+			this.btnStop.Size = new System.Drawing.Size(91, 23);
+			this.btnStop.TabIndex = 4;
+			this.btnStop.Text = "Stop";
+			this.btnStop.UseVisualStyleBackColor = true;
+			this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+			// 
+			// btnStart
+			// 
+			this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right)));
+			this.btnStart.Location = new System.Drawing.Point(98, 500);
+			this.btnStart.Name = "btnStart";
+			this.btnStart.Size = new System.Drawing.Size(368, 23);
+			this.btnStart.TabIndex = 5;
+			this.btnStart.Text = "Start";
+			this.btnStart.UseVisualStyleBackColor = true;
+			this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+			// 
+			// btnStartAll
+			// 
+			this.btnStartAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnStartAll.Location = new System.Drawing.Point(469, 500);
+			this.btnStartAll.Name = "btnStartAll";
+			this.btnStartAll.Size = new System.Drawing.Size(103, 23);
+			this.btnStartAll.TabIndex = 6;
+			this.btnStartAll.Text = "Start All";
+			this.btnStartAll.UseVisualStyleBackColor = true;
+			this.btnStartAll.Click += new System.EventHandler(this.btnStartAll_Click);
+			// 
 			// AccountOverview
 			// 
+			this.Controls.Add(this.btnStartAll);
+			this.Controls.Add(this.btnStart);
+			this.Controls.Add(this.btnStop);
 			this.Controls.Add(this.btnSaveAll);
 			this.Controls.Add(this.btnCreateAccount);
 			this.Controls.Add(this.btnLoadAccounts);
 			this.Controls.Add(this.dgvAccountList);
 			this.Name = "AccountOverview";
-			this.Size = new System.Drawing.Size(575, 520);
+			this.Size = new System.Drawing.Size(575, 529);
 			((System.ComponentModel.ISupportInitialize)(this.dgvAccountList)).EndInit();
 			this.ResumeLayout(false);
 
@@ -144,7 +192,7 @@ namespace SFBoty.Controls {
 				AccountSettings s = frm.Setting;
 				Settings.Add(s);
 				dgvAccountList.Rows.Add(s.Username, s.Server, "gestopt");
-			}		
+			}
 		}
 
 		private void btnSaveAll_Click(object sender, EventArgs e) {
@@ -159,7 +207,36 @@ namespace SFBoty.Controls {
 
 				if (result == DialogResult.OK) {
 					Refresh();
-				}		
+				}
+			}
+		}
+
+		private void btnStop_Click(object sender, EventArgs e) {
+			if (dgvAccountList.SelectedRows.Count > 0) {
+				AccountSettings settings = Settings.Single(x => x.Username == dgvAccountList.SelectedRows[0].Cells[0].Value && x.Server == dgvAccountList.SelectedRows[0].Cells[1].Value);
+				if (StopBot != null) {
+					StopBot(this, new EventSelltingsArgs(new List<AccountSettings>() { settings }));
+					//todo rows status update
+				}
+			}
+		}
+
+		private void btnStart_Click(object sender, EventArgs e) {
+			if (dgvAccountList.SelectedRows.Count > 0) {
+				AccountSettings settings = Settings.Single(x => x.Username == dgvAccountList.SelectedRows[0].Cells[0].Value && x.Server == dgvAccountList.SelectedRows[0].Cells[1].Value);
+				if (StartBot != null) {
+					StartBot(this, new EventSelltingsArgs(new List<AccountSettings>() { settings }));
+					//todo rows status update
+				}
+			}
+		}
+
+		private void btnStartAll_Click(object sender, EventArgs e) {
+			if (dgvAccountList.Rows.Count > 0) {
+				if (StartAllBots != null) {
+					StartAllBots(this, new EventSelltingsArgs(Settings));
+					//todo rows status update
+				}
 			}
 		}
 		#endregion
@@ -212,5 +289,25 @@ namespace SFBoty.Controls {
 			InitializeComponent();
 		}
 
+		private void dgvAccountList_SelectionChanged(object sender, EventArgs e) {
+			if (dgvAccountList.SelectedRows.Count > 0) {
+				AccountSettings settings = Settings.Single(x => x.Username == dgvAccountList.SelectedRows[0].Cells[0].Value && x.Server == dgvAccountList.SelectedRows[0].Cells[1].Value);
+				if (SelectedAccountChanged != null) {
+					SelectedAccountChanged(this, new EventSelltingsArgs(new List<AccountSettings>() { settings }));
+				}
+			}
+		}
+
+	}
+
+	public class EventSelltingsArgs : EventArgs {
+		public List<AccountSettings> Settings;
+
+		public EventSelltingsArgs(List<AccountSettings> s) {
+			Settings = new List<AccountSettings>();
+			if (s != null) {
+				Settings = s;
+			}
+		}
 	}
 }

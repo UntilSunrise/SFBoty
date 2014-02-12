@@ -19,6 +19,8 @@ namespace SFBoty.NewAccounts {
 			Clone = Setting.Clone();
 
 			Clone.Username += "Test";
+
+			allgemeineSettings1.Enabled = false;
 		}
 
 		private void btnSave_Click(object sender, EventArgs e) {

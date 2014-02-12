@@ -49,6 +49,21 @@
     <Compile Include="Controls\AccountOverview.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\AllgemeineSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Console.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TavernSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ToiletteSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TownWatchSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Extensions.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -72,6 +87,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controls\AccountOverview.resx">
       <DependentUpon>AccountOverview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AllgemeineSettings.resx">
+      <DependentUpon>AllgemeineSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Console.resx">
+      <DependentUpon>Console.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TavernSettings.resx">
+      <DependentUpon>TavernSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ToiletteSettings.resx">
+      <DependentUpon>ToiletteSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TownWatchSettings.resx">
+      <DependentUpon>TownWatchSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
