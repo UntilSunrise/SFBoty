@@ -99,12 +99,12 @@ namespace SFBotyCore.Mechanic {
 		private void PerformAction() {
 			while (true) {
 				if (Account.Settings.HasLogin) {
-                    CharArea.PerformArea();
 					MagicShopArea.PerformArea();
 					TarvernArea.PerformArea();
 					ToiletArea.PerformArea();
 					ArenaArea.PerformArea();
 					GuildArea.PerformArea();
+					CharArea.PerformArea();
 					DungeonArea.PerformArea();
 					StadtwacheArea.PerformArea();
 				} else {

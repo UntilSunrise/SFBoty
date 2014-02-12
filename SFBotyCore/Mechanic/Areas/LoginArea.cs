@@ -67,6 +67,13 @@ namespace SFBotyCore.Mechanic.Areas {
 				}
 			}
 
+			int i = 1;
+			acc.BackpackItems.Clear();
+			while (i <= ResponseTypes.BackpackSize) {
+				acc.BackpackItems.Add(new Item(s.Split('/'), ResponseTypes.BackpackFirstItemPosition + ((i - 1) * ResponseTypes.ItemSize)));
+				i++;
+			}
+
 			acc.ALU_Seconds = Convert.ToInt32(answer[ResponseTypes.ALU]);
 
 			GuildAttackDefenceTypes type = answer[ResponseTypes.GuildAttackDefenceEnum].ToEnum<GuildAttackDefenceTypes>();
