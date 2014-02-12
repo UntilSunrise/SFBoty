@@ -39,7 +39,7 @@ namespace SFBotyCore.Mechanic {
 		public bool IsEpic { get; private set; }
 
 		public Item(string[] responseString, int offset) {
-			inventoryID = (offset - ResponseTypes.BackpackFirstItemPosition) /  ResponseTypes.ItemSize;
+			inventoryID = ((offset - ResponseTypes.BackpackFirstItemPosition) /  ResponseTypes.ItemSize) + 1;
 			typeOriginal = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemTyp)]);
 			picOriginal = Convert.ToDouble(responseString[(offset + ResponseTypes.ItemPicture)]);
 			mushroomValue = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemMushroomValue)]);
