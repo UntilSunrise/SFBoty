@@ -30,10 +30,18 @@ namespace SFBotyCore.Mechanic.Areas {
 		public override void PerformArea() {
 			base.PerformArea();
 
+            string s;
+            if (Account.BackpackItems.Count == 0) {
+                RaiseMessageEvent("Charakterübersicht betreten");
+                ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToLogOut);
+                s = SendRequest(ActionTypes.JoinCharacter);
+                CharScreenArea.UpdateAccountStats(s, Account);
+            }
+
 			if (Account.BackpackIsFull) {
 				RaiseMessageEvent("Betrete Zauberladen");
 				ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
-				string s = SendRequest(ActionTypes.JoinMagicshop);
+				s = SendRequest(ActionTypes.JoinMagicshop);
 				int backpackslotWithLowestItemValue = Account.BackpackItems.Where(b => b.GoldValue != 0 && b.Typ != ItemTypes.Buff && b.IsEpic == false).OrderBy(b => b.GoldValue).First().InventoryID;
 
 				s = SellItemWithLowestValue(backpackslotWithLowestItemValue, s);
