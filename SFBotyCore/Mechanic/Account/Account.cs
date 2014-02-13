@@ -116,7 +116,7 @@ namespace SFBotyCore.Mechanic.Account {
 			HasJoinAttack = false;
 			HasJoinDefence = false;
 
-			LastDonateTime = DateTime.Now.AddDays(-1);
+			LastDonateTime = DateTime.Now;
 		}
 
 		public void Logout() {
