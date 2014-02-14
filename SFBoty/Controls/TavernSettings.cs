@@ -3,46 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SFBotyCore.Mechanic.Account;
 
 namespace SFBoty.Controls {
 	public class TavernSettings : UserControl {
 		private GroupBox groupBox1;
 		private CheckBox checkBox4;
-		private CheckBox checkBox3;
+		private CheckBox notitle;
 		private Label label2;
-		private NumericUpDown numericUpDown1;
-		private CheckBox checkBox2;
-		private ComboBox comboBox1;
+		private NumericUpDown nupBeerCount;
+		private CheckBox ckbBuyBear;
+		private ComboBox ddlQuestMode;
 		private Label label1;
 		private CheckBox checkBox5;
-		private CheckBox checkBox1;
+		private CheckBox ckbPerformQuest;
 	
 		private void InitializeComponent() {
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.checkBox5 = new System.Windows.Forms.CheckBox();
 			this.checkBox4 = new System.Windows.Forms.CheckBox();
-			this.checkBox3 = new System.Windows.Forms.CheckBox();
+			this.notitle = new System.Windows.Forms.CheckBox();
 			this.label2 = new System.Windows.Forms.Label();
-			this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-			this.checkBox2 = new System.Windows.Forms.CheckBox();
-			this.comboBox1 = new System.Windows.Forms.ComboBox();
+			this.nupBeerCount = new System.Windows.Forms.NumericUpDown();
+			this.ckbBuyBear = new System.Windows.Forms.CheckBox();
+			this.ddlQuestMode = new System.Windows.Forms.ComboBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.ckbPerformQuest = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nupBeerCount)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox1
 			// 
 			this.groupBox1.Controls.Add(this.checkBox5);
 			this.groupBox1.Controls.Add(this.checkBox4);
-			this.groupBox1.Controls.Add(this.checkBox3);
+			this.groupBox1.Controls.Add(this.notitle);
 			this.groupBox1.Controls.Add(this.label2);
-			this.groupBox1.Controls.Add(this.numericUpDown1);
-			this.groupBox1.Controls.Add(this.checkBox2);
-			this.groupBox1.Controls.Add(this.comboBox1);
+			this.groupBox1.Controls.Add(this.nupBeerCount);
+			this.groupBox1.Controls.Add(this.ckbBuyBear);
+			this.groupBox1.Controls.Add(this.ddlQuestMode);
 			this.groupBox1.Controls.Add(this.label1);
-			this.groupBox1.Controls.Add(this.checkBox1);
+			this.groupBox1.Controls.Add(this.ckbPerformQuest);
 			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox1.Location = new System.Drawing.Point(0, 0);
 			this.groupBox1.Name = "groupBox1";
@@ -73,16 +74,16 @@ namespace SFBoty.Controls {
 			this.checkBox4.Text = "Spiele nach Events";
 			this.checkBox4.UseVisualStyleBackColor = true;
 			// 
-			// checkBox3
+			// notitle
 			// 
-			this.checkBox3.AutoSize = true;
-			this.checkBox3.Enabled = false;
-			this.checkBox3.Location = new System.Drawing.Point(11, 95);
-			this.checkBox3.Name = "checkBox3";
-			this.checkBox3.Size = new System.Drawing.Size(145, 17);
-			this.checkBox3.TabIndex = 6;
-			this.checkBox3.Text = "Volles Inventar ignorieren";
-			this.checkBox3.UseVisualStyleBackColor = true;
+			this.notitle.AutoSize = true;
+			this.notitle.Enabled = false;
+			this.notitle.Location = new System.Drawing.Point(11, 95);
+			this.notitle.Name = "notitle";
+			this.notitle.Size = new System.Drawing.Size(145, 17);
+			this.notitle.TabIndex = 6;
+			this.notitle.Text = "Volles Inventar ignorieren";
+			this.notitle.UseVisualStyleBackColor = true;
 			// 
 			// label2
 			// 
@@ -93,30 +94,30 @@ namespace SFBoty.Controls {
 			this.label2.TabIndex = 5;
 			this.label2.Text = "pro Tag";
 			// 
-			// numericUpDown1
+			// nupBeerCount
 			// 
-			this.numericUpDown1.Location = new System.Drawing.Point(125, 71);
-			this.numericUpDown1.Name = "numericUpDown1";
-			this.numericUpDown1.Size = new System.Drawing.Size(68, 20);
-			this.numericUpDown1.TabIndex = 4;
+			this.nupBeerCount.Location = new System.Drawing.Point(125, 71);
+			this.nupBeerCount.Name = "nupBeerCount";
+			this.nupBeerCount.Size = new System.Drawing.Size(68, 20);
+			this.nupBeerCount.TabIndex = 4;
 			// 
-			// checkBox2
+			// ckbBuyBear
 			// 
-			this.checkBox2.AutoSize = true;
-			this.checkBox2.Location = new System.Drawing.Point(11, 72);
-			this.checkBox2.Name = "checkBox2";
-			this.checkBox2.Size = new System.Drawing.Size(108, 17);
-			this.checkBox2.TabIndex = 3;
-			this.checkBox2.Text = "Kaufe Bier bis zu:";
-			this.checkBox2.UseVisualStyleBackColor = true;
+			this.ckbBuyBear.AutoSize = true;
+			this.ckbBuyBear.Location = new System.Drawing.Point(11, 72);
+			this.ckbBuyBear.Name = "ckbBuyBear";
+			this.ckbBuyBear.Size = new System.Drawing.Size(108, 17);
+			this.ckbBuyBear.TabIndex = 3;
+			this.ckbBuyBear.Text = "Kaufe Bier bis zu:";
+			this.ckbBuyBear.UseVisualStyleBackColor = true;
 			// 
-			// comboBox1
+			// ddlQuestMode
 			// 
-			this.comboBox1.FormattingEnabled = true;
-			this.comboBox1.Location = new System.Drawing.Point(72, 44);
-			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(121, 21);
-			this.comboBox1.TabIndex = 2;
+			this.ddlQuestMode.FormattingEnabled = true;
+			this.ddlQuestMode.Location = new System.Drawing.Point(72, 44);
+			this.ddlQuestMode.Name = "ddlQuestMode";
+			this.ddlQuestMode.Size = new System.Drawing.Size(121, 21);
+			this.ddlQuestMode.TabIndex = 2;
 			// 
 			// label1
 			// 
@@ -127,15 +128,15 @@ namespace SFBoty.Controls {
 			this.label1.TabIndex = 1;
 			this.label1.Text = "Bevorzugt:";
 			// 
-			// checkBox1
+			// ckbPerformQuest
 			// 
-			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(11, 21);
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(103, 17);
-			this.checkBox1.TabIndex = 0;
-			this.checkBox1.Text = "Aktiviere Quests";
-			this.checkBox1.UseVisualStyleBackColor = true;
+			this.ckbPerformQuest.AutoSize = true;
+			this.ckbPerformQuest.Location = new System.Drawing.Point(11, 21);
+			this.ckbPerformQuest.Name = "ckbPerformQuest";
+			this.ckbPerformQuest.Size = new System.Drawing.Size(103, 17);
+			this.ckbPerformQuest.TabIndex = 0;
+			this.ckbPerformQuest.Text = "Aktiviere Quests";
+			this.ckbPerformQuest.UseVisualStyleBackColor = true;
 			// 
 			// TavernSettings
 			// 
@@ -144,13 +145,23 @@ namespace SFBoty.Controls {
 			this.Size = new System.Drawing.Size(258, 174);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nupBeerCount)).EndInit();
 			this.ResumeLayout(false);
 
 		}
 
 		public TavernSettings() {
 			InitializeComponent();
+		}
+
+		private AccountSettings Settings;
+		public void SetSettings(AccountSettings settings) {
+			Settings = settings;
+
+			ckbBuyBear.Checked = Settings.BuyBeer;
+			ckbPerformQuest.Checked = Settings.PerformQuesten;
+			nupBeerCount.Value = Settings.MaxBeerToBuy;
+			ddlQuestMode.Text = Settings.QuestMode.ToString();
 		}
 	}
 }

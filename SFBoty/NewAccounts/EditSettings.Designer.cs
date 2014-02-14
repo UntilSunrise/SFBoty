@@ -45,7 +45,7 @@
 			// 
 			this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnSave.Location = new System.Drawing.Point(519, 439);
+			this.btnSave.Location = new System.Drawing.Point(519, 417);
 			this.btnSave.Name = "btnSave";
 			this.btnSave.Size = new System.Drawing.Size(75, 23);
 			this.btnSave.TabIndex = 0;
@@ -57,7 +57,7 @@
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Location = new System.Drawing.Point(438, 439);
+			this.btnCancel.Location = new System.Drawing.Point(438, 417);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 1;
@@ -78,7 +78,7 @@
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(609, 433);
+			this.tabControl1.Size = new System.Drawing.Size(609, 411);
 			this.tabControl1.TabIndex = 2;
 			// 
 			// tabPage7
@@ -105,14 +105,13 @@
 			this.tabPage8.Controls.Add(this.toiletteSettings1);
 			this.tabPage8.Location = new System.Drawing.Point(4, 22);
 			this.tabPage8.Name = "tabPage8";
-			this.tabPage8.Size = new System.Drawing.Size(601, 407);
+			this.tabPage8.Size = new System.Drawing.Size(601, 385);
 			this.tabPage8.TabIndex = 1;
 			this.tabPage8.Text = "Verhalten";
 			this.tabPage8.UseVisualStyleBackColor = true;
 			// 
 			// tavernSettings1
 			// 
-			this.tavernSettings1.Enabled = false;
 			this.tavernSettings1.Location = new System.Drawing.Point(11, 3);
 			this.tavernSettings1.Name = "tavernSettings1";
 			this.tavernSettings1.Size = new System.Drawing.Size(373, 174);
@@ -120,18 +119,16 @@
 			// 
 			// townWatchSettings1
 			// 
-			this.townWatchSettings1.Enabled = false;
-			this.townWatchSettings1.Location = new System.Drawing.Point(11, 307);
+			this.townWatchSettings1.Location = new System.Drawing.Point(11, 281);
 			this.townWatchSettings1.Name = "townWatchSettings1";
 			this.townWatchSettings1.Size = new System.Drawing.Size(373, 97);
 			this.townWatchSettings1.TabIndex = 2;
 			// 
 			// toiletteSettings1
 			// 
-			this.toiletteSettings1.Enabled = false;
 			this.toiletteSettings1.Location = new System.Drawing.Point(11, 183);
 			this.toiletteSettings1.Name = "toiletteSettings1";
-			this.toiletteSettings1.Size = new System.Drawing.Size(373, 118);
+			this.toiletteSettings1.Size = new System.Drawing.Size(373, 92);
 			this.toiletteSettings1.TabIndex = 1;
 			// 
 			// tabPage9
@@ -174,7 +171,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(606, 474);
+			this.ClientSize = new System.Drawing.Size(606, 452);
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.btnSave);

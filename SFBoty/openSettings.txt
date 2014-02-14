@@ -1,0 +1,33 @@
+	
+	
+		public bool PerformBuyStats { get; set; }		
+		public bool PerformDungeons { get; set; }	
+		public bool PerformArena { get; set; }
+		public bool PerformGuild { get; set; }
+
+		public int MaxTriesToFindEnemy { get; set; }
+		public bool AttackSuggestedEnemy { get; set; }
+		public bool AttackEnemyBetweenRange { get; set; } //Ist eine ungenutzte Variable
+
+		public int UpperRangeLimit { get; set; }
+		public int LowerRangeLimit { get; set; }
+		public int LevelDifference { get; set; }
+		public string IgnoreGuilds { get; set; }
+		public string IgnorePlayers { get; set; }
+
+		public float StatStrFactor { get; set; }
+		public float StatDexFactor { get; set; }
+		public float StatIntFactor { get; set; }
+		public float StatAusFactor { get; set; }
+		public float StatLuckFactor { get; set; }
+
+		
+		public bool DonateGold { get; set; }
+		public float FactorToDonate { get; set; }
+
+
+		public float guildVisitInterval { get; set; }
+
+		public float MinSendRequestInterval { get; set; }
+
+		public AutoQuestMode QuestMode { get; set; }
