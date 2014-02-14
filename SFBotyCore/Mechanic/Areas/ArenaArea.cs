@@ -90,7 +90,7 @@ namespace SFBotyCore.Mechanic.Areas {
 
 					if (HoFCharacters.Count() > myRandomEnemy) {
 						enemyLevel = HoFCharacters[myRandomEnemy].Level;
-                        enemyNick = "Tendil";//HoFCharacters[myRandomEnemy].CharacterNick;
+                        enemyNick = HoFCharacters[myRandomEnemy].CharacterNick;
 						enemyGuildNick = HoFCharacters[myRandomEnemy].GuildNick;
 					} else {
 						return;
