@@ -113,7 +113,13 @@ namespace SFBoty.Controls {
 			// 
 			// ddlQuestMode
 			// 
+			this.ddlQuestMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.ddlQuestMode.FormattingEnabled = true;
+			this.ddlQuestMode.Items.AddRange(new object[] {
+            "BestXP",
+            "BestGold",
+            "BestTime",
+            "HighstMountPerSecond"});
 			this.ddlQuestMode.Location = new System.Drawing.Point(72, 44);
 			this.ddlQuestMode.Name = "ddlQuestMode";
 			this.ddlQuestMode.Size = new System.Drawing.Size(121, 21);
