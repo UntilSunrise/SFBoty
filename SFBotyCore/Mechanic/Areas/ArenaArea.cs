@@ -56,8 +56,12 @@ namespace SFBotyCore.Mechanic.Areas {
 
 			RaiseMessageEvent("Arena betreten");
 
-			int tries = 0;
+			int tries = 1;
 			do {
+                if (tries > maxTries) {
+                    break;
+                } //else do nothing
+
 				ThreadSleep(Account.Settings.minTimeToJoinHoF, Account.Settings.maxTimeToJoinHoF);
 				if (Account.Settings.AttackSuggestedEnemy) {
 					s = SendRequest(ActionTypes.JoinArena);
@@ -86,16 +90,13 @@ namespace SFBotyCore.Mechanic.Areas {
 
 					if (HoFCharacters.Count() > myRandomEnemy) {
 						enemyLevel = HoFCharacters[myRandomEnemy].Level;
-						enemyNick = HoFCharacters[myRandomEnemy].CharacterNick;
+                        enemyNick = "Tendil";//HoFCharacters[myRandomEnemy].CharacterNick;
 						enemyGuildNick = HoFCharacters[myRandomEnemy].GuildNick;
 					} else {
 						return;
 					}
 				}
 				tries++;
-				if (tries == maxTries) {
-					break;
-				} //else do nothing
 			} while (playerFilter.Contains(enemyNick)
 					|| Account.Settings.Username == enemyNick
 					|| guildFilter.Contains(enemyGuildNick)
