@@ -40,32 +40,34 @@ namespace SFBotyCore.Mechanic.Areas {
 
 				if (Account.Settings.PerformBuyStats) {
 
-					int sumStats = 0;
-					if (Account.Settings.StatStrFactor > 0f) {
-						sumStats += Account.BaseStr;
-					}
-					if (Account.Settings.StatDexFactor > 0f) {
-						sumStats += Account.BaseDex;
-					}
-					if (Account.Settings.StatIntFactor > 0f) {
-						sumStats += Account.BaseInt;
-					}
-					if (Account.Settings.StatAusFactor > 0f) {
-						sumStats += Account.BaseAus;
-					}
-					if (Account.Settings.StatLuckFactor > 0f) {
-						sumStats += Account.BaseLuck;
-					}
-
 					bool canBuyStats = true;
-					int strLimit = (int)(sumStats * Account.Settings.StatStrFactor);
-					int dexLimit = (int)(sumStats * Account.Settings.StatDexFactor);
-					int intLimit = (int)(sumStats * Account.Settings.StatIntFactor);
-					int ausLimit = (int)(sumStats * Account.Settings.StatAusFactor);
-					int LuckLimit = (int)(sumStats * Account.Settings.StatLuckFactor);
-
+					
 					while (canBuyStats) {
 						bool haveBuy = false;
+
+                        int sumStats = 0;
+                        if (Account.Settings.StatStrFactor > 0f) {
+                            sumStats += Account.BaseStr;
+                        }
+                        if (Account.Settings.StatDexFactor > 0f) {
+                            sumStats += Account.BaseDex;
+                        }
+                        if (Account.Settings.StatIntFactor > 0f) {
+                            sumStats += Account.BaseInt;
+                        }
+                        if (Account.Settings.StatAusFactor > 0f) {
+                            sumStats += Account.BaseAus;
+                        }
+                        if (Account.Settings.StatLuckFactor > 0f) {
+                            sumStats += Account.BaseLuck;
+                        }
+
+                        int strLimit = (int)(sumStats * Account.Settings.StatStrFactor);
+                        int dexLimit = (int)(sumStats * Account.Settings.StatDexFactor);
+                        int intLimit = (int)(sumStats * Account.Settings.StatIntFactor);
+                        int ausLimit = (int)(sumStats * Account.Settings.StatAusFactor);
+                        int LuckLimit = (int)(sumStats * Account.Settings.StatLuckFactor);
+
 						if (Account.BaseStr <= strLimit && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.BuyedStr)) {
 							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
 							s = SendRequest(ActionTypes.BuyStatStr);
