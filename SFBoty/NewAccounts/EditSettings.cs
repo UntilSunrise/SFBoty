@@ -18,9 +18,10 @@ namespace SFBoty.NewAccounts {
 			Setting = s;
 			Clone = Setting.Clone();
 
-			Clone.Username += "Test";
-
-			allgemeineSettings1.Enabled = false;
+			allgemeineSettings1.SetSettings(Clone);
+			tavernSettings1.SetSettings(Clone);
+			toiletteSettings1.SetSettings(Clone);
+			townWatchSettings1.SetSettings(Clone);
 		}
 
 		private void btnSave_Click(object sender, EventArgs e) {

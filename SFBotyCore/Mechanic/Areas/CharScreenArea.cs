@@ -164,6 +164,10 @@ namespace SFBotyCore.Mechanic.Areas {
 		}
 
 		public static void UpdateAccountStats(string s, Account.Account acc) {
+			if (s == "E078") {
+				return;
+			}
+			
 			string[] answerTavern = s.Split('/');
 			string str = answerTavern[ResponseTypes.str];
 			string ges = answerTavern[ResponseTypes.ges];

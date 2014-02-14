@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SFBotyCore.Mechanic.Account;
 
 namespace SFBoty.Controls {
 	public class AllgemeineSettings : UserControl {
 		private GroupBox groupBox1;
-		private TextBox textBox3;
-		private TextBox textBox2;
-		private TextBox textBox1;
+		private TextBox txtPasswort;
+		private TextBox txtAccount;
+		private TextBox txtServer;
 		private Label label3;
 		private Label label2;
 		private Label label1;
@@ -26,9 +27,9 @@ namespace SFBoty.Controls {
 	
 		private void InitializeComponent() {
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.textBox3 = new System.Windows.Forms.TextBox();
-			this.textBox2 = new System.Windows.Forms.TextBox();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.txtPasswort = new System.Windows.Forms.TextBox();
+			this.txtAccount = new System.Windows.Forms.TextBox();
+			this.txtServer = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
@@ -54,39 +55,39 @@ namespace SFBoty.Controls {
 			// 
 			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox1.Controls.Add(this.textBox3);
-			this.groupBox1.Controls.Add(this.textBox2);
-			this.groupBox1.Controls.Add(this.textBox1);
+			this.groupBox1.Controls.Add(this.txtPasswort);
+			this.groupBox1.Controls.Add(this.txtAccount);
+			this.groupBox1.Controls.Add(this.txtServer);
 			this.groupBox1.Controls.Add(this.label3);
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Location = new System.Drawing.Point(3, 3);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(283, 107);
+			this.groupBox1.Size = new System.Drawing.Size(308, 107);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Allgemein";
 			// 
-			// textBox3
+			// txtPasswort
 			// 
-			this.textBox3.Location = new System.Drawing.Point(85, 72);
-			this.textBox3.Name = "textBox3";
-			this.textBox3.Size = new System.Drawing.Size(189, 20);
-			this.textBox3.TabIndex = 5;
+			this.txtPasswort.Location = new System.Drawing.Point(85, 72);
+			this.txtPasswort.Name = "txtPasswort";
+			this.txtPasswort.Size = new System.Drawing.Size(217, 20);
+			this.txtPasswort.TabIndex = 5;
 			// 
-			// textBox2
+			// txtAccount
 			// 
-			this.textBox2.Location = new System.Drawing.Point(85, 46);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(189, 20);
-			this.textBox2.TabIndex = 4;
+			this.txtAccount.Location = new System.Drawing.Point(85, 46);
+			this.txtAccount.Name = "txtAccount";
+			this.txtAccount.Size = new System.Drawing.Size(217, 20);
+			this.txtAccount.TabIndex = 4;
 			// 
-			// textBox1
+			// txtServer
 			// 
-			this.textBox1.Location = new System.Drawing.Point(85, 20);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(189, 20);
-			this.textBox1.TabIndex = 3;
+			this.txtServer.Location = new System.Drawing.Point(85, 20);
+			this.txtServer.Name = "txtServer";
+			this.txtServer.Size = new System.Drawing.Size(217, 20);
+			this.txtServer.TabIndex = 3;
 			// 
 			// label3
 			// 
@@ -128,9 +129,10 @@ namespace SFBoty.Controls {
 			this.groupBox2.Controls.Add(this.label6);
 			this.groupBox2.Controls.Add(this.label5);
 			this.groupBox2.Controls.Add(this.label4);
+			this.groupBox2.Enabled = false;
 			this.groupBox2.Location = new System.Drawing.Point(3, 116);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(283, 149);
+			this.groupBox2.Size = new System.Drawing.Size(308, 149);
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Intervall";
@@ -138,7 +140,7 @@ namespace SFBoty.Controls {
 			// checkBox1
 			// 
 			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(188, 123);
+			this.checkBox1.Location = new System.Drawing.Point(223, 123);
 			this.checkBox1.Name = "checkBox1";
 			this.checkBox1.Size = new System.Drawing.Size(86, 17);
 			this.checkBox1.TabIndex = 8;
@@ -149,28 +151,28 @@ namespace SFBoty.Controls {
 			// 
 			this.numericUpDown4.Location = new System.Drawing.Point(119, 97);
 			this.numericUpDown4.Name = "numericUpDown4";
-			this.numericUpDown4.Size = new System.Drawing.Size(155, 20);
+			this.numericUpDown4.Size = new System.Drawing.Size(183, 20);
 			this.numericUpDown4.TabIndex = 7;
 			// 
 			// numericUpDown3
 			// 
 			this.numericUpDown3.Location = new System.Drawing.Point(119, 71);
 			this.numericUpDown3.Name = "numericUpDown3";
-			this.numericUpDown3.Size = new System.Drawing.Size(155, 20);
+			this.numericUpDown3.Size = new System.Drawing.Size(183, 20);
 			this.numericUpDown3.TabIndex = 6;
 			// 
 			// numericUpDown2
 			// 
 			this.numericUpDown2.Location = new System.Drawing.Point(119, 45);
 			this.numericUpDown2.Name = "numericUpDown2";
-			this.numericUpDown2.Size = new System.Drawing.Size(155, 20);
+			this.numericUpDown2.Size = new System.Drawing.Size(183, 20);
 			this.numericUpDown2.TabIndex = 5;
 			// 
 			// numericUpDown1
 			// 
 			this.numericUpDown1.Location = new System.Drawing.Point(119, 19);
 			this.numericUpDown1.Name = "numericUpDown1";
-			this.numericUpDown1.Size = new System.Drawing.Size(155, 20);
+			this.numericUpDown1.Size = new System.Drawing.Size(183, 20);
 			this.numericUpDown1.TabIndex = 4;
 			// 
 			// label7
@@ -214,7 +216,7 @@ namespace SFBoty.Controls {
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.Name = "AllgemeineSettings";
-			this.Size = new System.Drawing.Size(286, 275);
+			this.Size = new System.Drawing.Size(311, 275);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
@@ -227,8 +229,18 @@ namespace SFBoty.Controls {
 
 		}
 
+		
 		public AllgemeineSettings() {
 			InitializeComponent();
+		}
+
+		private AccountSettings Settings;
+		public void SetSettings(AccountSettings settings) {
+			Settings = settings;
+
+			txtAccount.Text = Settings.Username;
+			txtPasswort.Text = Settings.PasswordHash;
+			txtServer.Text = Settings.Server;
 		}
 	}
 }
