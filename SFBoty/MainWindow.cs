@@ -95,8 +95,8 @@ namespace SFBoty {
 		void accountOverview1_SelectedAccountChanged(object sender, EventSelltingsArgs e) {
 			if (e.Settings.Count() > 0) {
 				string key = String.Concat(e.Settings[0].Username, e.Settings[0].Server);
-
 				this.SelectedBotKey = key;
+				WriteLogToConsole(SelectedBotKey);
 			}		
 		}
 
