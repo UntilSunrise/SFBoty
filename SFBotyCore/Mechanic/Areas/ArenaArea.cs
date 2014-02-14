@@ -103,7 +103,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					|| enemyLevel >= (myLevel + levelDifference)
 					|| enemyLevel <= (myLevel - levelDifference));
 
-			if (tries <= maxTries) {
+            if (tries <= maxTries && !playerFilter.Contains(enemyNick) && !guildFilter.Contains(enemyGuildNick) && Account.Settings.Username != enemyNick) {
 				RaiseMessageEvent(string.Format("Greife Spieler: {0} an.", enemyNick));
 				ThreadSleep(Account.Settings.minTimeToJoinHoF, Account.Settings.maxTimeToJoinHoF);
 				s = SendRequest(string.Concat(ActionTypes.AttackEnemy, enemyNick.Escape()));
