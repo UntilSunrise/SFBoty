@@ -28,6 +28,8 @@ namespace SFBotyCore.Mechanic {
 
 		#region Events
 		public event EventHandler<MessageEventsArgs> MessageOutput;
+		public event EventHandler<MessageEventsArgs> ExtendedLog;
+		public event EventHandler<MessageEventsArgs> Error;
 		#endregion
 
 		public Bot(Account.Account account) {
@@ -44,38 +46,53 @@ namespace SFBotyCore.Mechanic {
 			LoginArea = new LoginArea();
 			LoginArea.Initialize(Account, Client);
 			LoginArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
+			LoginArea.ExtendedLog += new EventHandler<MessageEventsArgs>(Log_ExtendedLog);
 
 			TarvernArea = new TavernArea();
 			TarvernArea.Initialize(Account, Client);
 			TarvernArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
+			TarvernArea.ExtendedLog += new EventHandler<MessageEventsArgs>(Log_ExtendedLog);
 
 			StadtwacheArea = new StadtwacheArea();
 			StadtwacheArea.Initialize(Account, Client);
 			StadtwacheArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
+			StadtwacheArea.ExtendedLog += new EventHandler<MessageEventsArgs>(Log_ExtendedLog);
 
 			CharArea = new CharScreenArea();
 			CharArea.Initialize(Account, Client);
 			CharArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
+			CharArea.ExtendedLog += new EventHandler<MessageEventsArgs>(Log_ExtendedLog);
 
 			DungeonArea = new DungeonArea();
 			DungeonArea.Initialize(Account, Client);
 			DungeonArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
+			DungeonArea.ExtendedLog += new EventHandler<MessageEventsArgs>(Log_ExtendedLog);
 
 			ToiletArea = new ToiletArea();
 			ToiletArea.Initialize(Account, Client);
 			ToiletArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
+			ToiletArea.ExtendedLog += new EventHandler<MessageEventsArgs>(Log_ExtendedLog);
 
 			ArenaArea = new ArenaArea();
 			ArenaArea.Initialize(Account, Client);
 			ArenaArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
+			ArenaArea.ExtendedLog += new EventHandler<MessageEventsArgs>(Log_ExtendedLog);
 
 			GuildArea = new GuildArea();
 			GuildArea.Initialize(Account, Client);
 			GuildArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
+			GuildArea.ExtendedLog += new EventHandler<MessageEventsArgs>(Log_ExtendedLog);
 
 			MagicShopArea = new MagicShopArea();
 			MagicShopArea.Initialize(Account, Client);
 			MagicShopArea.MessageOutput += new EventHandler<MessageEventsArgs>(Event_MessageOutput);
+			MagicShopArea.ExtendedLog += new EventHandler<MessageEventsArgs>(Log_ExtendedLog);
+		}
+
+		void Log_ExtendedLog(object sender, MessageEventsArgs e) {
+			if (ExtendedLog != null) {
+				ExtendedLog(this, e);
+			}
 		}
 
 		void Event_MessageOutput(object sender, MessageEventsArgs e) {
@@ -97,22 +114,28 @@ namespace SFBotyCore.Mechanic {
 		/// Ausführung des Bots über den eigenen Thread
 		/// </summary>
 		private void PerformAction() {
-			while (true) {
-				if (Account.Settings.HasLogin) {
-					MagicShopArea.PerformArea();
-					TarvernArea.PerformArea();
-					ToiletArea.PerformArea();
-					ArenaArea.PerformArea();
-					GuildArea.PerformArea();
-					CharArea.PerformArea();
-					DungeonArea.PerformArea();
-					StadtwacheArea.PerformArea();
-				} else {
-					LoginArea.PerformArea();
-				}
+			try {
+				while (true) {
+					if (Account.Settings.HasLogin) {
+						MagicShopArea.PerformArea();
+						TarvernArea.PerformArea();
+						ToiletArea.PerformArea();
+						ArenaArea.PerformArea();
+						GuildArea.PerformArea();
+						CharArea.PerformArea();
+						DungeonArea.PerformArea();
+						StadtwacheArea.PerformArea();
+					} else {
+						LoginArea.PerformArea();
+					}
 
-				//at the end oh an Threadloop sleep for 1 Secound
-				Thread.Sleep(1000);
+					//at the end oh an Threadloop sleep for 1 Secound
+					Thread.Sleep(1000);
+				}
+			} catch (Exception ex) {
+				if (Error != null) {
+					Error(this, new MessageEventsArgs(ex.ToString()));
+				}
 			}
 		}
 		#endregion

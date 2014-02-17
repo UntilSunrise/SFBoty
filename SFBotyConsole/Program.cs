@@ -28,6 +28,8 @@ namespace SFBotyConsole {
 			foreach (Account a in accounts) {
 				Bot bot = new Bot(a);
 				bot.MessageOutput += new EventHandler<MessageEventsArgs>(bot_MessageOutput);
+				bot.ExtendedLog += new EventHandler<MessageEventsArgs>(bot_ExtendedLog);
+				bot.Error += new EventHandler<MessageEventsArgs>(bot_Error);
 				bots.Add(bot);
 			}
 
@@ -72,6 +74,38 @@ namespace SFBotyConsole {
 			System.IO.StreamWriter writer = new System.IO.StreamWriter(String.Concat("Logs/", tmp.Account.Settings.Server, "-", tmp.Account.Settings.Username, "-log-", DateTime.Now.ToString(culture).Remove(DateTime.Now.ToString(culture).Length - 9), ".log"), true);
 
 			Console.WriteLine(DateTime.Now.ToString() + " " + tmp.Account.Settings.Username + "(" + tmp.Account.Settings.Server + "): " + e.Message);
+			writer.WriteLine(DateTime.Now.ToString() + ": " + e.Message);
+
+			writer.Close();
+			writer.Dispose();
+		}
+
+		static void bot_Error(object sender, MessageEventsArgs e) {
+			Bot tmp = (Bot)sender;
+
+			if (!System.IO.Directory.Exists("Logs")) {
+				System.IO.Directory.CreateDirectory("Logs");
+			}
+
+			CultureInfo culture = new CultureInfo("de-DE");
+
+			System.IO.StreamWriter writer = new System.IO.StreamWriter(String.Concat("Logs/", tmp.Account.Settings.Server, "-", tmp.Account.Settings.Username, "-error-", DateTime.Now.ToString(culture).Remove(DateTime.Now.ToString(culture).Length - 9), ".log"), true);
+			writer.WriteLine(DateTime.Now.ToString() + ": " + e.Message);
+
+			writer.Close();
+			writer.Dispose();
+		}
+
+		static void bot_ExtendedLog(object sender, MessageEventsArgs e) {
+			Bot tmp = (Bot)sender;
+
+			if (!System.IO.Directory.Exists("Logs")) {
+				System.IO.Directory.CreateDirectory("Logs");
+			}
+
+			CultureInfo culture = new CultureInfo("de-DE");
+
+			System.IO.StreamWriter writer = new System.IO.StreamWriter(String.Concat("Logs/", tmp.Account.Settings.Server, "-", tmp.Account.Settings.Username, "-extlog-", DateTime.Now.ToString(culture).Remove(DateTime.Now.ToString(culture).Length - 9), ".log"), true);
 			writer.WriteLine(DateTime.Now.ToString() + ": " + e.Message);
 
 			writer.Close();

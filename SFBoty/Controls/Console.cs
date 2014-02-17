@@ -41,7 +41,7 @@ namespace SFBoty.Controls {
 			txtConsole.Text = "";
 
 			foreach (string s in messages) {
-				txtConsole.Text += DateTime.Now.ToString() + ": " + s + Environment.NewLine;
+				txtConsole.Text += s + Environment.NewLine;
 			}
 		}
 	}

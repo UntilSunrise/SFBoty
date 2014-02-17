@@ -65,9 +65,19 @@ namespace SFBoty {
 			} else {
 				Bot bot = new Bot(acc);
 				bot.MessageOutput += new EventHandler<MessageEventsArgs>(bot_MessageOutput);
+				bot.ExtendedLog += new EventHandler<MessageEventsArgs>(bot_ExtendedLog);
+				bot.Error += new EventHandler<MessageEventsArgs>(bot_Error);
 				Bots.Add(key, bot);
 				Bots[key].Run();
 			}
+		}
+
+		void bot_Error(object sender, MessageEventsArgs e) {
+			Application.Restart();
+		}
+
+		void bot_ExtendedLog(object sender, MessageEventsArgs e) {
+			
 		}
 
 		void bot_MessageOutput(object sender, MessageEventsArgs e) {
@@ -76,17 +86,17 @@ namespace SFBoty {
 			if (BotLogs.Keys.Any(x => x == key)) {
 				if (BotLogs[key] != null) {
 					if (BotLogs[key].Count < 20) {
-						BotLogs[key].Add(e.Message);
+						BotLogs[key].Add(DateTime.Now.ToString() + ": " + e.Message);
 					} else {
 						BotLogs[key].RemoveAt(0);
-						BotLogs[key].Add(e.Message);
+						BotLogs[key].Add(DateTime.Now.ToString() + ": " + e.Message);
 					}
 				} else {
 					BotLogs[key] = new List<string>();
-					BotLogs[key].Add(e.Message);
+					BotLogs[key].Add(DateTime.Now.ToString() + ": " + e.Message);
 				}
 			} else {
-				BotLogs.Add(key, new List<string>() { e.Message });
+				BotLogs.Add(key, new List<string>() { DateTime.Now.ToString() + ": " + e.Message });
 			}
 
 			WriteLogToConsole(SelectedBotKey);

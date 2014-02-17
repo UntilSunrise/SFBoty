@@ -21,6 +21,7 @@ namespace SFBotyCore.Mechanic {
 		private StreamReader streamReader;
 		protected Account.Account Account;
 		public abstract event EventHandler<MessageEventsArgs> MessageOutput;
+		public event EventHandler<MessageEventsArgs> ExtendedLog;
 		private DateTime LastSendRequestTimeStamp;
 
 		public virtual void Initialize(Account.Account account, WebClient refClient) {
@@ -63,6 +64,9 @@ namespace SFBotyCore.Mechanic {
 			int foo = 0;
 			if (CheckInternetConnection()) {
 				DoReLogin(ref s, ref foo);
+				if (ExtendedLog != null) {
+					ExtendedLog(this, new MessageEventsArgs("Relogin"));
+				}
 			}
 			
 			if (action == ActionTypes.LoginToSF) {
@@ -89,6 +93,10 @@ namespace SFBotyCore.Mechanic {
 				streamData = RefClient.OpenRead(String.Concat("http://", Account.Settings.Server, ".sfgame.de/request.php?req=", Account.Settings.SessionID, action, "&random=%2&rnd=", RandomValue, (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds));
 				streamReader = new StreamReader(streamData);
 				s = streamReader.ReadToEnd();
+
+				if (ExtendedLog != null) {
+					ExtendedLog(this, new MessageEventsArgs(action + Environment.NewLine + s));
+				}
 			} while (s == "E065");
 
 			LastSendRequestTimeStamp = DateTime.Now;
