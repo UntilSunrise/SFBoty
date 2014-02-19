@@ -34,6 +34,7 @@ namespace SFBotyConsole {
 				bot.AddMenu(new LoginArea());
 				bot.AddMenu(new MagicShopArea());
 				bot.AddMenu(new TavernArea());
+				bot.AddMenu(new ToiletArea());
 				bot.AddMenu(new ArenaArea());
 				bot.AddMenu(new GuildArea());
 				bot.AddMenu(new CharScreenArea());
