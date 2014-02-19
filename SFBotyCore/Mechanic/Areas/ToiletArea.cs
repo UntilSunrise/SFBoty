@@ -99,7 +99,11 @@ namespace SFBotyCore.Mechanic.Areas {
 					CharScreenArea.UpdateAccountStats(s, Account);
 				}
 
-			} // else do nothing
+			} else {
+				if (Account.ToiletEndTime.IsOtherDay(DateTime.Now) && !Account.ToiletIsAvailable && Account.Level >= 100) {
+					Account.ToiletIsAvailable = true;
+				}
+			}
 		}
 
 		private string CheckAndFlushToilette(string s) {
