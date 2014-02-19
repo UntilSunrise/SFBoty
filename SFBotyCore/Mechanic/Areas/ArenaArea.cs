@@ -135,6 +135,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				Account.ArenaEndTime = s.Split('/')[ResponseTypes.NextFreeDuellTimestamp].MillisecondsToDateTime();
 			} else {
 				RaiseMessageEvent("Es wurde kein passender Gegner gefunden.");
+				Account.ArenaEndTime = DateTime.Now.AddMinutes(10);
 				return;
 			}
 		}
