@@ -33,7 +33,9 @@ namespace SFBotyCore.Mechanic {
 		}
 
 		public virtual void PerformArea() {
-
+			if(Account.Settings.HasLogin) {
+				return;
+			}
 		}
 
 		public void RecreateClient() {

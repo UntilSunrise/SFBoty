@@ -67,6 +67,16 @@ namespace SFBoty {
 				bot.MessageOutput += new EventHandler<MessageEventsArgs>(bot_MessageOutput);
 				bot.ExtendedLog += new EventHandler<MessageEventsArgs>(bot_ExtendedLog);
 				bot.Error += new EventHandler<MessageEventsArgs>(bot_Error);
+
+				bot.AddMenu(new LoginArea());
+				bot.AddMenu(new MagicShopArea());
+				bot.AddMenu(new TavernArea());
+				bot.AddMenu(new ArenaArea());
+				bot.AddMenu(new GuildArea());
+				bot.AddMenu(new CharScreenArea());
+				bot.AddMenu(new DungeonArea());
+				bot.AddMenu(new StadtwacheArea());
+				
 				Bots.Add(key, bot);
 				Bots[key].Run();
 			}

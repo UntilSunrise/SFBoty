@@ -30,7 +30,6 @@ namespace SFBotyCore.Mechanic.Areas {
 		}
 
 		public override void PerformArea() {
-			base.PerformArea();
 			if (!base.Account.Settings.HasLogin && !Account.QuestIsStarted && DateTime.Now > Account.TownWatchEndTime) {
 
 				Account.Logout();
@@ -41,6 +40,8 @@ namespace SFBotyCore.Mechanic.Areas {
 
 				UpdateLoginData(s, Account);
 			}
+
+			base.PerformArea();
 		}
 
 		public static void UpdateLoginData(string s, Account.Account acc) {

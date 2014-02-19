@@ -7,9 +7,8 @@ using SFBotyCore.Constants;
 using SFBotyCore.Mechanic;
 
 namespace SFBotyCore.Mechanic.Areas {
-	class MagicShopArea : BaseArea {
-
-		
+	public class MagicShopArea : BaseArea {
+	
 		#region Events
 		public override event EventHandler<MessageEventsArgs> MessageOutput;
 		#endregion
