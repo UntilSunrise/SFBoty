@@ -27,25 +27,31 @@
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage7 = new System.Windows.Forms.TabPage();
-			this.allgemeineSettings1 = new SFBoty.Controls.AllgemeineSettings();
 			this.tabPage8 = new System.Windows.Forms.TabPage();
-			this.tavernSettings1 = new SFBoty.Controls.TavernSettings();
-			this.townWatchSettings1 = new SFBoty.Controls.TownWatchSettings();
-			this.toiletteSettings1 = new SFBoty.Controls.ToiletteSettings();
 			this.tabPage9 = new System.Windows.Forms.TabPage();
 			this.tabPage10 = new System.Windows.Forms.TabPage();
 			this.tabPage11 = new System.Windows.Forms.TabPage();
 			this.tabPage12 = new System.Windows.Forms.TabPage();
+			this.allgemeineSettings1 = new SFBoty.Controls.AllgemeineSettings();
+			this.dungeonTowerSettings1 = new SFBoty.Controls.DungeonTowerSettings();
+			this.arenaSettings1 = new SFBoty.Controls.ArenaSettings();
+			this.tavernSettings1 = new SFBoty.Controls.TavernSettings();
+			this.townWatchSettings1 = new SFBoty.Controls.TownWatchSettings();
+			this.toiletteSettings1 = new SFBoty.Controls.ToiletteSettings();
+			this.gildenSettings1 = new SFBoty.Controls.GildenSettings();
+			this.characterSettings1 = new SFBoty.Controls.CharacterSettings();
 			this.tabControl1.SuspendLayout();
 			this.tabPage7.SuspendLayout();
 			this.tabPage8.SuspendLayout();
+			this.tabPage9.SuspendLayout();
+			this.tabPage10.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// btnSave
 			// 
 			this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnSave.Location = new System.Drawing.Point(519, 417);
+			this.btnSave.Location = new System.Drawing.Point(552, 431);
 			this.btnSave.Name = "btnSave";
 			this.btnSave.Size = new System.Drawing.Size(75, 23);
 			this.btnSave.TabIndex = 0;
@@ -57,7 +63,7 @@
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Location = new System.Drawing.Point(438, 417);
+			this.btnCancel.Location = new System.Drawing.Point(471, 431);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 1;
@@ -78,7 +84,7 @@
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(609, 411);
+			this.tabControl1.Size = new System.Drawing.Size(642, 425);
 			this.tabControl1.TabIndex = 2;
 			// 
 			// tabPage7
@@ -86,65 +92,41 @@
 			this.tabPage7.Controls.Add(this.allgemeineSettings1);
 			this.tabPage7.Location = new System.Drawing.Point(4, 22);
 			this.tabPage7.Name = "tabPage7";
-			this.tabPage7.Size = new System.Drawing.Size(601, 407);
+			this.tabPage7.Size = new System.Drawing.Size(634, 399);
 			this.tabPage7.TabIndex = 0;
 			this.tabPage7.Text = "Allgemein";
 			this.tabPage7.UseVisualStyleBackColor = true;
 			// 
-			// allgemeineSettings1
-			// 
-			this.allgemeineSettings1.Location = new System.Drawing.Point(8, 3);
-			this.allgemeineSettings1.Name = "allgemeineSettings1";
-			this.allgemeineSettings1.Size = new System.Drawing.Size(309, 272);
-			this.allgemeineSettings1.TabIndex = 0;
-			// 
 			// tabPage8
 			// 
+			this.tabPage8.Controls.Add(this.dungeonTowerSettings1);
+			this.tabPage8.Controls.Add(this.arenaSettings1);
 			this.tabPage8.Controls.Add(this.tavernSettings1);
 			this.tabPage8.Controls.Add(this.townWatchSettings1);
 			this.tabPage8.Controls.Add(this.toiletteSettings1);
 			this.tabPage8.Location = new System.Drawing.Point(4, 22);
 			this.tabPage8.Name = "tabPage8";
-			this.tabPage8.Size = new System.Drawing.Size(601, 385);
+			this.tabPage8.Size = new System.Drawing.Size(634, 399);
 			this.tabPage8.TabIndex = 1;
 			this.tabPage8.Text = "Verhalten";
 			this.tabPage8.UseVisualStyleBackColor = true;
 			// 
-			// tavernSettings1
-			// 
-			this.tavernSettings1.Location = new System.Drawing.Point(11, 3);
-			this.tavernSettings1.Name = "tavernSettings1";
-			this.tavernSettings1.Size = new System.Drawing.Size(373, 174);
-			this.tavernSettings1.TabIndex = 3;
-			// 
-			// townWatchSettings1
-			// 
-			this.townWatchSettings1.Location = new System.Drawing.Point(11, 281);
-			this.townWatchSettings1.Name = "townWatchSettings1";
-			this.townWatchSettings1.Size = new System.Drawing.Size(373, 97);
-			this.townWatchSettings1.TabIndex = 2;
-			// 
-			// toiletteSettings1
-			// 
-			this.toiletteSettings1.Location = new System.Drawing.Point(11, 183);
-			this.toiletteSettings1.Name = "toiletteSettings1";
-			this.toiletteSettings1.Size = new System.Drawing.Size(373, 92);
-			this.toiletteSettings1.TabIndex = 1;
-			// 
 			// tabPage9
 			// 
+			this.tabPage9.Controls.Add(this.gildenSettings1);
 			this.tabPage9.Location = new System.Drawing.Point(4, 22);
 			this.tabPage9.Name = "tabPage9";
-			this.tabPage9.Size = new System.Drawing.Size(601, 407);
+			this.tabPage9.Size = new System.Drawing.Size(634, 399);
 			this.tabPage9.TabIndex = 2;
 			this.tabPage9.Text = "Gilde";
 			this.tabPage9.UseVisualStyleBackColor = true;
 			// 
 			// tabPage10
 			// 
+			this.tabPage10.Controls.Add(this.characterSettings1);
 			this.tabPage10.Location = new System.Drawing.Point(4, 22);
 			this.tabPage10.Name = "tabPage10";
-			this.tabPage10.Size = new System.Drawing.Size(601, 407);
+			this.tabPage10.Size = new System.Drawing.Size(634, 399);
 			this.tabPage10.TabIndex = 3;
 			this.tabPage10.Text = "Charakter";
 			this.tabPage10.UseVisualStyleBackColor = true;
@@ -153,7 +135,7 @@
 			// 
 			this.tabPage11.Location = new System.Drawing.Point(4, 22);
 			this.tabPage11.Name = "tabPage11";
-			this.tabPage11.Size = new System.Drawing.Size(601, 407);
+			this.tabPage11.Size = new System.Drawing.Size(634, 399);
 			this.tabPage11.TabIndex = 4;
 			this.tabPage11.Text = "Händler";
 			this.tabPage11.UseVisualStyleBackColor = true;
@@ -162,25 +144,88 @@
 			// 
 			this.tabPage12.Location = new System.Drawing.Point(4, 22);
 			this.tabPage12.Name = "tabPage12";
-			this.tabPage12.Size = new System.Drawing.Size(601, 407);
+			this.tabPage12.Size = new System.Drawing.Size(634, 399);
 			this.tabPage12.TabIndex = 5;
 			this.tabPage12.Text = "Benachrichtigungen";
 			this.tabPage12.UseVisualStyleBackColor = true;
+			// 
+			// allgemeineSettings1
+			// 
+			this.allgemeineSettings1.Location = new System.Drawing.Point(8, 3);
+			this.allgemeineSettings1.Name = "allgemeineSettings1";
+			this.allgemeineSettings1.Size = new System.Drawing.Size(309, 272);
+			this.allgemeineSettings1.TabIndex = 0;
+			// 
+			// dungeonTowerSettings1
+			// 
+			this.dungeonTowerSettings1.Enabled = false;
+			this.dungeonTowerSettings1.Location = new System.Drawing.Point(332, 198);
+			this.dungeonTowerSettings1.Name = "dungeonTowerSettings1";
+			this.dungeonTowerSettings1.Size = new System.Drawing.Size(292, 195);
+			this.dungeonTowerSettings1.TabIndex = 5;
+			// 
+			// arenaSettings1
+			// 
+			this.arenaSettings1.Enabled = false;
+			this.arenaSettings1.Location = new System.Drawing.Point(332, 3);
+			this.arenaSettings1.Name = "arenaSettings1";
+			this.arenaSettings1.Size = new System.Drawing.Size(292, 189);
+			this.arenaSettings1.TabIndex = 4;
+			// 
+			// tavernSettings1
+			// 
+			this.tavernSettings1.Location = new System.Drawing.Point(8, 3);
+			this.tavernSettings1.Name = "tavernSettings1";
+			this.tavernSettings1.Size = new System.Drawing.Size(318, 189);
+			this.tavernSettings1.TabIndex = 3;
+			// 
+			// townWatchSettings1
+			// 
+			this.townWatchSettings1.Location = new System.Drawing.Point(8, 296);
+			this.townWatchSettings1.Name = "townWatchSettings1";
+			this.townWatchSettings1.Size = new System.Drawing.Size(318, 97);
+			this.townWatchSettings1.TabIndex = 2;
+			// 
+			// toiletteSettings1
+			// 
+			this.toiletteSettings1.Location = new System.Drawing.Point(8, 198);
+			this.toiletteSettings1.Name = "toiletteSettings1";
+			this.toiletteSettings1.Size = new System.Drawing.Size(318, 92);
+			this.toiletteSettings1.TabIndex = 1;
+			// 
+			// gildenSettings1
+			// 
+			this.gildenSettings1.Enabled = false;
+			this.gildenSettings1.Location = new System.Drawing.Point(8, 3);
+			this.gildenSettings1.Name = "gildenSettings1";
+			this.gildenSettings1.Size = new System.Drawing.Size(615, 167);
+			this.gildenSettings1.TabIndex = 0;
+			// 
+			// characterSettings1
+			// 
+			this.characterSettings1.Enabled = false;
+			this.characterSettings1.Location = new System.Drawing.Point(5, 5);
+			this.characterSettings1.Name = "characterSettings1";
+			this.characterSettings1.Size = new System.Drawing.Size(622, 394);
+			this.characterSettings1.TabIndex = 0;
 			// 
 			// EditSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(606, 452);
+			this.ClientSize = new System.Drawing.Size(639, 466);
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.btnSave);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.MaximizeBox = false;
 			this.Name = "EditSettings";
 			this.Text = "EditSettings";
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage7.ResumeLayout(false);
 			this.tabPage8.ResumeLayout(false);
+			this.tabPage9.ResumeLayout(false);
+			this.tabPage10.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -200,5 +245,9 @@
 		private Controls.ToiletteSettings toiletteSettings1;
 		private Controls.TownWatchSettings townWatchSettings1;
 		private Controls.TavernSettings tavernSettings1;
+		private Controls.ArenaSettings arenaSettings1;
+		private Controls.DungeonTowerSettings dungeonTowerSettings1;
+		private Controls.GildenSettings gildenSettings1;
+		private Controls.CharacterSettings characterSettings1;
 	}
 }

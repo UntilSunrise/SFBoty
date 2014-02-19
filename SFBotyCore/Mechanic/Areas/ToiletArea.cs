@@ -40,7 +40,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			base.PerformArea();
 
 			//Wenn das WC nicht genutzt werden soll, tue nichts.
-			if (!Account.Settings.PerformToilet || Account.QuestIsStarted || Account.TownWatchIsStarted || Account.Level < 100 || Account.BackpackIsFull || !Account.BackpackHasToiletItem) {
+			if (!Account.Settings.PerformToilet || Account.Level < 100 || Account.BackpackIsFull || !Account.BackpackHasToiletItem) {
 				return;
 			}
 			if ((Account.QuestIsStarted || Account.TownWatchIsStarted) && !Account.MirrorIsCompleted || DateTime.Now < Account.ToiletEndTime) {
@@ -82,7 +82,9 @@ namespace SFBotyCore.Mechanic.Areas {
 																							&& b.Typ != ItemTypes.KeineAhnung2
 																							&& b.IsEpic == false
 																						).OrderBy(b => b.GoldValue).First().InventoryID;
-					
+					if (backpackslotWithLowestItemValue == 0) {
+						return;
+					}
 					ThreadSleep(Account.Settings.minTimeToDoToilet, Account.Settings.maxTimeToDoToilet);
 					RaiseMessageEvent(string.Format("Item im Slot {0}, wird in die Toilette geschmissen.", backpackslotWithLowestItemValue));
 					s = SendRequest(ActionTypes.ItemAction + backpackslotWithLowestItemValue + ";10;0");

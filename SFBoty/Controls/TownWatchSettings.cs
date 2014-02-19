@@ -49,7 +49,7 @@ namespace SFBoty.Controls {
 			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox1.Location = new System.Drawing.Point(0, 0);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(373, 97);
+			this.groupBox1.Size = new System.Drawing.Size(322, 97);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Stadtwache";
@@ -88,7 +88,7 @@ namespace SFBoty.Controls {
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(343, 46);
+			this.label3.Location = new System.Drawing.Point(288, 46);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(24, 13);
 			this.label3.TabIndex = 5;
@@ -96,15 +96,15 @@ namespace SFBoty.Controls {
 			// 
 			// numMaxTime
 			// 
-			this.numMaxTime.Location = new System.Drawing.Point(266, 44);
+			this.numMaxTime.Location = new System.Drawing.Point(239, 44);
 			this.numMaxTime.Name = "numMaxTime";
-			this.numMaxTime.Size = new System.Drawing.Size(71, 20);
+			this.numMaxTime.Size = new System.Drawing.Size(43, 20);
 			this.numMaxTime.TabIndex = 4;
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(235, 46);
+			this.label2.Location = new System.Drawing.Point(208, 46);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(25, 13);
 			this.label2.TabIndex = 3;
@@ -112,9 +112,9 @@ namespace SFBoty.Controls {
 			// 
 			// numMinTime
 			// 
-			this.numMinTime.Location = new System.Drawing.Point(158, 44);
+			this.numMinTime.Location = new System.Drawing.Point(156, 44);
 			this.numMinTime.Name = "numMinTime";
-			this.numMinTime.Size = new System.Drawing.Size(71, 20);
+			this.numMinTime.Size = new System.Drawing.Size(46, 20);
 			this.numMinTime.TabIndex = 2;
 			// 
 			// label1
@@ -140,7 +140,7 @@ namespace SFBoty.Controls {
 			// 
 			this.Controls.Add(this.groupBox1);
 			this.Name = "TownWatchSettings";
-			this.Size = new System.Drawing.Size(373, 97);
+			this.Size = new System.Drawing.Size(322, 97);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();

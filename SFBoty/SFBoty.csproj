@@ -52,7 +52,19 @@
     <Compile Include="Controls\AllgemeineSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\ArenaSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CharacterSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\Console.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\DungeonTowerSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\GildenSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\TavernSettings.cs">
@@ -91,8 +103,20 @@
     <EmbeddedResource Include="Controls\AllgemeineSettings.resx">
       <DependentUpon>AllgemeineSettings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ArenaSettings.resx">
+      <DependentUpon>ArenaSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CharacterSettings.resx">
+      <DependentUpon>CharacterSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\Console.resx">
       <DependentUpon>Console.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\DungeonTowerSettings.resx">
+      <DependentUpon>DungeonTowerSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\GildenSettings.resx">
+      <DependentUpon>GildenSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TavernSettings.resx">
       <DependentUpon>TavernSettings.cs</DependentUpon>
