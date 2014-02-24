@@ -90,7 +90,7 @@ namespace SFBotyCore.Mechanic {
 					throw new Exception("Can't login anymore");
 				}
 
-				if (s == "E065") {
+				if (s == "E065" || s == "+E065") {
 					DoReLogin(ref s, ref count);
 					ExtendedLog(this, new MessageEventsArgs("Relogin wegen Fehler E065"));
 				}
@@ -102,7 +102,7 @@ namespace SFBotyCore.Mechanic {
 				if (ExtendedLog != null) {
 					ExtendedLog(this, new MessageEventsArgs(action + Environment.NewLine + s));
 				}
-			} while (s == "E065");
+			} while (s == "E065" || s == "+E065");
 
 			LastSendRequestTimeStamp = DateTime.Now;
 			return s;
