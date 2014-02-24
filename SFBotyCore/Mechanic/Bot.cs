@@ -79,12 +79,19 @@ namespace SFBotyCore.Mechanic {
 		/// Ausführung des Bots über den eigenen Thread
 		/// </summary>
 		private void PerformAction() {
+			bool running = true;
 			try {
-				while (true) {
+				while (running) {
 					Menus.ForEach(x => x.PerformArea());
 
 					//at the end oh an Threadloop sleep for 1 Secound
 					Thread.Sleep(1000);
+					if ((DateTime.Now - Account.LastAction).TotalHours > 12d) {
+						if (Error != null) {
+							Error(this, new MessageEventsArgs("Bot steht still und arbeitet nicht mehr. Programmlogikfehler"));
+							running = false;
+						}
+					}
 				}
 			} catch (Exception ex) {
 				if (Error != null) {

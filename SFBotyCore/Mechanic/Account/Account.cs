@@ -58,6 +58,9 @@ namespace SFBotyCore.Mechanic.Account {
 		public bool HasJoinAttack { get; set; }
 		public bool HasJoinDefence { get; set; }
 		public bool BackpackIsFull { get { return BackpackItems.Where(b => b.Typ != ItemTypes.Leer).Count() == 5; } }
+
+		public DateTime LastAction { get; set; } //Wann hat der Bot das letzte mal eine Nachricht an den Server gesendet
+
 		public bool BackpackHasToiletItem { 
 			get { 
 				return BackpackItems.Where(
@@ -117,6 +120,7 @@ namespace SFBotyCore.Mechanic.Account {
 			HasJoinDefence = false;
 
 			LastDonateTime = DateTime.Now;
+			LastAction = DateTime.Now;
 		}
 
 		public void Logout() {
