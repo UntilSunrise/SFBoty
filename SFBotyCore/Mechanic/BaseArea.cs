@@ -61,6 +61,7 @@ namespace SFBotyCore.Mechanic {
 			Account.LastAction = DateTime.Now;
 			if ((DateTime.Now - LastSendRequestTimeStamp).TotalSeconds < Account.Settings.MinSendRequestInterval) {
 				ThreadSleep(Account.Settings.MinSendRequestInterval, Account.Settings.MinSendRequestInterval);
+				ExtendedLog(this, new MessageEventsArgs("Send Action Sleep"));
 			}
 			
 			string s = "";
