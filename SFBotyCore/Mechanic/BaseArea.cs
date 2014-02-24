@@ -86,12 +86,13 @@ namespace SFBotyCore.Mechanic {
 
 			int count = 3;
 			do {
-				if (s == "E065") {
-					DoReLogin(ref s, ref count);
-				}
-
 				if (count < 0) {
 					throw new Exception("Can't login anymore");
+				}
+
+				if (s == "E065") {
+					DoReLogin(ref s, ref count);
+					ExtendedLog(this, new MessageEventsArgs("Relogin wegen Fehler E065"));
 				}
 
 				streamData = RefClient.OpenRead(String.Concat("http://", Account.Settings.Server, ".sfgame.de/request.php?req=", Account.Settings.SessionID, action, "&random=%2&rnd=", RandomValue, (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds));
