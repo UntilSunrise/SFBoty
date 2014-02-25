@@ -66,13 +66,12 @@ namespace SFBotyCore.Mechanic {
 			
 			string s = "";
 			int foo = 0;
-			if (!CheckServerConnection()) {
-				ThreadSleep(900f, 1200f); //Warte 15-20Min
+			if (CheckInternetConnection()) {
 				DoReLogin(ref s, ref foo);
 				if (ExtendedLog != null) {
 					ExtendedLog(this, new MessageEventsArgs("Relogin"));
 				}
-			} //else do nothing
+			}
 			
 			if (action == ActionTypes.LoginToSF) {
 				if (Account.Settings.HasLogin) {
@@ -118,7 +117,6 @@ namespace SFBotyCore.Mechanic {
 			count -= 1;
 		}
 
-		[Obsolete]
 		private bool CheckInternetConnection() {
 			PingReply reply = null;
 			Ping ping = new Ping();
@@ -132,18 +130,6 @@ namespace SFBotyCore.Mechanic {
 			} while (reply.Status != IPStatus.Success && reply != null);
 
 			return pingCount > 1;
-		}
-
-		private bool CheckServerConnection() {
-			HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create("http://" + Account.Settings.Server + ".sfgame.de/request.php");
-			int responseCode = 0;
-
-			try {
-				HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
-				responseCode = (int)response.StatusCode;
-			} catch { }
-
-			return (responseCode == 200);
 		}
 
 		/// <summary>
