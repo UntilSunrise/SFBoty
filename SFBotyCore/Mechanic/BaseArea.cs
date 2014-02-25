@@ -33,7 +33,7 @@ namespace SFBotyCore.Mechanic {
 		}
 
 		public virtual void PerformArea() {
-			if(Account.Settings.HasLogin) {
+			if (Account.Settings.HasLogin) {
 				return;
 			}
 		}
@@ -63,16 +63,16 @@ namespace SFBotyCore.Mechanic {
 				ThreadSleep(Account.Settings.MinSendRequestInterval, Account.Settings.MinSendRequestInterval);
 				ExtendedLog(this, new MessageEventsArgs("Send Action Sleep"));
 			}
-			
+
 			string s = "";
 			int foo = 0;
-			if (CheckInternetConnection()) {
+			if (CheckServerConnection()) {
 				DoReLogin(ref s, ref foo);
 				if (ExtendedLog != null) {
 					ExtendedLog(this, new MessageEventsArgs("Relogin"));
 				}
 			}
-			
+
 			if (action == ActionTypes.LoginToSF) {
 				if (Account.Settings.HasLogin) {
 					throw new Exception("Fehler im SendRequest");
@@ -110,26 +110,34 @@ namespace SFBotyCore.Mechanic {
 
 		private void DoReLogin(ref string s, ref int count) {
 			Account.Logout();
-			ThreadSleep(1f, 2f);
+
+			if (DateTime.Now.Hour > 0 && DateTime.Now.Hour < 6) {
+				ThreadSleep(900f, 1200f);
+			} else {
+				ThreadSleep(1f, 2f);
+			}
+
 			s = SendRequest(ActionTypes.LoginToSF);
 			LoginArea.UpdateLoginData(s, Account);
 			ThreadSleep(5f, 6f);
 			count -= 1;
 		}
 
-		private bool CheckInternetConnection() {
-			PingReply reply = null;
-			Ping ping = new Ping();
-			int pingCount = 0;
+		private bool CheckServerConnection() {
+			HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create("http://" + Account.Settings.Server + ".sfgame.de");
+			int responseCode = 0;
+			int responseCount = 0;
+
 			do {
 				try {
-					pingCount += 1;
-					reply = ping.Send("8.8.8.8");
-					ThreadSleep(0.25f, 0.30f);
-				} catch {}
-			} while (reply.Status != IPStatus.Success && reply != null);
+					responseCount += 1;
+					HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
+					responseCode = (int)response.StatusCode;
+				} catch { }
+			} while (responseCode != 200);
 
-			return pingCount > 1;
+			webRequest.Abort();
+			return (responseCount > 1);
 		}
 
 		/// <summary>
