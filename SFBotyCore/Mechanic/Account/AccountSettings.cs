@@ -124,6 +124,71 @@ namespace SFBotyCore.Mechanic.Account {
 		public float MinSendRequestInterval { get; set; }
 		#endregion
 
+		public float minShortTime { 
+			get {
+				return minTimeToDonate == null || minTimeToDonate == 0 ? 1f : minTimeToDonate;
+			}
+			set {
+				minTimeToJoinTarvern = value;
+				minTimeToEndAQuest = value;
+				minTimeToJoinStadtwache = value;
+				minTimeToJoinChar = value;
+				minTimeToJoinHoF = value;
+				minTimeToJoinEnemy = value;
+				minTimeToLogOut = value;
+				minTimeToBuyStat = value;
+				minTimeToBuyBeer = value;
+				minTimeToJoinDungeon = value;
+				minTimeToJoinShops = value;		
+				minTimeToJoinToilet = value;		
+				minTimeToDoToilet = value;
+				minTimeToSellItem = value;
+				minTimeToJoinGuild = value;
+				minTimeToDonate = value;
+			}
+		}
+		public float maxShortTime {
+			get {
+				return maxTimeToDonate == null || maxTimeToDonate == 0 ? 1f : maxTimeToDonate;
+			}
+			set {
+				maxTimeToJoinTarvern = value;
+				maxTimeToEndAQuest = value;
+				maxTimeToJoinStadtwache = value;
+				maxTimeToJoinChar = value;
+				maxTimeToJoinHoF = value;
+				maxTimeToJoinEnemy = value;
+				maxTimeToLogOut = value;
+				maxTimeToBuyStat = value;
+				maxTimeToBuyBeer = value;
+				maxTimeToJoinDungeon = value;
+				maxTimeToJoinShops = value;		
+				maxTimeToJoinToilet = value;		
+				maxTimeToDoToilet = value;
+				maxTimeToSellItem = value;
+				maxTimeToJoinGuild = value;
+				maxTimeToDonate = value;
+			}
+		}
+		public float minLongTime {
+			get {
+				return minTimeToTakeQuest == null || minTimeToTakeQuest == 0 ? 15f : minTimeToTakeQuest;
+			}
+			set {
+				minTimeToTakeQuest = value;
+				minTimeToDoStadtwache = value;
+			}
+		}
+		public float maxLongTime {
+			get {
+				return maxTimeToTakeQuest == null || maxTimeToTakeQuest == 0 ? 45f : maxTimeToTakeQuest;
+			}
+			set {
+				maxTimeToTakeQuest = value;
+				maxTimeToDoStadtwache = value;
+			}
+		}
+
 		public bool HasLogin { get { return SessionID != EmpytSessionID; } }
 		public AutoQuestMode QuestMode { get; set; }
 
