@@ -10,6 +10,8 @@ namespace SFBotyCore.Mechanic.Account {
 	public class Account {
 		public AccountSettings Settings { get; set; }
 
+		public ClassTypes Class { get; set; }
+
 		public int ALU_Seconds { get; set; }
 		public bool QuestIsStarted { get; set; }
 		public DateTime QuestEndTime { get; set; }
@@ -78,6 +80,8 @@ namespace SFBotyCore.Mechanic.Account {
 
 		public Account(AccountSettings settings) {
 			Settings = settings;
+
+			Class = ClassTypes.Mage;
 
 			ALU_Seconds = 100 * 60;
 			QuestIsStarted = false;

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SFBotyCore.Mechanic;
+using SFBotyCore.Constants;
 
 namespace SFBotyCore {
 	public static class Helper {
@@ -62,6 +64,58 @@ namespace SFBotyCore {
 			};
 
 			return TrueAttPreis;
+		}
+
+		public static bool IsBackpackItemBetterThanInventoryItem(Item backpackItem, Item inventoryItem, ClassTypes charClass) {
+
+			bool bpIsTripleEpic = backpackItem.IsEpic && (backpackItem.AttributeType1 == AttributeTypes.Intelligence || backpackItem.AttributeType1 == AttributeTypes.Strength || backpackItem.AttributeType1 == AttributeTypes.Dexterity) ? true : false;
+			bool invIsTripleEpic = inventoryItem.IsEpic && (backpackItem.AttributeType1 == AttributeTypes.Intelligence || inventoryItem.AttributeType1 == AttributeTypes.Strength || inventoryItem.AttributeType1 == AttributeTypes.Dexterity) ? true : false;
+
+			int bpStr = bpIsTripleEpic && charClass == ClassTypes.Warrior ? backpackItem.AttributeValue1 : backpackItem.AttributeType1 == AttributeTypes.All ? backpackItem.AttributeValue1 : backpackItem.AttributeType1 == AttributeTypes.Strength ? backpackItem.AttributeValue1 : backpackItem.AttributeType2 == AttributeTypes.Strength ? backpackItem.AttributeValue2 : backpackItem.AttributeType3 == AttributeTypes.Strength ? backpackItem.AttributeValue3 : 0;
+			int bpDex = bpIsTripleEpic && charClass == ClassTypes.Scout ? backpackItem.AttributeValue1 : backpackItem.AttributeType1 == AttributeTypes.All ? backpackItem.AttributeValue1 : backpackItem.AttributeType1 == AttributeTypes.Dexterity ? backpackItem.AttributeValue1 : backpackItem.AttributeType2 == AttributeTypes.Dexterity ? backpackItem.AttributeValue2 : backpackItem.AttributeType3 == AttributeTypes.Dexterity ? backpackItem.AttributeValue3 : 0;
+			int bpInt = bpIsTripleEpic && charClass == ClassTypes.Mage ? backpackItem.AttributeValue1 : backpackItem.AttributeType1 == AttributeTypes.All ? backpackItem.AttributeValue1 : backpackItem.AttributeType1 == AttributeTypes.Intelligence ? backpackItem.AttributeValue1 : backpackItem.AttributeType2 == AttributeTypes.Intelligence ? backpackItem.AttributeValue2 : backpackItem.AttributeType3 == AttributeTypes.Intelligence ? backpackItem.AttributeValue3 : 0;
+			int bpAus = bpIsTripleEpic ? backpackItem.AttributeValue1 : backpackItem.AttributeType1 == AttributeTypes.All ? backpackItem.AttributeValue1 : backpackItem.AttributeType1 == AttributeTypes.Stamina ? backpackItem.AttributeValue1 : backpackItem.AttributeType2 == AttributeTypes.Stamina ? backpackItem.AttributeValue2 : backpackItem.AttributeType3 == AttributeTypes.Stamina ? backpackItem.AttributeValue3 : 0;
+			int bpLuck = bpIsTripleEpic ? backpackItem.AttributeValue1 : backpackItem.AttributeType1 == AttributeTypes.All ? backpackItem.AttributeValue1 : backpackItem.AttributeType1 == AttributeTypes.Luck ? backpackItem.AttributeValue1 : backpackItem.AttributeType2 == AttributeTypes.Luck ? backpackItem.AttributeValue2 : backpackItem.AttributeType3 == AttributeTypes.Luck ? backpackItem.AttributeValue3 : 0;
+			int bpArmor = backpackItem.Typ != ItemTypes.Waffe ? backpackItem.DamageMin : 0;
+			int bpDMG = backpackItem.Typ == ItemTypes.Waffe ? (backpackItem.DamageMin + backpackItem.DamageMax) / 2 : 0;
+
+			int invStr = invIsTripleEpic && charClass == ClassTypes.Warrior ? inventoryItem.AttributeValue1 : inventoryItem.AttributeType1 == AttributeTypes.All ? backpackItem.AttributeValue1 : inventoryItem.AttributeType1 == AttributeTypes.Strength ? inventoryItem.AttributeValue1 : inventoryItem.AttributeType2 == AttributeTypes.Strength ? inventoryItem.AttributeValue2 : inventoryItem.AttributeType3 == AttributeTypes.Strength ? inventoryItem.AttributeValue3 : 0;
+			int invDex = invIsTripleEpic && charClass == ClassTypes.Scout ? inventoryItem.AttributeValue1 : inventoryItem.AttributeType1 == AttributeTypes.All ? backpackItem.AttributeValue1 : inventoryItem.AttributeType1 == AttributeTypes.Dexterity ? inventoryItem.AttributeValue1 : inventoryItem.AttributeType2 == AttributeTypes.Dexterity ? inventoryItem.AttributeValue2 : inventoryItem.AttributeType3 == AttributeTypes.Dexterity ? inventoryItem.AttributeValue3 : 0;
+			int invInt = invIsTripleEpic && charClass == ClassTypes.Mage ? inventoryItem.AttributeValue1 : inventoryItem.AttributeType1 == AttributeTypes.All ? backpackItem.AttributeValue1 : inventoryItem.AttributeType1 == AttributeTypes.Intelligence ? inventoryItem.AttributeValue1 : inventoryItem.AttributeType2 == AttributeTypes.Intelligence ? inventoryItem.AttributeValue2 : inventoryItem.AttributeType3 == AttributeTypes.Intelligence ? inventoryItem.AttributeValue3 : 0;
+			int invAus = invIsTripleEpic ? inventoryItem.AttributeValue1 : inventoryItem.AttributeType1 == AttributeTypes.All ? backpackItem.AttributeValue1 : inventoryItem.AttributeType1 == AttributeTypes.Stamina ? inventoryItem.AttributeValue1 : inventoryItem.AttributeType2 == AttributeTypes.Stamina ? inventoryItem.AttributeValue2 : inventoryItem.AttributeType3 == AttributeTypes.Stamina ? inventoryItem.AttributeValue3 : 0;
+			int invLuck = invIsTripleEpic ? inventoryItem.AttributeValue1 : inventoryItem.AttributeType1 == AttributeTypes.All ? backpackItem.AttributeValue1 : inventoryItem.AttributeType1 == AttributeTypes.Luck ? inventoryItem.AttributeValue1 : inventoryItem.AttributeType2 == AttributeTypes.Luck ? inventoryItem.AttributeValue2 : inventoryItem.AttributeType3 == AttributeTypes.Luck ? inventoryItem.AttributeValue3 : 0;
+			int invArmor = inventoryItem.Typ != ItemTypes.Waffe ? inventoryItem.DamageMin : 0;
+			int invDMG = inventoryItem.Typ == ItemTypes.Waffe ? (inventoryItem.DamageMin + inventoryItem.DamageMax) / 2 : 0;
+
+			int mainMultiplier = 10;
+			int ausMultiplier = 8;
+			int luckMultiplier = 6;
+			int dmgMultiplier = 4;
+			int armorMultiplier = 2;
+
+
+
+			int bpSummary = 0;
+			int invSummary = 0;
+
+			switch (charClass) {
+				case ClassTypes.Mage:
+					bpSummary = (bpInt * mainMultiplier) + (bpAus * ausMultiplier) + (bpLuck * luckMultiplier) + (bpDMG * dmgMultiplier) + (bpArmor * armorMultiplier);
+					invSummary = (invInt * mainMultiplier) + (invAus * ausMultiplier) + (invLuck * luckMultiplier) + (invDMG * dmgMultiplier) + (invArmor * armorMultiplier);
+					break;
+				case ClassTypes.Scout:
+					bpSummary = (bpDex * mainMultiplier) + (bpAus * ausMultiplier) + (bpLuck * luckMultiplier) + (bpDMG * dmgMultiplier) + (bpArmor * armorMultiplier);
+					invSummary = (invDex * mainMultiplier) + (invAus * ausMultiplier) + (invLuck * luckMultiplier) + (invDMG * dmgMultiplier) + (invArmor * armorMultiplier);
+					break;
+				case ClassTypes.Warrior:
+					bpSummary = (bpStr * mainMultiplier) + (bpAus * ausMultiplier) + (bpLuck * luckMultiplier) + (bpDMG * dmgMultiplier) + (bpArmor * armorMultiplier);
+					invSummary = (invStr * mainMultiplier) + (invAus * ausMultiplier) + (invLuck * luckMultiplier) + (invDMG * dmgMultiplier) + (invArmor * armorMultiplier);
+					break;
+				default:
+					break;
+			}
+
+			return (bpSummary > invSummary);
 		}
 	}
 }

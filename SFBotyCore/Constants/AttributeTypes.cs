@@ -4,7 +4,7 @@
 	/// </summary>
 	public enum AttributeTypes {
 		Strength = 1,
-		Agility = 2,
+		Dexterity = 2,
 		Intelligence = 3,
 		Stamina = 4,
 		Luck = 5,
