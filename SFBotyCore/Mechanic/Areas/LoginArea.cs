@@ -47,6 +47,7 @@ namespace SFBotyCore.Mechanic.Areas {
 		public static void UpdateLoginData(string s, Account.Account acc) {
 			string[] answer = s.Split('/');
 
+			acc.Class = answer[ResponseTypes.Class].ToEnum<ClassTypes>();
 			acc.Settings.SessionID = answer[ResponseTypes.SessionID].Split(';')[2];
 			acc.Silver = Convert.ToInt64(answer[ResponseTypes.Silver]);
 			acc.Mushroom = Convert.ToInt32(answer[ResponseTypes.Mushrooms]);

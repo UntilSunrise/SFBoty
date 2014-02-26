@@ -7,6 +7,8 @@ namespace SFBotyCore.Constants {
 	public static class ResponseTypes {
 		public static int SessionID = 511;
 
+		public static int Class = 29;
+
 		public static int Silver = 13;
 		public static int Mushrooms = 14;
 		public static int ALU = 456;

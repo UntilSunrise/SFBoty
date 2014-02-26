@@ -38,6 +38,20 @@ namespace SFBotyCore.Mechanic.Areas {
 				s = SendRequest(ActionTypes.JoinCharacter);
 				CharScreenArea.UpdateAccountStats(s, Account);
 
+				#region ItemsAusrüsten
+				foreach (Item bpItem in Account.BackpackItems) {
+					if (bpItem.Typ != ItemTypes.SpiegelOderSchlüssel && bpItem.Typ != ItemTypes.Buff && bpItem.Typ != ItemTypes.Leer) {
+						bool bpItemIsBetter = Helper.IsBackpackItemBetterThanInventoryItem(bpItem, Account.InventoryItems.Where(a => a.Typ == bpItem.Typ).First(), Account.Class);
+
+						if (bpItemIsBetter) {
+							RaiseMessageEvent(String.Format("Lege Rucksack-Item im Slot: {0} an.", bpItem.InventoryID));
+							ThreadSleep(Account.Settings.minTimeToUseItem, Account.Settings.maxTimeToUseItem);
+							s = SendRequest(ActionTypes.ItemAction + bpItem.InventoryID + ";1;-1");
+						}
+					}
+				}
+				#endregion
+
 				if (Account.Settings.PerformBuyStats) {
 
 					bool canBuyStats = true;
@@ -215,6 +229,13 @@ namespace SFBotyCore.Mechanic.Areas {
 				acc.BackpackItems.Add(new Item(s.Split('/'), ResponseTypes.BackpackFirstItemPosition + ((i - 1) * ResponseTypes.ItemSize)));
 				i++;
 			}
+
+			int j = 1;
+			acc.InventoryItems.Clear();
+			while (j <= 10) {
+				acc.InventoryItems.Add(new Item(s.Split('/'), ResponseTypes.InventoryFirstItemPosition + ((j - 1) * ResponseTypes.ItemSize)));
+				j++;
+			}	
 		}
 	}
 }

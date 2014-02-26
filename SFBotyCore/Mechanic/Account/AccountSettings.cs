@@ -121,6 +121,9 @@ namespace SFBotyCore.Mechanic.Account {
 		public float minTimeToDonate { get; set; }
 		public float maxTimeToDonate { get; set; }
 
+		public float minTimeToUseItem { get; set; }
+		public float maxTimeToUseItem { get; set; }
+
 		public float MinSendRequestInterval { get; set; }
 		#endregion
 
@@ -290,6 +293,9 @@ namespace SFBotyCore.Mechanic.Account {
 			this.minTimeToDonate = 2f;
 			this.maxTimeToDonate = 4f;
 
+			this.minTimeToUseItem = 2f;
+			this.maxTimeToUseItem = 3f;
+
 			this.MinSendRequestInterval = 1f;
 
 			this.QuestMode = AutoQuestMode.BestXP;
@@ -349,6 +355,8 @@ namespace SFBotyCore.Mechanic.Account {
 			this.minTimeToLogOut = tmp.minTimeToLogOut;
 			this.minTimeToSellItem = tmp.minTimeToSellItem;
 			this.minTimeToTakeQuest = tmp.minTimeToTakeQuest;
+			this.minTimeToUseItem = tmp.minTimeToUseItem;
+			this.maxTimeToUseItem = tmp.maxTimeToUseItem;
 			this.PasswordHash = tmp.PasswordHash;
 			this.PerformArena = tmp.PerformArena;
 			this.PerformBuyStats = tmp.PerformBuyStats;
@@ -422,6 +430,8 @@ namespace SFBotyCore.Mechanic.Account {
 			tmp.minTimeToLogOut = this.minTimeToLogOut;
 			tmp.minTimeToSellItem = this.minTimeToSellItem;
 			tmp.minTimeToTakeQuest = this.minTimeToTakeQuest;
+			tmp.minTimeToUseItem = this.minTimeToUseItem;
+			tmp.maxTimeToUseItem = this.maxTimeToUseItem;
 			tmp.PasswordHash = this.PasswordHash;
 			tmp.PerformArena = this.PerformArena;
 			tmp.PerformBuyStats = this.PerformBuyStats;
