@@ -148,6 +148,7 @@ namespace SFBotyCore.Mechanic.Account {
 				minTimeToSellItem = value;
 				minTimeToJoinGuild = value;
 				minTimeToDonate = value;
+				minTimeToUseItem = value;
 			}
 		}
 		public float maxShortTime {
@@ -171,6 +172,7 @@ namespace SFBotyCore.Mechanic.Account {
 				maxTimeToSellItem = value;
 				maxTimeToJoinGuild = value;
 				maxTimeToDonate = value;
+				maxTimeToUseItem = value;
 			}
 		}
 		public float minLongTime {
