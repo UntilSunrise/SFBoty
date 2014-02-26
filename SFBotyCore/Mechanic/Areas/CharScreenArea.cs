@@ -215,6 +215,13 @@ namespace SFBotyCore.Mechanic.Areas {
 				acc.BackpackItems.Add(new Item(s.Split('/'), ResponseTypes.BackpackFirstItemPosition + ((i - 1) * ResponseTypes.ItemSize)));
 				i++;
 			}
+
+			int j = 1;
+			acc.InventoryItems.Clear();
+			while (j <= 10) {
+				acc.InventoryItems.Add(new Item(s.Split('/'), ResponseTypes.InventoryFirstItemPosition + ((j - 1) * ResponseTypes.ItemSize)));
+				j++;
+			}
 		}
 	}
 }
