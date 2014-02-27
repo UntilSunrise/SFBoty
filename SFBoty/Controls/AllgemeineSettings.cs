@@ -25,6 +25,10 @@ namespace SFBoty.Controls {
 		private Label label5;
 		private Label label8;
 		private NumericUpDown numGuildVisitInterval;
+		private Label label9;
+		private NumericUpDown numSendRequestInterval;
+		private Label label11;
+		private NumericUpDown numMaxTriesToFindAnEnermy;
 		private Label label4;
 	
 		private void InitializeComponent() {
@@ -36,6 +40,10 @@ namespace SFBoty.Controls {
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.label9 = new System.Windows.Forms.Label();
+			this.numSendRequestInterval = new System.Windows.Forms.NumericUpDown();
+			this.label8 = new System.Windows.Forms.Label();
+			this.numGuildVisitInterval = new System.Windows.Forms.NumericUpDown();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.numMaxLongTime = new System.Windows.Forms.NumericUpDown();
 			this.numMinLongTime = new System.Windows.Forms.NumericUpDown();
@@ -45,15 +53,17 @@ namespace SFBoty.Controls {
 			this.label6 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
-			this.numGuildVisitInterval = new System.Windows.Forms.NumericUpDown();
-			this.label8 = new System.Windows.Forms.Label();
+			this.numMaxTriesToFindAnEnermy = new System.Windows.Forms.NumericUpDown();
+			this.label11 = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numSendRequestInterval)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numGuildVisitInterval)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMaxLongTime)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMinLongTime)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMaxShortTime)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMinShortTime)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numGuildVisitInterval)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numMaxTriesToFindAnEnermy)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -125,6 +135,10 @@ namespace SFBoty.Controls {
 			// 
 			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox2.Controls.Add(this.label11);
+			this.groupBox2.Controls.Add(this.numMaxTriesToFindAnEnermy);
+			this.groupBox2.Controls.Add(this.label9);
+			this.groupBox2.Controls.Add(this.numSendRequestInterval);
 			this.groupBox2.Controls.Add(this.label8);
 			this.groupBox2.Controls.Add(this.numGuildVisitInterval);
 			this.groupBox2.Controls.Add(this.checkBox1);
@@ -138,16 +152,65 @@ namespace SFBoty.Controls {
 			this.groupBox2.Controls.Add(this.label4);
 			this.groupBox2.Location = new System.Drawing.Point(3, 116);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(308, 224);
+			this.groupBox2.Size = new System.Drawing.Size(308, 258);
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "Intervall";
+			this.groupBox2.Text = "Intervall (in Sekunden)";
+			// 
+			// label9
+			// 
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(8, 151);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(215, 13);
+			this.label9.TabIndex = 12;
+			this.label9.Text = "Min Interval zwischen zwei Server Requests";
+			// 
+			// numSendRequestInterval
+			// 
+			this.numSendRequestInterval.DecimalPlaces = 1;
+			this.numSendRequestInterval.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.numSendRequestInterval.Location = new System.Drawing.Point(119, 167);
+			this.numSendRequestInterval.Name = "numSendRequestInterval";
+			this.numSendRequestInterval.Size = new System.Drawing.Size(183, 20);
+			this.numSendRequestInterval.TabIndex = 11;
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Location = new System.Drawing.Point(7, 125);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(107, 13);
+			this.label8.TabIndex = 10;
+			this.label8.Text = "Interval Gildebesuch:";
+			// 
+			// numGuildVisitInterval
+			// 
+			this.numGuildVisitInterval.DecimalPlaces = 1;
+			this.numGuildVisitInterval.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.numGuildVisitInterval.Location = new System.Drawing.Point(119, 123);
+			this.numGuildVisitInterval.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+			this.numGuildVisitInterval.Name = "numGuildVisitInterval";
+			this.numGuildVisitInterval.Size = new System.Drawing.Size(183, 20);
+			this.numGuildVisitInterval.TabIndex = 9;
 			// 
 			// checkBox1
 			// 
 			this.checkBox1.AutoSize = true;
 			this.checkBox1.Enabled = false;
-			this.checkBox1.Location = new System.Drawing.Point(222, 201);
+			this.checkBox1.Location = new System.Drawing.Point(222, 235);
 			this.checkBox1.Name = "checkBox1";
 			this.checkBox1.Size = new System.Drawing.Size(86, 17);
 			this.checkBox1.TabIndex = 8;
@@ -242,43 +305,39 @@ namespace SFBoty.Controls {
 			this.label4.TabIndex = 0;
 			this.label4.Text = "Min kurze Aktion:";
 			// 
-			// numGuildVisitInterval
+			// numMaxTriesToFindAnEnermy
 			// 
-			this.numGuildVisitInterval.DecimalPlaces = 1;
-			this.numGuildVisitInterval.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.numGuildVisitInterval.Location = new System.Drawing.Point(119, 123);
-			this.numGuildVisitInterval.Name = "numGuildVisitInterval";
-			this.numGuildVisitInterval.Size = new System.Drawing.Size(183, 20);
-			this.numGuildVisitInterval.TabIndex = 9;
+			this.numMaxTriesToFindAnEnermy.Location = new System.Drawing.Point(119, 211);
+			this.numMaxTriesToFindAnEnermy.Name = "numMaxTriesToFindAnEnermy";
+			this.numMaxTriesToFindAnEnermy.Size = new System.Drawing.Size(183, 20);
+			this.numMaxTriesToFindAnEnermy.TabIndex = 14;
 			// 
-			// label8
+			// label11
 			// 
-			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(7, 125);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(107, 13);
-			this.label8.TabIndex = 10;
-			this.label8.Text = "Interval Gildebesuch:";
+			this.label11.AutoSize = true;
+			this.label11.Location = new System.Drawing.Point(6, 195);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(295, 13);
+			this.label11.TabIndex = 15;
+			this.label11.Text = "Anzahl der Versuche um einen Gegner in der Arena zu finden";
 			// 
 			// AllgemeineSettings
 			// 
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.Name = "AllgemeineSettings";
-			this.Size = new System.Drawing.Size(311, 399);
+			this.Size = new System.Drawing.Size(311, 377);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numSendRequestInterval)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numGuildVisitInterval)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMaxLongTime)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMinLongTime)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMaxShortTime)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMinShortTime)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numGuildVisitInterval)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numMaxTriesToFindAnEnermy)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -300,6 +359,11 @@ namespace SFBoty.Controls {
 			numMaxShortTime.Value = new decimal(settings.maxShortTime);
 			numMinLongTime.Value = new decimal(settings.minLongTime);
 			numMaxLongTime.Value = new decimal(settings.maxLongTime);
+
+			numGuildVisitInterval.Value = new decimal(settings.guildVisitInterval);
+			numSendRequestInterval.Value = new decimal(settings.MinSendRequestInterval);
+
+			numMaxTriesToFindAnEnermy.Value = settings.MaxTriesToFindEnemy;
 		}
 	}
 }

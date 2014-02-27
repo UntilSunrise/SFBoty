@@ -1,8 +1,0 @@
-
-		public int MaxTriesToFindEnemy { get; set; }
-		
-		public string IgnoreGuilds { get; set; }
-		public string IgnorePlayers { get; set; }
-
-		public float MinSendRequestInterval { get; set; }
-		public float guildVisitInterval { get; set; }

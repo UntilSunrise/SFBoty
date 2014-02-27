@@ -23,6 +23,11 @@ namespace SFBoty.Controls {
 		private CheckBox checkBox7;
 		private CheckBox checkBox6;
 		private CheckBox checkBox5;
+		private Label label7;
+		private TextBox txtIgnoreGuilde;
+		private Label label8;
+		private TextBox txtIgnorePlayer;
+		private GroupBox groupBox2;
 		private CheckBox chkPerformGuild;
 	
 		private void InitializeComponent() {
@@ -43,10 +48,16 @@ namespace SFBoty.Controls {
 			this.ckbDonate = new System.Windows.Forms.CheckBox();
 			this.ckbFightForGuild = new System.Windows.Forms.CheckBox();
 			this.chkPerformGuild = new System.Windows.Forms.CheckBox();
+			this.txtIgnoreGuilde = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.txtIgnorePlayer = new System.Windows.Forms.TextBox();
+			this.label8 = new System.Windows.Forms.Label();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numFactorGold)).BeginInit();
+			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -70,7 +81,7 @@ namespace SFBoty.Controls {
 			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.groupBox1.Location = new System.Drawing.Point(0, 0);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(525, 161);
+			this.groupBox1.Size = new System.Drawing.Size(525, 159);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Gilde";
@@ -254,16 +265,70 @@ namespace SFBoty.Controls {
 			this.chkPerformGuild.Text = "Aktiviere Gilde";
 			this.chkPerformGuild.UseVisualStyleBackColor = true;
 			// 
+			// txtIgnoreGuilde
+			// 
+			this.txtIgnoreGuilde.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtIgnoreGuilde.Location = new System.Drawing.Point(119, 19);
+			this.txtIgnoreGuilde.Name = "txtIgnoreGuilde";
+			this.txtIgnoreGuilde.Size = new System.Drawing.Size(391, 20);
+			this.txtIgnoreGuilde.TabIndex = 16;
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(13, 22);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(101, 13);
+			this.label7.TabIndex = 17;
+			this.label7.Text = "Ignoriere die Gilden:";
+			// 
+			// txtIgnorePlayer
+			// 
+			this.txtIgnorePlayer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtIgnorePlayer.Location = new System.Drawing.Point(119, 45);
+			this.txtIgnorePlayer.Name = "txtIgnorePlayer";
+			this.txtIgnorePlayer.Size = new System.Drawing.Size(391, 20);
+			this.txtIgnorePlayer.TabIndex = 18;
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Location = new System.Drawing.Point(13, 48);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(103, 13);
+			this.label8.TabIndex = 19;
+			this.label8.Text = "Ignoriere die Spieler:";
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox2.Controls.Add(this.label8);
+			this.groupBox2.Controls.Add(this.txtIgnoreGuilde);
+			this.groupBox2.Controls.Add(this.txtIgnorePlayer);
+			this.groupBox2.Controls.Add(this.label7);
+			this.groupBox2.Location = new System.Drawing.Point(0, 163);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(525, 71);
+			this.groupBox2.TabIndex = 1;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Gilden und Spieler bei Angriffen ignorieren (\"/\" ist der Separator)";
+			// 
 			// GildenSettings
 			// 
+			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.Name = "GildenSettings";
-			this.Size = new System.Drawing.Size(525, 167);
+			this.Size = new System.Drawing.Size(525, 238);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numFactorGold)).EndInit();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -279,6 +344,9 @@ namespace SFBoty.Controls {
 			chkPerformGuild.Checked = settings.PerformGuild;
 			ckbDonate.Checked = settings.DonateGold;
 			numFactorGold.Value = new decimal(settings.FactorToDonate);
+
+			txtIgnoreGuilde.Text = settings.IgnoreGuilds;
+			txtIgnorePlayer.Text = settings.IgnorePlayers;
 		}
 	}
 }

@@ -39,12 +39,13 @@
 			this.tabPage10 = new System.Windows.Forms.TabPage();
 			this.characterSettings1 = new SFBoty.Controls.CharacterSettings();
 			this.tabPage11 = new System.Windows.Forms.TabPage();
-			this.tabPage12 = new System.Windows.Forms.TabPage();
+			this.shopSettings1 = new SFBoty.Controls.ShopSettings();
 			this.tabControl1.SuspendLayout();
 			this.tabPage7.SuspendLayout();
 			this.tabPage8.SuspendLayout();
 			this.tabPage9.SuspendLayout();
 			this.tabPage10.SuspendLayout();
+			this.tabPage11.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// btnSave
@@ -80,7 +81,6 @@
 			this.tabControl1.Controls.Add(this.tabPage9);
 			this.tabControl1.Controls.Add(this.tabPage10);
 			this.tabControl1.Controls.Add(this.tabPage11);
-			this.tabControl1.Controls.Add(this.tabPage12);
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
@@ -101,7 +101,7 @@
 			// 
 			this.allgemeineSettings1.Location = new System.Drawing.Point(8, 3);
 			this.allgemeineSettings1.Name = "allgemeineSettings1";
-			this.allgemeineSettings1.Size = new System.Drawing.Size(309, 272);
+			this.allgemeineSettings1.Size = new System.Drawing.Size(309, 379);
 			this.allgemeineSettings1.TabIndex = 0;
 			// 
 			// tabPage8
@@ -167,7 +167,7 @@
 			// 
 			this.gildenSettings1.Location = new System.Drawing.Point(8, 3);
 			this.gildenSettings1.Name = "gildenSettings1";
-			this.gildenSettings1.Size = new System.Drawing.Size(615, 167);
+			this.gildenSettings1.Size = new System.Drawing.Size(615, 239);
 			this.gildenSettings1.TabIndex = 0;
 			// 
 			// tabPage10
@@ -189,6 +189,7 @@
 			// 
 			// tabPage11
 			// 
+			this.tabPage11.Controls.Add(this.shopSettings1);
 			this.tabPage11.Location = new System.Drawing.Point(4, 22);
 			this.tabPage11.Name = "tabPage11";
 			this.tabPage11.Size = new System.Drawing.Size(634, 399);
@@ -196,14 +197,13 @@
 			this.tabPage11.Text = "Händler";
 			this.tabPage11.UseVisualStyleBackColor = true;
 			// 
-			// tabPage12
+			// shopSettings1
 			// 
-			this.tabPage12.Location = new System.Drawing.Point(4, 22);
-			this.tabPage12.Name = "tabPage12";
-			this.tabPage12.Size = new System.Drawing.Size(634, 399);
-			this.tabPage12.TabIndex = 5;
-			this.tabPage12.Text = "Benachrichtigungen";
-			this.tabPage12.UseVisualStyleBackColor = true;
+			this.shopSettings1.Enabled = false;
+			this.shopSettings1.Location = new System.Drawing.Point(4, 3);
+			this.shopSettings1.Name = "shopSettings1";
+			this.shopSettings1.Size = new System.Drawing.Size(338, 228);
+			this.shopSettings1.TabIndex = 0;
 			// 
 			// EditSettings
 			// 
@@ -222,6 +222,7 @@
 			this.tabPage8.ResumeLayout(false);
 			this.tabPage9.ResumeLayout(false);
 			this.tabPage10.ResumeLayout(false);
+			this.tabPage11.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -236,7 +237,6 @@
 		private System.Windows.Forms.TabPage tabPage9;
 		private System.Windows.Forms.TabPage tabPage10;
 		private System.Windows.Forms.TabPage tabPage11;
-		private System.Windows.Forms.TabPage tabPage12;
 		private Controls.AllgemeineSettings allgemeineSettings1;
 		private Controls.ToiletteSettings toiletteSettings1;
 		private Controls.TownWatchSettings townWatchSettings1;
@@ -245,5 +245,6 @@
 		private Controls.DungeonTowerSettings dungeonTowerSettings1;
 		private Controls.GildenSettings gildenSettings1;
 		private Controls.CharacterSettings characterSettings1;
+		private Controls.ShopSettings shopSettings1;
 	}
 }
