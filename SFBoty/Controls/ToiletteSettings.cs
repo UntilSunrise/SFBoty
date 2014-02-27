@@ -36,6 +36,8 @@ namespace SFBoty.Controls {
 			// ckbFlush
 			// 
 			this.ckbFlush.AutoSize = true;
+			this.ckbFlush.Checked = true;
+			this.ckbFlush.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.ckbFlush.Enabled = false;
 			this.ckbFlush.Location = new System.Drawing.Point(11, 67);
 			this.ckbFlush.Name = "ckbFlush";

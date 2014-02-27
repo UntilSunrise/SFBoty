@@ -153,7 +153,7 @@ namespace SFBotyCore.Mechanic.Account {
 		}
 		public float maxShortTime {
 			get {
-				return maxTimeToDonate == null || maxTimeToDonate == 0 ? 1f : maxTimeToDonate;
+				return maxTimeToDonate == null || maxTimeToDonate == 0 ? 3f : maxTimeToDonate;
 			}
 			set {
 				maxTimeToJoinTarvern = value;
