@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SFBotyCore.Mechanic.Account;
 
 namespace SFBoty.Controls {
 	public class CharacterSettings : UserControl {
@@ -10,62 +11,62 @@ namespace SFBoty.Controls {
 		private RadioButton radioButton2;
 		private RadioButton radioButton1;
 		private GroupBox groupBox2;
-		private NumericUpDown numericUpDown5;
-		private TrackBar trackBar5;
+		private NumericUpDown numLuck;
+		private TrackBar barLuck;
 		private Label label5;
-		private NumericUpDown numericUpDown4;
-		private TrackBar trackBar4;
+		private NumericUpDown numAus;
+		private TrackBar barAus;
 		private Label label4;
-		private NumericUpDown numericUpDown3;
-		private TrackBar trackBar3;
+		private NumericUpDown numInt;
+		private TrackBar barInt;
 		private Label label3;
-		private NumericUpDown numericUpDown2;
-		private TrackBar trackBar2;
+		private NumericUpDown numDex;
+		private TrackBar barDex;
 		private Label label2;
-		private NumericUpDown numericUpDown1;
-		private TrackBar trackBar1;
+		private NumericUpDown numStrenght;
+		private TrackBar barStrengh;
 		private Label label1;
 		private GroupBox groupBox3;
 		private Label label6;
 		private CheckBox checkBox2;
-		private CheckBox checkBox1;
+		private CheckBox ckbBuyStats;
 
 		private void InitializeComponent() {
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.radioButton2 = new System.Windows.Forms.RadioButton();
 			this.radioButton1 = new System.Windows.Forms.RadioButton();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-			this.trackBar5 = new System.Windows.Forms.TrackBar();
+			this.numLuck = new System.Windows.Forms.NumericUpDown();
+			this.barLuck = new System.Windows.Forms.TrackBar();
 			this.label5 = new System.Windows.Forms.Label();
-			this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-			this.trackBar4 = new System.Windows.Forms.TrackBar();
+			this.numAus = new System.Windows.Forms.NumericUpDown();
+			this.barAus = new System.Windows.Forms.TrackBar();
 			this.label4 = new System.Windows.Forms.Label();
-			this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-			this.trackBar3 = new System.Windows.Forms.TrackBar();
+			this.numInt = new System.Windows.Forms.NumericUpDown();
+			this.barInt = new System.Windows.Forms.TrackBar();
 			this.label3 = new System.Windows.Forms.Label();
-			this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-			this.trackBar2 = new System.Windows.Forms.TrackBar();
+			this.numDex = new System.Windows.Forms.NumericUpDown();
+			this.barDex = new System.Windows.Forms.TrackBar();
 			this.label2 = new System.Windows.Forms.Label();
-			this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-			this.trackBar1 = new System.Windows.Forms.TrackBar();
+			this.numStrenght = new System.Windows.Forms.NumericUpDown();
+			this.barStrengh = new System.Windows.Forms.TrackBar();
 			this.label1 = new System.Windows.Forms.Label();
-			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.ckbBuyStats = new System.Windows.Forms.CheckBox();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.label6 = new System.Windows.Forms.Label();
 			this.checkBox2 = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.trackBar5)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numLuck)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.barLuck)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numAus)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.barAus)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numInt)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.barInt)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numDex)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.barDex)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numStrenght)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.barStrengh)).BeginInit();
 			this.groupBox3.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -74,7 +75,7 @@ namespace SFBoty.Controls {
 			this.groupBox1.Controls.Add(this.radioButton2);
 			this.groupBox1.Controls.Add(this.radioButton1);
 			this.groupBox1.Controls.Add(this.groupBox2);
-			this.groupBox1.Controls.Add(this.checkBox1);
+			this.groupBox1.Controls.Add(this.ckbBuyStats);
 			this.groupBox1.Location = new System.Drawing.Point(3, 3);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(615, 308);
@@ -108,20 +109,20 @@ namespace SFBoty.Controls {
 			// 
 			// groupBox2
 			// 
-			this.groupBox2.Controls.Add(this.numericUpDown5);
-			this.groupBox2.Controls.Add(this.trackBar5);
+			this.groupBox2.Controls.Add(this.numLuck);
+			this.groupBox2.Controls.Add(this.barLuck);
 			this.groupBox2.Controls.Add(this.label5);
-			this.groupBox2.Controls.Add(this.numericUpDown4);
-			this.groupBox2.Controls.Add(this.trackBar4);
+			this.groupBox2.Controls.Add(this.numAus);
+			this.groupBox2.Controls.Add(this.barAus);
 			this.groupBox2.Controls.Add(this.label4);
-			this.groupBox2.Controls.Add(this.numericUpDown3);
-			this.groupBox2.Controls.Add(this.trackBar3);
+			this.groupBox2.Controls.Add(this.numInt);
+			this.groupBox2.Controls.Add(this.barInt);
 			this.groupBox2.Controls.Add(this.label3);
-			this.groupBox2.Controls.Add(this.numericUpDown2);
-			this.groupBox2.Controls.Add(this.trackBar2);
+			this.groupBox2.Controls.Add(this.numDex);
+			this.groupBox2.Controls.Add(this.barDex);
 			this.groupBox2.Controls.Add(this.label2);
-			this.groupBox2.Controls.Add(this.numericUpDown1);
-			this.groupBox2.Controls.Add(this.trackBar1);
+			this.groupBox2.Controls.Add(this.numStrenght);
+			this.groupBox2.Controls.Add(this.barStrengh);
 			this.groupBox2.Controls.Add(this.label1);
 			this.groupBox2.Location = new System.Drawing.Point(16, 42);
 			this.groupBox2.Name = "groupBox2";
@@ -130,20 +131,20 @@ namespace SFBoty.Controls {
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Prozentuale Verteilung der Attribute";
 			// 
-			// numericUpDown5
+			// numLuck
 			// 
-			this.numericUpDown5.Location = new System.Drawing.Point(520, 159);
-			this.numericUpDown5.Name = "numericUpDown5";
-			this.numericUpDown5.Size = new System.Drawing.Size(58, 20);
-			this.numericUpDown5.TabIndex = 14;
+			this.numLuck.Location = new System.Drawing.Point(520, 159);
+			this.numLuck.Name = "numLuck";
+			this.numLuck.Size = new System.Drawing.Size(58, 20);
+			this.numLuck.TabIndex = 14;
 			// 
-			// trackBar5
+			// barLuck
 			// 
-			this.trackBar5.Location = new System.Drawing.Point(74, 154);
-			this.trackBar5.Maximum = 100;
-			this.trackBar5.Name = "trackBar5";
-			this.trackBar5.Size = new System.Drawing.Size(442, 45);
-			this.trackBar5.TabIndex = 13;
+			this.barLuck.Location = new System.Drawing.Point(74, 154);
+			this.barLuck.Maximum = 100;
+			this.barLuck.Name = "barLuck";
+			this.barLuck.Size = new System.Drawing.Size(442, 45);
+			this.barLuck.TabIndex = 13;
 			// 
 			// label5
 			// 
@@ -154,20 +155,20 @@ namespace SFBoty.Controls {
 			this.label5.TabIndex = 12;
 			this.label5.Text = "Glück:";
 			// 
-			// numericUpDown4
+			// numAus
 			// 
-			this.numericUpDown4.Location = new System.Drawing.Point(520, 127);
-			this.numericUpDown4.Name = "numericUpDown4";
-			this.numericUpDown4.Size = new System.Drawing.Size(58, 20);
-			this.numericUpDown4.TabIndex = 11;
+			this.numAus.Location = new System.Drawing.Point(520, 127);
+			this.numAus.Name = "numAus";
+			this.numAus.Size = new System.Drawing.Size(58, 20);
+			this.numAus.TabIndex = 11;
 			// 
-			// trackBar4
+			// barAus
 			// 
-			this.trackBar4.Location = new System.Drawing.Point(74, 122);
-			this.trackBar4.Maximum = 100;
-			this.trackBar4.Name = "trackBar4";
-			this.trackBar4.Size = new System.Drawing.Size(442, 45);
-			this.trackBar4.TabIndex = 10;
+			this.barAus.Location = new System.Drawing.Point(74, 122);
+			this.barAus.Maximum = 100;
+			this.barAus.Name = "barAus";
+			this.barAus.Size = new System.Drawing.Size(442, 45);
+			this.barAus.TabIndex = 10;
 			// 
 			// label4
 			// 
@@ -178,20 +179,20 @@ namespace SFBoty.Controls {
 			this.label4.TabIndex = 9;
 			this.label4.Text = "Ausdauer:";
 			// 
-			// numericUpDown3
+			// numInt
 			// 
-			this.numericUpDown3.Location = new System.Drawing.Point(520, 94);
-			this.numericUpDown3.Name = "numericUpDown3";
-			this.numericUpDown3.Size = new System.Drawing.Size(58, 20);
-			this.numericUpDown3.TabIndex = 8;
+			this.numInt.Location = new System.Drawing.Point(520, 94);
+			this.numInt.Name = "numInt";
+			this.numInt.Size = new System.Drawing.Size(58, 20);
+			this.numInt.TabIndex = 8;
 			// 
-			// trackBar3
+			// barInt
 			// 
-			this.trackBar3.Location = new System.Drawing.Point(74, 89);
-			this.trackBar3.Maximum = 100;
-			this.trackBar3.Name = "trackBar3";
-			this.trackBar3.Size = new System.Drawing.Size(442, 45);
-			this.trackBar3.TabIndex = 7;
+			this.barInt.Location = new System.Drawing.Point(74, 89);
+			this.barInt.Maximum = 100;
+			this.barInt.Name = "barInt";
+			this.barInt.Size = new System.Drawing.Size(442, 45);
+			this.barInt.TabIndex = 7;
 			// 
 			// label3
 			// 
@@ -202,20 +203,20 @@ namespace SFBoty.Controls {
 			this.label3.TabIndex = 6;
 			this.label3.Text = "Intelligenz:";
 			// 
-			// numericUpDown2
+			// numDex
 			// 
-			this.numericUpDown2.Location = new System.Drawing.Point(520, 59);
-			this.numericUpDown2.Name = "numericUpDown2";
-			this.numericUpDown2.Size = new System.Drawing.Size(58, 20);
-			this.numericUpDown2.TabIndex = 5;
+			this.numDex.Location = new System.Drawing.Point(520, 59);
+			this.numDex.Name = "numDex";
+			this.numDex.Size = new System.Drawing.Size(58, 20);
+			this.numDex.TabIndex = 5;
 			// 
-			// trackBar2
+			// barDex
 			// 
-			this.trackBar2.Location = new System.Drawing.Point(74, 54);
-			this.trackBar2.Maximum = 100;
-			this.trackBar2.Name = "trackBar2";
-			this.trackBar2.Size = new System.Drawing.Size(442, 45);
-			this.trackBar2.TabIndex = 4;
+			this.barDex.Location = new System.Drawing.Point(74, 54);
+			this.barDex.Maximum = 100;
+			this.barDex.Name = "barDex";
+			this.barDex.Size = new System.Drawing.Size(442, 45);
+			this.barDex.TabIndex = 4;
 			// 
 			// label2
 			// 
@@ -226,20 +227,20 @@ namespace SFBoty.Controls {
 			this.label2.TabIndex = 3;
 			this.label2.Text = "Geschick::";
 			// 
-			// numericUpDown1
+			// numStrenght
 			// 
-			this.numericUpDown1.Location = new System.Drawing.Point(520, 26);
-			this.numericUpDown1.Name = "numericUpDown1";
-			this.numericUpDown1.Size = new System.Drawing.Size(58, 20);
-			this.numericUpDown1.TabIndex = 2;
+			this.numStrenght.Location = new System.Drawing.Point(520, 26);
+			this.numStrenght.Name = "numStrenght";
+			this.numStrenght.Size = new System.Drawing.Size(58, 20);
+			this.numStrenght.TabIndex = 2;
 			// 
-			// trackBar1
+			// barStrengh
 			// 
-			this.trackBar1.Location = new System.Drawing.Point(74, 21);
-			this.trackBar1.Maximum = 100;
-			this.trackBar1.Name = "trackBar1";
-			this.trackBar1.Size = new System.Drawing.Size(442, 45);
-			this.trackBar1.TabIndex = 1;
+			this.barStrengh.Location = new System.Drawing.Point(74, 21);
+			this.barStrengh.Maximum = 100;
+			this.barStrengh.Name = "barStrengh";
+			this.barStrengh.Size = new System.Drawing.Size(442, 45);
+			this.barStrengh.TabIndex = 1;
 			// 
 			// label1
 			// 
@@ -250,15 +251,15 @@ namespace SFBoty.Controls {
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Stärke:";
 			// 
-			// checkBox1
+			// ckbBuyStats
 			// 
-			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(16, 19);
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(124, 17);
-			this.checkBox1.TabIndex = 0;
-			this.checkBox1.Text = "Aktiviere Attributkauf";
-			this.checkBox1.UseVisualStyleBackColor = true;
+			this.ckbBuyStats.AutoSize = true;
+			this.ckbBuyStats.Location = new System.Drawing.Point(16, 19);
+			this.ckbBuyStats.Name = "ckbBuyStats";
+			this.ckbBuyStats.Size = new System.Drawing.Size(124, 17);
+			this.ckbBuyStats.TabIndex = 0;
+			this.ckbBuyStats.Text = "Aktiviere Attributkauf";
+			this.ckbBuyStats.UseVisualStyleBackColor = true;
 			// 
 			// groupBox3
 			// 
@@ -276,14 +277,17 @@ namespace SFBoty.Controls {
 			this.label6.AutoSize = true;
 			this.label6.Location = new System.Drawing.Point(13, 48);
 			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(462, 13);
+			this.label6.Size = new System.Drawing.Size(555, 13);
 			this.label6.TabIndex = 1;
 			this.label6.Text = "Unter Verwendung der oben eingestellten Attributverteilung wird das bessere Equip" +
-    "ment ermittelt.";
+    "ment ermittelt. (derzeit noch nicht)";
 			// 
 			// checkBox2
 			// 
 			this.checkBox2.AutoSize = true;
+			this.checkBox2.Checked = true;
+			this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.checkBox2.Enabled = false;
 			this.checkBox2.Location = new System.Drawing.Point(16, 19);
 			this.checkBox2.Name = "checkBox2";
 			this.checkBox2.Size = new System.Drawing.Size(240, 17);
@@ -301,16 +305,16 @@ namespace SFBoty.Controls {
 			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.trackBar5)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numLuck)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.barLuck)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numAus)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.barAus)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numInt)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.barInt)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numDex)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.barDex)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numStrenght)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.barStrengh)).EndInit();
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
 			this.ResumeLayout(false);
@@ -319,6 +323,24 @@ namespace SFBoty.Controls {
 
 		public CharacterSettings() {
 			InitializeComponent();
+		}
+
+		private AccountSettings Settings;
+		public void SetSettings(AccountSettings settings) {
+			Settings = settings;
+
+			ckbBuyStats.Checked = settings.PerformBuyStats;
+			barStrengh.Value = Convert.ToInt32(settings.StatStrFactor * 100);
+			barDex.Value = Convert.ToInt32(settings.StatDexFactor * 100);
+			barInt.Value = Convert.ToInt32(settings.StatIntFactor * 100);
+			barAus.Value = Convert.ToInt32(settings.StatAusFactor * 100);
+			barLuck.Value = Convert.ToInt32(settings.StatLuckFactor * 100);
+
+			numStrenght.Value = Convert.ToInt32(settings.StatStrFactor * 100);
+			numDex.Value = Convert.ToInt32(settings.StatDexFactor * 100);
+			numInt.Value = Convert.ToInt32(settings.StatIntFactor * 100);
+			numAus.Value = Convert.ToInt32(settings.StatAusFactor * 100);
+			numLuck.Value = Convert.ToInt32(settings.StatLuckFactor * 100);
 		}
 	}
 }

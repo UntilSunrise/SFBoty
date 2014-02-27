@@ -22,6 +22,10 @@ namespace SFBoty.NewAccounts {
 			tavernSettings1.SetSettings(Clone);
 			toiletteSettings1.SetSettings(Clone);
 			townWatchSettings1.SetSettings(Clone);
+			dungeonTowerSettings1.SetSettings(Clone);
+			arenaSettings1.SetSettings(Clone);
+			gildenSettings1.SetSettings(Clone);
+			characterSettings1.SetSettings(Clone);
 		}
 
 		private void btnSave_Click(object sender, EventArgs e) {

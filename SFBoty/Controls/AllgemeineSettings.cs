@@ -16,13 +16,15 @@ namespace SFBoty.Controls {
 		private Label label1;
 		private GroupBox groupBox2;
 		private CheckBox checkBox1;
-		private NumericUpDown numericUpDown4;
-		private NumericUpDown numericUpDown3;
-		private NumericUpDown numericUpDown2;
-		private NumericUpDown numericUpDown1;
+		private NumericUpDown numMaxLongTime;
+		private NumericUpDown numMinLongTime;
+		private NumericUpDown numMaxShortTime;
+		private NumericUpDown numMinShortTime;
 		private Label label7;
 		private Label label6;
 		private Label label5;
+		private Label label8;
+		private NumericUpDown numGuildVisitInterval;
 		private Label label4;
 	
 		private void InitializeComponent() {
@@ -35,20 +37,23 @@ namespace SFBoty.Controls {
 			this.label1 = new System.Windows.Forms.Label();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
-			this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+			this.numMaxLongTime = new System.Windows.Forms.NumericUpDown();
+			this.numMinLongTime = new System.Windows.Forms.NumericUpDown();
+			this.numMaxShortTime = new System.Windows.Forms.NumericUpDown();
+			this.numMinShortTime = new System.Windows.Forms.NumericUpDown();
 			this.label7 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
+			this.numGuildVisitInterval = new System.Windows.Forms.NumericUpDown();
+			this.label8 = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numMaxLongTime)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numMinLongTime)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numMaxShortTime)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numMinShortTime)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numGuildVisitInterval)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -92,7 +97,7 @@ namespace SFBoty.Controls {
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(14, 75);
+			this.label3.Location = new System.Drawing.Point(8, 75);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(53, 13);
 			this.label3.TabIndex = 2;
@@ -101,7 +106,7 @@ namespace SFBoty.Controls {
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(14, 49);
+			this.label2.Location = new System.Drawing.Point(8, 49);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(50, 13);
 			this.label2.TabIndex = 1;
@@ -110,7 +115,7 @@ namespace SFBoty.Controls {
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(14, 23);
+			this.label1.Location = new System.Drawing.Point(8, 23);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(41, 13);
 			this.label1.TabIndex = 0;
@@ -120,19 +125,20 @@ namespace SFBoty.Controls {
 			// 
 			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox2.Controls.Add(this.label8);
+			this.groupBox2.Controls.Add(this.numGuildVisitInterval);
 			this.groupBox2.Controls.Add(this.checkBox1);
-			this.groupBox2.Controls.Add(this.numericUpDown4);
-			this.groupBox2.Controls.Add(this.numericUpDown3);
-			this.groupBox2.Controls.Add(this.numericUpDown2);
-			this.groupBox2.Controls.Add(this.numericUpDown1);
+			this.groupBox2.Controls.Add(this.numMaxLongTime);
+			this.groupBox2.Controls.Add(this.numMinLongTime);
+			this.groupBox2.Controls.Add(this.numMaxShortTime);
+			this.groupBox2.Controls.Add(this.numMinShortTime);
 			this.groupBox2.Controls.Add(this.label7);
 			this.groupBox2.Controls.Add(this.label6);
 			this.groupBox2.Controls.Add(this.label5);
 			this.groupBox2.Controls.Add(this.label4);
-			this.groupBox2.Enabled = false;
 			this.groupBox2.Location = new System.Drawing.Point(3, 116);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(308, 149);
+			this.groupBox2.Size = new System.Drawing.Size(308, 224);
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Intervall";
@@ -140,45 +146,70 @@ namespace SFBoty.Controls {
 			// checkBox1
 			// 
 			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(223, 123);
+			this.checkBox1.Enabled = false;
+			this.checkBox1.Location = new System.Drawing.Point(222, 201);
 			this.checkBox1.Name = "checkBox1";
 			this.checkBox1.Size = new System.Drawing.Size(86, 17);
 			this.checkBox1.TabIndex = 8;
 			this.checkBox1.Text = "Expert Mode";
 			this.checkBox1.UseVisualStyleBackColor = true;
 			// 
-			// numericUpDown4
+			// numMaxLongTime
 			// 
-			this.numericUpDown4.Location = new System.Drawing.Point(119, 97);
-			this.numericUpDown4.Name = "numericUpDown4";
-			this.numericUpDown4.Size = new System.Drawing.Size(183, 20);
-			this.numericUpDown4.TabIndex = 7;
+			this.numMaxLongTime.DecimalPlaces = 1;
+			this.numMaxLongTime.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.numMaxLongTime.Location = new System.Drawing.Point(119, 97);
+			this.numMaxLongTime.Name = "numMaxLongTime";
+			this.numMaxLongTime.Size = new System.Drawing.Size(183, 20);
+			this.numMaxLongTime.TabIndex = 7;
 			// 
-			// numericUpDown3
+			// numMinLongTime
 			// 
-			this.numericUpDown3.Location = new System.Drawing.Point(119, 71);
-			this.numericUpDown3.Name = "numericUpDown3";
-			this.numericUpDown3.Size = new System.Drawing.Size(183, 20);
-			this.numericUpDown3.TabIndex = 6;
+			this.numMinLongTime.DecimalPlaces = 1;
+			this.numMinLongTime.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.numMinLongTime.Location = new System.Drawing.Point(119, 71);
+			this.numMinLongTime.Name = "numMinLongTime";
+			this.numMinLongTime.Size = new System.Drawing.Size(183, 20);
+			this.numMinLongTime.TabIndex = 6;
 			// 
-			// numericUpDown2
+			// numMaxShortTime
 			// 
-			this.numericUpDown2.Location = new System.Drawing.Point(119, 45);
-			this.numericUpDown2.Name = "numericUpDown2";
-			this.numericUpDown2.Size = new System.Drawing.Size(183, 20);
-			this.numericUpDown2.TabIndex = 5;
+			this.numMaxShortTime.DecimalPlaces = 1;
+			this.numMaxShortTime.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.numMaxShortTime.Location = new System.Drawing.Point(119, 45);
+			this.numMaxShortTime.Name = "numMaxShortTime";
+			this.numMaxShortTime.Size = new System.Drawing.Size(183, 20);
+			this.numMaxShortTime.TabIndex = 5;
 			// 
-			// numericUpDown1
+			// numMinShortTime
 			// 
-			this.numericUpDown1.Location = new System.Drawing.Point(119, 19);
-			this.numericUpDown1.Name = "numericUpDown1";
-			this.numericUpDown1.Size = new System.Drawing.Size(183, 20);
-			this.numericUpDown1.TabIndex = 4;
+			this.numMinShortTime.DecimalPlaces = 1;
+			this.numMinShortTime.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.numMinShortTime.Location = new System.Drawing.Point(119, 19);
+			this.numMinShortTime.Name = "numMinShortTime";
+			this.numMinShortTime.Size = new System.Drawing.Size(183, 20);
+			this.numMinShortTime.TabIndex = 4;
 			// 
 			// label7
 			// 
 			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(14, 99);
+			this.label7.Location = new System.Drawing.Point(7, 99);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(92, 13);
 			this.label7.TabIndex = 3;
@@ -187,7 +218,7 @@ namespace SFBoty.Controls {
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(14, 73);
+			this.label6.Location = new System.Drawing.Point(7, 73);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(89, 13);
 			this.label6.TabIndex = 2;
@@ -196,7 +227,7 @@ namespace SFBoty.Controls {
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(14, 47);
+			this.label5.Location = new System.Drawing.Point(7, 47);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(92, 13);
 			this.label5.TabIndex = 1;
@@ -205,26 +236,49 @@ namespace SFBoty.Controls {
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(14, 21);
+			this.label4.Location = new System.Drawing.Point(7, 21);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(89, 13);
 			this.label4.TabIndex = 0;
 			this.label4.Text = "Min kurze Aktion:";
+			// 
+			// numGuildVisitInterval
+			// 
+			this.numGuildVisitInterval.DecimalPlaces = 1;
+			this.numGuildVisitInterval.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.numGuildVisitInterval.Location = new System.Drawing.Point(119, 123);
+			this.numGuildVisitInterval.Name = "numGuildVisitInterval";
+			this.numGuildVisitInterval.Size = new System.Drawing.Size(183, 20);
+			this.numGuildVisitInterval.TabIndex = 9;
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Location = new System.Drawing.Point(7, 125);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(107, 13);
+			this.label8.TabIndex = 10;
+			this.label8.Text = "Interval Gildebesuch:";
 			// 
 			// AllgemeineSettings
 			// 
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.Name = "AllgemeineSettings";
-			this.Size = new System.Drawing.Size(311, 275);
+			this.Size = new System.Drawing.Size(311, 399);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numMaxLongTime)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numMinLongTime)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numMaxShortTime)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numMinShortTime)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numGuildVisitInterval)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -241,6 +295,11 @@ namespace SFBoty.Controls {
 			txtAccount.Text = Settings.Username;
 			txtPasswort.Text = Settings.PasswordHash;
 			txtServer.Text = Settings.Server;
+
+			numMinShortTime.Value = new decimal(settings.minShortTime);
+			numMaxShortTime.Value = new decimal(settings.maxShortTime);
+			numMinLongTime.Value = new decimal(settings.minLongTime);
+			numMaxLongTime.Value = new decimal(settings.maxLongTime);
 		}
 	}
 }

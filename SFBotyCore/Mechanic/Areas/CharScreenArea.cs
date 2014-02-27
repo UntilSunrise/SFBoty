@@ -76,11 +76,11 @@ namespace SFBotyCore.Mechanic.Areas {
                             sumStats += Account.BaseLuck;
                         }
 
-                        int strLimit = (int)(sumStats * Account.Settings.StatStrFactor);
-                        int dexLimit = (int)(sumStats * Account.Settings.StatDexFactor);
-                        int intLimit = (int)(sumStats * Account.Settings.StatIntFactor);
-                        int ausLimit = (int)(sumStats * Account.Settings.StatAusFactor);
-                        int LuckLimit = (int)(sumStats * Account.Settings.StatLuckFactor);
+                        int strLimit = Convert.ToInt32(sumStats * Account.Settings.StatStrFactor);
+                        int dexLimit = Convert.ToInt32(sumStats * Account.Settings.StatDexFactor);
+                        int intLimit = Convert.ToInt32(sumStats * Account.Settings.StatIntFactor);
+                        int ausLimit = Convert.ToInt32(sumStats * Account.Settings.StatAusFactor);
+                        int LuckLimit = Convert.ToInt32(sumStats * Account.Settings.StatLuckFactor);
 
 						if (Account.BaseStr <= strLimit && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.BuyedStr)) {
 							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);

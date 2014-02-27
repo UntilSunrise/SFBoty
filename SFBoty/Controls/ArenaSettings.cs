@@ -3,51 +3,55 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SFBotyCore.Mechanic.Account;
 
 namespace SFBoty.Controls {
 	public class ArenaSettings : UserControl {
 		private GroupBox groupBox1;
-		private RadioButton radioButton2;
-		private RadioButton radioButton1;
+		private RadioButton optAttackNotSuggestedEnemy;
+		private RadioButton optAttackSuggestedEnemy;
 		private Label label2;
-		private NumericUpDown numericUpDown2;
-		private NumericUpDown numericUpDown1;
+		private NumericUpDown numMaxRang;
+		private NumericUpDown numMinRang;
 		private Label label1;
-		private Label label4;
-		private NumericUpDown numericUpDown3;
+		private Label lblRang;
+		private NumericUpDown numLevelDiff;
 		private Label label3;
-		private CheckBox checkBox1;
+		private CheckBox ckbAttackEnermysInLevelRange;
+		private CheckBox ckbPerformArena;
 
 		private void InitializeComponent() {
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.checkBox1 = new System.Windows.Forms.CheckBox();
-			this.radioButton1 = new System.Windows.Forms.RadioButton();
-			this.radioButton2 = new System.Windows.Forms.RadioButton();
-			this.label1 = new System.Windows.Forms.Label();
-			this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-			this.label2 = new System.Windows.Forms.Label();
+			this.lblRang = new System.Windows.Forms.Label();
+			this.numLevelDiff = new System.Windows.Forms.NumericUpDown();
 			this.label3 = new System.Windows.Forms.Label();
-			this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-			this.label4 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.numMaxRang = new System.Windows.Forms.NumericUpDown();
+			this.numMinRang = new System.Windows.Forms.NumericUpDown();
+			this.label1 = new System.Windows.Forms.Label();
+			this.optAttackNotSuggestedEnemy = new System.Windows.Forms.RadioButton();
+			this.optAttackSuggestedEnemy = new System.Windows.Forms.RadioButton();
+			this.ckbPerformArena = new System.Windows.Forms.CheckBox();
+			this.ckbAttackEnermysInLevelRange = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numLevelDiff)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numMaxRang)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numMinRang)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox1
 			// 
-			this.groupBox1.Controls.Add(this.label4);
-			this.groupBox1.Controls.Add(this.numericUpDown3);
+			this.groupBox1.Controls.Add(this.ckbAttackEnermysInLevelRange);
+			this.groupBox1.Controls.Add(this.lblRang);
+			this.groupBox1.Controls.Add(this.numLevelDiff);
 			this.groupBox1.Controls.Add(this.label3);
 			this.groupBox1.Controls.Add(this.label2);
-			this.groupBox1.Controls.Add(this.numericUpDown2);
-			this.groupBox1.Controls.Add(this.numericUpDown1);
+			this.groupBox1.Controls.Add(this.numMaxRang);
+			this.groupBox1.Controls.Add(this.numMinRang);
 			this.groupBox1.Controls.Add(this.label1);
-			this.groupBox1.Controls.Add(this.radioButton2);
-			this.groupBox1.Controls.Add(this.radioButton1);
-			this.groupBox1.Controls.Add(this.checkBox1);
+			this.groupBox1.Controls.Add(this.optAttackNotSuggestedEnemy);
+			this.groupBox1.Controls.Add(this.optAttackSuggestedEnemy);
+			this.groupBox1.Controls.Add(this.ckbPerformArena);
 			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox1.Location = new System.Drawing.Point(0, 0);
 			this.groupBox1.Name = "groupBox1";
@@ -56,95 +60,125 @@ namespace SFBoty.Controls {
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Arena";
 			// 
-			// checkBox1
+			// lblRang
 			// 
-			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(15, 19);
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(98, 17);
-			this.checkBox1.TabIndex = 0;
-			this.checkBox1.Text = "Aktiviere Arena";
-			this.checkBox1.UseVisualStyleBackColor = true;
+			this.lblRang.AutoSize = true;
+			this.lblRang.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.lblRang.Location = new System.Drawing.Point(12, 148);
+			this.lblRang.Name = "lblRang";
+			this.lblRang.Size = new System.Drawing.Size(193, 13);
+			this.lblRang.TabIndex = 9;
+			this.lblRang.Text = "Dein Rang (1000): ergibt 1100 bis 1300";
 			// 
-			// radioButton1
+			// numLevelDiff
 			// 
-			this.radioButton1.AutoSize = true;
-			this.radioButton1.Location = new System.Drawing.Point(15, 43);
-			this.radioButton1.Name = "radioButton1";
-			this.radioButton1.Size = new System.Drawing.Size(193, 17);
-			this.radioButton1.TabIndex = 1;
-			this.radioButton1.TabStop = true;
-			this.radioButton1.Text = "Vorgeschlagenen Gegner angreifen";
-			this.radioButton1.UseVisualStyleBackColor = true;
-			// 
-			// radioButton2
-			// 
-			this.radioButton2.AutoSize = true;
-			this.radioButton2.Location = new System.Drawing.Point(15, 67);
-			this.radioButton2.Name = "radioButton2";
-			this.radioButton2.Size = new System.Drawing.Size(191, 17);
-			this.radioButton2.TabIndex = 2;
-			this.radioButton2.TabStop = true;
-			this.radioButton2.Text = "Gegner aus Rangbereich angreifen";
-			this.radioButton2.UseVisualStyleBackColor = true;
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(12, 91);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(192, 13);
-			this.label1.TabIndex = 3;
-			this.label1.Text = "Rangbereich zur Gegnerwahl zwischen";
-			// 
-			// numericUpDown1
-			// 
-			this.numericUpDown1.Location = new System.Drawing.Point(210, 89);
-			this.numericUpDown1.Name = "numericUpDown1";
-			this.numericUpDown1.Size = new System.Drawing.Size(73, 20);
-			this.numericUpDown1.TabIndex = 4;
-			// 
-			// numericUpDown2
-			// 
-			this.numericUpDown2.Location = new System.Drawing.Point(210, 115);
-			this.numericUpDown2.Name = "numericUpDown2";
-			this.numericUpDown2.Size = new System.Drawing.Size(73, 20);
-			this.numericUpDown2.TabIndex = 5;
-			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(179, 115);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(25, 13);
-			this.label2.TabIndex = 6;
-			this.label2.Text = "und";
+			this.numLevelDiff.Location = new System.Drawing.Point(210, 169);
+			this.numLevelDiff.Name = "numLevelDiff";
+			this.numLevelDiff.Size = new System.Drawing.Size(73, 20);
+			this.numLevelDiff.TabIndex = 8;
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(12, 163);
+			this.label3.Location = new System.Drawing.Point(12, 169);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(124, 13);
 			this.label3.TabIndex = 7;
 			this.label3.Text = "Mindestlevelunterschied:";
 			// 
-			// numericUpDown3
+			// label2
 			// 
-			this.numericUpDown3.Location = new System.Drawing.Point(210, 163);
-			this.numericUpDown3.Name = "numericUpDown3";
-			this.numericUpDown3.Size = new System.Drawing.Size(73, 20);
-			this.numericUpDown3.TabIndex = 8;
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(179, 121);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(25, 13);
+			this.label2.TabIndex = 6;
+			this.label2.Text = "und";
 			// 
-			// label4
+			// numMaxRang
 			// 
-			this.label4.AutoSize = true;
-			this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.label4.Location = new System.Drawing.Point(12, 142);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(193, 13);
-			this.label4.TabIndex = 9;
-			this.label4.Text = "Dein Rang (1000): ergibt 1100 bis 1300";
+			this.numMaxRang.Location = new System.Drawing.Point(210, 121);
+			this.numMaxRang.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+			this.numMaxRang.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
+			this.numMaxRang.Name = "numMaxRang";
+			this.numMaxRang.Size = new System.Drawing.Size(73, 20);
+			this.numMaxRang.TabIndex = 5;
+			// 
+			// numMinRang
+			// 
+			this.numMinRang.Location = new System.Drawing.Point(210, 95);
+			this.numMinRang.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+			this.numMinRang.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
+			this.numMinRang.Name = "numMinRang";
+			this.numMinRang.Size = new System.Drawing.Size(73, 20);
+			this.numMinRang.TabIndex = 4;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(12, 97);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(192, 13);
+			this.label1.TabIndex = 3;
+			this.label1.Text = "Rangbereich zur Gegnerwahl zwischen";
+			// 
+			// optAttackNotSuggestedEnemy
+			// 
+			this.optAttackNotSuggestedEnemy.AutoSize = true;
+			this.optAttackNotSuggestedEnemy.Location = new System.Drawing.Point(15, 73);
+			this.optAttackNotSuggestedEnemy.Name = "optAttackNotSuggestedEnemy";
+			this.optAttackNotSuggestedEnemy.Size = new System.Drawing.Size(191, 17);
+			this.optAttackNotSuggestedEnemy.TabIndex = 2;
+			this.optAttackNotSuggestedEnemy.TabStop = true;
+			this.optAttackNotSuggestedEnemy.Text = "Gegner aus Rangbereich angreifen";
+			this.optAttackNotSuggestedEnemy.UseVisualStyleBackColor = true;
+			// 
+			// optAttackSuggestedEnemy
+			// 
+			this.optAttackSuggestedEnemy.AutoSize = true;
+			this.optAttackSuggestedEnemy.Location = new System.Drawing.Point(15, 53);
+			this.optAttackSuggestedEnemy.Name = "optAttackSuggestedEnemy";
+			this.optAttackSuggestedEnemy.Size = new System.Drawing.Size(193, 17);
+			this.optAttackSuggestedEnemy.TabIndex = 1;
+			this.optAttackSuggestedEnemy.TabStop = true;
+			this.optAttackSuggestedEnemy.Text = "Vorgeschlagenen Gegner angreifen";
+			this.optAttackSuggestedEnemy.UseVisualStyleBackColor = true;
+			// 
+			// ckbPerformArena
+			// 
+			this.ckbPerformArena.AutoSize = true;
+			this.ckbPerformArena.Location = new System.Drawing.Point(15, 16);
+			this.ckbPerformArena.Name = "ckbPerformArena";
+			this.ckbPerformArena.Size = new System.Drawing.Size(98, 17);
+			this.ckbPerformArena.TabIndex = 0;
+			this.ckbPerformArena.Text = "Aktiviere Arena";
+			this.ckbPerformArena.UseVisualStyleBackColor = true;
+			// 
+			// ckbAttackEnermysInLevelRange
+			// 
+			this.ckbAttackEnermysInLevelRange.AutoSize = true;
+			this.ckbAttackEnermysInLevelRange.Location = new System.Drawing.Point(15, 35);
+			this.ckbAttackEnermysInLevelRange.Name = "ckbAttackEnermysInLevelRange";
+			this.ckbAttackEnermysInLevelRange.Size = new System.Drawing.Size(202, 17);
+			this.ckbAttackEnermysInLevelRange.TabIndex = 10;
+			this.ckbAttackEnermysInLevelRange.Text = "Greife nur Gegner im Levelbereich an";
+			this.ckbAttackEnermysInLevelRange.UseVisualStyleBackColor = true;
 			// 
 			// ArenaSettings
 			// 
@@ -153,15 +187,30 @@ namespace SFBoty.Controls {
 			this.Size = new System.Drawing.Size(292, 193);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numLevelDiff)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numMaxRang)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numMinRang)).EndInit();
 			this.ResumeLayout(false);
 
 		}
 
 		public ArenaSettings() {
 			InitializeComponent();
+		}
+
+		private AccountSettings Settings;
+		public void SetSettings(AccountSettings settings) {
+			Settings = settings;
+
+			ckbPerformArena.Checked = settings.PerformArena;
+			optAttackSuggestedEnemy.Checked = Settings.AttackSuggestedEnemy;
+			optAttackNotSuggestedEnemy.Checked = !settings.AttackSuggestedEnemy;
+			numMinRang.Value = settings.LowerRangeLimit;
+			numMaxRang.Value = settings.UpperRangeLimit;
+			numLevelDiff.Value = settings.LevelDifference;
+			ckbAttackEnermysInLevelRange.Checked = settings.AttackEnemyBetweenRange;
+
+			lblRang.Text = "Dein Rang(1000): ergibt " + (1000 - settings.LowerRangeLimit).ToString() + " bis " + (1000 + settings.UpperRangeLimit).ToString();
 		}
 	}
 }

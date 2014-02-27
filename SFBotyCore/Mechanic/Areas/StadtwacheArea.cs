@@ -75,7 +75,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					targetDate = targetDate.AddHours(1);
 				}
 
-				int hourToWork = Math.Min((int)(targetDate - DateTime.Now).TotalHours, 10);
+				int hourToWork = Math.Min(Convert.ToInt32((targetDate - DateTime.Now).TotalHours), 10);
 				if (hourToWork == 0) {
 					hourToWork = 1;
 					SendRequest("!!!Fehler in der Stadtwache!!!");

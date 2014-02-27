@@ -44,11 +44,11 @@ namespace SFBotyCore.Mechanic.Areas {
 
 				Account.LastDonateTime = DateTime.Now;
 				ThreadSleep(Account.Settings.minTimeToDonate, Account.Settings.maxTimeToDonate);
-				int silver = (int)(Account.Silver * Account.Settings.FactorToDonate);
+				int silver = Convert.ToInt32(Account.Silver * Account.Settings.FactorToDonate);
 				silver = silver - silver % 100;
 				SendRequest(String.Concat(ActionTypes.GuildDonateGold, silver));
 				Account.Silver -= silver;
-				RaiseMessageEvent(String.Concat("Es wurde ", (int)(silver / 100), " Gold an die Gilde ", Account.Guild.Name, " gespendet"));
+				RaiseMessageEvent(String.Concat("Es wurde ", Convert.ToInt32(silver / 100), " Gold an die Gilde ", Account.Guild.Name, " gespendet"));
 
 				hasJoinIn = true;
 			}

@@ -150,7 +150,7 @@ namespace SFBotyCore.Mechanic {
 			Asserts.IsTrue(maxTime != null && maxTime > 0f, "maxTime muss größer 0 sein");
 			Asserts.IsTrue(minTime <= maxTime, "minTime muss kleiner gleich maxTime sein");
 
-			Thread.Sleep(random.Next((int)(minTime * 1000), (int)(maxTime * 1000)));
+			Thread.Sleep(random.Next(Convert.ToInt32(minTime * 1000), Convert.ToInt32(maxTime * 1000)));
 		}
 
 		public abstract void RaiseMessageEvent(string s);
