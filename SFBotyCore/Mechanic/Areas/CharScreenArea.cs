@@ -52,7 +52,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				}
 				#endregion
 
-				if (Account.Settings.PerformBuyStats) {
+				if (Account.Settings.PerformBuyStats && (!Account.Settings.SaveMoney || Account.Settings.SaveMoney && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.HighestBuyedStat) * Account.Settings.SaveMoneyFactor)) {
 
 					bool canBuyStats = true;
 					

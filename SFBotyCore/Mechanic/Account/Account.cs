@@ -46,6 +46,7 @@ namespace SFBotyCore.Mechanic.Account {
 		public int BuyedInt { get; set; }
 		public int BuyedAus { get; set; }
 		public int BuyedLuck { get; set; }
+		public int HighestBuyedStat { get { return Math.Max(BuyedStr, Math.Max(BuyedDex, Math.Max(BuyedInt, Math.Max(BuyedAus, BuyedLuck)))); } }
 
 		public Int64 Silver { get; set; }
 		public int Mushroom { get; set; }
@@ -64,18 +65,18 @@ namespace SFBotyCore.Mechanic.Account {
 
 		public DateTime LastAction { get; set; } //Wann hat der Bot das letzte mal eine Nachricht an den Server gesendet
 
-		public bool BackpackHasToiletItem { 
-			get { 
+		public bool BackpackHasToiletItem {
+			get {
 				return BackpackItems.Where(
-					b => 
-						b.GoldValue != 0 
-						&& b.Typ != ItemTypes.Buff 
-						&& b.Typ != ItemTypes.Leer 
-						&& b.Typ != ItemTypes.SpiegelOderSchlüssel 
+					b =>
+						b.GoldValue != 0
+						&& b.Typ != ItemTypes.Buff
+						&& b.Typ != ItemTypes.Leer
+						&& b.Typ != ItemTypes.SpiegelOderSchlüssel
 						&& b.Typ != ItemTypes.KeineAhnung2
 						&& b.IsEpic == false)
-					.Count() > 0; 
-			} 
+					.Count() > 0;
+			}
 		}
 
 		public Account(AccountSettings settings) {
