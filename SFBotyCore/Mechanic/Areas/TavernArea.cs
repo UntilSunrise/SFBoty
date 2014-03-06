@@ -31,7 +31,7 @@ namespace SFBotyCore.Mechanic.Areas {
 		public override void PerformArea() {
 			base.PerformArea();
 
-			if (Account.BackpackIsFull) {
+			if (Account.BackpackIsFull || !DateTime.Now.Hour.IsBetween(Account.Settings.TownWatchMinHourForShortWork, Account.Settings.TownWatchMaxHourForShortWork)) {
 				return;
 			}
 

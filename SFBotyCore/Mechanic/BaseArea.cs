@@ -111,7 +111,7 @@ namespace SFBotyCore.Mechanic {
 		private void DoReLogin(ref string s, ref int count) {
 			Account.Logout();
 
-			if (DateTime.Now.Hour > 0 && DateTime.Now.Hour < 6) {
+			if (DateTime.Now.Hour.IsBetween(3,6)) {
 				ThreadSleep(900f, 1200f);
 			} else {
 				ThreadSleep(1f, 2f);
