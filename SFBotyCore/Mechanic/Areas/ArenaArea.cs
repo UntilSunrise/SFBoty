@@ -88,7 +88,7 @@ namespace SFBotyCore.Mechanic.Areas {
 
 					int myRandomEnemy = -1;
 					if (Account.Settings.AttackEnemyBetweenRange) {
-						myRandomEnemy = Math.Min(random.Next(1, 16), HoFCharacters.Where(x => x.Value.Level >= myLevel + levelDifference && x.Value.Level <= myLevel - levelDifference).Count() - 1);
+						myRandomEnemy = Math.Min(random.Next(1, 16), HoFCharacters.Where(x => x.Value.Level >= myLevel - levelDifference && x.Value.Level <= myLevel + levelDifference).Count() - 1);
 					} else {
 						myRandomEnemy = Math.Min(random.Next(1, 16), HoFCharacters.Count() - 1);
 					}
@@ -103,8 +103,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			} while (playerFilter.Contains(enemyNick)
 					|| Account.Settings.Username == enemyNick
 					|| guildFilter.Contains(enemyGuildNick)
-					|| (enemyLevel >= (myLevel + levelDifference) && Account.Settings.AttackEnemyBetweenRange)
-					|| (enemyLevel <= (myLevel - levelDifference) && Account.Settings.AttackEnemyBetweenRange));
+					|| (enemyLevel.IsBetween(myLevel - levelDifference, myLevel + levelDifference) && Account.Settings.AttackEnemyBetweenRange));
 
             if (tries <= maxTries && !playerFilter.Contains(enemyNick) && !guildFilter.Contains(enemyGuildNick) && Account.Settings.Username != enemyNick) {
 				RaiseMessageEvent(string.Format("Greife Spieler: {0} an.", enemyNick));
