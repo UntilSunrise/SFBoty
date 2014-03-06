@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using SFBotyCore.Mechanic.Account;
+using SFBotyCore;
 
 namespace SFBoty.Controls {
 	public class TavernSettings : UserControl {
@@ -100,6 +101,7 @@ namespace SFBoty.Controls {
 			this.nupBeerCount.Name = "nupBeerCount";
 			this.nupBeerCount.Size = new System.Drawing.Size(68, 20);
 			this.nupBeerCount.TabIndex = 4;
+			this.nupBeerCount.ValueChanged += new System.EventHandler(this.nupBeerCount_ValueChanged);
 			// 
 			// ckbBuyBear
 			// 
@@ -110,6 +112,7 @@ namespace SFBoty.Controls {
 			this.ckbBuyBear.TabIndex = 3;
 			this.ckbBuyBear.Text = "Kaufe Bier bis zu:";
 			this.ckbBuyBear.UseVisualStyleBackColor = true;
+			this.ckbBuyBear.CheckedChanged += new System.EventHandler(this.ckbBuyBear_CheckedChanged);
 			// 
 			// ddlQuestMode
 			// 
@@ -124,6 +127,7 @@ namespace SFBoty.Controls {
 			this.ddlQuestMode.Name = "ddlQuestMode";
 			this.ddlQuestMode.Size = new System.Drawing.Size(121, 21);
 			this.ddlQuestMode.TabIndex = 2;
+			this.ddlQuestMode.SelectedIndexChanged += new System.EventHandler(this.ddlQuestMode_SelectedIndexChanged);
 			// 
 			// label1
 			// 
@@ -143,6 +147,7 @@ namespace SFBoty.Controls {
 			this.ckbPerformQuest.TabIndex = 0;
 			this.ckbPerformQuest.Text = "Aktiviere Quests";
 			this.ckbPerformQuest.UseVisualStyleBackColor = true;
+			this.ckbPerformQuest.CheckedChanged += new System.EventHandler(this.ckbPerformQuest_CheckedChanged);
 			// 
 			// TavernSettings
 			// 
@@ -168,6 +173,22 @@ namespace SFBoty.Controls {
 			ckbPerformQuest.Checked = Settings.PerformQuesten;
 			nupBeerCount.Value = Settings.MaxBeerToBuy;
 			ddlQuestMode.Text = Settings.QuestMode.ToString();
+		}
+
+		private void ddlQuestMode_SelectedIndexChanged(object sender, EventArgs e) {
+			Settings.QuestMode = ddlQuestMode.SelectedItem.ToString().ToEnum<AutoQuestMode>();
+		}
+
+		private void ckbPerformQuest_CheckedChanged(object sender, EventArgs e) {
+			Settings.PerformQuesten = ckbPerformQuest.Checked;
+		}
+
+		private void ckbBuyBear_CheckedChanged(object sender, EventArgs e) {
+			Settings.BuyBeer = ckbBuyBear.Checked;
+		}
+
+		private void nupBeerCount_ValueChanged(object sender, EventArgs e) {
+			Settings.MaxBeerToBuy = Convert.ToInt32(nupBeerCount.Value);
 		}
 	}
 }

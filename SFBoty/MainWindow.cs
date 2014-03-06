@@ -19,7 +19,7 @@ namespace SFBoty {
 		private Dictionary<string, Bot> Bots;
 		private Dictionary<string, List<string>> BotLogs;
 		private string SelectedBotKey;
-		private static bool AutoRun = true;
+		private static bool AutoRun = false;
 
 		public MainWindow() {
 			InitializeComponent();
@@ -29,10 +29,10 @@ namespace SFBoty {
 			BotLogs = new Dictionary<string, List<string>>();
 			SelectedBotKey = "";
 
-			accountOverview1.StartBot += new EventHandler<SFBoty.Controls.EventSelltingsArgs>(accountOverview1_StartBot);
-			accountOverview1.StopBot += new EventHandler<SFBoty.Controls.EventSelltingsArgs>(accountOverview1_StopBot);
-			accountOverview1.StartAllBots += new EventHandler<SFBoty.Controls.EventSelltingsArgs>(accountOverview1_StartAllBots);
-			accountOverview1.SelectedAccountChanged += new EventHandler<EventSelltingsArgs>(accountOverview1_SelectedAccountChanged);
+			accountOverview1.StartBot += new EventHandler<SFBoty.Controls.EventSettingsArgs>(accountOverview1_StartBot);
+			accountOverview1.StopBot += new EventHandler<SFBoty.Controls.EventSettingsArgs>(accountOverview1_StopBot);
+			accountOverview1.StartAllBots += new EventHandler<SFBoty.Controls.EventSettingsArgs>(accountOverview1_StartAllBots);
+			accountOverview1.SelectedAccountChanged += new EventHandler<EventSettingsArgs>(accountOverview1_SelectedAccountChanged);
 
 			if (AutoRun) {
 				accountOverview1.LoadAllAccountsFromXML();
@@ -47,18 +47,21 @@ namespace SFBoty {
 		}
 
 		#region BotHandling
-		void accountOverview1_StartAllBots(object sender, EventSelltingsArgs e) {
+		void accountOverview1_StartAllBots(object sender, EventSettingsArgs e) {
 			foreach (AccountSettings s in e.Settings) {
 				Account acc = new Account(s);
 				StartOneBot(acc);
 			}
 		}
 
-		void accountOverview1_StopBot(object sender, EventSelltingsArgs e) {
-			throw new NotImplementedException();
+		void accountOverview1_StopBot(object sender, EventSettingsArgs e) {
+			foreach (AccountSettings setting in e.Settings) { 
+				string key = String.Concat(setting.Username, setting.Server);
+				Bots[key].Stop();
+			}
 		}
 
-		void accountOverview1_StartBot(object sender, EventSelltingsArgs e) {
+		void accountOverview1_StartBot(object sender, EventSettingsArgs e) {
 			if (e.Settings.Count == 1) {
 				Account acc = new Account(e.Settings[0]);
 				StartOneBot(acc);
@@ -161,7 +164,7 @@ namespace SFBoty {
 			writer.Dispose();
 		}
 
-		void accountOverview1_SelectedAccountChanged(object sender, EventSelltingsArgs e) {
+		void accountOverview1_SelectedAccountChanged(object sender, EventSettingsArgs e) {
 			if (e.Settings.Count() > 0) {
 				string key = String.Concat(e.Settings[0].Username, e.Settings[0].Server);
 				this.SelectedBotKey = key;

@@ -22,6 +22,7 @@ namespace SFBoty.Controls {
 
 		private void InitializeComponent() {
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.ckbAttackEnermysInLevelRange = new System.Windows.Forms.CheckBox();
 			this.lblRang = new System.Windows.Forms.Label();
 			this.numLevelDiff = new System.Windows.Forms.NumericUpDown();
 			this.label3 = new System.Windows.Forms.Label();
@@ -32,7 +33,6 @@ namespace SFBoty.Controls {
 			this.optAttackNotSuggestedEnemy = new System.Windows.Forms.RadioButton();
 			this.optAttackSuggestedEnemy = new System.Windows.Forms.RadioButton();
 			this.ckbPerformArena = new System.Windows.Forms.CheckBox();
-			this.ckbAttackEnermysInLevelRange = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numLevelDiff)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMaxRang)).BeginInit();
@@ -60,6 +60,17 @@ namespace SFBoty.Controls {
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Arena";
 			// 
+			// ckbAttackEnermysInLevelRange
+			// 
+			this.ckbAttackEnermysInLevelRange.AutoSize = true;
+			this.ckbAttackEnermysInLevelRange.Location = new System.Drawing.Point(15, 35);
+			this.ckbAttackEnermysInLevelRange.Name = "ckbAttackEnermysInLevelRange";
+			this.ckbAttackEnermysInLevelRange.Size = new System.Drawing.Size(202, 17);
+			this.ckbAttackEnermysInLevelRange.TabIndex = 10;
+			this.ckbAttackEnermysInLevelRange.Text = "Greife nur Gegner im Levelbereich an";
+			this.ckbAttackEnermysInLevelRange.UseVisualStyleBackColor = true;
+			this.ckbAttackEnermysInLevelRange.CheckedChanged += new System.EventHandler(this.ckbAttackEnermysInLevelRange_CheckedChanged);
+			// 
 			// lblRang
 			// 
 			this.lblRang.AutoSize = true;
@@ -76,6 +87,7 @@ namespace SFBoty.Controls {
 			this.numLevelDiff.Name = "numLevelDiff";
 			this.numLevelDiff.Size = new System.Drawing.Size(73, 20);
 			this.numLevelDiff.TabIndex = 8;
+			this.numLevelDiff.ValueChanged += new System.EventHandler(this.numLevelDiff_ValueChanged);
 			// 
 			// label3
 			// 
@@ -111,6 +123,7 @@ namespace SFBoty.Controls {
 			this.numMaxRang.Name = "numMaxRang";
 			this.numMaxRang.Size = new System.Drawing.Size(73, 20);
 			this.numMaxRang.TabIndex = 5;
+			this.numMaxRang.ValueChanged += new System.EventHandler(this.numMaxRang_ValueChanged);
 			// 
 			// numMinRang
 			// 
@@ -128,6 +141,7 @@ namespace SFBoty.Controls {
 			this.numMinRang.Name = "numMinRang";
 			this.numMinRang.Size = new System.Drawing.Size(73, 20);
 			this.numMinRang.TabIndex = 4;
+			this.numMinRang.ValueChanged += new System.EventHandler(this.numMinRang_ValueChanged);
 			// 
 			// label1
 			// 
@@ -148,6 +162,7 @@ namespace SFBoty.Controls {
 			this.optAttackNotSuggestedEnemy.TabStop = true;
 			this.optAttackNotSuggestedEnemy.Text = "Gegner aus Rangbereich angreifen";
 			this.optAttackNotSuggestedEnemy.UseVisualStyleBackColor = true;
+			this.optAttackNotSuggestedEnemy.CheckedChanged += new System.EventHandler(this.optAttackNotSuggestedEnemy_CheckedChanged);
 			// 
 			// optAttackSuggestedEnemy
 			// 
@@ -159,6 +174,7 @@ namespace SFBoty.Controls {
 			this.optAttackSuggestedEnemy.TabStop = true;
 			this.optAttackSuggestedEnemy.Text = "Vorgeschlagenen Gegner angreifen";
 			this.optAttackSuggestedEnemy.UseVisualStyleBackColor = true;
+			this.optAttackSuggestedEnemy.CheckedChanged += new System.EventHandler(this.optAttackSuggestedEnemy_CheckedChanged);
 			// 
 			// ckbPerformArena
 			// 
@@ -169,16 +185,7 @@ namespace SFBoty.Controls {
 			this.ckbPerformArena.TabIndex = 0;
 			this.ckbPerformArena.Text = "Aktiviere Arena";
 			this.ckbPerformArena.UseVisualStyleBackColor = true;
-			// 
-			// ckbAttackEnermysInLevelRange
-			// 
-			this.ckbAttackEnermysInLevelRange.AutoSize = true;
-			this.ckbAttackEnermysInLevelRange.Location = new System.Drawing.Point(15, 35);
-			this.ckbAttackEnermysInLevelRange.Name = "ckbAttackEnermysInLevelRange";
-			this.ckbAttackEnermysInLevelRange.Size = new System.Drawing.Size(202, 17);
-			this.ckbAttackEnermysInLevelRange.TabIndex = 10;
-			this.ckbAttackEnermysInLevelRange.Text = "Greife nur Gegner im Levelbereich an";
-			this.ckbAttackEnermysInLevelRange.UseVisualStyleBackColor = true;
+			this.ckbPerformArena.CheckedChanged += new System.EventHandler(this.ckbPerformArena_CheckedChanged);
 			// 
 			// ArenaSettings
 			// 
@@ -211,6 +218,36 @@ namespace SFBoty.Controls {
 			ckbAttackEnermysInLevelRange.Checked = settings.AttackEnemyBetweenRange;
 
 			lblRang.Text = "Dein Rang(1000): ergibt " + (1000 - settings.LowerRangeLimit).ToString() + " bis " + (1000 + settings.UpperRangeLimit).ToString();
+		}
+
+		private void ckbPerformArena_CheckedChanged(object sender, EventArgs e) {
+			Settings.PerformArena = ckbPerformArena.Checked;
+		}
+
+		private void ckbAttackEnermysInLevelRange_CheckedChanged(object sender, EventArgs e) {
+			Settings.AttackEnemyBetweenRange = ckbPerformArena.Checked;
+		}
+
+		private void optAttackSuggestedEnemy_CheckedChanged(object sender, EventArgs e) {
+			Settings.AttackSuggestedEnemy = optAttackSuggestedEnemy.Checked;
+		}
+
+		private void optAttackNotSuggestedEnemy_CheckedChanged(object sender, EventArgs e) {
+			Settings.AttackSuggestedEnemy = !optAttackNotSuggestedEnemy.Checked;
+		}
+
+		private void numMinRang_ValueChanged(object sender, EventArgs e) {
+			Settings.LowerRangeLimit = Convert.ToInt32(numMinRang.Value);
+			lblRang.Text = "Dein Rang(1000): ergibt " + (1000 - Settings.LowerRangeLimit).ToString() + " bis " + (1000 + Settings.UpperRangeLimit).ToString();
+		}
+
+		private void numMaxRang_ValueChanged(object sender, EventArgs e) {
+			Settings.UpperRangeLimit = Convert.ToInt32(numMaxRang.Value);
+			lblRang.Text = "Dein Rang(1000): ergibt " + (1000 - Settings.LowerRangeLimit).ToString() + " bis " + (1000 + Settings.UpperRangeLimit).ToString();
+		}
+
+		private void numLevelDiff_ValueChanged(object sender, EventArgs e) {
+			Settings.LevelDifference = Convert.ToInt32(numLevelDiff.Value);
 		}
 	}
 }

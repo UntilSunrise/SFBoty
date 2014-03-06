@@ -40,6 +40,8 @@ namespace SFBoty.Controls {
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.label11 = new System.Windows.Forms.Label();
+			this.numMaxTriesToFindAnEnermy = new System.Windows.Forms.NumericUpDown();
 			this.label9 = new System.Windows.Forms.Label();
 			this.numSendRequestInterval = new System.Windows.Forms.NumericUpDown();
 			this.label8 = new System.Windows.Forms.Label();
@@ -53,17 +55,15 @@ namespace SFBoty.Controls {
 			this.label6 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
-			this.numMaxTriesToFindAnEnermy = new System.Windows.Forms.NumericUpDown();
-			this.label11 = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numMaxTriesToFindAnEnermy)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numSendRequestInterval)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numGuildVisitInterval)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMaxLongTime)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMinLongTime)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMaxShortTime)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMinShortTime)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numMaxTriesToFindAnEnermy)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -89,6 +89,7 @@ namespace SFBoty.Controls {
 			this.txtPasswort.Name = "txtPasswort";
 			this.txtPasswort.Size = new System.Drawing.Size(217, 20);
 			this.txtPasswort.TabIndex = 5;
+			this.txtPasswort.TextChanged += new System.EventHandler(this.txtPasswort_TextChanged);
 			// 
 			// txtAccount
 			// 
@@ -96,6 +97,7 @@ namespace SFBoty.Controls {
 			this.txtAccount.Name = "txtAccount";
 			this.txtAccount.Size = new System.Drawing.Size(217, 20);
 			this.txtAccount.TabIndex = 4;
+			this.txtAccount.TextChanged += new System.EventHandler(this.txtAccount_TextChanged);
 			// 
 			// txtServer
 			// 
@@ -103,6 +105,7 @@ namespace SFBoty.Controls {
 			this.txtServer.Name = "txtServer";
 			this.txtServer.Size = new System.Drawing.Size(217, 20);
 			this.txtServer.TabIndex = 3;
+			this.txtServer.TextChanged += new System.EventHandler(this.txtServer_TextChanged);
 			// 
 			// label3
 			// 
@@ -157,6 +160,23 @@ namespace SFBoty.Controls {
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Intervall (in Sekunden)";
 			// 
+			// label11
+			// 
+			this.label11.AutoSize = true;
+			this.label11.Location = new System.Drawing.Point(6, 195);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(295, 13);
+			this.label11.TabIndex = 15;
+			this.label11.Text = "Anzahl der Versuche um einen Gegner in der Arena zu finden";
+			// 
+			// numMaxTriesToFindAnEnermy
+			// 
+			this.numMaxTriesToFindAnEnermy.Location = new System.Drawing.Point(119, 211);
+			this.numMaxTriesToFindAnEnermy.Name = "numMaxTriesToFindAnEnermy";
+			this.numMaxTriesToFindAnEnermy.Size = new System.Drawing.Size(183, 20);
+			this.numMaxTriesToFindAnEnermy.TabIndex = 14;
+			this.numMaxTriesToFindAnEnermy.ValueChanged += new System.EventHandler(this.numMaxTriesToFindAnEnermy_ValueChanged);
+			// 
 			// label9
 			// 
 			this.label9.AutoSize = true;
@@ -178,6 +198,7 @@ namespace SFBoty.Controls {
 			this.numSendRequestInterval.Name = "numSendRequestInterval";
 			this.numSendRequestInterval.Size = new System.Drawing.Size(183, 20);
 			this.numSendRequestInterval.TabIndex = 11;
+			this.numSendRequestInterval.ValueChanged += new System.EventHandler(this.numSendRequestInterval_ValueChanged);
 			// 
 			// label8
 			// 
@@ -205,6 +226,7 @@ namespace SFBoty.Controls {
 			this.numGuildVisitInterval.Name = "numGuildVisitInterval";
 			this.numGuildVisitInterval.Size = new System.Drawing.Size(183, 20);
 			this.numGuildVisitInterval.TabIndex = 9;
+			this.numGuildVisitInterval.ValueChanged += new System.EventHandler(this.numGuildVisitInterval_ValueChanged);
 			// 
 			// checkBox1
 			// 
@@ -229,6 +251,7 @@ namespace SFBoty.Controls {
 			this.numMaxLongTime.Name = "numMaxLongTime";
 			this.numMaxLongTime.Size = new System.Drawing.Size(183, 20);
 			this.numMaxLongTime.TabIndex = 7;
+			this.numMaxLongTime.ValueChanged += new System.EventHandler(this.numMaxLongTime_ValueChanged);
 			// 
 			// numMinLongTime
 			// 
@@ -242,6 +265,7 @@ namespace SFBoty.Controls {
 			this.numMinLongTime.Name = "numMinLongTime";
 			this.numMinLongTime.Size = new System.Drawing.Size(183, 20);
 			this.numMinLongTime.TabIndex = 6;
+			this.numMinLongTime.ValueChanged += new System.EventHandler(this.numMinLongTime_ValueChanged);
 			// 
 			// numMaxShortTime
 			// 
@@ -255,6 +279,7 @@ namespace SFBoty.Controls {
 			this.numMaxShortTime.Name = "numMaxShortTime";
 			this.numMaxShortTime.Size = new System.Drawing.Size(183, 20);
 			this.numMaxShortTime.TabIndex = 5;
+			this.numMaxShortTime.ValueChanged += new System.EventHandler(this.numMaxShortTime_ValueChanged);
 			// 
 			// numMinShortTime
 			// 
@@ -268,6 +293,7 @@ namespace SFBoty.Controls {
 			this.numMinShortTime.Name = "numMinShortTime";
 			this.numMinShortTime.Size = new System.Drawing.Size(183, 20);
 			this.numMinShortTime.TabIndex = 4;
+			this.numMinShortTime.ValueChanged += new System.EventHandler(this.numMinShortTime_ValueChanged);
 			// 
 			// label7
 			// 
@@ -305,22 +331,6 @@ namespace SFBoty.Controls {
 			this.label4.TabIndex = 0;
 			this.label4.Text = "Min kurze Aktion:";
 			// 
-			// numMaxTriesToFindAnEnermy
-			// 
-			this.numMaxTriesToFindAnEnermy.Location = new System.Drawing.Point(119, 211);
-			this.numMaxTriesToFindAnEnermy.Name = "numMaxTriesToFindAnEnermy";
-			this.numMaxTriesToFindAnEnermy.Size = new System.Drawing.Size(183, 20);
-			this.numMaxTriesToFindAnEnermy.TabIndex = 14;
-			// 
-			// label11
-			// 
-			this.label11.AutoSize = true;
-			this.label11.Location = new System.Drawing.Point(6, 195);
-			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(295, 13);
-			this.label11.TabIndex = 15;
-			this.label11.Text = "Anzahl der Versuche um einen Gegner in der Arena zu finden";
-			// 
 			// AllgemeineSettings
 			// 
 			this.Controls.Add(this.groupBox2);
@@ -331,17 +341,16 @@ namespace SFBoty.Controls {
 			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numMaxTriesToFindAnEnermy)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numSendRequestInterval)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numGuildVisitInterval)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMaxLongTime)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMinLongTime)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMaxShortTime)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMinShortTime)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numMaxTriesToFindAnEnermy)).EndInit();
 			this.ResumeLayout(false);
 
 		}
-
 		
 		public AllgemeineSettings() {
 			InitializeComponent();
@@ -364,6 +373,46 @@ namespace SFBoty.Controls {
 			numSendRequestInterval.Value = new decimal(settings.MinSendRequestInterval);
 
 			numMaxTriesToFindAnEnermy.Value = settings.MaxTriesToFindEnemy;
+		}
+
+		private void txtServer_TextChanged(object sender, EventArgs e) {
+			Settings.Server = txtServer.Text;
+		}
+
+		private void txtAccount_TextChanged(object sender, EventArgs e) {
+			Settings.Username = txtAccount.Text;
+		}
+
+		private void txtPasswort_TextChanged(object sender, EventArgs e) {
+			Settings.PasswordHash = txtPasswort.Text;
+		}
+
+		private void numMinShortTime_ValueChanged(object sender, EventArgs e) {
+			Settings.minShortTime = Convert.ToSingle(numMinShortTime.Value);
+		}
+
+		private void numMaxShortTime_ValueChanged(object sender, EventArgs e) {
+			Settings.maxShortTime = Convert.ToSingle(numMaxShortTime.Value);
+		}
+
+		private void numMinLongTime_ValueChanged(object sender, EventArgs e) {
+			Settings.minLongTime = Convert.ToSingle(numMinLongTime.Value);
+		}
+
+		private void numMaxLongTime_ValueChanged(object sender, EventArgs e) {
+			Settings.maxLongTime = Convert.ToSingle(numMaxLongTime.Value);
+		}
+
+		private void numGuildVisitInterval_ValueChanged(object sender, EventArgs e) {
+			Settings.guildVisitInterval = Convert.ToSingle(numGuildVisitInterval.Value);
+		}
+
+		private void numSendRequestInterval_ValueChanged(object sender, EventArgs e) {
+			Settings.MinSendRequestInterval = Convert.ToSingle(numSendRequestInterval.Value);
+		}
+
+		private void numMaxTriesToFindAnEnermy_ValueChanged(object sender, EventArgs e) {
+			Settings.MaxTriesToFindEnemy = Convert.ToInt32(numMaxTriesToFindAnEnermy.Value);
 		}
 	}
 }

@@ -55,6 +55,7 @@ namespace SFBoty.Controls {
 			this.ckbSellIItemsFromToilett.TabIndex = 1;
 			this.ckbSellIItemsFromToilett.Text = "Items aus der Toilette verkaufen";
 			this.ckbSellIItemsFromToilett.UseVisualStyleBackColor = true;
+			this.ckbSellIItemsFromToilett.CheckedChanged += new System.EventHandler(this.ckbSellIItemsFromToilett_CheckedChanged);
 			// 
 			// ckbPerfomToilett
 			// 
@@ -65,6 +66,7 @@ namespace SFBoty.Controls {
 			this.ckbPerfomToilett.TabIndex = 0;
 			this.ckbPerfomToilett.Text = "Aktiviere Toilette";
 			this.ckbPerfomToilett.UseVisualStyleBackColor = true;
+			this.ckbPerfomToilett.CheckedChanged += new System.EventHandler(this.ckbPerfomToilett_CheckedChanged);
 			// 
 			// ToiletteSettings
 			// 
@@ -87,6 +89,14 @@ namespace SFBoty.Controls {
 
 			ckbPerfomToilett.Checked = Settings.PerformToilet;
 			ckbSellIItemsFromToilett.Checked = Settings.SellToiletItemIfNotEpic;
+		}
+
+		private void ckbSellIItemsFromToilett_CheckedChanged(object sender, EventArgs e) {
+			Settings.SellToiletItemIfNotEpic = ckbSellIItemsFromToilett.Checked;
+		}
+
+		private void ckbPerfomToilett_CheckedChanged(object sender, EventArgs e) {
+			Settings.PerformToilet = ckbPerfomToilett.Checked;
 		}
 	}
 }

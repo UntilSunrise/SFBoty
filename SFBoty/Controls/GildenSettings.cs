@@ -229,6 +229,7 @@ namespace SFBoty.Controls {
             0,
             0,
             65536});
+			this.numFactorGold.ValueChanged += new System.EventHandler(this.numFactorGold_ValueChanged);
 			// 
 			// ckbDonate
 			// 
@@ -239,6 +240,7 @@ namespace SFBoty.Controls {
 			this.ckbDonate.TabIndex = 2;
 			this.ckbDonate.Text = "Spende täglich";
 			this.ckbDonate.UseVisualStyleBackColor = true;
+			this.ckbDonate.CheckedChanged += new System.EventHandler(this.ckbDonate_CheckedChanged);
 			// 
 			// ckbFightForGuild
 			// 
@@ -264,6 +266,7 @@ namespace SFBoty.Controls {
 			this.chkPerformGuild.TabIndex = 0;
 			this.chkPerformGuild.Text = "Aktiviere Gilde";
 			this.chkPerformGuild.UseVisualStyleBackColor = true;
+			this.chkPerformGuild.CheckedChanged += new System.EventHandler(this.chkPerformGuild_CheckedChanged);
 			// 
 			// txtIgnoreGuilde
 			// 
@@ -273,6 +276,7 @@ namespace SFBoty.Controls {
 			this.txtIgnoreGuilde.Name = "txtIgnoreGuilde";
 			this.txtIgnoreGuilde.Size = new System.Drawing.Size(391, 20);
 			this.txtIgnoreGuilde.TabIndex = 16;
+			this.txtIgnoreGuilde.TextChanged += new System.EventHandler(this.txtIgnoreGuilde_TextChanged);
 			// 
 			// label7
 			// 
@@ -291,6 +295,7 @@ namespace SFBoty.Controls {
 			this.txtIgnorePlayer.Name = "txtIgnorePlayer";
 			this.txtIgnorePlayer.Size = new System.Drawing.Size(391, 20);
 			this.txtIgnorePlayer.TabIndex = 18;
+			this.txtIgnorePlayer.TextChanged += new System.EventHandler(this.txtIgnorePlayer_TextChanged);
 			// 
 			// label8
 			// 
@@ -347,6 +352,26 @@ namespace SFBoty.Controls {
 
 			txtIgnoreGuilde.Text = settings.IgnoreGuilds;
 			txtIgnorePlayer.Text = settings.IgnorePlayers;
+		}
+
+		private void chkPerformGuild_CheckedChanged(object sender, EventArgs e) {
+			Settings.PerformGuild = chkPerformGuild.Checked;
+		}
+
+		private void ckbDonate_CheckedChanged(object sender, EventArgs e) {
+			Settings.DonateGold = ckbDonate.Checked;
+		}
+
+		private void numFactorGold_ValueChanged(object sender, EventArgs e) {
+			Settings.FactorToDonate = Convert.ToSingle(numFactorGold.Value);
+		}
+
+		private void txtIgnoreGuilde_TextChanged(object sender, EventArgs e) {
+			Settings.IgnoreGuilds = txtIgnoreGuilde.Text;
+		}
+
+		private void txtIgnorePlayer_TextChanged(object sender, EventArgs e) {
+			Settings.IgnorePlayers = txtIgnorePlayer.Text;
 		}
 	}
 }

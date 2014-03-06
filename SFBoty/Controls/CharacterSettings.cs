@@ -137,6 +137,7 @@ namespace SFBoty.Controls {
 			this.numLuck.Name = "numLuck";
 			this.numLuck.Size = new System.Drawing.Size(58, 20);
 			this.numLuck.TabIndex = 14;
+			this.numLuck.ValueChanged += new System.EventHandler(this.numLuck_ValueChanged);
 			// 
 			// barLuck
 			// 
@@ -145,6 +146,7 @@ namespace SFBoty.Controls {
 			this.barLuck.Name = "barLuck";
 			this.barLuck.Size = new System.Drawing.Size(442, 45);
 			this.barLuck.TabIndex = 13;
+			this.barLuck.Scroll += new System.EventHandler(this.barLuck_Scroll);
 			// 
 			// label5
 			// 
@@ -161,6 +163,7 @@ namespace SFBoty.Controls {
 			this.numAus.Name = "numAus";
 			this.numAus.Size = new System.Drawing.Size(58, 20);
 			this.numAus.TabIndex = 11;
+			this.numAus.ValueChanged += new System.EventHandler(this.numAus_ValueChanged);
 			// 
 			// barAus
 			// 
@@ -169,6 +172,7 @@ namespace SFBoty.Controls {
 			this.barAus.Name = "barAus";
 			this.barAus.Size = new System.Drawing.Size(442, 45);
 			this.barAus.TabIndex = 10;
+			this.barAus.Scroll += new System.EventHandler(this.barAus_Scroll);
 			// 
 			// label4
 			// 
@@ -185,6 +189,7 @@ namespace SFBoty.Controls {
 			this.numInt.Name = "numInt";
 			this.numInt.Size = new System.Drawing.Size(58, 20);
 			this.numInt.TabIndex = 8;
+			this.numInt.ValueChanged += new System.EventHandler(this.numInt_ValueChanged);
 			// 
 			// barInt
 			// 
@@ -193,6 +198,7 @@ namespace SFBoty.Controls {
 			this.barInt.Name = "barInt";
 			this.barInt.Size = new System.Drawing.Size(442, 45);
 			this.barInt.TabIndex = 7;
+			this.barInt.Scroll += new System.EventHandler(this.barInt_Scroll);
 			// 
 			// label3
 			// 
@@ -209,6 +215,7 @@ namespace SFBoty.Controls {
 			this.numDex.Name = "numDex";
 			this.numDex.Size = new System.Drawing.Size(58, 20);
 			this.numDex.TabIndex = 5;
+			this.numDex.ValueChanged += new System.EventHandler(this.numDex_ValueChanged);
 			// 
 			// barDex
 			// 
@@ -217,6 +224,7 @@ namespace SFBoty.Controls {
 			this.barDex.Name = "barDex";
 			this.barDex.Size = new System.Drawing.Size(442, 45);
 			this.barDex.TabIndex = 4;
+			this.barDex.Scroll += new System.EventHandler(this.barDex_Scroll);
 			// 
 			// label2
 			// 
@@ -233,6 +241,7 @@ namespace SFBoty.Controls {
 			this.numStrenght.Name = "numStrenght";
 			this.numStrenght.Size = new System.Drawing.Size(58, 20);
 			this.numStrenght.TabIndex = 2;
+			this.numStrenght.ValueChanged += new System.EventHandler(this.numStrenght_ValueChanged);
 			// 
 			// barStrengh
 			// 
@@ -241,6 +250,7 @@ namespace SFBoty.Controls {
 			this.barStrengh.Name = "barStrengh";
 			this.barStrengh.Size = new System.Drawing.Size(442, 45);
 			this.barStrengh.TabIndex = 1;
+			this.barStrengh.Scroll += new System.EventHandler(this.barStrengh_Scroll);
 			// 
 			// label1
 			// 
@@ -260,6 +270,7 @@ namespace SFBoty.Controls {
 			this.ckbBuyStats.TabIndex = 0;
 			this.ckbBuyStats.Text = "Aktiviere Attributkauf";
 			this.ckbBuyStats.UseVisualStyleBackColor = true;
+			this.ckbBuyStats.CheckedChanged += new System.EventHandler(this.ckbBuyStats_CheckedChanged);
 			// 
 			// groupBox3
 			// 
@@ -341,6 +352,120 @@ namespace SFBoty.Controls {
 			numInt.Value = Convert.ToInt32(settings.StatIntFactor * 100);
 			numAus.Value = Convert.ToInt32(settings.StatAusFactor * 100);
 			numLuck.Value = Convert.ToInt32(settings.StatLuckFactor * 100);
+		}
+
+		private void ckbBuyStats_CheckedChanged(object sender, EventArgs e) {
+			Settings.PerformBuyStats = ckbBuyStats.Checked;
+		}
+
+		private void barStrengh_Scroll(object sender, EventArgs e) {
+			int current = Convert.ToInt32(numStrenght.Value);
+			int sum = barStrengh.Value + barDex.Value + barInt.Value + barAus.Value + barLuck.Value;
+			if (sum <= 100) {
+				numStrenght.Value = barStrengh.Value;
+			} else {
+				barStrengh.Value = current;
+			}
+			Settings.StatStrFactor = Convert.ToSingle(barStrengh.Value / 100f);
+		}
+
+		private void barDex_Scroll(object sender, EventArgs e) {
+			int current = Convert.ToInt32(numDex.Value);
+			int sum = barStrengh.Value + barDex.Value + barInt.Value + barAus.Value + barLuck.Value;
+			if (sum <= 100) {
+				numDex.Value = barDex.Value;
+			} else {
+				barDex.Value = current;
+			}
+			Settings.StatDexFactor = Convert.ToSingle(barDex.Value / 100f);
+		}
+
+		private void barInt_Scroll(object sender, EventArgs e) {
+			int current = Convert.ToInt32(numInt.Value);
+			int sum = barStrengh.Value + barDex.Value + barInt.Value + barAus.Value + barLuck.Value;
+			if (sum <= 100) {
+				numInt.Value = barInt.Value;
+			} else {
+				barInt.Value = current;
+			}
+			Settings.StatIntFactor = Convert.ToSingle(barInt.Value / 100f);
+		}
+
+		private void barAus_Scroll(object sender, EventArgs e) {
+			int current = Convert.ToInt32(numAus.Value);
+			int sum = barStrengh.Value + barDex.Value + barInt.Value + barAus.Value + barLuck.Value;
+			if (sum <= 100) {
+				numAus.Value = barAus.Value;
+			} else {
+				barAus.Value = current;
+			}
+			Settings.StatAusFactor = Convert.ToSingle(barAus.Value / 100f);
+		}
+
+		private void barLuck_Scroll(object sender, EventArgs e) {
+			int current = Convert.ToInt32(numLuck.Value);
+			int sum = barStrengh.Value + barDex.Value + barInt.Value + barAus.Value + barLuck.Value;
+			if (sum <= 100) {
+				numLuck.Value = barLuck.Value;
+			} else {
+				barLuck.Value = current;
+			}
+			Settings.StatLuckFactor = Convert.ToSingle(barLuck.Value / 100f);
+		}
+
+		private void numStrenght_ValueChanged(object sender, EventArgs e) {
+			int current = barStrengh.Value;
+			int sum = Convert.ToInt32(numStrenght.Value + numDex.Value + numInt.Value + numAus.Value + numLuck.Value);
+			if (sum <= 100) {
+				barStrengh.Value = Convert.ToInt32(numStrenght.Value);
+			} else {
+				numStrenght.Value = current;
+			}
+			Settings.StatStrFactor = Convert.ToSingle(numStrenght.Value / 100m);
+		}
+
+		private void numDex_ValueChanged(object sender, EventArgs e) {
+			int current = barDex.Value;
+			int sum = Convert.ToInt32(numStrenght.Value + numDex.Value + numInt.Value + numAus.Value + numLuck.Value);
+			if (sum <= 100) {
+				barDex.Value = Convert.ToInt32(numDex.Value);
+			} else {
+				numDex.Value = current;
+			}
+			Settings.StatDexFactor = Convert.ToSingle(numDex.Value / 100m);
+		}
+
+		private void numInt_ValueChanged(object sender, EventArgs e) {
+			int current = barInt.Value;
+			int sum = Convert.ToInt32(numStrenght.Value + numDex.Value + numInt.Value + numAus.Value + numLuck.Value);
+			if (sum <= 100) {
+				barInt.Value = Convert.ToInt32(numInt.Value);
+			} else {
+				numInt.Value = current;
+			}
+			Settings.StatIntFactor = Convert.ToSingle(numInt.Value / 100m);
+		}
+
+		private void numAus_ValueChanged(object sender, EventArgs e) {
+			int current = barAus.Value;
+			int sum = Convert.ToInt32(numStrenght.Value + numDex.Value + numInt.Value + numAus.Value + numLuck.Value);
+			if (sum <= 100) {
+				barAus.Value = Convert.ToInt32(numAus.Value);
+			} else {
+				numAus.Value = current;
+			}
+			Settings.StatAusFactor = Convert.ToSingle(numAus.Value / 100m);
+		}
+
+		private void numLuck_ValueChanged(object sender, EventArgs e) {
+			int current = barLuck.Value;
+			int sum = Convert.ToInt32(numStrenght.Value + numDex.Value + numInt.Value + numAus.Value + numLuck.Value);
+			if (sum <= 100) {
+				barLuck.Value = Convert.ToInt32(numLuck.Value);
+			} else {
+				numLuck.Value = current;
+			}
+			Settings.StatLuckFactor = Convert.ToSingle(numLuck.Value / 100m);
 		}
 	}
 }

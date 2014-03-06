@@ -100,6 +100,7 @@ namespace SFBoty.Controls {
 			this.numMaxTime.Name = "numMaxTime";
 			this.numMaxTime.Size = new System.Drawing.Size(43, 20);
 			this.numMaxTime.TabIndex = 4;
+			this.numMaxTime.ValueChanged += new System.EventHandler(this.numMaxTime_ValueChanged);
 			// 
 			// label2
 			// 
@@ -116,6 +117,7 @@ namespace SFBoty.Controls {
 			this.numMinTime.Name = "numMinTime";
 			this.numMinTime.Size = new System.Drawing.Size(46, 20);
 			this.numMinTime.TabIndex = 2;
+			this.numMinTime.ValueChanged += new System.EventHandler(this.numMinTime_ValueChanged);
 			// 
 			// label1
 			// 
@@ -135,6 +137,7 @@ namespace SFBoty.Controls {
 			this.ckbPerfomTownWatch.TabIndex = 0;
 			this.ckbPerfomTownWatch.Text = "Aktiviere Stadtwache";
 			this.ckbPerfomTownWatch.UseVisualStyleBackColor = true;
+			this.ckbPerfomTownWatch.CheckedChanged += new System.EventHandler(this.ckbPerfomTownWatch_CheckedChanged);
 			// 
 			// TownWatchSettings
 			// 
@@ -161,6 +164,18 @@ namespace SFBoty.Controls {
 			ckbPerfomTownWatch.Checked = Settings.PerformStadtwache;
 			numMinTime.Value = Settings.TownWatchMinHourForShortWork;
 			numMaxTime.Value = Settings.TownWatchMaxHourForShortWork;
+		}
+
+		private void ckbPerfomTownWatch_CheckedChanged(object sender, EventArgs e) {
+			Settings.PerformStadtwache = ckbPerfomTownWatch.Checked;
+		}
+
+		private void numMinTime_ValueChanged(object sender, EventArgs e) {
+			Settings.TownWatchMinHourForShortWork = Convert.ToInt32(numMinTime.Value);
+		}
+
+		private void numMaxTime_ValueChanged(object sender, EventArgs e) {
+			Settings.TownWatchMaxHourForShortWork = Convert.ToInt32(numMaxTime.Value);
 		}
 
 	}

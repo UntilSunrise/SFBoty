@@ -23,10 +23,10 @@ namespace SFBoty.Controls {
 		private Button btnStartAll;
 
 		private List<AccountSettings> Settings = new List<AccountSettings>();
-		public event EventHandler<EventSelltingsArgs> StartBot;
-		public event EventHandler<EventSelltingsArgs> StopBot;
-		public event EventHandler<EventSelltingsArgs> StartAllBots;
-		public event EventHandler<EventSelltingsArgs> SelectedAccountChanged;
+		public event EventHandler<EventSettingsArgs> StartBot;
+		public event EventHandler<EventSettingsArgs> StopBot;
+		public event EventHandler<EventSettingsArgs> StartAllBots;
+		public event EventHandler<EventSettingsArgs> SelectedAccountChanged;
 		#endregion
 
 		private void InitializeComponent() {
@@ -215,8 +215,8 @@ namespace SFBoty.Controls {
 			if (dgvAccountList.SelectedRows.Count > 0) {
 				AccountSettings settings = Settings.Single(x => x.Username == dgvAccountList.SelectedRows[0].Cells[0].Value && x.Server == dgvAccountList.SelectedRows[0].Cells[1].Value);
 				if (StopBot != null) {
-					StopBot(this, new EventSelltingsArgs(new List<AccountSettings>() { settings }));
-					//todo rows status update
+					StopBot(this, new EventSettingsArgs(new List<AccountSettings>() { settings }));
+					dgvAccountList.SelectedRows[0].Cells[2].Value = "gestopt";
 				}
 			}
 		}
@@ -225,8 +225,8 @@ namespace SFBoty.Controls {
 			if (dgvAccountList.SelectedRows.Count > 0) {
 				AccountSettings settings = Settings.Single(x => x.Username == dgvAccountList.SelectedRows[0].Cells[0].Value && x.Server == dgvAccountList.SelectedRows[0].Cells[1].Value);
 				if (StartBot != null) {
-					StartBot(this, new EventSelltingsArgs(new List<AccountSettings>() { settings }));
-					//todo rows status update
+					StartBot(this, new EventSettingsArgs(new List<AccountSettings>() { settings }));
+					dgvAccountList.SelectedRows[0].Cells[2].Value = "gestartet";
 				}
 			}
 		}
@@ -256,8 +256,10 @@ namespace SFBoty.Controls {
 		public void StartAll() {
 			if (dgvAccountList.Rows.Count > 0) {
 				if (StartAllBots != null) {
-					StartAllBots(this, new EventSelltingsArgs(Settings));
-					//todo rows status update
+					StartAllBots(this, new EventSettingsArgs(Settings));
+					foreach (DataGridViewRow row in dgvAccountList.Rows) {
+						row.Cells[2].Value = "gestartet";
+					}
 				}
 			}
 		}
@@ -297,17 +299,17 @@ namespace SFBoty.Controls {
 			if (dgvAccountList.SelectedRows.Count > 0) {
 				AccountSettings settings = Settings.Single(x => x.Username == dgvAccountList.SelectedRows[0].Cells[0].Value && x.Server == dgvAccountList.SelectedRows[0].Cells[1].Value);
 				if (SelectedAccountChanged != null) {
-					SelectedAccountChanged(this, new EventSelltingsArgs(new List<AccountSettings>() { settings }));
+					SelectedAccountChanged(this, new EventSettingsArgs(new List<AccountSettings>() { settings }));
 				}
 			}
 		}
 
 	}
 
-	public class EventSelltingsArgs : EventArgs {
+	public class EventSettingsArgs : EventArgs {
 		public List<AccountSettings> Settings;
 
-		public EventSelltingsArgs(List<AccountSettings> s) {
+		public EventSettingsArgs(List<AccountSettings> s) {
 			Settings = new List<AccountSettings>();
 			if (s != null) {
 				Settings = s;

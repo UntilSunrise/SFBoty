@@ -123,6 +123,7 @@ namespace SFBoty.Controls {
 			this.ckbPerformDungeon.TabIndex = 0;
 			this.ckbPerformDungeon.Text = "Aktiviere Dungeon";
 			this.ckbPerformDungeon.UseVisualStyleBackColor = true;
+			this.ckbPerformDungeon.CheckedChanged += new System.EventHandler(this.ckbPerformDungeon_CheckedChanged);
 			// 
 			// DungeonTowerSettings
 			// 
@@ -146,6 +147,10 @@ namespace SFBoty.Controls {
 			Settings = settings;
 
 			ckbPerformDungeon.Checked = settings.PerformDungeons;
+		}
+
+		private void ckbPerformDungeon_CheckedChanged(object sender, EventArgs e) {
+			Settings.PerformDungeons = ckbPerformDungeon.Checked;
 		}
 	}
 }
