@@ -199,10 +199,9 @@
 			// 
 			// shopSettings1
 			// 
-			this.shopSettings1.Enabled = false;
 			this.shopSettings1.Location = new System.Drawing.Point(4, 3);
 			this.shopSettings1.Name = "shopSettings1";
-			this.shopSettings1.Size = new System.Drawing.Size(338, 228);
+			this.shopSettings1.Size = new System.Drawing.Size(338, 304);
 			this.shopSettings1.TabIndex = 0;
 			// 
 			// EditSettings

@@ -26,6 +26,7 @@ namespace SFBoty.NewAccounts {
 			arenaSettings1.SetSettings(Clone);
 			gildenSettings1.SetSettings(Clone);
 			characterSettings1.SetSettings(Clone);
+			shopSettings1.SetSettings(Clone);
 		}
 
 		private void btnSave_Click(object sender, EventArgs e) {

@@ -72,7 +72,7 @@
 			this.ClientSize = new System.Drawing.Size(1060, 507);
 			this.Controls.Add(this.splitContainer1);
 			this.Name = "MainWindow";
-			this.Text = "Form1";
+			this.Text = "SFBoty";
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
