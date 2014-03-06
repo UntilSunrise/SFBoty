@@ -16,16 +16,6 @@ namespace SFBotyCore.Mechanic {
 		private WebClient Client { get; set; }
 		private Random random;
 
-		private LoginArea LoginArea;
-		private TavernArea TarvernArea;
-		private StadtwacheArea StadtwacheArea;
-		private CharScreenArea CharArea;
-		private DungeonArea DungeonArea;
-		private ToiletArea ToiletArea;
-		private ArenaArea ArenaArea;
-		private GuildArea GuildArea;
-		private MagicShopArea MagicShopArea;
-
 		private List<IMenuArea> Menus;
 
 		#region Events
@@ -71,15 +61,17 @@ namespace SFBotyCore.Mechanic {
 		}
 
 		public void Stop() {
-			CurrentThread.Abort();
+			//CurrentThread.Abort();
+			running = false;
 		}
 
 		#region Thread
+		private bool running = false;
 		/// <summary>
 		/// Ausführung des Bots über den eigenen Thread
 		/// </summary>
 		private void PerformAction() {
-			bool running = true;
+			running = true;
 			try {
 				while (running) {
 					Menus.ForEach(x => x.PerformArea());

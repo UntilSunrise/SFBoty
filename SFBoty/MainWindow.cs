@@ -12,12 +12,14 @@ using SFBotyCore.Mechanic;
 using SFBotyCore.Mechanic.Account;
 using SFBotyCore.Mechanic.Areas;
 using SFBoty.Controls;
+using System.Globalization;
 
 namespace SFBoty {
 	public partial class MainWindow : Form {
 		private Dictionary<string, Bot> Bots;
 		private Dictionary<string, List<string>> BotLogs;
 		private string SelectedBotKey;
+		private static bool AutoRun = true;
 
 		public MainWindow() {
 			InitializeComponent();
@@ -31,6 +33,11 @@ namespace SFBoty {
 			accountOverview1.StopBot += new EventHandler<SFBoty.Controls.EventSelltingsArgs>(accountOverview1_StopBot);
 			accountOverview1.StartAllBots += new EventHandler<SFBoty.Controls.EventSelltingsArgs>(accountOverview1_StartAllBots);
 			accountOverview1.SelectedAccountChanged += new EventHandler<EventSelltingsArgs>(accountOverview1_SelectedAccountChanged);
+
+			if (AutoRun) {
+				accountOverview1.LoadAllAccountsFromXML();
+				accountOverview1.StartAll();
+			}
 		}
 
 		void Form1_FormClosing(object sender, FormClosingEventArgs e) {
@@ -84,11 +91,37 @@ namespace SFBoty {
 		}
 
 		void bot_Error(object sender, MessageEventsArgs e) {
+			Bot tmp = (Bot)sender;
+
+			if (!System.IO.Directory.Exists("Logs")) {
+				System.IO.Directory.CreateDirectory("Logs");
+			}
+
+			CultureInfo culture = new CultureInfo("de-DE");
+
+			System.IO.StreamWriter writer = new System.IO.StreamWriter(String.Concat("Logs/", tmp.Account.Settings.Server, "-", tmp.Account.Settings.Username, "-error-", DateTime.Now.ToString(culture).Remove(DateTime.Now.ToString(culture).Length - 9), ".log"), true);
+			writer.WriteLine(DateTime.Now.ToString() + ": " + e.Message);
+
+			writer.Close();
+			writer.Dispose();
+
 			Application.Restart();
 		}
 
 		void bot_ExtendedLog(object sender, MessageEventsArgs e) {
-			
+			Bot tmp = (Bot)sender;
+
+			if (!System.IO.Directory.Exists("Logs")) {
+				System.IO.Directory.CreateDirectory("Logs");
+			}
+
+			CultureInfo culture = new CultureInfo("de-DE");
+
+			System.IO.StreamWriter writer = new System.IO.StreamWriter(String.Concat("Logs/", tmp.Account.Settings.Server, "-", tmp.Account.Settings.Username, "-extlog-", DateTime.Now.ToString(culture).Remove(DateTime.Now.ToString(culture).Length - 9), ".log"), true);
+			writer.WriteLine(DateTime.Now.ToString() + ": " + e.Message);
+
+			writer.Close();
+			writer.Dispose();
 		}
 
 		void bot_MessageOutput(object sender, MessageEventsArgs e) {
@@ -111,6 +144,21 @@ namespace SFBoty {
 			}
 
 			WriteLogToConsole(SelectedBotKey);
+
+			Bot tmp = (Bot)sender;
+
+			if (!System.IO.Directory.Exists("Logs")) {
+				System.IO.Directory.CreateDirectory("Logs");
+			}
+
+			CultureInfo culture = new CultureInfo("de-DE");
+
+			System.IO.StreamWriter writer = new System.IO.StreamWriter(String.Concat("Logs/", tmp.Account.Settings.Server, "-", tmp.Account.Settings.Username, "-log-", DateTime.Now.ToString(culture).Remove(DateTime.Now.ToString(culture).Length - 9), ".log"), true);
+
+			writer.WriteLine(DateTime.Now.ToString() + ": " + e.Message);
+
+			writer.Close();
+			writer.Dispose();
 		}
 
 		void accountOverview1_SelectedAccountChanged(object sender, EventSelltingsArgs e) {
