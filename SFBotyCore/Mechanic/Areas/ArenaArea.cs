@@ -87,6 +87,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					}
 
 					int myRandomEnemy = -1;
+
 					if (Account.Settings.AttackEnemyBetweenRange) {
 						myRandomEnemy = Math.Min(random.Next(1, 16), HoFCharacters.Where(x => x.Value.Level >= myLevel - levelDifference && x.Value.Level <= myLevel + levelDifference).Count() - 1);
 					} else {
