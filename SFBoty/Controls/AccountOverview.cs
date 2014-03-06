@@ -232,12 +232,7 @@ namespace SFBoty.Controls {
 		}
 
 		private void btnStartAll_Click(object sender, EventArgs e) {
-			if (dgvAccountList.Rows.Count > 0) {
-				if (StartAllBots != null) {
-					StartAllBots(this, new EventSelltingsArgs(Settings));
-					//todo rows status update
-				}
-			}
+			StartAll();
 		}
 		#endregion
 
@@ -255,6 +250,15 @@ namespace SFBoty.Controls {
 			dgvAccountList.Rows.Clear();
 			foreach (AccountSettings setting in Settings) {
 				dgvAccountList.Rows.Add(setting.Username, setting.Server, "gestopt");
+			}
+		}
+
+		public void StartAll() {
+			if (dgvAccountList.Rows.Count > 0) {
+				if (StartAllBots != null) {
+					StartAllBots(this, new EventSelltingsArgs(Settings));
+					//todo rows status update
+				}
 			}
 		}
 		#endregion

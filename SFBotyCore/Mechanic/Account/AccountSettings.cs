@@ -64,6 +64,9 @@ namespace SFBotyCore.Mechanic.Account {
 		public int TownWatchMinHourForShortWork { get; set; }
 		public int TownWatchMaxHourForShortWork { get; set; }
 
+		public bool SaveMoney { get; set; }
+		public float SaveMoneyFactor { get; set; }
+
 		//times are in Sekunds
 		#region Times
 		public float minTimeToJoinTarvern { get; set; }
@@ -301,6 +304,9 @@ namespace SFBotyCore.Mechanic.Account {
 			this.MinSendRequestInterval = 1f;
 
 			this.QuestMode = AutoQuestMode.BestXP;
+
+			this.SaveMoney = false;
+			this.SaveMoneyFactor = 2.6f;
 		}
 
 		public void ResetSessionID() {
@@ -379,6 +385,8 @@ namespace SFBotyCore.Mechanic.Account {
 			this.TownWatchMinHourForShortWork = tmp.TownWatchMinHourForShortWork;
 			this.UpperRangeLimit = tmp.UpperRangeLimit;
 			this.Username = tmp.Username;
+			this.SaveMoney = tmp.SaveMoney;
+			this.SaveMoneyFactor = tmp.SaveMoneyFactor;
 		}
 
 		public AccountSettings Clone() {
@@ -454,6 +462,8 @@ namespace SFBotyCore.Mechanic.Account {
 			tmp.TownWatchMinHourForShortWork = this.TownWatchMinHourForShortWork;
 			tmp.UpperRangeLimit = this.UpperRangeLimit;
 			tmp.Username = this.Username;
+			tmp.SaveMoney = this.SaveMoney;
+			tmp.SaveMoneyFactor = this.SaveMoneyFactor;
 
 			Assert.Asserts.AreNotSame(tmp, this, "Mist");
 

@@ -100,6 +100,7 @@ namespace SFBotyConsole {
 
 			CultureInfo culture = new CultureInfo("de-DE");
 
+			Console.WriteLine(DateTime.Now.ToString() + " " + tmp.Account.Settings.Username + "(" + tmp.Account.Settings.Server + "): " + "Error ist aufgetretten");
 			System.IO.StreamWriter writer = new System.IO.StreamWriter(String.Concat("Logs/", tmp.Account.Settings.Server, "-", tmp.Account.Settings.Username, "-error-", DateTime.Now.ToString(culture).Remove(DateTime.Now.ToString(culture).Length - 9), ".log"), true);
 			writer.WriteLine(DateTime.Now.ToString() + ": " + e.Message);
 
