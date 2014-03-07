@@ -81,7 +81,7 @@ namespace SFBotyCore.Mechanic.Areas {
 
 					int i = 0;
 					Dictionary<int, HoFCharacter> HoFCharacters = new Dictionary<int, HoFCharacter>();
-					while (i < 15) {
+					while (i < (s.Split('/').Count() / 5)) {
 						HoFCharacters.Add(i, new HoFCharacter(s.Split('/'), i * ResponseTypes.HoFOffset));
 						i++;
 					}
@@ -89,12 +89,20 @@ namespace SFBotyCore.Mechanic.Areas {
 					int myRandomEnemy = -1;
 
 					if (Account.Settings.AttackEnemyBetweenRange) {
-						myRandomEnemy = Math.Min(random.Next(1, 16), HoFCharacters.Where(x => x.Value.Level >= myLevel - levelDifference && x.Value.Level <= myLevel + levelDifference).Count() - 1);
+						try {
+							List<int> filteredEnemys = new List<int>();
+							foreach (var id in HoFCharacters.Where(x => x.Value.Level >= myLevel - levelDifference && x.Value.Level <= myLevel + levelDifference)) {
+								filteredEnemys.Add(id.Key);
+								myRandomEnemy = filteredEnemys[random.Next(0, filteredEnemys.Count)];
+							}
+						} catch {
+							myRandomEnemy = -1;
+						}
 					} else {
-						myRandomEnemy = Math.Min(random.Next(1, 16), HoFCharacters.Count() - 1);
+						myRandomEnemy = random.Next(0, HoFCharacters.Count());
 					}
 
-					if (HoFCharacters.Count() > myRandomEnemy && myRandomEnemy > 0) {
+					if (HoFCharacters[myRandomEnemy] != null && myRandomEnemy >= 0) {
 						enemyLevel = HoFCharacters[myRandomEnemy].Level;
                         enemyNick = HoFCharacters[myRandomEnemy].CharacterNick;
 						enemyGuildNick = HoFCharacters[myRandomEnemy].GuildNick;
@@ -104,7 +112,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			} while (playerFilter.Contains(enemyNick)
 					|| Account.Settings.Username == enemyNick
 					|| guildFilter.Contains(enemyGuildNick)
-					|| (enemyLevel.IsBetween(myLevel - levelDifference, myLevel + levelDifference) && Account.Settings.AttackEnemyBetweenRange));
+					|| (!enemyLevel.IsBetween(myLevel - levelDifference, myLevel + levelDifference) && Account.Settings.AttackEnemyBetweenRange));
 
             if (tries <= maxTries && !playerFilter.Contains(enemyNick) && !guildFilter.Contains(enemyGuildNick) && Account.Settings.Username != enemyNick) {
 				RaiseMessageEvent(string.Format("Greife Spieler: {0} an.", enemyNick));
