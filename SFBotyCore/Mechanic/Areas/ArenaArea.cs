@@ -91,7 +91,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					if (Account.Settings.AttackEnemyBetweenRange) {
 						try {
 							List<int> filteredEnemys = new List<int>();
-							foreach (var id in HoFCharacters.Where(x => x.Value.Level >= myLevel - levelDifference && x.Value.Level <= myLevel + levelDifference)) {
+							foreach (KeyValuePair<int, HoFCharacter> id in HoFCharacters.Where(x => x.Value.Level >= myLevel - levelDifference && x.Value.Level <= myLevel + levelDifference)) {
 								filteredEnemys.Add(id.Key);
 							}
 							myRandomEnemy = filteredEnemys[random.Next(0, filteredEnemys.Count)];
