@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Xml.Serialization;
 using System.Globalization;
+using SFBotyCore;
 
 namespace SFBotyConsole {
 	class Program {
@@ -45,6 +46,7 @@ namespace SFBotyConsole {
 			}
 
 			Console.WriteLine(DateTime.Now.ToString() + ": Bot wurde gestartet");
+			ClearLogs();
 
 			bots.ForEach(b => b.Run());
 		}
@@ -89,6 +91,8 @@ namespace SFBotyConsole {
 
 			writer.Close();
 			writer.Dispose();
+
+			ClearLogs();
 		}
 
 		static void bot_Error(object sender, MessageEventsArgs e) {
@@ -122,6 +126,31 @@ namespace SFBotyConsole {
 
 			writer.Close();
 			writer.Dispose();
+		}
+
+		private static DateTime LastClearingDay = DateTime.Now.AddDays(-1);
+		private static int MaxLoggingDays = 2;
+		static void ClearLogs() {
+			try {
+				if (LastClearingDay.IsOtherDay(DateTime.Now)) {
+
+					LastClearingDay = DateTime.Now;
+					CultureInfo culture = new CultureInfo("de-DE");
+					List<string> dateString = new List<string>();
+					for (int i = 0; i <= MaxLoggingDays; i++) {
+						dateString.Add(DateTime.Now.AddDays(-i).ToString(culture).Remove(DateTime.Now.ToString(culture).Length - 9));
+					}
+
+					foreach (string file in Directory.GetFiles("Logs")) {
+						string name = Path.GetFileName(file);
+						if (!name.Contains(dateString)) {
+							File.Delete("Logs/" + name);
+						}
+					}
+				}
+			} catch {
+				LastClearingDay = DateTime.Now;
+			}
 		}
 	}
 }

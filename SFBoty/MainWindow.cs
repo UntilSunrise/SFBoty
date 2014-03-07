@@ -13,6 +13,7 @@ using SFBotyCore.Mechanic.Account;
 using SFBotyCore.Mechanic.Areas;
 using SFBoty.Controls;
 using System.Globalization;
+using SFBotyCore;
 
 namespace SFBoty {
 	public partial class MainWindow : Form {
@@ -38,6 +39,8 @@ namespace SFBoty {
 				accountOverview1.LoadAllAccountsFromXML();
 				accountOverview1.StartAll();
 			}
+
+			ClearLogs();
 		}
 
 		void Form1_FormClosing(object sender, FormClosingEventArgs e) {
@@ -162,6 +165,8 @@ namespace SFBoty {
 
 			writer.Close();
 			writer.Dispose();
+
+			ClearLogs();
 		}
 
 		void accountOverview1_SelectedAccountChanged(object sender, EventSettingsArgs e) {
@@ -180,6 +185,31 @@ namespace SFBoty {
 			}
 		}
 		#endregion
+
+		private static DateTime LastClearingDay = DateTime.Now.AddDays(-1);
+		private static int MaxLoggingDays = 2;
+		static void ClearLogs() {
+			try {
+				if (LastClearingDay.IsOtherDay(DateTime.Now)) {
+
+					LastClearingDay = DateTime.Now;
+					CultureInfo culture = new CultureInfo("de-DE");
+					List<string> dateString = new List<string>();
+					for (int i = 0; i <= MaxLoggingDays; i++) {
+						dateString.Add(DateTime.Now.AddDays(-i).ToString(culture).Remove(DateTime.Now.ToString(culture).Length - 9));
+					}
+
+					foreach (string file in Directory.GetFiles("Logs")) {
+						string name = Path.GetFileName(file);
+						if (!name.Contains(dateString)) {
+							File.Delete("Logs/" + name);
+						}
+					}
+				}
+			} catch {
+				LastClearingDay = DateTime.Now;
+			}
+		}
 
 	}
 }

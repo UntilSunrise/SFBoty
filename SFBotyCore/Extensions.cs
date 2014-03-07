@@ -43,5 +43,17 @@ namespace SFBotyCore {
 			return (T)Enum.Parse(typeof(T), s);
 		}
 
+		public static bool Contains(this string s, List<string> strings) {
+			bool match = false;
+
+			foreach (string part in strings) {
+				if (s.Contains(part)) {
+					match = true;
+				}
+			}
+
+			return match;
+		}
+
 	}
 }
