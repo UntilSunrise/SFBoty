@@ -61,17 +61,15 @@ namespace SFBotyCore.Mechanic {
 		}
 
 		public void Stop() {
-			//CurrentThread.Abort();
-			running = false;
+			CurrentThread.Abort();
 		}
 
 		#region Thread
-		private bool running = false;
 		/// <summary>
 		/// Ausführung des Bots über den eigenen Thread
 		/// </summary>
 		private void PerformAction() {
-			running = true;
+			bool running = true;
 			try {
 				while (running) {
 					Menus.ForEach(x => x.PerformArea());
@@ -85,6 +83,9 @@ namespace SFBotyCore.Mechanic {
 						}
 					}
 				}
+			} catch (ThreadAbortException) {
+				//nothing to do
+				//http://msdn.microsoft.com/de-de/library/5b50fdsz%28v=vs.110%29.aspx
 			} catch (Exception ex) {
 				if (Error != null) {
 					Error(this, new MessageEventsArgs(ex.ToString()));

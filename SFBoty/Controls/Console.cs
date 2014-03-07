@@ -38,10 +38,16 @@ namespace SFBoty.Controls {
 		}
 
 		public void SetMessages(List<string> messages) {
-			txtConsole.Text = "";
+			try {
+				lock (messages) {
+					txtConsole.Text = "";
 
-			foreach (string s in messages) {
-				txtConsole.Text += s + Environment.NewLine;
+					foreach (string s in messages) {
+						txtConsole.Text += s + Environment.NewLine;
+					}
+				}
+			} catch (Exception ex) { 
+				//nothing to do
 			}
 		}
 	}

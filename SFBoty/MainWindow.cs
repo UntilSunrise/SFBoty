@@ -19,7 +19,7 @@ namespace SFBoty {
 		private Dictionary<string, Bot> Bots;
 		private Dictionary<string, List<string>> BotLogs;
 		private string SelectedBotKey;
-		private static bool AutoRun = false;
+		private static bool AutoRun = true;
 
 		public MainWindow() {
 			InitializeComponent();
@@ -173,8 +173,10 @@ namespace SFBoty {
 		}
 
 		private void WriteLogToConsole(string key) {
-			if (BotLogs.Keys.Any(x => x == key) && BotLogs[key] != null && BotLogs[key].Count() > 0) {
-				console1.Invoke(() => console1.SetMessages(BotLogs[key]));
+			lock (console1) {
+				if (BotLogs.Keys.Any(x => x == key) && BotLogs[key] != null && BotLogs[key].Count() > 0) {
+					console1.Invoke(() => console1.SetMessages(BotLogs[key]));
+				}
 			}
 		}
 		#endregion
