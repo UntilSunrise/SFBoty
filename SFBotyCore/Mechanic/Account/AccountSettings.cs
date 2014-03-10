@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using SFBotyCore.Constants;
 
 namespace SFBotyCore.Mechanic.Account {
 	public enum AutoQuestMode {
@@ -66,6 +67,9 @@ namespace SFBotyCore.Mechanic.Account {
 
 		public bool SaveMoney { get; set; }
 		public float SaveMoneyFactor { get; set; }
+
+		public MountTypes MountToBuy { get; set; }
+		public bool BuyMount { get; set; }
 
 		//times are in Sekunds
 		#region Times
@@ -307,6 +311,9 @@ namespace SFBotyCore.Mechanic.Account {
 
 			this.SaveMoney = false;
 			this.SaveMoneyFactor = 2.6f;
+
+			this.MountToBuy = MountTypes.None;
+			this.BuyMount = true;
 		}
 
 		public void ResetSessionID() {
@@ -387,6 +394,8 @@ namespace SFBotyCore.Mechanic.Account {
 			this.Username = tmp.Username;
 			this.SaveMoney = tmp.SaveMoney;
 			this.SaveMoneyFactor = tmp.SaveMoneyFactor;
+			this.MountToBuy = tmp.MountToBuy;
+			this.BuyMount = tmp.BuyMount;
 		}
 
 		public AccountSettings Clone() {
@@ -464,6 +473,8 @@ namespace SFBotyCore.Mechanic.Account {
 			tmp.Username = this.Username;
 			tmp.SaveMoney = this.SaveMoney;
 			tmp.SaveMoneyFactor = this.SaveMoneyFactor;
+			tmp.MountToBuy = this.MountToBuy;
+			tmp.BuyMount = this.BuyMount;
 
 			Assert.Asserts.AreNotSame(tmp, this, "Mist");
 

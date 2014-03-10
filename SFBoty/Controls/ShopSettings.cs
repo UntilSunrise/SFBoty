@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using SFBotyCore.Mechanic.Account;
+using SFBotyCore;
+using SFBotyCore.Constants;
 
 namespace SFBoty.Controls {
 	public class ShopSettings : UserControl {
@@ -14,7 +16,7 @@ namespace SFBoty.Controls {
 		private CheckBox checkBox2;
 		private CheckBox checkBox1;
 		private GroupBox groupBox2;
-		private ComboBox comboBox1;
+		private ComboBox ddlMountType;
 		private GroupBox groupBox3;
 		private CheckBox checkBox4;
 		private CheckBox checkBox5;
@@ -23,7 +25,7 @@ namespace SFBoty.Controls {
 		private Label label3;
 		private CheckBox ckbSaveMoney;
 		private Label label4;
-		private CheckBox checkBox3;
+		private CheckBox ckbBuyMount;
 	
 		private void InitializeComponent() {
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -33,8 +35,8 @@ namespace SFBoty.Controls {
 			this.checkBox2 = new System.Windows.Forms.CheckBox();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.comboBox1 = new System.Windows.Forms.ComboBox();
-			this.checkBox3 = new System.Windows.Forms.CheckBox();
+			this.ddlMountType = new System.Windows.Forms.ComboBox();
+			this.ckbBuyMount = new System.Windows.Forms.CheckBox();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.checkBox5 = new System.Windows.Forms.CheckBox();
 			this.checkBox4 = new System.Windows.Forms.CheckBox();
@@ -115,8 +117,8 @@ namespace SFBoty.Controls {
 			// 
 			// groupBox2
 			// 
-			this.groupBox2.Controls.Add(this.comboBox1);
-			this.groupBox2.Controls.Add(this.checkBox3);
+			this.groupBox2.Controls.Add(this.ddlMountType);
+			this.groupBox2.Controls.Add(this.ckbBuyMount);
 			this.groupBox2.Location = new System.Drawing.Point(3, 100);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(330, 48);
@@ -124,28 +126,32 @@ namespace SFBoty.Controls {
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Reittier";
 			// 
-			// comboBox1
+			// ddlMountType
 			// 
-			this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.comboBox1.Enabled = false;
-			this.comboBox1.FormattingEnabled = true;
-			this.comboBox1.Items.AddRange(new object[] {
-            "Tiger/Raptor"});
-			this.comboBox1.Location = new System.Drawing.Point(174, 17);
-			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(121, 21);
-			this.comboBox1.TabIndex = 2;
+			this.ddlMountType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.ddlMountType.FormattingEnabled = true;
+			this.ddlMountType.Items.AddRange(new object[] {
+            "None",
+            "Schwein",
+            "Wolf",
+            "Raptor",
+            "Drachengreif"});
+			this.ddlMountType.Location = new System.Drawing.Point(174, 17);
+			this.ddlMountType.Name = "ddlMountType";
+			this.ddlMountType.Size = new System.Drawing.Size(121, 21);
+			this.ddlMountType.TabIndex = 2;
+			this.ddlMountType.SelectedIndexChanged += new System.EventHandler(this.ddlMountType_SelectedIndexChanged);
 			// 
-			// checkBox3
+			// ckbBuyMount
 			// 
-			this.checkBox3.AutoSize = true;
-			this.checkBox3.Enabled = false;
-			this.checkBox3.Location = new System.Drawing.Point(10, 19);
-			this.checkBox3.Name = "checkBox3";
-			this.checkBox3.Size = new System.Drawing.Size(158, 17);
-			this.checkBox3.TabIndex = 0;
-			this.checkBox3.Text = "Reittier automatisch kaufen:";
-			this.checkBox3.UseVisualStyleBackColor = true;
+			this.ckbBuyMount.AutoSize = true;
+			this.ckbBuyMount.Location = new System.Drawing.Point(10, 19);
+			this.ckbBuyMount.Name = "ckbBuyMount";
+			this.ckbBuyMount.Size = new System.Drawing.Size(158, 17);
+			this.ckbBuyMount.TabIndex = 0;
+			this.ckbBuyMount.Text = "Reittier automatisch kaufen:";
+			this.ckbBuyMount.UseVisualStyleBackColor = true;
+			this.ckbBuyMount.CheckedChanged += new System.EventHandler(this.ckbBuyMount_CheckedChanged);
 			// 
 			// groupBox3
 			// 
@@ -269,6 +275,8 @@ namespace SFBoty.Controls {
 			Settings = settings;
 			ckbSaveMoney.Checked = settings.SaveMoney;
 			numGoldFactor.Value = new decimal(settings.SaveMoneyFactor);
+			ckbBuyMount.Checked = settings.BuyMount;
+			ddlMountType.Text = settings.MountToBuy.ToString();
 		}
 
 		private void ckbSaveMoney_CheckedChanged(object sender, EventArgs e) {
@@ -277,6 +285,14 @@ namespace SFBoty.Controls {
 
 		private void numGoldFactor_ValueChanged(object sender, EventArgs e) {
 			Settings.SaveMoneyFactor = Convert.ToSingle(numGoldFactor.Value);
+		}
+
+		private void ckbBuyMount_CheckedChanged(object sender, EventArgs e) {
+			Settings.BuyMount = ckbBuyMount.Checked;
+		}
+
+		private void ddlMountType_SelectedIndexChanged(object sender, EventArgs e) {
+			Settings.MountToBuy = ddlMountType.Text.ToEnum<MountTypes>();
 		}
 	}
 }

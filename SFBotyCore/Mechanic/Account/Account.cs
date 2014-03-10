@@ -65,6 +65,9 @@ namespace SFBotyCore.Mechanic.Account {
 
 		public DateTime LastAction { get; set; } //Wann hat der Bot das letzte mal eine Nachricht an den Server gesendet
 
+		public MountTypes Mount { get; set; }
+		public DateTime MountDuration { get; set; }
+
 		public bool BackpackHasToiletItem {
 			get {
 				return BackpackItems.Where(
@@ -128,6 +131,9 @@ namespace SFBotyCore.Mechanic.Account {
 
 			LastDonateTime = DateTime.Now;
 			LastAction = DateTime.Now;
+
+			Mount = MountTypes.None;
+			MountDuration = DateTime.Now;
 		}
 
 		public void Logout() {

@@ -69,6 +69,9 @@ namespace SFBotyCore.Mechanic.Areas {
 				}
 			}
 
+			acc.Mount = answer[ResponseTypes.mount].ToEnum<MountTypes>();
+			acc.MountDuration = answer[ResponseTypes.mountDuration].MillisecondsToDateTime();
+
 			acc.ALU_Seconds = Convert.ToInt32(answer[ResponseTypes.ALU]);
 
 			GuildAttackDefenceTypes type = answer[ResponseTypes.GuildAttackDefenceEnum].ToEnum<GuildAttackDefenceTypes>();

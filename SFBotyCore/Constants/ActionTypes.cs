@@ -20,6 +20,7 @@ namespace SFBotyCore.Constants {
 		public static string JoinDungeon = "008";
 		public static string JoinWeaponshop = "013";
 		public static string JoinMagicshop = "014";
+		public static string JoinMountShop = "015";
 		/// <summary>
 		/// Es kann auch noch die Obergrenze des Rangbereiches angegeben werden
 		/// Bsp: 007;1 Zeigt die Ränge 1-15 an.
@@ -78,5 +79,10 @@ namespace SFBotyCore.Constants {
 		public static string BuyStatAus = "0214";
 		public static string BuyStatLuck = "0215";
 		public static string BuyBeer = "518";
+
+		/// <summary>
+		/// Achtung die MountID muss noch angehangen werden.
+		/// </summary>
+		public static string BuyMount = "020";
 	}
 }

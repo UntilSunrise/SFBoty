@@ -50,6 +50,8 @@ namespace SFBotyCore.Constants {
 		public static int inteBuyed = 42;
 		public static int ausBuyed = 43;
 		public static int luckBuyed = 44;
+		public static int mount = 286;
+		public static int mountDuration = 451;
 		#endregion
 
 		#region Itempositions

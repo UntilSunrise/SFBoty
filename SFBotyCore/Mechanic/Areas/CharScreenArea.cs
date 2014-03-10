@@ -182,22 +182,24 @@ namespace SFBotyCore.Mechanic.Areas {
 				return;
 			}
 			
-			string[] answerTavern = s.Split('/');
-			string str = answerTavern[ResponseTypes.str];
-			string ges = answerTavern[ResponseTypes.ges];
-			string inte = answerTavern[ResponseTypes.inte];
-			string aus = answerTavern[ResponseTypes.aus];
-			string luck = answerTavern[ResponseTypes.luck];
-			string strAddon = answerTavern[ResponseTypes.strAddon];
-			string gesAddon = answerTavern[ResponseTypes.gesAddon];
-			string inteAddon = answerTavern[ResponseTypes.inteAddon];
-			string ausAddon = answerTavern[ResponseTypes.ausAddon];
-			string luckAddon = answerTavern[ResponseTypes.luckAddon];
-			string strBuyed = answerTavern[ResponseTypes.strBuyed];
-			string gesBuyed = answerTavern[ResponseTypes.gesBuyed];
-			string inteBuyed = answerTavern[ResponseTypes.inteBuyed];
-			string ausBuyed = answerTavern[ResponseTypes.ausBuyed];
-			string luckBuyed = answerTavern[ResponseTypes.luckBuyed];
+			string[] answer = s.Split('/');
+			string str = answer[ResponseTypes.str];
+			string ges = answer[ResponseTypes.ges];
+			string inte = answer[ResponseTypes.inte];
+			string aus = answer[ResponseTypes.aus];
+			string luck = answer[ResponseTypes.luck];
+			string strAddon = answer[ResponseTypes.strAddon];
+			string gesAddon = answer[ResponseTypes.gesAddon];
+			string inteAddon = answer[ResponseTypes.inteAddon];
+			string ausAddon = answer[ResponseTypes.ausAddon];
+			string luckAddon = answer[ResponseTypes.luckAddon];
+			string strBuyed = answer[ResponseTypes.strBuyed];
+			string gesBuyed = answer[ResponseTypes.gesBuyed];
+			string inteBuyed = answer[ResponseTypes.inteBuyed];
+			string ausBuyed = answer[ResponseTypes.ausBuyed];
+			string luckBuyed = answer[ResponseTypes.luckBuyed];
+			string selectedMount = answer[ResponseTypes.mount];
+			string selectedMountDuration = answer[ResponseTypes.mountDuration];
 
 			acc.BaseStr = Convert.ToInt32(str);
 			acc.BaseDex = Convert.ToInt32(ges);
@@ -217,11 +219,14 @@ namespace SFBotyCore.Mechanic.Areas {
 			acc.BuyedAus = Convert.ToInt32(ausBuyed);
 			acc.BuyedLuck = Convert.ToInt32(luckBuyed);
 
-			acc.Silver = Convert.ToInt64(answerTavern[ResponseTypes.Silver]);
-			acc.Mushroom = Convert.ToInt32(answerTavern[ResponseTypes.Mushrooms]);
-			acc.Level = Convert.ToInt32(answerTavern[ResponseTypes.Level]);
-			acc.Honor = Convert.ToInt32(answerTavern[ResponseTypes.Honor]);
-			acc.Rang = Convert.ToInt32(answerTavern[ResponseTypes.Rang]);
+			acc.Silver = Convert.ToInt64(answer[ResponseTypes.Silver]);
+			acc.Mushroom = Convert.ToInt32(answer[ResponseTypes.Mushrooms]);
+			acc.Level = Convert.ToInt32(answer[ResponseTypes.Level]);
+			acc.Honor = Convert.ToInt32(answer[ResponseTypes.Honor]);
+			acc.Rang = Convert.ToInt32(answer[ResponseTypes.Rang]);
+
+			acc.Mount = selectedMount.ToEnum<MountTypes>();
+			acc.MountDuration = selectedMountDuration.MillisecondsToDateTime();
 
 			int i = 1;
 			acc.BackpackItems.Clear();

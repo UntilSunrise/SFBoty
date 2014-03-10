@@ -20,7 +20,7 @@ namespace SFBoty {
 		private Dictionary<string, Bot> Bots;
 		private Dictionary<string, List<string>> BotLogs;
 		private string SelectedBotKey;
-		private static bool AutoRun = true;
+		private static bool AutoRun = false;
 
 		public MainWindow() {
 			InitializeComponent();
@@ -83,6 +83,7 @@ namespace SFBoty {
 
 				bot.AddMenu(new LoginArea());
 				bot.AddMenu(new MagicShopArea());
+				bot.AddMenu(new MountArea());
 				bot.AddMenu(new TavernArea());
 				bot.AddMenu(new ToiletArea());
 				bot.AddMenu(new ArenaArea());

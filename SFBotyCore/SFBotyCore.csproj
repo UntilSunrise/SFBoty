@@ -47,6 +47,7 @@
     <Compile Include="Constants\ClassTypes.cs" />
     <Compile Include="Constants\GuildAttackDefenceTypes.cs" />
     <Compile Include="Constants\ItemTypes.cs" />
+    <Compile Include="Constants\MountTypes.cs" />
     <Compile Include="Constants\ResponseTypes.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Mechanic\Account\Account.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Mechanic\Areas\DungeonArea.cs" />
     <Compile Include="Mechanic\Areas\ArenaArea.cs" />
     <Compile Include="Mechanic\Areas\GuildArea.cs" />
+    <Compile Include="Mechanic\Areas\MountArea.cs" />
     <Compile Include="Mechanic\Areas\MagicShopArea.cs" />
     <Compile Include="Mechanic\Areas\StadtwacheArea.cs" />
     <Compile Include="Mechanic\Areas\LoginArea.cs" />
