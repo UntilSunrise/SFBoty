@@ -64,7 +64,7 @@ namespace SFBotyCore.Constants {
 		/// ";0;0" verkauft ein Item 
 		/// ";10;0" packt es in das WC. 
 		/// ";1;-1" setzt es ein
-		/// Bsp.: 50425;0;0 verkauft das Item in Slot 5
+		/// Bsp.: 5042;5;0;0 verkauft das Item in Slot 5
 		/// </summary>
 		public static string ItemAction = "5042;";
 

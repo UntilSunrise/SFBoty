@@ -102,7 +102,7 @@ namespace SFBotyCore.Mechanic.Areas {
 						myRandomEnemy = random.Next(0, HoFCharacters.Count());
 					}
 
-					if (HoFCharacters[myRandomEnemy] != null && myRandomEnemy >= 0) {
+					if (myRandomEnemy >= 0 && HoFCharacters.Count - 1 > myRandomEnemy && HoFCharacters[myRandomEnemy] != null) {
 						enemyLevel = HoFCharacters[myRandomEnemy].Level;
                         enemyNick = HoFCharacters[myRandomEnemy].CharacterNick;
 						enemyGuildNick = HoFCharacters[myRandomEnemy].GuildNick;
