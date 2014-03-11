@@ -72,7 +72,7 @@ namespace SFBotyCore.Mechanic.Account {
 			get {
 				return BackpackItems.Where(
 					b =>
-						b.GoldValue != 0
+						b.SilverValue != 0
 						&& b.Typ != ItemTypes.Buff
 						&& b.Typ != ItemTypes.Leer
 						&& b.Typ != ItemTypes.SpiegelOderSchlüssel

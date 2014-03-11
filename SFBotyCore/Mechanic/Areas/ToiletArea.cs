@@ -66,7 +66,7 @@ namespace SFBotyCore.Mechanic.Areas {
 						RaiseMessageEvent("WC wurde heute schon benutzt!");
 						Account.ToiletEndTime = (DateTime.Now - DateTime.Now.TimeOfDay).AddDays(1);
 						return;
-					} // else do nothing
+					}
 
 					s = CheckAndFlushToilette(s);
 
@@ -75,13 +75,13 @@ namespace SFBotyCore.Mechanic.Areas {
 					//Rucksackslotnummer mit dem niedrigsten Gold Wert
 					int backpackslotWithLowestItemValue = Account.BackpackItems.Where(
 																						b =>
-																							b.GoldValue != 0
+																							b.SilverValue != 0
 																							&& b.Typ != ItemTypes.Buff
 																							&& b.Typ != ItemTypes.Leer
 																							&& b.Typ != ItemTypes.SpiegelOderSchlüssel
 																							&& b.Typ != ItemTypes.KeineAhnung2
 																							&& b.IsEpic == false
-																						).OrderBy(b => b.GoldValue).First().InventoryID;
+																						).OrderBy(b => b.SilverValue).First().InventoryID;
 					if (backpackslotWithLowestItemValue == 0) {
 						return;
 					}
@@ -123,7 +123,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				Account.CurrentToiletPoints = Convert.ToInt32(answerToilet[(int)ToiletAnswer.Exp]);
 				Account.ToiletPointsForNewLevel = Convert.ToInt32(answerToilet[(int)ToiletAnswer.ExpToNextLevel]);
 				RaiseMessageEvent("Spülung gedrückt, Aurastufe: " + Account.CurrentToiletLevel);
-			} // else do nothing
+			}
 			return s;
 		}
 

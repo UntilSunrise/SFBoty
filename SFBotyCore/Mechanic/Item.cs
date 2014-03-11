@@ -35,11 +35,12 @@ namespace SFBotyCore.Mechanic {
 		public int AttributeValue1 { get; private set; }
 		public int AttributeValue2 { get; private set; }
 		public int AttributeValue3 { get; private set; }
-		public int GoldValue { get; private set; }
+		public int SilverValue { get; private set; }
+		public int MushroomValue { get; private set; }
 		public bool IsEpic { get; private set; }
 
-		public Item(string[] responseString, int offset) {
-			inventoryID = ((offset - ResponseTypes.BackpackFirstItemPosition) /  ResponseTypes.ItemSize) + 1;
+		public Item(string[] responseString, int offset, int offsetItemIDMagicShop) {
+			inventoryID = ((offset - ResponseTypes.BackpackFirstItemPosition) / ResponseTypes.ItemSize) + 1 - offsetItemIDMagicShop;
 			typeOriginal = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemTyp)]);
 			picOriginal = Convert.ToDouble(responseString[(offset + ResponseTypes.ItemPicture)]);
 			mushroomValue = Convert.ToInt32(responseString[(offset + ResponseTypes.ItemMushroomValue)]);
@@ -72,7 +73,8 @@ namespace SFBotyCore.Mechanic {
 			AttributeValue1 = this.attributeValue1;
 			AttributeValue2 = this.attributeValue2;
 			AttributeValue3 = this.attributeValue3;
-			GoldValue = this.goldValue;
+			SilverValue = this.goldValue;
+			MushroomValue = Convert.ToInt32(this.mushroomValue);
 		}
 
 		private bool IsEpicCheck(double picNumber) {

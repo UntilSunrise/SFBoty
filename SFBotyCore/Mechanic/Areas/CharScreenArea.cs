@@ -231,14 +231,14 @@ namespace SFBotyCore.Mechanic.Areas {
 			int i = 1;
 			acc.BackpackItems.Clear();
 			while (i <= ResponseTypes.BackpackSize) {
-				acc.BackpackItems.Add(new Item(s.Split('/'), ResponseTypes.BackpackFirstItemPosition + ((i - 1) * ResponseTypes.ItemSize)));
+				acc.BackpackItems.Add(new Item(s.Split('/'), ResponseTypes.BackpackFirstItemPosition + ((i - 1) * ResponseTypes.ItemSize), 0));
 				i++;
 			}
 
 			int j = 1;
 			acc.InventoryItems.Clear();
 			while (j <= 10) {
-				acc.InventoryItems.Add(new Item(s.Split('/'), ResponseTypes.InventoryFirstItemPosition + ((j - 1) * ResponseTypes.ItemSize)));
+				acc.InventoryItems.Add(new Item(s.Split('/'), ResponseTypes.InventoryFirstItemPosition + ((j - 1) * ResponseTypes.ItemSize), 0));
 				j++;
 			}	
 		}
