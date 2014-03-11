@@ -71,6 +71,7 @@ namespace SFBotyCore.Constants {
 		public static int ItemEnchantment = 601;
 		public static int ItemEnchantmentPower = 602;
 		public static int ItemSocketPower = 603;
+		public static int MagicShopInventoryIDOffset = 16;
 		#endregion
 
 		#region HallOfFamepositions

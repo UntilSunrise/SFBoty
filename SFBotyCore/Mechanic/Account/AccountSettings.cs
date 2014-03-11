@@ -71,6 +71,8 @@ namespace SFBotyCore.Mechanic.Account {
 		public MountTypes MountToBuy { get; set; }
 		public bool BuyMount { get; set; }
 
+		public bool BuyItemsInMagicShop { get; set; }
+
 		//times are in Sekunds
 		#region Times
 		public float minTimeToJoinTarvern { get; set; }
@@ -314,6 +316,8 @@ namespace SFBotyCore.Mechanic.Account {
 
 			this.MountToBuy = MountTypes.None;
 			this.BuyMount = true;
+
+			this.BuyItemsInMagicShop = false;
 		}
 
 		public void ResetSessionID() {
@@ -396,6 +400,7 @@ namespace SFBotyCore.Mechanic.Account {
 			this.SaveMoneyFactor = tmp.SaveMoneyFactor;
 			this.MountToBuy = tmp.MountToBuy;
 			this.BuyMount = tmp.BuyMount;
+			this.BuyItemsInMagicShop = tmp.BuyItemsInMagicShop;
 		}
 
 		public AccountSettings Clone() {
@@ -475,6 +480,7 @@ namespace SFBotyCore.Mechanic.Account {
 			tmp.SaveMoneyFactor = this.SaveMoneyFactor;
 			tmp.MountToBuy = this.MountToBuy;
 			tmp.BuyMount = this.BuyMount;
+			tmp.BuyItemsInMagicShop = this.BuyItemsInMagicShop;
 
 			Assert.Asserts.AreNotSame(tmp, this, "Mist");
 

@@ -30,6 +30,7 @@ namespace SFBotyCore.Mechanic.Account {
 		public DateTime DungeonEndTime { get; set; }
 		public DateTime ArenaEndTime { get; set; }
 		public DateTime NextGuildVisit { get; set; }
+		public DateTime MagicShopLastVisitingForBuying { get; set; }
 
 		public int BaseStr { get; set; }
 		public int BaseDex { get; set; }
@@ -134,6 +135,8 @@ namespace SFBotyCore.Mechanic.Account {
 
 			Mount = MountTypes.None;
 			MountDuration = DateTime.Now;
+
+			MagicShopLastVisitingForBuying = DateTime.Now.AddDays(-1);
 		}
 
 		public void Logout() {

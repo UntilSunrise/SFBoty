@@ -47,14 +47,15 @@ namespace SFBotyCore.Mechanic.Areas {
 
 				CharScreenArea.UpdateAccountStats(s, Account);
 
-			} else if(1==2) { //betrette den shop um ein Item oder Trank zu kaufen
+			} else if(Account.Settings.BuyItemsInMagicShop && Account.MagicShopLastVisitingForBuying.IsOtherDay(DateTime.Now)) { //betrette den shop um ein Item oder Trank zu kaufen
+				Account.MagicShopLastVisitingForBuying = DateTime.Now;
 				RaiseMessageEvent("Betrete Zauberladen");
 				ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
 				s = SendRequest(ActionTypes.JoinMagicshop);
 
 				List<Item> shopItems = new List<Item>();
 				for(int i = 0; i < ResponseTypes.ShopSize; i++) {
-					shopItems.Add(new Item(s.Split('/'), 361 + (i * ResponseTypes.ItemSize), 16));
+					shopItems.Add(new Item(s.Split('/'), ResponseTypes.FidgetFirstItemPosition + (i * ResponseTypes.ItemSize), ResponseTypes.MagicShopInventoryIDOffset));
 				}
 			}
 		}
