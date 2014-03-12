@@ -41,7 +41,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				#region ItemsAusrüsten
 				foreach (Item bpItem in Account.BackpackItems) {
 					if (bpItem.Typ != ItemTypes.SpiegelOderSchlüssel && bpItem.Typ != ItemTypes.Buff && bpItem.Typ != ItemTypes.Leer) {
-						bool bpItemIsBetter = Helper.IsBackpackItemBetterThanInventoryItem(bpItem, Account.InventoryItems.Where(a => a.Typ == bpItem.Typ).First(), Account.Class);
+						bool bpItemIsBetter = Helper.IsBackpackItemBetterThanInventoryItem(bpItem, Account.InventoryItems.Where(a => a.Typ == bpItem.Typ).First(), Account);
 
 						if (bpItemIsBetter) {
 							RaiseMessageEvent(String.Format("Lege Rucksack-Item im Slot: {0} an.", bpItem.InventoryID));

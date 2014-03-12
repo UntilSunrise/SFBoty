@@ -48,6 +48,7 @@ namespace SFBotyCore.Mechanic.Account {
 		public int BuyedAus { get; set; }
 		public int BuyedLuck { get; set; }
 		public int HighestBuyedStat { get { return Math.Max(BuyedStr, Math.Max(BuyedDex, Math.Max(BuyedInt, Math.Max(BuyedAus, BuyedLuck)))); } }
+		public int FreeBackpackInventoryID { get { return BackpackItems.Where(b => b.Typ == ItemTypes.Leer).First().InventoryID; } }
 
 		public Int64 Silver { get; set; }
 		public int Mushroom { get; set; }

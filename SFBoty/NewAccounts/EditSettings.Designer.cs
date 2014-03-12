@@ -52,11 +52,11 @@
 			// 
 			this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnSave.Location = new System.Drawing.Point(552, 431);
+			this.btnSave.Location = new System.Drawing.Point(541, 431);
 			this.btnSave.Name = "btnSave";
-			this.btnSave.Size = new System.Drawing.Size(75, 23);
+			this.btnSave.Size = new System.Drawing.Size(86, 23);
 			this.btnSave.TabIndex = 0;
-			this.btnSave.Text = "Speichern";
+			this.btnSave.Text = "Übernehmen";
 			this.btnSave.UseVisualStyleBackColor = true;
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			// 
@@ -64,7 +64,7 @@
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Location = new System.Drawing.Point(471, 431);
+			this.btnCancel.Location = new System.Drawing.Point(460, 431);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 1;

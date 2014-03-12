@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SFBotyCore.Mechanic;
 using SFBotyCore.Constants;
+using SFBotyCore.Mechanic.Account;
 
 namespace SFBotyCore {
 	public static class Helper {
@@ -66,7 +67,87 @@ namespace SFBotyCore {
 			return TrueAttPreis;
 		}
 
-		public static bool IsBackpackItemBetterThanInventoryItem(Item backpackItem, Item inventoryItem, ClassTypes charClass) {
+		public static bool IsShopItemBetter(Item shopItem, Account account) {
+			if (shopItem.Typ == ItemTypes.Leer) {
+				return false;
+			} else {
+				if (account.InventoryItems.Where(i => i.Typ == shopItem.Typ).Count() == 0) {
+					return true;
+				}
+
+				return Helper.IsBackpackItemBetterThanInventoryItem(shopItem, account.InventoryItems.Where(b => b.Typ == shopItem.Typ && b.Typ != null).First(), account);
+			}
+		}
+
+		public static bool IsBackpackItemBetterThanInventoryItem(Item backpackItem, Item inventoryItem, Account account) {
+			if (!account.Settings.UseAlternativeIventoryChecking) {
+				return IsBackpackItemBetterThanInventoryItemJens(backpackItem, inventoryItem, account.Class);
+			} else {
+				return IsBackpackItemBetterThanInventoryItemIngo(backpackItem, inventoryItem, account);
+			}
+		}
+
+		private static bool IsBackpackItemBetterThanInventoryItemIngo(Item backpackItem, Item inventoryItem, Account account) {
+			//backpack
+			int bpStr = backpackItem.AttributeValue1 > 0 && backpackItem.AttributeType1 == AttributeTypes.Strength || backpackItem.AttributeType1 == AttributeTypes.All ? backpackItem.AttributeValue1 : 0;
+			bpStr += backpackItem.AttributeValue2 > 0 && backpackItem.AttributeType2 == AttributeTypes.Strength || backpackItem.AttributeType2 == AttributeTypes.All ? backpackItem.AttributeValue2 : 0;
+			bpStr += backpackItem.AttributeValue3 > 0 && backpackItem.AttributeType3 == AttributeTypes.Strength || backpackItem.AttributeType3 == AttributeTypes.All ? backpackItem.AttributeValue3 : 0;
+						
+			int bpDex = backpackItem.AttributeValue1 > 0 && backpackItem.AttributeType1 == AttributeTypes.Dexterity || backpackItem.AttributeType1 == AttributeTypes.All ? backpackItem.AttributeValue1 : 0;
+			bpDex += backpackItem.AttributeValue2 > 0 && backpackItem.AttributeType2 == AttributeTypes.Dexterity || backpackItem.AttributeType2 == AttributeTypes.All ? backpackItem.AttributeValue2 : 0;
+			bpDex += backpackItem.AttributeValue3 > 0 && backpackItem.AttributeType3 == AttributeTypes.Dexterity || backpackItem.AttributeType3 == AttributeTypes.All ? backpackItem.AttributeValue3 : 0;
+			
+			int bpInt = backpackItem.AttributeValue1 > 0 && backpackItem.AttributeType1 == AttributeTypes.Intelligence || backpackItem.AttributeType1 == AttributeTypes.All ? backpackItem.AttributeValue1 : 0;
+			bpInt += backpackItem.AttributeValue2 > 0 && backpackItem.AttributeType2 == AttributeTypes.Intelligence || backpackItem.AttributeType2 == AttributeTypes.All ? backpackItem.AttributeValue2 : 0;
+			bpInt += backpackItem.AttributeValue3 > 0 && backpackItem.AttributeType3 == AttributeTypes.Intelligence || backpackItem.AttributeType3 == AttributeTypes.All ? backpackItem.AttributeValue3 : 0; 
+			
+			int bpAua = backpackItem.AttributeValue1 > 0 && backpackItem.AttributeType1 == AttributeTypes.Stamina || backpackItem.AttributeType1 == AttributeTypes.All ? backpackItem.AttributeValue1 : 0;
+			bpAua += backpackItem.AttributeValue2 > 0 && backpackItem.AttributeType2 == AttributeTypes.Stamina || backpackItem.AttributeType2 == AttributeTypes.All ? backpackItem.AttributeValue2 : 0;
+			bpAua += backpackItem.AttributeValue3 > 0 && backpackItem.AttributeType3 == AttributeTypes.Stamina || backpackItem.AttributeType3 == AttributeTypes.All ? backpackItem.AttributeValue3 : 0; 
+			
+			int bpLuck = backpackItem.AttributeValue1 > 0 && backpackItem.AttributeType1 == AttributeTypes.Luck || backpackItem.AttributeType1 == AttributeTypes.All ? backpackItem.AttributeValue1 : 0;
+			bpLuck += backpackItem.AttributeValue2 > 0 && backpackItem.AttributeType2 == AttributeTypes.Luck || backpackItem.AttributeType2 == AttributeTypes.All ? backpackItem.AttributeValue2 : 0;
+			bpLuck += backpackItem.AttributeValue3 > 0 && backpackItem.AttributeType3 == AttributeTypes.Luck || backpackItem.AttributeType3 == AttributeTypes.All ? backpackItem.AttributeValue3 : 0; 
+			
+			int bpArmor = backpackItem.Typ != ItemTypes.Waffe ? backpackItem.DamageMin : 0;
+			int bpDMG = backpackItem.Typ == ItemTypes.Waffe ? (backpackItem.DamageMin + backpackItem.DamageMax) / 2 : 0;
+			
+			//inventory
+			int invStr = inventoryItem.AttributeValue1 > 0 && inventoryItem.AttributeType1 == AttributeTypes.Strength || inventoryItem.AttributeType1 == AttributeTypes.All ? inventoryItem.AttributeValue1 : 0;
+			invStr += inventoryItem.AttributeValue2 > 0 && inventoryItem.AttributeType2 == AttributeTypes.Strength || inventoryItem.AttributeType2 == AttributeTypes.All ? inventoryItem.AttributeValue2 : 0;
+			invStr += inventoryItem.AttributeValue3 > 0 && inventoryItem.AttributeType3 == AttributeTypes.Strength || inventoryItem.AttributeType3 == AttributeTypes.All ? inventoryItem.AttributeValue3 : 0;
+
+			int invDex = inventoryItem.AttributeValue1 > 0 && inventoryItem.AttributeType1 == AttributeTypes.Dexterity || inventoryItem.AttributeType1 == AttributeTypes.All ? inventoryItem.AttributeValue1 : 0;
+			invDex += inventoryItem.AttributeValue2 > 0 && inventoryItem.AttributeType2 == AttributeTypes.Dexterity || inventoryItem.AttributeType2 == AttributeTypes.All ? inventoryItem.AttributeValue2 : 0;
+			invDex += inventoryItem.AttributeValue3 > 0 && inventoryItem.AttributeType3 == AttributeTypes.Dexterity || inventoryItem.AttributeType3 == AttributeTypes.All ? inventoryItem.AttributeValue3 : 0;
+
+			int invInt = inventoryItem.AttributeValue1 > 0 && inventoryItem.AttributeType1 == AttributeTypes.Intelligence || inventoryItem.AttributeType1 == AttributeTypes.All ? inventoryItem.AttributeValue1 : 0;
+			invInt += inventoryItem.AttributeValue2 > 0 && inventoryItem.AttributeType2 == AttributeTypes.Intelligence || inventoryItem.AttributeType2 == AttributeTypes.All ? inventoryItem.AttributeValue2 : 0;
+			invInt += inventoryItem.AttributeValue3 > 0 && inventoryItem.AttributeType3 == AttributeTypes.Intelligence || inventoryItem.AttributeType3 == AttributeTypes.All ? inventoryItem.AttributeValue3 : 0;
+
+			int invAua = inventoryItem.AttributeValue1 > 0 && inventoryItem.AttributeType1 == AttributeTypes.Stamina || inventoryItem.AttributeType1 == AttributeTypes.All ? inventoryItem.AttributeValue1 : 0;
+			invAua += inventoryItem.AttributeValue2 > 0 && inventoryItem.AttributeType2 == AttributeTypes.Stamina || inventoryItem.AttributeType2 == AttributeTypes.All ? inventoryItem.AttributeValue2 : 0;
+			invAua += inventoryItem.AttributeValue3 > 0 && inventoryItem.AttributeType3 == AttributeTypes.Stamina || inventoryItem.AttributeType3 == AttributeTypes.All ? inventoryItem.AttributeValue3 : 0;
+
+			int invLuck = inventoryItem.AttributeValue1 > 0 && inventoryItem.AttributeType1 == AttributeTypes.Luck || inventoryItem.AttributeType1 == AttributeTypes.All ? inventoryItem.AttributeValue1 : 0;
+			invLuck += inventoryItem.AttributeValue2 > 0 && inventoryItem.AttributeType2 == AttributeTypes.Luck || inventoryItem.AttributeType2 == AttributeTypes.All ? inventoryItem.AttributeValue2 : 0;
+			invLuck += inventoryItem.AttributeValue3 > 0 && inventoryItem.AttributeType3 == AttributeTypes.Luck || inventoryItem.AttributeType3 == AttributeTypes.All ? inventoryItem.AttributeValue3 : 0;
+
+			int invArmor = inventoryItem.Typ != ItemTypes.Waffe ? inventoryItem.DamageMin : 0;
+			int invDMG = inventoryItem.Typ == ItemTypes.Waffe ? (inventoryItem.DamageMin + inventoryItem.DamageMax) / 2 : 0;
+
+			float bpSummary = 0;
+			float invSummary = 0;
+			float armorFactor = 0.2f;
+			float dmgFactor = 0.2f;
+
+			bpSummary = bpStr * account.Settings.StatStrFactor + bpDex * account.Settings.StatDexFactor + bpInt * account.Settings.StatIntFactor + bpAua * account.Settings.StatAusFactor + bpLuck * account.Settings.StatLuckFactor + bpArmor * armorFactor + bpDMG * dmgFactor;
+			invSummary = invStr * account.Settings.StatStrFactor + invDex * account.Settings.StatDexFactor + invInt * account.Settings.StatIntFactor + invAua * account.Settings.StatAusFactor + invLuck * account.Settings.StatLuckFactor + invArmor * armorFactor + invDMG * dmgFactor;
+
+			return (bpSummary > invSummary);
+		}
+
+		private static bool IsBackpackItemBetterThanInventoryItemJens(Item backpackItem, Item inventoryItem, ClassTypes charClass) {
 
 			bool bpIsTripleEpic = backpackItem.IsEpic && (backpackItem.AttributeType1 == AttributeTypes.Intelligence || backpackItem.AttributeType1 == AttributeTypes.Strength || backpackItem.AttributeType1 == AttributeTypes.Dexterity) ? true : false;
 			bool invIsTripleEpic = inventoryItem.IsEpic && (backpackItem.AttributeType1 == AttributeTypes.Intelligence || inventoryItem.AttributeType1 == AttributeTypes.Strength || inventoryItem.AttributeType1 == AttributeTypes.Dexterity) ? true : false;
@@ -92,8 +173,6 @@ namespace SFBotyCore {
 			int luckMultiplier = 6;
 			int dmgMultiplier = 4;
 			int armorMultiplier = 2;
-
-
 
 			int bpSummary = 0;
 			int invSummary = 0;

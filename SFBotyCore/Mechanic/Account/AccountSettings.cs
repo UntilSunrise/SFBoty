@@ -72,6 +72,11 @@ namespace SFBotyCore.Mechanic.Account {
 		public bool BuyMount { get; set; }
 
 		public bool BuyItemsInMagicShop { get; set; }
+		public bool UseMushroomsForBuying { get; set; }
+		/// <summary>
+		/// false = Jens Variante wird für den Item-Vergleich verwendet;
+		/// </summary>
+		public bool UseAlternativeIventoryChecking { get; set; }
 
 		//times are in Sekunds
 		#region Times
@@ -318,6 +323,8 @@ namespace SFBotyCore.Mechanic.Account {
 			this.BuyMount = true;
 
 			this.BuyItemsInMagicShop = false;
+			this.UseAlternativeIventoryChecking = false;
+			this.UseMushroomsForBuying = false;
 		}
 
 		public void ResetSessionID() {
@@ -401,6 +408,8 @@ namespace SFBotyCore.Mechanic.Account {
 			this.MountToBuy = tmp.MountToBuy;
 			this.BuyMount = tmp.BuyMount;
 			this.BuyItemsInMagicShop = tmp.BuyItemsInMagicShop;
+			this.UseAlternativeIventoryChecking = tmp.UseAlternativeIventoryChecking;
+			this.UseMushroomsForBuying = tmp.UseMushroomsForBuying;
 		}
 
 		public AccountSettings Clone() {
@@ -481,6 +490,8 @@ namespace SFBotyCore.Mechanic.Account {
 			tmp.MountToBuy = this.MountToBuy;
 			tmp.BuyMount = this.BuyMount;
 			tmp.BuyItemsInMagicShop = this.BuyItemsInMagicShop;
+			tmp.UseAlternativeIventoryChecking = this.UseAlternativeIventoryChecking;
+			tmp.UseMushroomsForBuying = this.UseMushroomsForBuying;
 
 			Assert.Asserts.AreNotSame(tmp, this, "Mist");
 

@@ -58,14 +58,26 @@ namespace SFBotyCore.Mechanic.Areas {
 					shopItems.Add(new Item(s.Split('/'), ResponseTypes.FidgetFirstItemPosition + (i * ResponseTypes.ItemSize), ResponseTypes.MagicShopInventoryIDOffset));
 				}
 
-				string inventoryIDForBuying = GetInventoryIDFormMagicShopWithBetterItem(shopItems);
+				string inventoryIDForBuying = GetInventoryIDFormMagicShopWithBetterItem(shopItems, Account.Settings.UseMushroomsForBuying);
+				bool hasBuyedOneItem = false;
 				if (Convert.ToInt32(inventoryIDForBuying) > 0) {
-					//string sendRequestString = "5044" + "%3B" + inventoryIDForBuying + "2%3B" + freebackpackslot;
+					ThreadSleep(Account.Settings.minLongTime, Account.Settings.maxLongTime);
+					s = SendRequest(string.Concat("5044", "%3B", inventoryIDForBuying, "%3B2%3B", Account.FreeBackpackInventoryID));
+					hasBuyedOneItem = true;
 				}
 
 				//check for next item to buy
+				if (hasBuyedOneItem) { 
+					//todo
+				}
 
 				//goto charscreen um items auszurüsten
+				if (hasBuyedOneItem) {
+					RaiseMessageEvent("Charakterübersicht betreten");
+					ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToLogOut);
+					s = SendRequest(ActionTypes.JoinCharacter);
+					CharScreenArea.UpdateAccountStats(s, Account);
+				}
 			}
 		}
 
@@ -75,13 +87,22 @@ namespace SFBotyCore.Mechanic.Areas {
 			return SendRequest(ActionTypes.ItemAction + InventoryID + "%3B0%3B0");
 		}
 
-		private string GetInventoryIDFormMagicShopWithBetterItem(List<Item> shopItems) {
+		private string GetInventoryIDFormMagicShopWithBetterItem(List<Item> shopItems, bool useMushrooms) {
 			string inventoryID = "-1";
 
 			//welche Items kann ich mir leisten
+			List<Item> avaibleItems = shopItems.Where(si => si.SilverValue <= Account.Silver && si.MushroomValue <= Account.Mushroom && si.Typ != ItemTypes.Buff).ToList();
 			//darf ich pilze verwenden
+			if (!useMushrooms) {
+				avaibleItems = avaibleItems.Where(ai => ai.MushroomValue == 0).ToList();	
+			}
+
 			//welche Items sind besser
+			avaibleItems = avaibleItems.Where(ai => Helper.IsShopItemBetter(ai, Account)).ToList();
 			//gibt das erst beste item aus
+			if (avaibleItems.Count() > 0) {
+				inventoryID = avaibleItems.OrderBy(ai => ai.MushroomValue).OrderBy(ai => ai.SilverValue).First().InventoryID.ToString();
+			}
 
 			return inventoryID;
 		}

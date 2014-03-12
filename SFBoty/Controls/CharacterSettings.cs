@@ -27,8 +27,10 @@ namespace SFBoty.Controls {
 		private TrackBar barStrengh;
 		private Label label1;
 		private GroupBox groupBox3;
-		private Label label6;
+		private Label lblAnzeige;
 		private CheckBox checkBox2;
+		private CheckBox ckbBuyItems;
+		private CheckBox ckbUseMushroomsForBuying;
 		private CheckBox ckbBuyStats;
 
 		private void InitializeComponent() {
@@ -53,8 +55,10 @@ namespace SFBoty.Controls {
 			this.label1 = new System.Windows.Forms.Label();
 			this.ckbBuyStats = new System.Windows.Forms.CheckBox();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
-			this.label6 = new System.Windows.Forms.Label();
+			this.ckbBuyItems = new System.Windows.Forms.CheckBox();
+			this.lblAnzeige = new System.Windows.Forms.Label();
 			this.checkBox2 = new System.Windows.Forms.CheckBox();
+			this.ckbUseMushroomsForBuying = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numLuck)).BeginInit();
@@ -274,7 +278,9 @@ namespace SFBoty.Controls {
 			// 
 			// groupBox3
 			// 
-			this.groupBox3.Controls.Add(this.label6);
+			this.groupBox3.Controls.Add(this.ckbUseMushroomsForBuying);
+			this.groupBox3.Controls.Add(this.ckbBuyItems);
+			this.groupBox3.Controls.Add(this.lblAnzeige);
 			this.groupBox3.Controls.Add(this.checkBox2);
 			this.groupBox3.Location = new System.Drawing.Point(3, 317);
 			this.groupBox3.Name = "groupBox3";
@@ -283,15 +289,26 @@ namespace SFBoty.Controls {
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Inventar";
 			// 
-			// label6
+			// ckbBuyItems
 			// 
-			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(13, 48);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(555, 13);
-			this.label6.TabIndex = 1;
-			this.label6.Text = "Unter Verwendung der oben eingestellten Attributverteilung wird das bessere Equip" +
-    "ment ermittelt. (derzeit noch nicht)";
+			this.ckbBuyItems.AutoSize = true;
+			this.ckbBuyItems.Location = new System.Drawing.Point(299, 19);
+			this.ckbBuyItems.Name = "ckbBuyItems";
+			this.ckbBuyItems.Size = new System.Drawing.Size(123, 17);
+			this.ckbBuyItems.TabIndex = 2;
+			this.ckbBuyItems.Text = "Kaufe Bessere Items";
+			this.ckbBuyItems.UseVisualStyleBackColor = true;
+			this.ckbBuyItems.CheckedChanged += new System.EventHandler(this.ckbBuyItems_CheckedChanged);
+			// 
+			// lblAnzeige
+			// 
+			this.lblAnzeige.AutoSize = true;
+			this.lblAnzeige.Location = new System.Drawing.Point(13, 48);
+			this.lblAnzeige.Name = "lblAnzeige";
+			this.lblAnzeige.Size = new System.Drawing.Size(462, 13);
+			this.lblAnzeige.TabIndex = 1;
+			this.lblAnzeige.Text = "Unter Verwendung der oben eingestellten Attributverteilung wird das bessere Equip" +
+    "ment ermittelt.";
 			// 
 			// checkBox2
 			// 
@@ -305,6 +322,17 @@ namespace SFBoty.Controls {
 			this.checkBox2.TabIndex = 0;
 			this.checkBox2.Text = "Bessere Gegenstände automatisch ausrüsten";
 			this.checkBox2.UseVisualStyleBackColor = true;
+			// 
+			// ckbUseMushroomsForBuying
+			// 
+			this.ckbUseMushroomsForBuying.AutoSize = true;
+			this.ckbUseMushroomsForBuying.Location = new System.Drawing.Point(426, 19);
+			this.ckbUseMushroomsForBuying.Name = "ckbUseMushroomsForBuying";
+			this.ckbUseMushroomsForBuying.Size = new System.Drawing.Size(168, 17);
+			this.ckbUseMushroomsForBuying.TabIndex = 3;
+			this.ckbUseMushroomsForBuying.Text = "und benutze Pilze zum kaufen";
+			this.ckbUseMushroomsForBuying.UseVisualStyleBackColor = true;
+			this.ckbUseMushroomsForBuying.CheckedChanged += new System.EventHandler(this.ckbUseMushroomsForBuying_CheckedChanged);
 			// 
 			// CharacterSettings
 			// 
@@ -352,6 +380,10 @@ namespace SFBoty.Controls {
 			numInt.Value = Convert.ToInt32(settings.StatIntFactor * 100);
 			numAus.Value = Convert.ToInt32(settings.StatAusFactor * 100);
 			numLuck.Value = Convert.ToInt32(settings.StatLuckFactor * 100);
+
+			lblAnzeige.Visible = settings.UseAlternativeIventoryChecking;
+			ckbBuyItems.Checked = settings.BuyItemsInMagicShop;
+			ckbUseMushroomsForBuying.Checked = settings.UseMushroomsForBuying;
 		}
 
 		private void ckbBuyStats_CheckedChanged(object sender, EventArgs e) {
@@ -466,6 +498,14 @@ namespace SFBoty.Controls {
 				numLuck.Value = current;
 			}
 			Settings.StatLuckFactor = Convert.ToSingle(numLuck.Value / 100m);
+		}
+
+		private void ckbBuyItems_CheckedChanged(object sender, EventArgs e) {
+			Settings.BuyItemsInMagicShop = ckbBuyItems.Checked;
+		}
+
+		private void ckbUseMushroomsForBuying_CheckedChanged(object sender, EventArgs e) {
+			Settings.UseMushroomsForBuying = ckbUseMushroomsForBuying.Checked;
 		}
 	}
 }
