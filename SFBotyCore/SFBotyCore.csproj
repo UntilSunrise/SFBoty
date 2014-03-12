@@ -54,6 +54,7 @@
     <Compile Include="Mechanic\Account\AccountSettings.cs" />
     <Compile Include="Constants\ActionTypes.cs" />
     <Compile Include="Mechanic\Account\Guild.cs" />
+    <Compile Include="Mechanic\Areas\BlacksmithArea.cs" />
     <Compile Include="Mechanic\Areas\CharScreenArea.cs" />
     <Compile Include="Mechanic\Areas\DungeonArea.cs" />
     <Compile Include="Mechanic\Areas\ArenaArea.cs" />
