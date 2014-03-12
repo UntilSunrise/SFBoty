@@ -64,6 +64,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					ThreadSleep(Account.Settings.minLongTime, Account.Settings.maxLongTime);
 					s = SendRequest(string.Concat("5044", "%3B", inventoryIDForBuying, "%3B2%3B", Account.FreeBackpackInventoryID));
 					hasBuyedOneItem = true;
+					RaiseMessageEvent(string.Format("Es wurde Item {0} gekauft und in den Rucksackslot {1} verstaut", inventoryIDForBuying, Account.FreeBackpackInventoryID));
 				}
 
 				//check for next item to buy
