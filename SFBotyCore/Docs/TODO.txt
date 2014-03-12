@@ -8,7 +8,6 @@
 - Turm hinzufügen
 - Turmverbündete ausrüsten
 - Flaschen kaufen/benutzen
-- Gegenstände kaufen
 - Sammelalbum
 - Gildenstatistiks?
 - Mailversand bei Fehlern
