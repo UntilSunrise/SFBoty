@@ -30,7 +30,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			base.PerformArea();
 
             string s;
-            if (Account.BackpackItems.Count == 0) {
+            if (Account.BackpackItems.Count == 0 || Account.InventoryItems.Count == 0) {
                 RaiseMessageEvent("Charakterübersicht betreten");
                 ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToLogOut);
                 s = SendRequest(ActionTypes.JoinCharacter);
@@ -47,7 +47,7 @@ namespace SFBotyCore.Mechanic.Areas {
 
 				CharScreenArea.UpdateAccountStats(s, Account);
 
-			} else if(Account.Settings.BuyItemsInMagicShop && Account.MagicShopLastVisitingForBuying.IsOtherDay(DateTime.Now)) { //betrette den shop um ein Item oder Trank zu kaufen
+			} else if(Account.Settings.BuyItemsInMagicShop && Account.MagicShopLastVisitingForBuying.IsOtherDay(DateTime.Now) && Account.ALU_Seconds == 0) { //betrette den shop um ein Item zu kaufen
 				Account.MagicShopLastVisitingForBuying = DateTime.Now;
 				RaiseMessageEvent("Betrete Zauberladen");
 				ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
