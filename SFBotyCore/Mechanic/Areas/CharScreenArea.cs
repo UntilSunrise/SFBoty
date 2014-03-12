@@ -46,7 +46,7 @@ namespace SFBotyCore.Mechanic.Areas {
 						if (bpItemIsBetter) {
 							RaiseMessageEvent(String.Format("Lege Rucksack-Item im Slot: {0} an.", bpItem.InventoryID));
 							ThreadSleep(Account.Settings.minTimeToUseItem, Account.Settings.maxTimeToUseItem);
-							s = SendRequest(ActionTypes.ItemAction + bpItem.InventoryID + ";1;-1");
+							s = SendRequest(ActionTypes.ItemAction + bpItem.InventoryID + "%3B1%3B-1");
 						}
 					}
 				}

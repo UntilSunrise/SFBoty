@@ -87,14 +87,14 @@ namespace SFBotyCore.Mechanic.Areas {
 					}
 					ThreadSleep(Account.Settings.minTimeToDoToilet, Account.Settings.maxTimeToDoToilet);
 					RaiseMessageEvent(string.Format("Item im Slot {0}, wird in die Toilette geschmissen.", backpackslotWithLowestItemValue));
-					s = SendRequest(ActionTypes.ItemAction + backpackslotWithLowestItemValue + ";10;0");
+					s = SendRequest(ActionTypes.ItemAction + backpackslotWithLowestItemValue + "%3B10%3B0");
 					answerToilet = s.Split('/');
 					Account.ToiletEndTime = (DateTime.Now - DateTime.Now.TimeOfDay).AddDays(1);
 
 					if (Account.Settings.SellToiletItemIfNotEpic && !answerToilet[0].Contains("E")) {
 						ThreadSleep(Account.Settings.minTimeToJoinShops, Account.Settings.maxTimeToJoinShops);
 						RaiseMessageEvent(string.Format("Item im Slot {0}, wird verkauft. Kein Epic.", backpackslotWithLowestItemValue));
-						s = SendRequest(ActionTypes.ItemAction + backpackslotWithLowestItemValue + ";0;0");
+						s = SendRequest(ActionTypes.ItemAction + backpackslotWithLowestItemValue + "%3B0%3B0");
 					}
 					CharScreenArea.UpdateAccountStats(s, Account);
 				}

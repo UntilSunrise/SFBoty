@@ -25,7 +25,7 @@ namespace SFBotyCore.Constants {
 		/// Es kann auch noch die Obergrenze des Rangbereiches angegeben werden
 		/// Bsp: 007;1 Zeigt die Ränge 1-15 an.
 		/// </summary>
-		public static string JoinHallOfFame = "007;";
+		public static string JoinHallOfFame = "007%3B";
 
 		/// <summary>
 		/// Anzahl muss noch angehangen werden
@@ -66,7 +66,7 @@ namespace SFBotyCore.Constants {
 		/// ";1;-1" setzt es ein
 		/// Bsp.: 5042;5;0;0 verkauft das Item in Slot 5
 		/// </summary>
-		public static string ItemAction = "5042;";
+		public static string ItemAction = "5042%3B";
 
 		/// <summary>
 		/// Achtung DungeonID muss noch selbstständigangehangen werden
