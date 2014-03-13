@@ -10,5 +10,4 @@
 - Flaschen kaufen/benutzen
 - Sammelalbum
 - Gildenstatistiks?
-- Mailversand bei Fehlern
 - Menü Reihenfolge und Elemente per Factory Konfigurierbar
