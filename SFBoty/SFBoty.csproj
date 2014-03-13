@@ -67,6 +67,9 @@
     <Compile Include="Controls\GildenSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\MailSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\ShopSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -120,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\GildenSettings.resx">
       <DependentUpon>GildenSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MailSettings.resx">
+      <DependentUpon>MailSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ShopSettings.resx">
       <DependentUpon>ShopSettings.cs</DependentUpon>

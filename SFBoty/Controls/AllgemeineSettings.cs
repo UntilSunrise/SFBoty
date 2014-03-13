@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using SFBotyCore.Mechanic.Account;
+using SFBotyCore;
 
 namespace SFBoty.Controls {
 	public class AllgemeineSettings : UserControl {
@@ -357,9 +358,15 @@ namespace SFBoty.Controls {
 		}
 
 		private AccountSettings Settings;
+		string acc;
+		string pw;
+		string server;
 		public void SetSettings(AccountSettings settings) {
 			Settings = settings;
 
+			acc = Settings.Username;
+			pw = Settings.PasswordHash;
+			server = Settings.Server;
 			txtAccount.Text = Settings.Username;
 			txtPasswort.Text = Settings.PasswordHash;
 			txtServer.Text = Settings.Server;
@@ -377,14 +384,35 @@ namespace SFBoty.Controls {
 
 		private void txtServer_TextChanged(object sender, EventArgs e) {
 			Settings.Server = txtServer.Text;
+			if (!String.IsNullOrEmpty(Settings.MailCryptPasswort)) {
+				CryptManager.Init(string.Concat(pw, server, acc));
+				string orgPW = CryptManager.Decrypt(Settings.MailCryptPasswort);
+				CryptManager.Init(Settings);
+				Settings.MailCryptPasswort = CryptManager.Encrypt(orgPW);
+			}
+			server = Settings.Server;
 		}
 
 		private void txtAccount_TextChanged(object sender, EventArgs e) {
 			Settings.Username = txtAccount.Text;
+			if (!String.IsNullOrEmpty(Settings.MailCryptPasswort)) {
+				CryptManager.Init(string.Concat(pw, server, acc));
+				string orgPW = CryptManager.Decrypt(Settings.MailCryptPasswort);
+				CryptManager.Init(Settings);
+				Settings.MailCryptPasswort = CryptManager.Encrypt(orgPW);
+			}
+			acc = Settings.Username;
 		}
 
 		private void txtPasswort_TextChanged(object sender, EventArgs e) {
 			Settings.PasswordHash = txtPasswort.Text;
+			if (!String.IsNullOrEmpty(Settings.MailCryptPasswort)) {
+				CryptManager.Init(string.Concat(pw, server, acc));
+				string orgPW = CryptManager.Decrypt(Settings.MailCryptPasswort);
+				CryptManager.Init(Settings);
+				Settings.MailCryptPasswort = CryptManager.Encrypt(orgPW);
+			}
+			pw = Settings.PasswordHash;
 		}
 
 		private void numMinShortTime_ValueChanged(object sender, EventArgs e) {

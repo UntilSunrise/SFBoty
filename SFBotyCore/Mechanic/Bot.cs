@@ -7,6 +7,7 @@ using System.Threading;
 using System.Net;
 using System.IO;
 using SFBotyCore.Mechanic.Areas;
+using System.Net.Mail;
 
 namespace SFBotyCore.Mechanic {
 	public class Bot {
@@ -87,11 +88,57 @@ namespace SFBotyCore.Mechanic {
 				//nothing to do
 				//http://msdn.microsoft.com/de-de/library/5b50fdsz%28v=vs.110%29.aspx
 			} catch (Exception ex) {
+				if (Account.Settings.SendErrorMail) {
+					SendErrorMail(ex.ToString());
+				}
+
+				if (MessageOutput != null) {
+					MessageOutput(this, new MessageEventsArgs("Ein Fehler ist aufgetretten"));
+				}
+
 				if (Error != null) {
 					Error(this, new MessageEventsArgs(ex.ToString()));
 				}
 			}
 		}
+
+		private void SendErrorMail(string body) {
+			CryptManager.Init(Account.Settings);
+			string from = Account.Settings.MailFrom;
+			string to = Account.Settings.MailTo;
+			int port = Account.Settings.MailPort;
+			string smtpAddress = Account.Settings.MailSmtp;
+			string userName = Account.Settings.Username;
+			string passwort = CryptManager.Decrypt(Account.Settings.MailCryptPasswort);
+
+			MailMessage message = new MailMessage();
+			message.To.Add(to);
+			message.Subject = String.Concat("Error on SFBoty on ", Account.Settings.Server, " with Player ", Account.Settings.Username);
+			message.From = new MailAddress(from);
+			message.Body = body;
+
+			SmtpClient smtp = new SmtpClient(smtpAddress, port);
+			smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+			smtp.EnableSsl = true;
+			smtp.Credentials = new NetworkCredential(userName, passwort);
+			smtp.Timeout = 30000;
+
+			try {
+				smtp.Send(message);
+			} catch (Exception ex) {
+				if (MessageOutput != null) {
+					MessageOutput(this, new MessageEventsArgs("Mail konnte nicht gesendet werden."));
+				}
+				
+				if (Error != null) {
+					Error(this, new MessageEventsArgs("Mail konnte nicht gesendet werden." + Environment.NewLine + ex.ToString()));
+				}
+			}
+
+			message.Dispose();
+			smtp.Dispose();
+		}
+
 		#endregion
 
 		public void Dispose() {

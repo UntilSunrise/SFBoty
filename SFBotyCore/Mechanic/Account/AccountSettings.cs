@@ -211,6 +211,16 @@ namespace SFBotyCore.Mechanic.Account {
 		public bool HasLogin { get { return SessionID != EmpytSessionID; } }
 		public AutoQuestMode QuestMode { get; set; }
 
+		#region MailSettings
+		public string MailFrom { get; set; }
+		public string MailTo { get; set; }
+		public int MailPort { get; set; }
+		public string MailSmtp { get; set; }
+		public string MailUserNamer { get; set; }
+		public string MailCryptPasswort { get; set; }
+		public bool SendErrorMail { get; set; }
+		#endregion
+
 		public AccountSettings() {
 			//only for Serialization
 		}
@@ -325,6 +335,14 @@ namespace SFBotyCore.Mechanic.Account {
 			this.BuyItemsInMagicShop = false;
 			this.UseAlternativeIventoryChecking = false;
 			this.UseMushroomsForBuying = false;
+
+			this.SendErrorMail = false;
+			this.MailFrom = "";
+			this.MailPort = 0;
+			this.MailSmtp = "";
+			this.MailTo = "";
+			this.MailUserNamer = "";
+			this.MailCryptPasswort = "";
 		}
 
 		public void ResetSessionID() {
@@ -410,6 +428,13 @@ namespace SFBotyCore.Mechanic.Account {
 			this.BuyItemsInMagicShop = tmp.BuyItemsInMagicShop;
 			this.UseAlternativeIventoryChecking = tmp.UseAlternativeIventoryChecking;
 			this.UseMushroomsForBuying = tmp.UseMushroomsForBuying;
+			this.SendErrorMail = tmp.SendErrorMail;
+			this.MailCryptPasswort = tmp.MailCryptPasswort;
+			this.MailFrom = tmp.MailFrom;
+			this.MailPort = tmp.MailPort;
+			this.MailSmtp = tmp.MailSmtp;
+			this.MailTo = tmp.MailTo;
+			this.MailUserNamer = tmp.MailUserNamer;
 		}
 
 		public AccountSettings Clone() {
@@ -492,6 +517,13 @@ namespace SFBotyCore.Mechanic.Account {
 			tmp.BuyItemsInMagicShop = this.BuyItemsInMagicShop;
 			tmp.UseAlternativeIventoryChecking = this.UseAlternativeIventoryChecking;
 			tmp.UseMushroomsForBuying = this.UseMushroomsForBuying;
+			tmp.SendErrorMail = this.SendErrorMail;
+			tmp.MailCryptPasswort = this.MailCryptPasswort;
+			tmp.MailFrom = this.MailFrom;
+			tmp.MailPort = this.MailPort;
+			tmp.MailSmtp = this.MailSmtp;
+			tmp.MailTo = this.MailTo;
+			tmp.MailUserNamer = this.MailUserNamer;
 
 			Assert.Asserts.AreNotSame(tmp, this, "Mist");
 

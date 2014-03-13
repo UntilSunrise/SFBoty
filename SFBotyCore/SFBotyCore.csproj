@@ -49,6 +49,7 @@
     <Compile Include="Constants\ItemTypes.cs" />
     <Compile Include="Constants\MountTypes.cs" />
     <Compile Include="Constants\ResponseTypes.cs" />
+    <Compile Include="CryptManager.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Mechanic\Account\Account.cs" />
     <Compile Include="Mechanic\Account\AccountSettings.cs" />
