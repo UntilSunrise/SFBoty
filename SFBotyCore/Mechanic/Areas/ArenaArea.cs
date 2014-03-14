@@ -102,7 +102,7 @@ namespace SFBotyCore.Mechanic.Areas {
 						myRandomEnemy = random.Next(0, HoFCharacters.Count());
 					}
 
-					if (myRandomEnemy >= 0 && HoFCharacters.Count - 1 > myRandomEnemy && string.IsNullOrEmpty(HoFCharacters[myRandomEnemy].ToString().Trim())) {
+					if (myRandomEnemy >= 0 && HoFCharacters.Count - 1 > myRandomEnemy && HoFCharacters[myRandomEnemy] != null) {
 						enemyLevel = HoFCharacters[myRandomEnemy].Level;
                         enemyNick = HoFCharacters[myRandomEnemy].CharacterNick;
 						enemyGuildNick = HoFCharacters[myRandomEnemy].GuildNick;
@@ -110,6 +110,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				}
 				tries++;
 			} while (playerFilter.Contains(enemyNick)
+					|| string.IsNullOrEmpty(enemyNick.Trim())
 					|| Account.Settings.Username == enemyNick
 					|| guildFilter.Contains(enemyGuildNick)
 					|| (!enemyLevel.IsBetween(myLevel - levelDifference, myLevel + levelDifference) && Account.Settings.AttackEnemyBetweenRange));
