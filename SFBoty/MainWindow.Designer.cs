@@ -23,7 +23,10 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.accountOverview1 = new SFBoty.Controls.AccountOverview();
 			this.console1 = new SFBoty.Controls.Console();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -49,6 +52,11 @@
 			this.splitContainer1.SplitterDistance = 353;
 			this.splitContainer1.TabIndex = 0;
 			// 
+			// notifyIcon
+			// 
+			this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+			this.notifyIcon.Text = "SFBoty";
+			// 
 			// accountOverview1
 			// 
 			this.accountOverview1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -73,6 +81,7 @@
 			this.Controls.Add(this.splitContainer1);
 			this.Name = "MainWindow";
 			this.Text = "SFBoty";
+			this.Resize += new System.EventHandler(this.MainWindow_Resize);
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -86,6 +95,7 @@
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private Controls.AccountOverview accountOverview1;
 		private Controls.Console console1;
+		private System.Windows.Forms.NotifyIcon notifyIcon;
 
 	}
 }

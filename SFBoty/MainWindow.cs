@@ -214,5 +214,23 @@ namespace SFBoty {
 			}
 		}
 
+		private void MainWindow_Resize(object sender, EventArgs e) {
+			if (this.WindowState == FormWindowState.Minimized) {
+				notifyIcon.Visible = true;
+				notifyIcon.ShowBalloonTip(500, "Anwendung ist minimiert", "Wiederherstellen das Icon Doppelklicken", ToolTipIcon.Info);
+				notifyIcon.Text = "SFBoty";
+				notifyIcon.DoubleClick += new EventHandler(notifyIcon_DoubleClick);
+				this.ShowInTaskbar = false;
+			} else {
+				notifyIcon.Visible = false;
+			}
+		}
+
+		void notifyIcon_DoubleClick(object sender, EventArgs e) {
+			this.ShowInTaskbar = true;
+			this.WindowState = FormWindowState.Normal;
+			notifyIcon.Visible = false;
+		}
+
 	}
 }
