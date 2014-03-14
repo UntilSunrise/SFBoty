@@ -66,12 +66,16 @@ namespace SFBotyCore.Mechanic.Areas {
 				}
 
 				if (canBuyMount) {
-					RaiseMessageEvent(String.Concat("Buy Mount ", Account.Settings.MountToBuy.ToString()));
+					RaiseMessageEvent(String.Concat("Buy Mount ", nextMount.ToString()));
 					ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 					s = SendRequest(String.Concat(ActionTypes.BuyMount, (int)nextMount));
 
 					ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 					s = SendRequest(ActionTypes.JoinCharacter);
+
+					canBuyMount = false;
+					Account.MountDuration = Account.MountDuration.AddDays(14d);
+					Account.Mount = nextMount;
 				}
 			}
 		}
@@ -86,21 +90,29 @@ namespace SFBotyCore.Mechanic.Areas {
 				case MountTypes.Schwein:
 					if (Account.Silver >= pigCostSilver && Account.Mushroom >= pigCostMushroom) {
 						canBuyMount = true;
+						Account.Silver -= pigCostSilver;
+						Account.Mushroom -= pigCostMushroom;
 					}
 					break;
 				case MountTypes.Wolf:
 					if (Account.Silver >= wolfCostSilver && Account.Mushroom >= wolfCostMushroom) {
 						canBuyMount = true;
+						Account.Silver -= wolfCostSilver;
+						Account.Mushroom -= wolfCostMushroom;
 					}
 					break;
 				case MountTypes.Raptor:
 					if (Account.Silver >= raptorCostSilver && Account.Mushroom >= raptorCostMushroom) {
 						canBuyMount = true;
+						Account.Silver -= raptorCostSilver;
+						Account.Mushroom -= raptorCostMushroom;
 					}
 					break;
 				case MountTypes.Drachengreif:
 					if (Account.Silver >= dragonCostSilver && Account.Mushroom >= dragonCostMushroom) {
 						canBuyMount = true;
+						Account.Silver -= dragonCostSilver;
+						Account.Mushroom -= dragonCostMushroom;
 					}
 					break;
 				default:
