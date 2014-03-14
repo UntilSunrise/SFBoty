@@ -113,6 +113,7 @@ namespace SFBoty {
 			writer.Close();
 			writer.Dispose();
 
+			Bots.Select(x => x.Value).ToList().ForEach(x => x.Stop());
 			Application.Restart();
 		}
 

@@ -108,7 +108,7 @@ namespace SFBotyCore.Mechanic {
 			string to = Account.Settings.MailTo;
 			int port = Account.Settings.MailPort;
 			string smtpAddress = Account.Settings.MailSmtp;
-			string userName = Account.Settings.Username;
+			string userName = Account.Settings.MailUserNamer;
 			string passwort = CryptManager.Decrypt(Account.Settings.MailCryptPasswort);
 
 			MailMessage message = new MailMessage();
