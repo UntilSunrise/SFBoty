@@ -39,17 +39,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				CharScreenArea.UpdateAccountStats(s, Account);
 
 				#region ItemsAusrüsten
-				foreach (Item bpItem in Account.BackpackItems) {
-					if (bpItem.Typ != ItemTypes.SpiegelOderSchlüssel && bpItem.Typ != ItemTypes.Buff && bpItem.Typ != ItemTypes.Leer) {
-						bool bpItemIsBetter = Helper.IsBackpackItemBetterThanInventoryItem(bpItem, Account.InventoryItems.Where(a => a.Typ == bpItem.Typ).First(), Account);
-
-						if (bpItemIsBetter) {
-							RaiseMessageEvent(String.Format("Lege Rucksack-Item im Slot: {0} an.", bpItem.InventoryID));
-							ThreadSleep(Account.Settings.minTimeToUseItem, Account.Settings.maxTimeToUseItem);
-							s = SendRequest(ActionTypes.ItemAction + bpItem.InventoryID + "%3B1%3B-1");
-						}
-					}
-				}
+				s = ItemsBuckleOn();
 				#endregion
 
 				if (Account.Settings.PerformBuyStats && (!Account.Settings.SaveMoney || Account.Settings.SaveMoney && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.HighestBuyedStat) * Account.Settings.SaveMoneyFactor)) {
@@ -169,6 +159,22 @@ namespace SFBotyCore.Mechanic.Areas {
 				}
 			}
 
+		}
+
+		public string ItemsBuckleOn() {
+			string s = "";
+			foreach (Item bpItem in Account.BackpackItems) {
+				if (bpItem.Typ != ItemTypes.SpiegelOderSchlüssel && bpItem.Typ != ItemTypes.Buff && bpItem.Typ != ItemTypes.Leer) {
+					bool bpItemIsBetter = Helper.IsBackpackItemBetterThanInventoryItem(bpItem, Account.InventoryItems.Where(a => a.Typ == bpItem.Typ).First(), Account);
+
+					if (bpItemIsBetter) {
+						RaiseMessageEvent(String.Format("Lege Rucksack-Item im Slot: {0} an.", bpItem.InventoryID));
+						ThreadSleep(Account.Settings.minTimeToUseItem, Account.Settings.maxTimeToUseItem);
+						s = SendRequest(ActionTypes.ItemAction + bpItem.InventoryID + "%3B1%3B-1");
+					}
+				}
+			}
+			return s;
 		}
 
 		public override void RaiseMessageEvent(string s) {

@@ -81,6 +81,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					RaiseMessageEvent("Charakterübersicht betreten");
 					ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToLogOut);
 					s = SendRequest(ActionTypes.JoinCharacter);
+					s = ItemsBuckleOn();
 					CharScreenArea.UpdateAccountStats(s, Account);
 				}
 			}
@@ -111,6 +112,22 @@ namespace SFBotyCore.Mechanic.Areas {
 			}
 
 			return inventoryID;
+		}
+
+		public string ItemsBuckleOn() {
+			string s = "";
+			foreach (Item bpItem in Account.BackpackItems) {
+				if (bpItem.Typ != ItemTypes.SpiegelOderSchlüssel && bpItem.Typ != ItemTypes.Buff && bpItem.Typ != ItemTypes.Leer) {
+					bool bpItemIsBetter = Helper.IsBackpackItemBetterThanInventoryItem(bpItem, Account.InventoryItems.Where(a => a.Typ == bpItem.Typ).First(), Account);
+
+					if (bpItemIsBetter) {
+						RaiseMessageEvent(String.Format("Lege Rucksack-Item im Slot: {0} an.", bpItem.InventoryID));
+						ThreadSleep(Account.Settings.minTimeToUseItem, Account.Settings.maxTimeToUseItem);
+						s = SendRequest(ActionTypes.ItemAction + bpItem.InventoryID + "%3B1%3B-1");
+					}
+				}
+			}
+			return s;
 		}
 	}
 }
