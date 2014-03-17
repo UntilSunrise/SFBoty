@@ -81,8 +81,8 @@ namespace SFBotyCore.Mechanic.Areas {
 					RaiseMessageEvent("Charakterübersicht betreten");
 					ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToLogOut);
 					s = SendRequest(ActionTypes.JoinCharacter);
-					s = ItemsBuckleOn();
 					CharScreenArea.UpdateAccountStats(s, Account);
+					s = ItemsBuckleOn();
 				}
 			}
 
