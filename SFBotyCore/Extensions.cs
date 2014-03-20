@@ -36,7 +36,8 @@ namespace SFBotyCore {
 					.Replace("ä", "%E4")
 					.Replace("ö", "%F6")
 					.Replace("^", "%5E")
-					.Replace("~", "%7E"); //Ich weiß selbst das diese Stelle hier hässlich ist, aber flash escaped ihre werte sehr seltsam und ich hab in C# kein identisches Verfahren gefunden
+					.Replace("~", "%7E")
+					.Replace("ß", "%DF"); //Ich weiß selbst das diese Stelle hier hässlich ist, aber flash escaped ihre werte sehr seltsam und ich hab in C# kein identisches Verfahren gefunden
 		}
 
 		public static T ToEnum<T>(this string s) {
