@@ -177,17 +177,17 @@ namespace Assert {
 				throw new AssertException();
 			}
 		}
-		public static void IsNull(double d) {
+		public static void IsNull(double? d) {
 			if (d != null) {
 				throw new AssertException();
 			}
 		}
-		public static void IsNull(float f) {
+		public static void IsNull(float? f) {
 			if (f != null) {
 				throw new AssertException();
 			}
 		}
-		public static void IsNull(int i) {
+		public static void IsNull(int? i) {
 			if (i != null) {
 				throw new AssertException();
 			}
@@ -203,17 +203,17 @@ namespace Assert {
 				throw new AssertException(message);
 			}
 		}
-		public static void IsNull(double d, string message) {
+		public static void IsNull(double? d, string message) {
 			if (d != null) {
 				throw new AssertException(message);
 			}
 		}
-		public static void IsNull(float f, string message) {
+		public static void IsNull(float? f, string message) {
 			if (f != null) {
 				throw new AssertException(message);
 			}
 		}
-		public static void IsNull(int i, string message) {
+		public static void IsNull(int? i, string message) {
 			if (i != null) {
 				throw new AssertException(message);
 			}
@@ -229,17 +229,17 @@ namespace Assert {
 				throw new AssertException();
 			}
 		}
-		public static void IsNotNull(double d) {
+		public static void IsNotNull(double? d) {
 			if (d == null) {
 				throw new AssertException();
 			}
 		}
-		public static void IsNotNull(float f) {
+		public static void IsNotNull(float? f) {
 			if (f == null) {
 				throw new AssertException();
 			}
 		}
-		public static void IsNotNull(int i) {
+		public static void IsNotNull(int? i) {
 			if (i == null) {
 				throw new AssertException();
 			}
@@ -255,17 +255,17 @@ namespace Assert {
 				throw new AssertException(message);
 			}
 		}
-		public static void IsNotNull(double d, string message) {
+		public static void IsNotNull(double? d, string message) {
 			if (d == null) {
 				throw new AssertException(message);
 			}
 		}
-		public static void IsNotNull(float f, string message) {
+		public static void IsNotNull(float? f, string message) {
 			if (f == null) {
 				throw new AssertException(message);
 			}
 		}
-		public static void IsNotNull(int i, string message) {
+		public static void IsNotNull(int? i, string message) {
 			if (i == null) {
 				throw new AssertException(message);
 			}
