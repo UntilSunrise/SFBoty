@@ -47,6 +47,12 @@ namespace SFBotyCore.Mechanic.Areas {
 				int silver = Convert.ToInt32(Account.Silver * Account.Settings.FactorToDonate);
 				silver = silver - silver % 100; //silbertrennung vom gold abziehen
 				silver = silver - silver % Convert.ToInt32(Math.Pow(10d, Convert.ToDouble(silver.ToString().Length - 1))); // auf eine glate summe abrunden statt 5487 Gold lieber 5000 gold spenden
+
+				if (silver > (1000000000 - Account.Guild.Silver)) {
+					//Spende nur den Betrag, der zum Gold-Cap der Gilde benötigt wird
+					silver = 1000000000 - Account.Guild.Silver;
+				}
+				
 				SendRequest(String.Concat(ActionTypes.GuildDonateGold, silver));
 				Account.Silver -= silver;
 				RaiseMessageEvent(String.Concat("Es wurde ", Convert.ToInt32(silver / 100), " Gold an die Gilde ", Account.Guild.Name, " gespendet"));
