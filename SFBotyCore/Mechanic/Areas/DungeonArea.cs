@@ -192,7 +192,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			}
 
 			if (!Account.QuestIsStarted && !Account.TownWatchIsStarted || Account.MirrorIsCompleted) {
-				ThreadSleep(Account.Settings.minTimeToJoinDungeon, Account.Settings.maxTimeToJoinDungeon);
+				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				RaiseMessageEvent("Dungeonübersicht betreten");
 				string s = SendRequest(ActionTypes.JoinDungeon);
 				string[] answerRequest = s.Split('/');
@@ -219,10 +219,10 @@ namespace SFBotyCore.Mechanic.Areas {
 				RaiseMessageEvent(String.Concat("Es wird Dungeon ", nextDungeon.DungeonID, " mit der Ebene ", nextDungeon.DungeonEbene, " versucht (MonsterLvl ist ", nextDungeon.DungeonMonsterLvl, ")"));
 
 				//sleep
-				ThreadSleep(Account.Settings.minTimeToJoinDungeon, Account.Settings.maxTimeToJoinDungeon);
+				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				s = SendRequest(String.Concat(ActionTypes.DoDungeon, nextDungeon.DungeonID));
 				//sleep
-				ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
+				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				s = SendRequest(ActionTypes.JoinCharacter);
 				Account.DungeonEndTime = DateTime.Now.AddHours(1);
 				//set 1h for next dungeon time

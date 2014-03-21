@@ -49,7 +49,7 @@ namespace SFBotyCore.Mechanic.Areas {
 
 			string s;
 			if ((Account.Level >= 100 && Account.ToiletIsAvailable)) {
-				ThreadSleep(Account.Settings.minTimeToJoinToilet, Account.Settings.maxTimeToJoinToilet);
+				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				RaiseMessageEvent("WC betreten");
 				s = SendRequest(ActionTypes.JoinToilet);
 				string[] answerToilet = s.Split('/');
@@ -85,14 +85,14 @@ namespace SFBotyCore.Mechanic.Areas {
 					if (backpackslotWithLowestItemValue == 0) {
 						return;
 					}
-					ThreadSleep(Account.Settings.minTimeToDoToilet, Account.Settings.maxTimeToDoToilet);
+					ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 					RaiseMessageEvent(string.Format("Item im Slot {0}, wird in die Toilette geschmissen.", backpackslotWithLowestItemValue));
 					s = SendRequest(ActionTypes.ItemAction + backpackslotWithLowestItemValue + "%3B10%3B0");
 					answerToilet = s.Split('/');
 					Account.ToiletEndTime = (DateTime.Now - DateTime.Now.TimeOfDay).AddDays(1);
 
 					if (Account.Settings.SellToiletItemIfNotEpic && !answerToilet[0].Contains("E")) {
-						ThreadSleep(Account.Settings.minTimeToJoinShops, Account.Settings.maxTimeToJoinShops);
+						ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 						RaiseMessageEvent(string.Format("Item im Slot {0}, wird verkauft. Kein Epic.", backpackslotWithLowestItemValue));
 						s = SendRequest(ActionTypes.ItemAction + backpackslotWithLowestItemValue + "%3B0%3B0");
 					}
@@ -113,7 +113,7 @@ namespace SFBotyCore.Mechanic.Areas {
 
 			if (answerToilet[(int)ToiletAnswer.Exp] == answerToilet[(int)ToiletAnswer.ExpToNextLevel]) {
 				RaiseMessageEvent("WC ist voll, Spülung wird gedrückt.");
-				ThreadSleep(Account.Settings.minTimeToDoToilet, Account.Settings.maxTimeToDoToilet);
+				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				s = SendRequest(ActionTypes.FlushToilet);
 
 				answerToilet = s.Split('/');

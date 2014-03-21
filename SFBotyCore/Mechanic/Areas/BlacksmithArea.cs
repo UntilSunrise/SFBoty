@@ -36,7 +36,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			string s;
 			if (Account.BackpackItems.Count == 0 || Account.InventoryItems.Count == 0) {
 				RaiseMessageEvent("Charakterübersicht betreten");
-				ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToLogOut);
+				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				s = SendRequest(ActionTypes.JoinCharacter);
 				CharScreenArea.UpdateAccountStats(s, Account);
 			}
@@ -79,7 +79,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				//goto charscreen um items auszurüsten
 				if (hasBuyedOneItem) {
 					RaiseMessageEvent("Charakterübersicht betreten");
-					ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToLogOut);
+					ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 					s = SendRequest(ActionTypes.JoinCharacter);
 					CharScreenArea.UpdateAccountStats(s, Account);
 					s = ItemsBuckleOn();
@@ -90,7 +90,7 @@ namespace SFBotyCore.Mechanic.Areas {
 
 		private string SellItemWithLowestValue(int InventoryID, string s) {
 			RaiseMessageEvent(string.Format("Item im Slot {0}, wird verkauft.", InventoryID));
-			ThreadSleep(Account.Settings.minTimeToSellItem, Account.Settings.maxTimeToSellItem);
+			ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 			return SendRequest(ActionTypes.ItemAction + InventoryID + "%3B0%3B0");
 		}
 
@@ -122,7 +122,7 @@ namespace SFBotyCore.Mechanic.Areas {
 
 					if (bpItemIsBetter) {
 						RaiseMessageEvent(String.Format("Lege Rucksack-Item im Slot: {0} an.", bpItem.InventoryID));
-						ThreadSleep(Account.Settings.minTimeToUseItem, Account.Settings.maxTimeToUseItem);
+						ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 						s = SendRequest(ActionTypes.ItemAction + bpItem.InventoryID + "%3B1%3B-1");
 					}
 				}

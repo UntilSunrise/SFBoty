@@ -62,7 +62,7 @@ namespace SFBotyCore.Mechanic.Areas {
                     break;
                 } //else do nothing
 
-				ThreadSleep(Account.Settings.minTimeToJoinHoF, Account.Settings.maxTimeToJoinHoF);
+				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				if (Account.Settings.AttackSuggestedEnemy) {
 					s = SendRequest(ActionTypes.JoinArena);
 					string[] arenaAnswer = s.Substring(4, s.Length - 5).Split(';');
@@ -117,7 +117,7 @@ namespace SFBotyCore.Mechanic.Areas {
 
             if (tries <= maxTries && !playerFilter.Contains(enemyNick) && !guildFilter.Contains(enemyGuildNick) && Account.Settings.Username != enemyNick) {
 				RaiseMessageEvent(string.Format("Greife Spieler: {0} an.", enemyNick));
-				ThreadSleep(Account.Settings.minTimeToJoinHoF, Account.Settings.maxTimeToJoinHoF);
+				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				s = SendRequest(string.Concat(ActionTypes.AttackEnemy, enemyNick.Escape()));
 
 				fightAnswer = s.Split(';');
@@ -134,7 +134,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					RaiseMessageEvent(string.Format("Du hast gegen {0} verloren. Ehre: {1} Gold: {2}", enemyNick, honorChange, goldChange));
 				}
 				//Account Daten aktualisieren
-				ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
+				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				s = SendRequest(ActionTypes.JoinCharacter);
 				if (s.Split('/').Count() < ResponseTypes.NextFreeDuellTimestamp) {
 					Account.ArenaEndTime = DateTime.Now.AddMinutes(10);

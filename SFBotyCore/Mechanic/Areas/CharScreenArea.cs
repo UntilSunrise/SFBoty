@@ -34,46 +34,48 @@ namespace SFBotyCore.Mechanic.Areas {
 			string s;
 			if ((Account.ALU_Seconds == 0 || !Account.Settings.PerformQuesten) && !Account.QuestIsStarted && !Account.TownWatchIsStarted) {
 				RaiseMessageEvent("Charakterübersicht betreten");
-				ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToLogOut);
+				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				s = SendRequest(ActionTypes.JoinCharacter);
 				CharScreenArea.UpdateAccountStats(s, Account);
 
 				#region ItemsAusrüsten
+				RaiseMessageEvent("Gucke ob Items ausgerüstet werden können");
+				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				s = ItemsBuckleOn();
 				#endregion
 
 				if (Account.Settings.PerformBuyStats && (!Account.Settings.SaveMoney || Account.Settings.SaveMoney && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.HighestBuyedStat) * Account.Settings.SaveMoneyFactor)) {
 
 					bool canBuyStats = true;
-					
+
 					while (canBuyStats) {
 						bool haveBuy = false;
 
-                        int sumStats = 0;
-                        if (Account.Settings.StatStrFactor > 0f) {
-                            sumStats += Account.BaseStr;
-                        }
-                        if (Account.Settings.StatDexFactor > 0f) {
-                            sumStats += Account.BaseDex;
-                        }
-                        if (Account.Settings.StatIntFactor > 0f) {
-                            sumStats += Account.BaseInt;
-                        }
-                        if (Account.Settings.StatAusFactor > 0f) {
-                            sumStats += Account.BaseAus;
-                        }
-                        if (Account.Settings.StatLuckFactor > 0f) {
-                            sumStats += Account.BaseLuck;
-                        }
+						int sumStats = 0;
+						if (Account.Settings.StatStrFactor > 0f) {
+							sumStats += Account.BaseStr;
+						}
+						if (Account.Settings.StatDexFactor > 0f) {
+							sumStats += Account.BaseDex;
+						}
+						if (Account.Settings.StatIntFactor > 0f) {
+							sumStats += Account.BaseInt;
+						}
+						if (Account.Settings.StatAusFactor > 0f) {
+							sumStats += Account.BaseAus;
+						}
+						if (Account.Settings.StatLuckFactor > 0f) {
+							sumStats += Account.BaseLuck;
+						}
 
-                        int strLimit = Convert.ToInt32(sumStats * Account.Settings.StatStrFactor);
-                        int dexLimit = Convert.ToInt32(sumStats * Account.Settings.StatDexFactor);
-                        int intLimit = Convert.ToInt32(sumStats * Account.Settings.StatIntFactor);
-                        int ausLimit = Convert.ToInt32(sumStats * Account.Settings.StatAusFactor);
-                        int LuckLimit = Convert.ToInt32(sumStats * Account.Settings.StatLuckFactor);
+						int strLimit = Convert.ToInt32(sumStats * Account.Settings.StatStrFactor);
+						int dexLimit = Convert.ToInt32(sumStats * Account.Settings.StatDexFactor);
+						int intLimit = Convert.ToInt32(sumStats * Account.Settings.StatIntFactor);
+						int ausLimit = Convert.ToInt32(sumStats * Account.Settings.StatAusFactor);
+						int LuckLimit = Convert.ToInt32(sumStats * Account.Settings.StatLuckFactor);
 
 						if (Account.BaseStr <= strLimit && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.BuyedStr)) {
-							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
+							ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 							s = SendRequest(ActionTypes.BuyStatStr);
 							if (s.Split('/').Count() < 2) {
 								canBuyStats = false;
@@ -89,7 +91,7 @@ namespace SFBotyCore.Mechanic.Areas {
 						}
 
 						if (Account.BaseDex <= dexLimit && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.BuyedDex)) {
-							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
+							ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 							s = SendRequest(ActionTypes.BuyStatDex);
 							if (s.Split('/').Count() < 2) {
 								canBuyStats = false;
@@ -105,7 +107,7 @@ namespace SFBotyCore.Mechanic.Areas {
 						}
 
 						if (Account.BaseInt <= intLimit && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.BuyedInt)) {
-							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
+							ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 							s = SendRequest(ActionTypes.BuyStatInt);
 							if (s.Split('/').Count() < 2) {
 								canBuyStats = false;
@@ -121,7 +123,7 @@ namespace SFBotyCore.Mechanic.Areas {
 						}
 
 						if (Account.BaseAus <= ausLimit && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.BuyedAus)) {
-							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
+							ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 							s = SendRequest(ActionTypes.BuyStatAus);
 							if (s.Split('/').Count() < 2) {
 								canBuyStats = false;
@@ -137,7 +139,7 @@ namespace SFBotyCore.Mechanic.Areas {
 						}
 
 						if (Account.BaseLuck <= LuckLimit && Account.Silver > Helper.GetGoldMountFromGoldCurve(Account.BuyedLuck)) {
-							ThreadSleep(Account.Settings.minTimeToBuyStat, Account.Settings.maxTimeToBuyStat);
+							ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 							s = SendRequest(ActionTypes.BuyStatLuck);
 							if (s.Split('/').Count() < 2) {
 								canBuyStats = false;
@@ -170,7 +172,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					if (bpItemIsBetter) {
 						RaiseMessageEvent(String.Format("Lege Rucksack-Item im Slot: {0} an.", bpItem.InventoryID));
 						s = SendRequest(ActionTypes.JoinCharacter);
-						ThreadSleep(Account.Settings.minTimeToUseItem, Account.Settings.maxTimeToUseItem);
+						ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 						s = SendRequest(ActionTypes.ItemAction + bpItem.InventoryID + "%3B1%3B-1");
 					}
 				}
@@ -188,7 +190,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			if (s == "E078") {
 				return;
 			}
-			
+
 			string[] answer = s.Split('/');
 			string str = answer[ResponseTypes.str];
 			string ges = answer[ResponseTypes.ges];
@@ -247,7 +249,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			while (j <= 10) {
 				acc.InventoryItems.Add(new Item(s.Split('/'), ResponseTypes.InventoryFirstItemPosition + ((j - 1) * ResponseTypes.ItemSize), 0));
 				j++;
-			}	
+			}
 		}
 	}
 }

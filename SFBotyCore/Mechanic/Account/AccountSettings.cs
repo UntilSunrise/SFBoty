@@ -80,133 +80,13 @@ namespace SFBotyCore.Mechanic.Account {
 
 		//times are in Sekunds
 		#region Times
-		public float minTimeToJoinTarvern { get; set; }
-		public float maxTimeToJoinTarvern { get; set; }
-
-		public float minTimeToTakeQuest { get; set; }
-		public float maxTimeToTakeQuest { get; set; }
-
-		public float minTimeToEndAQuest { get; set; }
-		public float maxTimeToEndAQuest { get; set; }
-
-		public float minTimeToJoinStadtwache { get; set; }
-		public float maxTimeToJoinStadtwache { get; set; }
-
-		public float minTimeToDoStadtwache { get; set; }
-		public float maxTimeToDoStadtwache { get; set; }
-
-		public float minTimeToJoinChar { get; set; }
-		public float maxTimeToJoinChar { get; set; }
-
-		public float minTimeToJoinHoF { get; set; }
-		public float maxTimeToJoinHoF { get; set; }
-
-		public float minTimeToJoinEnemy { get; set; }
-		public float maxTimeToJoinEnemy { get; set; }
-
-		public float minTimeToLogOut { get; set; }
-		public float maxTimeToLogOut { get; set; }
-
-		public float minTimeToBuyStat { get; set; }
-		public float maxTimeToBuyStat { get; set; }
-
-		public float minTimeToBuyBeer { get; set; }
-		public float maxTimeToBuyBeer { get; set; }
-
-		public float minTimeToJoinDungeon { get; set; }
-		public float maxTimeToJoinDungeon { get; set; }
-
-		public float minTimeToJoinShops { get; set; }
-		public float maxTimeToJoinShops { get; set; }
-
-		public float minTimeToJoinToilet { get; set; }
-		public float maxTimeToJoinToilet { get; set; }
-
-		public float minTimeToDoToilet { get; set; }
-		public float maxTimeToDoToilet { get; set; }
-
-		public float minTimeToSellItem { get; set; }
-		public float maxTimeToSellItem { get; set; }
-
-		public float minTimeToJoinGuild { get; set; }
-		public float maxTimeToJoinGuild { get; set; }
-
+		public float minShortTime { get; set; }
+		public float maxShortTime { get; set; }
+		public float minLongTime { get; set; }
+		public float maxLongTime { get; set; }
 		public float guildVisitInterval { get; set; }
-		public float minTimeToDonate { get; set; }
-		public float maxTimeToDonate { get; set; }
-
-		public float minTimeToUseItem { get; set; }
-		public float maxTimeToUseItem { get; set; }
-
 		public float MinSendRequestInterval { get; set; }
 		#endregion
-
-		public float minShortTime { 
-			get {
-				return minTimeToDonate == null || minTimeToDonate == 0 ? 1f : minTimeToDonate;
-			}
-			set {
-				minTimeToJoinTarvern = value;
-				minTimeToEndAQuest = value;
-				minTimeToJoinStadtwache = value;
-				minTimeToJoinChar = value;
-				minTimeToJoinHoF = value;
-				minTimeToJoinEnemy = value;
-				minTimeToLogOut = value;
-				minTimeToBuyStat = value;
-				minTimeToBuyBeer = value;
-				minTimeToJoinDungeon = value;
-				minTimeToJoinShops = value;		
-				minTimeToJoinToilet = value;		
-				minTimeToDoToilet = value;
-				minTimeToSellItem = value;
-				minTimeToJoinGuild = value;
-				minTimeToDonate = value;
-				minTimeToUseItem = value;
-			}
-		}
-		public float maxShortTime {
-			get {
-				return maxTimeToDonate == null || maxTimeToDonate == 0 ? 3f : maxTimeToDonate;
-			}
-			set {
-				maxTimeToJoinTarvern = value;
-				maxTimeToEndAQuest = value;
-				maxTimeToJoinStadtwache = value;
-				maxTimeToJoinChar = value;
-				maxTimeToJoinHoF = value;
-				maxTimeToJoinEnemy = value;
-				maxTimeToLogOut = value;
-				maxTimeToBuyStat = value;
-				maxTimeToBuyBeer = value;
-				maxTimeToJoinDungeon = value;
-				maxTimeToJoinShops = value;		
-				maxTimeToJoinToilet = value;		
-				maxTimeToDoToilet = value;
-				maxTimeToSellItem = value;
-				maxTimeToJoinGuild = value;
-				maxTimeToDonate = value;
-				maxTimeToUseItem = value;
-			}
-		}
-		public float minLongTime {
-			get {
-				return minTimeToTakeQuest == null || minTimeToTakeQuest == 0 ? 15f : minTimeToTakeQuest;
-			}
-			set {
-				minTimeToTakeQuest = value;
-				minTimeToDoStadtwache = value;
-			}
-		}
-		public float maxLongTime {
-			get {
-				return maxTimeToTakeQuest == null || maxTimeToTakeQuest == 0 ? 45f : maxTimeToTakeQuest;
-			}
-			set {
-				maxTimeToTakeQuest = value;
-				maxTimeToDoStadtwache = value;
-			}
-		}
 
 		public bool HasLogin { get { return SessionID != EmpytSessionID; } }
 		public AutoQuestMode QuestMode { get; set; }
@@ -266,62 +146,6 @@ namespace SFBotyCore.Mechanic.Account {
 			this.TownWatchMinHourForShortWork = 9;
 			this.TownWatchMaxHourForShortWork = 21;
 
-			this.minTimeToJoinTarvern = 2f;
-			this.maxTimeToJoinTarvern = 5f;
-
-			this.minTimeToTakeQuest = 15f;
-			this.maxTimeToTakeQuest = 45f;
-
-			this.minTimeToEndAQuest = 3f;
-			this.maxTimeToEndAQuest = 6F;
-
-			this.minTimeToJoinStadtwache = 2f;
-			this.maxTimeToJoinStadtwache = 5f;
-
-			this.minTimeToDoStadtwache = 15f;
-			this.maxTimeToDoStadtwache = 45f;
-
-			this.minTimeToJoinChar = 2f;
-			this.maxTimeToJoinChar = 5f;
-
-			this.minTimeToJoinHoF = 2f;
-			this.maxTimeToJoinHoF = 5f;
-
-			this.minTimeToJoinEnemy = 1f;
-			this.maxTimeToJoinEnemy = 2f;
-
-			this.minTimeToLogOut = 2f;
-			this.maxTimeToLogOut = 5f;
-
-			this.minTimeToBuyStat = 2f;
-			this.maxTimeToBuyStat = 4f;
-
-			this.minTimeToBuyBeer = 2f;
-			this.maxTimeToBuyBeer = 4f;
-
-			this.minTimeToJoinDungeon = 3f;
-			this.maxTimeToJoinDungeon = 6f;
-
-			this.minTimeToJoinShops = 2f;
-			this.maxTimeToJoinShops = 5f;
-
-			this.minTimeToJoinToilet = 3f;
-			this.maxTimeToJoinToilet = 5f;
-
-			this.minTimeToDoToilet = 3f;
-			this.maxTimeToDoToilet = 5f;
-
-			this.minTimeToSellItem = 1f;
-			this.maxTimeToSellItem = 3f;
-
-			this.minTimeToJoinGuild = 3f;
-			this.maxTimeToJoinGuild = 5.5f;
-			this.minTimeToDonate = 2f;
-			this.maxTimeToDonate = 4f;
-
-			this.minTimeToUseItem = 2f;
-			this.maxTimeToUseItem = 3f;
-
 			this.MinSendRequestInterval = 1f;
 
 			this.QuestMode = AutoQuestMode.BestXP;
@@ -361,46 +185,12 @@ namespace SFBotyCore.Mechanic.Account {
 			this.LevelDifference = tmp.LevelDifference;
 			this.LowerRangeLimit = tmp.LowerRangeLimit;
 			this.MaxBeerToBuy = tmp.MaxBeerToBuy;
-			this.maxTimeToBuyBeer = tmp.maxTimeToBuyBeer;
-			this.maxTimeToBuyStat = tmp.maxTimeToBuyStat;
-			this.maxTimeToDonate = tmp.maxTimeToDonate;
-			this.maxTimeToDoStadtwache = tmp.maxTimeToDoStadtwache;
-			this.maxTimeToDoToilet = tmp.maxTimeToDoToilet;
-			this.maxTimeToEndAQuest = tmp.maxTimeToEndAQuest;
-			this.maxTimeToJoinChar = tmp.maxTimeToJoinChar;
-			this.maxTimeToJoinDungeon = tmp.maxTimeToJoinDungeon;
-			this.maxTimeToJoinEnemy = tmp.maxTimeToJoinEnemy;
-			this.maxTimeToJoinGuild = tmp.maxTimeToJoinGuild;
-			this.maxTimeToJoinHoF = tmp.maxTimeToJoinHoF;
-			this.maxTimeToJoinShops = tmp.maxTimeToJoinShops;
-			this.maxTimeToJoinStadtwache = tmp.maxTimeToJoinStadtwache;
-			this.maxTimeToJoinTarvern = tmp.maxTimeToJoinTarvern;
-			this.maxTimeToJoinToilet = tmp.maxTimeToJoinToilet;
-			this.maxTimeToLogOut = tmp.maxTimeToLogOut;
-			this.maxTimeToSellItem = tmp.maxTimeToSellItem;
-			this.maxTimeToTakeQuest = tmp.maxTimeToTakeQuest;
+			this.maxShortTime = tmp.maxShortTime;
+			this.maxLongTime = tmp.maxLongTime;
 			this.MaxTriesToFindEnemy = tmp.MaxTriesToFindEnemy;
 			this.MinSendRequestInterval = tmp.MinSendRequestInterval;
-			this.minTimeToBuyBeer = tmp.minTimeToBuyBeer;
-			this.minTimeToBuyStat = tmp.minTimeToBuyStat;
-			this.minTimeToDonate = tmp.minTimeToDonate;
-			this.minTimeToDoStadtwache = tmp.minTimeToDoStadtwache;
-			this.minTimeToDoToilet = tmp.minTimeToDoToilet;
-			this.minTimeToEndAQuest = tmp.minTimeToEndAQuest;
-			this.minTimeToJoinChar = tmp.minTimeToJoinChar;
-			this.minTimeToJoinDungeon = tmp.minTimeToJoinDungeon;
-			this.minTimeToJoinEnemy = tmp.minTimeToJoinEnemy;
-			this.minTimeToJoinGuild = tmp.minTimeToJoinGuild;
-			this.minTimeToJoinHoF = tmp.minTimeToJoinHoF;
-			this.minTimeToJoinShops = tmp.minTimeToJoinShops;
-			this.minTimeToJoinStadtwache = tmp.minTimeToJoinStadtwache;
-			this.minTimeToJoinTarvern = tmp.minTimeToJoinTarvern;
-			this.minTimeToJoinToilet = tmp.minTimeToJoinToilet;
-			this.minTimeToLogOut = tmp.minTimeToLogOut;
-			this.minTimeToSellItem = tmp.minTimeToSellItem;
-			this.minTimeToTakeQuest = tmp.minTimeToTakeQuest;
-			this.minTimeToUseItem = tmp.minTimeToUseItem;
-			this.maxTimeToUseItem = tmp.maxTimeToUseItem;
+			this.minShortTime = tmp.minShortTime;
+			this.minLongTime = tmp.minLongTime;
 			this.PasswordHash = tmp.PasswordHash;
 			this.PerformArena = tmp.PerformArena;
 			this.PerformBuyStats = tmp.PerformBuyStats;
@@ -450,46 +240,12 @@ namespace SFBotyCore.Mechanic.Account {
 			tmp.LevelDifference = this.LevelDifference;
 			tmp.LowerRangeLimit = this.LowerRangeLimit;
 			tmp.MaxBeerToBuy = this.MaxBeerToBuy;
-			tmp.maxTimeToBuyBeer = this.maxTimeToBuyBeer;
-			tmp.maxTimeToBuyStat = this.maxTimeToBuyStat;
-			tmp.maxTimeToDonate = this.maxTimeToDonate;
-			tmp.maxTimeToDoStadtwache = this.maxTimeToDoStadtwache;
-			tmp.maxTimeToDoToilet = this.maxTimeToDoToilet;
-			tmp.maxTimeToEndAQuest = this.maxTimeToEndAQuest;
-			tmp.maxTimeToJoinChar = this.maxTimeToJoinChar;
-			tmp.maxTimeToJoinDungeon = this.maxTimeToJoinDungeon;
-			tmp.maxTimeToJoinEnemy = this.maxTimeToJoinEnemy;
-			tmp.maxTimeToJoinGuild = this.maxTimeToJoinGuild;
-			tmp.maxTimeToJoinHoF = this.maxTimeToJoinHoF;
-			tmp.maxTimeToJoinShops = this.maxTimeToJoinShops;
-			tmp.maxTimeToJoinStadtwache = this.maxTimeToJoinStadtwache;
-			tmp.maxTimeToJoinTarvern = this.maxTimeToJoinTarvern;
-			tmp.maxTimeToJoinToilet = this.maxTimeToJoinToilet;
-			tmp.maxTimeToLogOut = this.maxTimeToLogOut;
-			tmp.maxTimeToSellItem = this.maxTimeToSellItem;
-			tmp.maxTimeToTakeQuest = this.maxTimeToTakeQuest;
+			tmp.maxShortTime = this.maxShortTime;
+			tmp.maxLongTime = this.maxLongTime;
 			tmp.MaxTriesToFindEnemy = this.MaxTriesToFindEnemy;
 			tmp.MinSendRequestInterval = this.MinSendRequestInterval;
-			tmp.minTimeToBuyBeer = this.minTimeToBuyBeer;
-			tmp.minTimeToBuyStat = this.minTimeToBuyStat;
-			tmp.minTimeToDonate = this.minTimeToDonate;
-			tmp.minTimeToDoStadtwache = this.minTimeToDoStadtwache;
-			tmp.minTimeToDoToilet = this.minTimeToDoToilet;
-			tmp.minTimeToEndAQuest = this.minTimeToEndAQuest;
-			tmp.minTimeToJoinChar = this.minTimeToJoinChar;
-			tmp.minTimeToJoinDungeon = this.minTimeToJoinDungeon;
-			tmp.minTimeToJoinEnemy = this.minTimeToJoinEnemy;
-			tmp.minTimeToJoinGuild = this.minTimeToJoinGuild;
-			tmp.minTimeToJoinHoF = this.minTimeToJoinHoF;
-			tmp.minTimeToJoinShops = this.minTimeToJoinShops;
-			tmp.minTimeToJoinStadtwache = this.minTimeToJoinStadtwache;
-			tmp.minTimeToJoinTarvern = this.minTimeToJoinTarvern;
-			tmp.minTimeToJoinToilet = this.minTimeToJoinToilet;
-			tmp.minTimeToLogOut = this.minTimeToLogOut;
-			tmp.minTimeToSellItem = this.minTimeToSellItem;
-			tmp.minTimeToTakeQuest = this.minTimeToTakeQuest;
-			tmp.minTimeToUseItem = this.minTimeToUseItem;
-			tmp.maxTimeToUseItem = this.maxTimeToUseItem;
+			tmp.minShortTime = this.minShortTime;
+			tmp.minLongTime = this.minLongTime;
 			tmp.PasswordHash = this.PasswordHash;
 			tmp.PerformArena = this.PerformArena;
 			tmp.PerformBuyStats = this.PerformBuyStats;

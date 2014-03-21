@@ -37,15 +37,15 @@ namespace SFBotyCore.Mechanic.Areas {
 
 			string s;
 			if (!Account.QuestIsStarted && !Account.TownWatchIsStarted) {
-				ThreadSleep(Account.Settings.minTimeToJoinTarvern, Account.Settings.maxTimeToJoinTarvern);
+				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				RaiseMessageEvent("Taverne betreten");
 				s = SendRequest(ActionTypes.JoinTarvern);
 				string[] answerTavern = s.Split('/');
 
 				if (s.Substring(0, 4).Contains("103") || s.Substring(0, 4).Contains("106")) {
-					ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
+					ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 					s = SendRequest(ActionTypes.JoinCharacter);
-					ThreadSleep(Account.Settings.minTimeToJoinTarvern, Account.Settings.maxTimeToJoinTarvern);
+					ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 					s = SendRequest(ActionTypes.JoinTarvern);
 					answerTavern = s.Split('/');
 
@@ -60,7 +60,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					int maxBeer = answerTavern[108].Length > 2 ? 11 : 10;
 					if (usedBeer < maxBeer && usedBeer < Account.Settings.MaxBeerToBuy && Account.ALU_Seconds <= 20 * 60) {
 						while (Account.ALU_Seconds + 20 * 60 < 100 * 60 && Account.Mushroom > 1 && usedBeer < maxBeer) {
-							ThreadSleep(Account.Settings.minTimeToBuyBeer, Account.Settings.maxTimeToBuyBeer);
+							ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 							SendRequest(ActionTypes.BuyBeer);
 							Account.ALU_Seconds += 20 * 60;
 							usedBeer += 1;
@@ -103,7 +103,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				int keyOrMirrorDescription = Convert.ToInt32(answerTavern[245]);
 
 				if (Account.Settings.PerformQuesten) {
-					ThreadSleep(Account.Settings.minTimeToTakeQuest, Account.Settings.maxTimeToTakeQuest);
+					ThreadSleep(Account.Settings.minLongTime, Account.Settings.maxLongTime);
 					if (quest1ItemType == ItemTypes.SpiegelOderSchlüssel || quest2ItemType == ItemTypes.SpiegelOderSchlüssel || quest3ItemType == ItemTypes.SpiegelOderSchlüssel) {
 						RaiseMessageEvent("Schlüssel oder Spiegelstück gefunden.");
 						if (quest1ItemType == ItemTypes.SpiegelOderSchlüssel) {
@@ -229,9 +229,9 @@ namespace SFBotyCore.Mechanic.Areas {
 				}
 			} else {
 				if (DateTime.Now > Account.QuestEndTime && Account.QuestIsStarted) {
-					ThreadSleep(Account.Settings.minTimeToTakeQuest, Account.Settings.maxTimeToTakeQuest);
+					ThreadSleep(Account.Settings.minLongTime, Account.Settings.maxLongTime);
 					string t = SendRequest(ActionTypes.JoinTarvern);
-					ThreadSleep(Account.Settings.minTimeToEndAQuest, Account.Settings.maxTimeToEndAQuest);
+					ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 					string returnString = SendRequest(ActionTypes.JoinCharacter);
 					Account.QuestIsStarted = false;
 					RaiseMessageEvent("Quest was finished");
