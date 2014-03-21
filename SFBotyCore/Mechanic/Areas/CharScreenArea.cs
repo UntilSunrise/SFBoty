@@ -171,7 +171,6 @@ namespace SFBotyCore.Mechanic.Areas {
 
 					if (bpItemIsBetter) {
 						RaiseMessageEvent(String.Format("Lege Rucksack-Item im Slot: {0} an.", bpItem.InventoryID));
-						s = SendRequest(ActionTypes.JoinCharacter);
 						ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 						s = SendRequest(ActionTypes.ItemAction + bpItem.InventoryID + "%3B1%3B-1");
 					}
