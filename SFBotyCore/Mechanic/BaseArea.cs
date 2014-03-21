@@ -149,7 +149,7 @@ namespace SFBotyCore.Mechanic {
 		protected void ThreadSleep(float? minTime, float? maxTime) {
 			Asserts.IsTrue(minTime != null && minTime > 0f, "minTime muss größer 0 sein");
 			Asserts.IsTrue(maxTime != null && maxTime > 0f, "maxTime muss größer 0 sein");
-			Asserts.IsTrue(minTime <= maxTime, "minTime muss kleiner gleich maxTime sein");
+			Asserts.IsTrue((float?)minTime <= (float?)maxTime, "minTime muss kleiner gleich maxTime sein");
 
 			Thread.Sleep(random.Next(Convert.ToInt32(minTime * 1000), Convert.ToInt32(maxTime * 1000)));
 		}
