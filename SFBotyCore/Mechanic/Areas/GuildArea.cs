@@ -51,12 +51,16 @@ namespace SFBotyCore.Mechanic.Areas {
 				if (silver > (1000000000 - Account.Guild.Silver)) {
 					//Spende nur den Betrag, der zum Gold-Cap der Gilde benötigt wird
 					silver = 1000000000 - Account.Guild.Silver;
+				} else {
+					silver = 0;
+				}
+
+				if (silver > 0) {
+					SendRequest(String.Concat(ActionTypes.GuildDonateGold, silver));
+					Account.Silver -= silver;
+					RaiseMessageEvent(String.Concat("Es wurde ", Convert.ToInt32(silver / 100), " Gold an die Gilde ", Account.Guild.Name, " gespendet"));
 				}
 				
-				SendRequest(String.Concat(ActionTypes.GuildDonateGold, silver));
-				Account.Silver -= silver;
-				RaiseMessageEvent(String.Concat("Es wurde ", Convert.ToInt32(silver / 100), " Gold an die Gilde ", Account.Guild.Name, " gespendet"));
-
 				hasJoinIn = true;
 			}
 
