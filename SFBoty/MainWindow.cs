@@ -19,8 +19,8 @@ namespace SFBoty {
 	public partial class MainWindow : Form {
 		private Dictionary<string, Bot> Bots;
 		private Dictionary<string, List<string>> BotLogs;
+		private Dictionary<string, HashSet<string>> ChatLogs;
 		private string SelectedBotKey;
-		private static bool AutoRun = false;
 
 		public MainWindow() {
 			InitializeComponent();
@@ -28,17 +28,13 @@ namespace SFBoty {
 
 			Bots = new Dictionary<string, Bot>();
 			BotLogs = new Dictionary<string, List<string>>();
+			ChatLogs = new Dictionary<string, HashSet<string>>();
 			SelectedBotKey = "";
 
 			accountOverview1.StartBot += new EventHandler<SFBoty.Controls.EventSettingsArgs>(accountOverview1_StartBot);
 			accountOverview1.StopBot += new EventHandler<SFBoty.Controls.EventSettingsArgs>(accountOverview1_StopBot);
 			accountOverview1.StartAllBots += new EventHandler<SFBoty.Controls.EventSettingsArgs>(accountOverview1_StartAllBots);
 			accountOverview1.SelectedAccountChanged += new EventHandler<EventSettingsArgs>(accountOverview1_SelectedAccountChanged);
-
-			if (AutoRun) {
-				accountOverview1.LoadAllAccountsFromXML();
-				accountOverview1.StartAll();
-			}
 
 			ClearLogs();
 		}
@@ -58,7 +54,7 @@ namespace SFBoty {
 		}
 
 		void accountOverview1_StopBot(object sender, EventSettingsArgs e) {
-			foreach (AccountSettings setting in e.Settings) { 
+			foreach (AccountSettings setting in e.Settings) {
 				string key = String.Concat(setting.Username, setting.Server);
 				Bots[key].Stop();
 			}
@@ -92,7 +88,7 @@ namespace SFBoty {
 				bot.AddMenu(new CharScreenArea());
 				bot.AddMenu(new DungeonArea());
 				bot.AddMenu(new StadtwacheArea());
-				
+
 				Bots.Add(key, bot);
 				Bots[key].Run();
 			}
@@ -112,9 +108,6 @@ namespace SFBoty {
 
 			writer.Close();
 			writer.Dispose();
-
-			Bots.Select(x => x.Value).ToList().ForEach(x => x.Stop());
-			Application.Restart();
 		}
 
 		void bot_ExtendedLog(object sender, MessageEventsArgs e) {
@@ -133,8 +126,53 @@ namespace SFBoty {
 			writer.Dispose();
 		}
 
+		private void LogChatHistory(Bot bot, MessageEventsArgs e) {
+			string key = String.Concat(bot.Account.Settings.Username, bot.Account.Settings.Server);
+			List<string> chatLines = e.Message.Split('\n').Select(x => x.Trim()).ToList();
+
+			if (!ChatLogs.Keys.Any(x => x == key)) {
+				ChatLogs.Add(key, new HashSet<string>());
+			}
+
+			if (ChatLogs[key] == null) {
+				ChatLogs[key] = new HashSet<string>();
+			}
+
+			List<string> newChatLines = chatLines.Where(x => !x.Contains(ChatLogs[key].ToList())).ToList();
+
+			for (int i = chatLines.Count() - 1; i >= 0; i--) {
+				ChatLogs[key].Add(chatLines[i]);
+			}
+
+			if (newChatLines.Count() > 0) {
+				if (!System.IO.Directory.Exists("Logs")) {
+					System.IO.Directory.CreateDirectory("Logs");
+				}
+
+				CultureInfo culture = new CultureInfo("de-DE");
+
+				System.IO.StreamWriter writer = new System.IO.StreamWriter(String.Concat("Logs/", bot.Account.Settings.Server, "-", bot.Account.Settings.Username, "-chatlog-", DateTime.Now.ToString(culture).Remove(DateTime.Now.ToString(culture).Length - 9), ".log"), true);
+				for (int i = newChatLines.Count() - 1; i >= 0; i--) {
+					writer.WriteLine(newChatLines[i]);
+				}
+
+				writer.Close();
+				writer.Dispose();
+			}
+
+			while (ChatLogs[key].Count > 20) {
+				ChatLogs[key].Remove(ChatLogs[key].First());
+			}
+		}
+
 		void bot_MessageOutput(object sender, MessageEventsArgs e) {
 			Bot bot = (Bot)sender;
+
+			if (e.IsChatHistory) {
+				LogChatHistory(bot, e);
+				return; //ja ich habe mir den else Zweig gespart
+			}
+
 			string key = String.Concat(bot.Account.Settings.Username, bot.Account.Settings.Server);
 			if (BotLogs.Keys.Any(x => x == key)) {
 				if (BotLogs[key] != null) {
@@ -177,15 +215,17 @@ namespace SFBoty {
 				string key = String.Concat(e.Settings[0].Username, e.Settings[0].Server);
 				this.SelectedBotKey = key;
 				WriteLogToConsole(SelectedBotKey);
-			}		
+			}
 		}
 
 		private void WriteLogToConsole(string key) {
-			lock (console1) {
-				if (BotLogs.Keys.Any(x => x == key) && BotLogs[key] != null && BotLogs[key].Count() > 0) {
-					console1.Invoke(() => console1.SetMessages(BotLogs[key]));
+			try {
+				lock (console1) {
+					if (BotLogs.Keys.Any(x => x == key) && BotLogs[key] != null && BotLogs[key].Count() > 0) {
+						console1.Invoke(() => console1.SetMessages(BotLogs[key]));
+					}
 				}
-			}
+			} catch {}
 		}
 		#endregion
 

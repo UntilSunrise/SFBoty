@@ -71,9 +71,38 @@ namespace SFBotyCore.Mechanic {
 		/// </summary>
 		private void PerformAction() {
 			bool running = true;
+			int errorCount = 0;
+			DateTime lastError = DateTime.Now;
 			try {
 				while (running) {
-					Menus.ForEach(x => x.PerformArea());
+					try {
+						Menus.ForEach(x => x.PerformArea());
+					} catch (ThreadAbortException tae) {
+						throw tae;
+					} catch (Exception exc) {
+						if (Error != null) {
+							Error(this, new MessageEventsArgs(exc.ToString()));
+						}
+						
+						if (this.Account.Settings.IgnoreErrors) {
+							if (errorCount == 0) {
+								errorCount = 1;
+								lastError = DateTime.Now;
+							} else {
+								if ((lastError - DateTime.Now).TotalMinutes > 5d) {
+									errorCount = 0;
+									lastError = DateTime.Now;
+								} else {
+									errorCount += 1;
+									if (errorCount > 3) {
+										throw exc;
+									}
+								}
+							}
+						} else {
+							throw exc;
+						}
+					}
 
 					//at the end oh an Threadloop sleep for 1 Secound
 					Thread.Sleep(1000);

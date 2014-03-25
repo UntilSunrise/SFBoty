@@ -263,9 +263,11 @@ namespace SFBotyCore.Mechanic.Areas {
 
 	public class MessageEventsArgs : EventArgs {
 		public string Message { get; private set; }
+		public bool IsChatHistory { get; set; }
 
 		public MessageEventsArgs(string s) {
 			Message = s;
+			IsChatHistory = false;
 		}
 	}
 }

@@ -15,9 +15,7 @@ namespace SFBotyConsole {
 	class Program {
 
 		static void Main(string[] args) {
-			Console.BufferWidth += 50;
-			Console.BufferHeight += 200;
-			Console.WindowWidth += 50;
+			ChatLogs = new Dictionary<string, HashSet<string>>();
 
 			List<AccountSettings> accountSettings = new List<AccountSettings>();
 			accountSettings = LoadSettings();
@@ -77,8 +75,54 @@ namespace SFBotyConsole {
 			writer.Close();
 		}
 
+		private static Dictionary<string, HashSet<string>> ChatLogs;
+		private static void LogChatHistory(Bot bot, MessageEventsArgs e) {
+			string key = String.Concat(bot.Account.Settings.Username, bot.Account.Settings.Server);
+			List<string> chatLines = e.Message.Split('\n').Select(x => x.Trim()).ToList();
+
+			if (!ChatLogs.Keys.Any(x => x == key)) {
+				ChatLogs.Add(key, new HashSet<string>());
+			}
+
+			if (ChatLogs[key] == null) {
+				ChatLogs[key] = new HashSet<string>();
+			}
+
+			List<string> newChatLines = chatLines.Where(x => !x.Contains(ChatLogs[key].ToList())).ToList();
+
+			for (int i = chatLines.Count() - 1; i >= 0; i--) {
+				ChatLogs[key].Add(chatLines[i]);
+			}
+
+			if (newChatLines.Count() > 0) {
+				if (!System.IO.Directory.Exists("Logs")) {
+					System.IO.Directory.CreateDirectory("Logs");
+				}
+
+				CultureInfo culture = new CultureInfo("de-DE");
+
+				System.IO.StreamWriter writer = new System.IO.StreamWriter(String.Concat("Logs/", bot.Account.Settings.Server, "-", bot.Account.Settings.Username, "-chatlog-", DateTime.Now.ToString(culture).Remove(DateTime.Now.ToString(culture).Length - 9), ".log"), true);
+				for (int i = newChatLines.Count() - 1; i >= 0; i--) {
+					writer.WriteLine(newChatLines[i]);
+					Console.WriteLine(string.Concat(DateTime.Now.ToString(), " " + bot.Account.Settings.Username, "(", bot.Account.Settings.Server, ") Chat: ", newChatLines[i]));
+				}
+
+				writer.Close();
+				writer.Dispose();
+			}
+
+			while (ChatLogs[key].Count > 20) {
+				ChatLogs[key].Remove(ChatLogs[key].First());
+			}
+		}
+
 		static void bot_MessageOutput(object sender, MessageEventsArgs e) {
 			Bot tmp = (Bot)sender;
+
+			if (e.IsChatHistory) {
+				LogChatHistory(tmp, e);
+				return; //ja ich habe mir den else Zweig gespart
+			}
 
 			if (!System.IO.Directory.Exists("Logs")) {
 				System.IO.Directory.CreateDirectory("Logs");

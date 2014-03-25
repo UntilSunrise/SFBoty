@@ -61,6 +61,7 @@ namespace SFBotyCore.Mechanic.Account {
 
 		public bool DonateGold { get; set; }
 		public float FactorToDonate { get; set; }
+		public bool GetChatHistory { get; set; }
 
 		public int TownWatchMinHourForShortWork { get; set; }
 		public int TownWatchMaxHourForShortWork { get; set; }
@@ -77,6 +78,7 @@ namespace SFBotyCore.Mechanic.Account {
 		/// false = Jens Variante wird für den Item-Vergleich verwendet;
 		/// </summary>
 		public bool UseAlternativeIventoryChecking { get; set; }
+		public bool IgnoreErrors { get; set; }
 
 		//times are in Sekunds
 		#region Times
@@ -253,6 +255,7 @@ namespace SFBotyCore.Mechanic.Account {
 			this.guildVisitInterval = 60 * 90; //1.5h
 			this.DonateGold = true;
 			this.FactorToDonate = 0.1f;
+			this.GetChatHistory = false;
 
 			this.StatStrFactor = 0.45f;
 			this.StatDexFactor = 0.05f;
@@ -343,6 +346,8 @@ namespace SFBotyCore.Mechanic.Account {
 			this.MailTo = "";
 			this.MailUserNamer = "";
 			this.MailCryptPasswort = "";
+
+			this.IgnoreErrors = false;
 		}
 
 		public void ResetSessionID() {
@@ -435,6 +440,8 @@ namespace SFBotyCore.Mechanic.Account {
 			this.MailSmtp = tmp.MailSmtp;
 			this.MailTo = tmp.MailTo;
 			this.MailUserNamer = tmp.MailUserNamer;
+			this.GetChatHistory = tmp.GetChatHistory;
+			this.IgnoreErrors = tmp.IgnoreErrors;
 		}
 
 		public AccountSettings Clone() {
@@ -524,6 +531,8 @@ namespace SFBotyCore.Mechanic.Account {
 			tmp.MailSmtp = this.MailSmtp;
 			tmp.MailTo = this.MailTo;
 			tmp.MailUserNamer = this.MailUserNamer;
+			tmp.GetChatHistory = this.GetChatHistory;
+			tmp.IgnoreErrors = this.IgnoreErrors;
 
 			Assert.Asserts.AreNotSame(tmp, this, "Mist");
 

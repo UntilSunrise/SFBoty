@@ -197,6 +197,34 @@ namespace SFBotyCore.Mechanic.Areas {
 				string s = SendRequest(ActionTypes.JoinDungeon);
 				string[] answerRequest = s.Split('/');
 
+				/*
+				 *  if (DungeonNr == 100){
+						DungeonLevel = String((towerLevel + 1));
+					} else {
+						if (DungeonNr == 12){
+							DungeonLevel = String((int(Savegame[SG_DUNGEON_13]) - 121));
+						} else {
+							if (DungeonNr >= 10){
+								DungeonLevel = String((int(Savegame[((SG_NEW_DUNGEONS + DungeonNr) - 10)]) - 1));
+							} else {
+								DungeonLevel = String((int(Savegame[(SG_DUNGEON_LEVEL + DungeonNr)]) - 1));
+							};
+						};
+					};
+
+
+					für 1-9 = 481 + (1-9) - 1 (-1 für index)
+					für 10 = 442 + 10 - 10 - 1 (-1 für index)
+					für 11 = 442 + 11 - 10 - 1 (-1 für index)
+					für 12 = 491 - 121 (-1 für index)
+					für 13 = 442 + 13 - 10 - 1 (-1 für index)
+
+
+					public const SG_DUNGEON_LEVEL = 481;
+					public const SG_DUNGEON_13 = 491;
+					public const SG_NEW_DUNGEONS = 442;
+				 */
+
 				int d1Lvl = Convert.ToInt32(answerRequest[480]) - 1;
 				int d2Lvl = Convert.ToInt32(answerRequest[481]) - 1;
 				int d3Lvl = Convert.ToInt32(answerRequest[482]) - 1;
@@ -206,10 +234,10 @@ namespace SFBotyCore.Mechanic.Areas {
 				int d7Lvl = Convert.ToInt32(answerRequest[486]) - 1;
 				int d8Lvl = Convert.ToInt32(answerRequest[487]) - 1;
 				int d9Lvl = Convert.ToInt32(answerRequest[488]) - 1;
-				int d10Lvl = Convert.ToInt32(answerRequest[489]) - 1;
-				int d11Lvl = 0; //derzeit noch unbekannt wo diese Informationen gespeichert werden
-				int d12Lvl = 0;
-				int d13Lvl = 0;
+				int d10Lvl = Convert.ToInt32(answerRequest[442 + 10 - 10 - 1 - 1]) - 1;
+				int d11Lvl = Convert.ToInt32(answerRequest[442 + 11 - 10 - 1 - 1]) - 1;
+				int d12Lvl = Convert.ToInt32(answerRequest[491 - 121]) - 1; //nicht sicher, eventuell ist d12 und d13 vertauscht
+				int d13Lvl = Convert.ToInt32(answerRequest[442 + 13 - 10 - 1 - 2]) - 1; //nicht sicher
 
 				DungeonType nextDungeon;
 				nextDungeon = FilterNextDungeon(d1Lvl, d2Lvl, d3Lvl, d4Lvl, d5Lvl, d6Lvl, d7Lvl, d8Lvl, d9Lvl, d10Lvl, d11Lvl, d12Lvl, d13Lvl);

@@ -30,6 +30,7 @@ namespace SFBoty.Controls {
 		private NumericUpDown numSendRequestInterval;
 		private Label label11;
 		private NumericUpDown numMaxTriesToFindAnEnermy;
+		private CheckBox ckbIgnoreErrors;
 		private Label label4;
 	
 		private void InitializeComponent() {
@@ -56,6 +57,7 @@ namespace SFBoty.Controls {
 			this.label6 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
+			this.ckbIgnoreErrors = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numMaxTriesToFindAnEnermy)).BeginInit();
@@ -332,12 +334,24 @@ namespace SFBoty.Controls {
 			this.label4.TabIndex = 0;
 			this.label4.Text = "Min kurze Aktion:";
 			// 
+			// ckbIgnoreErrors
+			// 
+			this.ckbIgnoreErrors.AutoSize = true;
+			this.ckbIgnoreErrors.Location = new System.Drawing.Point(3, 380);
+			this.ckbIgnoreErrors.Name = "ckbIgnoreErrors";
+			this.ckbIgnoreErrors.Size = new System.Drawing.Size(99, 17);
+			this.ckbIgnoreErrors.TabIndex = 2;
+			this.ckbIgnoreErrors.Text = "Ignoriere Fehler";
+			this.ckbIgnoreErrors.UseVisualStyleBackColor = true;
+			this.ckbIgnoreErrors.CheckedChanged += new System.EventHandler(this.ckbIgnoreErrors_CheckedChanged);
+			// 
 			// AllgemeineSettings
 			// 
+			this.Controls.Add(this.ckbIgnoreErrors);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.Name = "AllgemeineSettings";
-			this.Size = new System.Drawing.Size(311, 377);
+			this.Size = new System.Drawing.Size(311, 404);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
@@ -350,6 +364,7 @@ namespace SFBoty.Controls {
 			((System.ComponentModel.ISupportInitialize)(this.numMaxShortTime)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMinShortTime)).EndInit();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 		
@@ -380,6 +395,8 @@ namespace SFBoty.Controls {
 			numSendRequestInterval.Value = new decimal(settings.MinSendRequestInterval);
 
 			numMaxTriesToFindAnEnermy.Value = settings.MaxTriesToFindEnemy;
+
+			ckbIgnoreErrors.Checked = settings.IgnoreErrors;
 		}
 
 		private void txtServer_TextChanged(object sender, EventArgs e) {
@@ -441,6 +458,10 @@ namespace SFBoty.Controls {
 
 		private void numMaxTriesToFindAnEnermy_ValueChanged(object sender, EventArgs e) {
 			Settings.MaxTriesToFindEnemy = Convert.ToInt32(numMaxTriesToFindAnEnermy.Value);
+		}
+
+		private void ckbIgnoreErrors_CheckedChanged(object sender, EventArgs e) {
+			Settings.IgnoreErrors = ckbIgnoreErrors.Checked;
 		}
 	}
 }

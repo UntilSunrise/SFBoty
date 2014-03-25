@@ -29,6 +29,9 @@ namespace SFBotyCore.Mechanic.Areas {
 		public override void PerformArea() {
 			base.PerformArea();
 
+			string[] art = { "bla" };
+			string a = art[2];
+
             string s;
             if (Account.BackpackItems.Count == 0 || Account.InventoryItems.Count == 0) {
                 RaiseMessageEvent("Charakterübersicht betreten");

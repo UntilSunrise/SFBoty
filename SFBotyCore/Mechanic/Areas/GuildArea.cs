@@ -10,8 +10,14 @@ namespace SFBotyCore.Mechanic.Areas {
 		public override event EventHandler<MessageEventsArgs> MessageOutput;
 
 		public override void RaiseMessageEvent(string s) {
+			RaiseMessageEvent(s, false);
+		}
+
+		public void RaiseMessageEvent(string s, bool isChatHistory) {
 			if (MessageOutput != null) {
-				MessageOutput(this, new MessageEventsArgs(s));
+				MessageEventsArgs args = new MessageEventsArgs(s);
+				args.IsChatHistory = isChatHistory;
+				MessageOutput(this, args);
 			}
 		}
 
@@ -28,6 +34,21 @@ namespace SFBotyCore.Mechanic.Areas {
 
 			if (!Account.Settings.PerformGuild || !Account.HasAGuild) {
 				return;
+			}
+
+			if (Account.HasAGuild && Account.Settings.GetChatHistory && DateTime.Now > Account.LastChatHistoryUpdate.AddSeconds(1d)) {
+				string chatHistory = "";
+				if (Account.ChatHistoryIndex == 0) {
+					chatHistory = SendRequest("517");
+				} else {
+					chatHistory = SendRequest(string.Concat("517", Account.ChatHistoryIndex));
+				}
+
+				if (chatHistory != "E096" && chatHistory != "121" && chatHistory.Split(';').Count() > 1) {
+					RaiseMessageEvent(chatHistory.Split(';')[0].Replace("�", "").Replace("/", Environment.NewLine).Substring(4), true);
+					Account.ChatHistoryIndex = Convert.ToInt32(chatHistory.Split(';')[1]);
+				}
+				Account.LastChatHistoryUpdate = DateTime.Now;
 			}
 
 			string s = "";

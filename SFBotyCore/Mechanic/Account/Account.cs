@@ -62,6 +62,9 @@ namespace SFBotyCore.Mechanic.Account {
 		public Guild Guild { get; set; }
 		public bool HasAGuild { get; set; }
 		public DateTime LastDonateTime { get; set; }
+		public int ChatHistoryIndex { get; set; }
+		public DateTime LastChatHistoryUpdate { get; set; }
+
 		public bool HasJoinAttack { get; set; }
 		public bool HasJoinDefence { get; set; }
 		public bool BackpackIsFull { get { return BackpackItems.Where(b => b.Typ != ItemTypes.Leer).Count() == 5; } }
@@ -131,6 +134,8 @@ namespace SFBotyCore.Mechanic.Account {
 			HasAGuild = true;
 			HasJoinAttack = false;
 			HasJoinDefence = false;
+			ChatHistoryIndex = 0;
+			LastChatHistoryUpdate = DateTime.Now;
 
 			LastDonateTime = DateTime.Now;
 			LastAction = DateTime.Now;
@@ -147,6 +152,7 @@ namespace SFBotyCore.Mechanic.Account {
 			if (Level >= 100 && !ToiletIsAvailable) {
 				ToiletIsAvailable = true;
 			}
+			ChatHistoryIndex = 0;
 		}
 	}
 }

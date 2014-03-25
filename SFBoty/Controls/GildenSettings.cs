@@ -28,10 +28,12 @@ namespace SFBoty.Controls {
 		private Label label8;
 		private TextBox txtIgnorePlayer;
 		private GroupBox groupBox2;
+		private CheckBox ckbGetChat;
 		private CheckBox chkPerformGuild;
 	
 		private void InitializeComponent() {
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.ckbGetChat = new System.Windows.Forms.CheckBox();
 			this.checkBox7 = new System.Windows.Forms.CheckBox();
 			this.checkBox6 = new System.Windows.Forms.CheckBox();
 			this.checkBox5 = new System.Windows.Forms.CheckBox();
@@ -62,6 +64,7 @@ namespace SFBoty.Controls {
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.ckbGetChat);
 			this.groupBox1.Controls.Add(this.checkBox7);
 			this.groupBox1.Controls.Add(this.checkBox6);
 			this.groupBox1.Controls.Add(this.checkBox5);
@@ -85,6 +88,17 @@ namespace SFBoty.Controls {
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Gilde";
+			// 
+			// ckbGetChat
+			// 
+			this.ckbGetChat.AutoSize = true;
+			this.ckbGetChat.Location = new System.Drawing.Point(291, 136);
+			this.ckbGetChat.Name = "ckbGetChat";
+			this.ckbGetChat.Size = new System.Drawing.Size(141, 17);
+			this.ckbGetChat.TabIndex = 16;
+			this.ckbGetChat.Text = "Chatverlauf aufzeichnen";
+			this.ckbGetChat.UseVisualStyleBackColor = true;
+			this.ckbGetChat.CheckedChanged += new System.EventHandler(this.ckbGetChat_CheckedChanged);
 			// 
 			// checkBox7
 			// 
@@ -352,6 +366,8 @@ namespace SFBoty.Controls {
 
 			txtIgnoreGuilde.Text = settings.IgnoreGuilds;
 			txtIgnorePlayer.Text = settings.IgnorePlayers;
+
+			ckbGetChat.Checked = settings.GetChatHistory;
 		}
 
 		private void chkPerformGuild_CheckedChanged(object sender, EventArgs e) {
@@ -372,6 +388,10 @@ namespace SFBoty.Controls {
 
 		private void txtIgnorePlayer_TextChanged(object sender, EventArgs e) {
 			Settings.IgnorePlayers = txtIgnorePlayer.Text;
+		}
+
+		private void ckbGetChat_CheckedChanged(object sender, EventArgs e) {
+			Settings.GetChatHistory = ckbGetChat.Checked;
 		}
 	}
 }
