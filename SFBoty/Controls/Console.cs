@@ -46,7 +46,7 @@ namespace SFBoty.Controls {
 						txtConsole.Text += s + Environment.NewLine;
 					}
 				}
-			} catch (Exception ex) { 
+			} catch { 
 				//nothing to do
 			}
 		}

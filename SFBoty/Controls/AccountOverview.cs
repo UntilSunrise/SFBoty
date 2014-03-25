@@ -202,7 +202,7 @@ namespace SFBoty.Controls {
 
 		private void dgvAccountList_CellContentClick(object sender, DataGridViewCellEventArgs e) {
 			if (dgvAccountList.SelectedRows.Count > 0) {
-				EditSettings frm = new EditSettings(Settings.Single(x => x.Username == dgvAccountList.SelectedRows[0].Cells[0].Value && x.Server == dgvAccountList.SelectedRows[0].Cells[1].Value));
+				EditSettings frm = new EditSettings(Settings.Single(x => x.Username == (string)dgvAccountList.SelectedRows[0].Cells[0].Value && x.Server == (string)dgvAccountList.SelectedRows[0].Cells[1].Value));
 				DialogResult result = frm.ShowDialog();
 
 				if (result == DialogResult.OK) {
@@ -213,7 +213,7 @@ namespace SFBoty.Controls {
 
 		private void btnStop_Click(object sender, EventArgs e) {
 			if (dgvAccountList.SelectedRows.Count > 0) {
-				AccountSettings settings = Settings.Single(x => x.Username == dgvAccountList.SelectedRows[0].Cells[0].Value && x.Server == dgvAccountList.SelectedRows[0].Cells[1].Value);
+				AccountSettings settings = Settings.Single(x => x.Username == (string)dgvAccountList.SelectedRows[0].Cells[0].Value && x.Server == (string)dgvAccountList.SelectedRows[0].Cells[1].Value);
 				if (StopBot != null) {
 					StopBot(this, new EventSettingsArgs(new List<AccountSettings>() { settings }));
 					dgvAccountList.SelectedRows[0].Cells[2].Value = "gestopt";
@@ -223,7 +223,7 @@ namespace SFBoty.Controls {
 
 		private void btnStart_Click(object sender, EventArgs e) {
 			if (dgvAccountList.SelectedRows.Count > 0) {
-				AccountSettings settings = Settings.Single(x => x.Username == dgvAccountList.SelectedRows[0].Cells[0].Value && x.Server == dgvAccountList.SelectedRows[0].Cells[1].Value);
+				AccountSettings settings = Settings.Single(x => x.Username == (string)dgvAccountList.SelectedRows[0].Cells[0].Value && x.Server == (string)dgvAccountList.SelectedRows[0].Cells[1].Value);
 				if (StartBot != null) {
 					StartBot(this, new EventSettingsArgs(new List<AccountSettings>() { settings }));
 					dgvAccountList.SelectedRows[0].Cells[2].Value = "gestartet";
@@ -246,7 +246,7 @@ namespace SFBoty.Controls {
 			}
 		}
 
-		public void Refresh() {
+		public override void Refresh() {
 			dgvAccountList.Rows.Clear();
 			foreach (AccountSettings setting in Settings) {
 				dgvAccountList.Rows.Add(setting.Username, setting.Server, "gestopt");
@@ -297,7 +297,7 @@ namespace SFBoty.Controls {
 
 		private void dgvAccountList_SelectionChanged(object sender, EventArgs e) {
 			if (dgvAccountList.SelectedRows.Count > 0) {
-				AccountSettings settings = Settings.Single(x => x.Username == dgvAccountList.SelectedRows[0].Cells[0].Value && x.Server == dgvAccountList.SelectedRows[0].Cells[1].Value);
+				AccountSettings settings = Settings.Single(x => x.Username == (string)dgvAccountList.SelectedRows[0].Cells[0].Value && x.Server == (string)dgvAccountList.SelectedRows[0].Cells[1].Value);
 				if (SelectedAccountChanged != null) {
 					SelectedAccountChanged(this, new EventSettingsArgs(new List<AccountSettings>() { settings }));
 				}

@@ -75,7 +75,7 @@ namespace SFBotyCore {
 					return true;
 				}
 
-				return Helper.IsBackpackItemBetterThanInventoryItem(shopItem, account.InventoryItems.Where(b => b.Typ == shopItem.Typ && b.Typ != null).First(), account);
+				return Helper.IsBackpackItemBetterThanInventoryItem(shopItem, account.InventoryItems.Where(b => b.Typ == shopItem.Typ).First(), account);
 			}
 		}
 

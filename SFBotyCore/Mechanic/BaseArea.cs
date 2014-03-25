@@ -133,7 +133,8 @@ namespace SFBotyCore.Mechanic {
 					responseCount += 1;
 					HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
 					responseCode = (int)response.StatusCode;
-				} catch { }
+				} catch {
+				}
 			} while (responseCode != 200);
 
 			webRequest.Abort();
@@ -145,12 +146,12 @@ namespace SFBotyCore.Mechanic {
 		/// </summary>
 		/// <param name="minTime">minimale Zeit in Sekunden</param>
 		/// <param name="maxTime">maximale Zeit in Sekunden</param>
-		protected void ThreadSleep(float minTime, float maxTime) {
-			Asserts.IsTrue(minTime != null && minTime > 0f, "minTime muss größer 0 sein");
-			Asserts.IsTrue(maxTime != null && maxTime > 0f, "maxTime muss größer 0 sein");
-			Asserts.IsTrue(minTime <= maxTime, "minTime muss kleiner gleich maxTime sein");
+		protected void ThreadSleep(float? minTime, float? maxTime) {
+			Asserts.IsTrue(minTime.HasValue && minTime.Value > 0f, "minTime muss größer 0 sein");
+			Asserts.IsTrue(maxTime.HasValue && maxTime.Value > 0f, "maxTime muss größer 0 sein");
+			Asserts.IsTrue((float?)minTime.Value <= (float?)maxTime.Value, "minTime muss kleiner gleich maxTime sein");
 
-			Thread.Sleep(random.Next(Convert.ToInt32(minTime * 1000), Convert.ToInt32(maxTime * 1000)));
+			Thread.Sleep(random.Next(Convert.ToInt32(minTime.Value * 1000), Convert.ToInt32(maxTime.Value * 1000)));
 		}
 
 		public abstract void RaiseMessageEvent(string s);

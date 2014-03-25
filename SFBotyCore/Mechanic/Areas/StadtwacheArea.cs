@@ -38,19 +38,19 @@ namespace SFBotyCore.Mechanic.Areas {
 
 			string s;
 			if ((Account.ALU_Seconds == 0 || !Account.Settings.PerformQuesten) && !Account.QuestIsStarted && !Account.TownWatchIsStarted) {
-				ThreadSleep(Account.Settings.minTimeToJoinStadtwache, Account.Settings.maxTimeToJoinStadtwache);
+				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				RaiseMessageEvent("Stadtwache betreten");
 				s = SendRequest(ActionTypes.JoinTownWatch);
 
 				s = DoWork(s);
 			} else {
 				if (DateTime.Now > Account.TownWatchEndTime && Account.TownWatchIsStarted) {
-					ThreadSleep(Account.Settings.minTimeToJoinStadtwache, Account.Settings.maxTimeToJoinStadtwache);
+					ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 					RaiseMessageEvent("Stadtwache betreten");
 
 					s = SendRequest(ActionTypes.JoinTownWatch);
 					RaiseMessageEvent("Stadtwache beendet");
-					ThreadSleep(Account.Settings.minTimeToJoinChar, Account.Settings.maxTimeToJoinChar);
+					ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 					s = SendRequest(ActionTypes.JoinCharacter);
 					Account.TownWatchIsStarted = false;
 					CharScreenArea.UpdateAccountStats(s, Account);
@@ -60,7 +60,7 @@ namespace SFBotyCore.Mechanic.Areas {
 		}
 
 		private string DoWork(string s) {
-			ThreadSleep(Account.Settings.minTimeToDoStadtwache, Account.Settings.maxTimeToDoStadtwache);
+			ThreadSleep(Account.Settings.minLongTime, Account.Settings.maxLongTime);
 
 			int currentHour = DateTime.Now.Hour;
 
@@ -86,7 +86,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				Account.TownWatchEndTime = DateTime.Now.AddHours(hourToWork);
 				RaiseMessageEvent(String.Concat(hourToWork, "h Stadtwache ausführen. Stadtwache ende: ", Account.TownWatchEndTime.ToString()));
 
-				ThreadSleep(Account.Settings.minTimeToLogOut, Account.Settings.maxTimeToLogOut);
+				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				s = SendRequest(ActionTypes.LogOut);
 				Account.Logout();
 				Thread.Sleep(1000 * 60 * 60 * hourToWork);
