@@ -234,15 +234,16 @@ namespace SFBotyCore.Mechanic.Areas {
 				int d7Lvl = Convert.ToInt32(answerRequest[486]) - 1;
 				int d8Lvl = Convert.ToInt32(answerRequest[487]) - 1;
 				int d9Lvl = Convert.ToInt32(answerRequest[488]) - 1;
-				int d10Lvl = Convert.ToInt32(answerRequest[442 + 10 - 10 - 1 - 1]) - 1;
-				int d11Lvl = Convert.ToInt32(answerRequest[442 + 11 - 10 - 1 - 1]) - 1;
-				int d12Lvl = Convert.ToInt32(answerRequest[491 - 121]) - 1; //nicht sicher, eventuell ist d12 und d13 vertauscht
-				int d13Lvl = Convert.ToInt32(answerRequest[442 + 13 - 10 - 1 - 2]) - 1; //nicht sicher
+				int d10Lvl = Convert.ToInt32(answerRequest[489]) - 1;
+				int d11Lvl = 0; // Convert.ToInt32(answerRequest[442 + 11 - 10 - 1 - 1]) - 1;  //nicht sicher
+				int d12Lvl = 0; //Convert.ToInt32(answerRequest[491 - 121]) - 1; //nicht sicher, eventuell ist d12 und d13 vertauscht
+				int d13Lvl = 0; // Convert.ToInt32(answerRequest[442 + 13 - 10 - 1 - 2]) - 1; //nicht sicher
 
 				DungeonType nextDungeon;
 				nextDungeon = FilterNextDungeon(d1Lvl, d2Lvl, d3Lvl, d4Lvl, d5Lvl, d6Lvl, d7Lvl, d8Lvl, d9Lvl, d10Lvl, d11Lvl, d12Lvl, d13Lvl);
 				if (nextDungeon == null) {
-					return;
+					Account.DungeonEndTime = DateTime.Now.AddHours(1);
+					throw new Exception("Keinen Dungeon gefunden");
 				}
 				RaiseMessageEvent(String.Concat("Es wird Dungeon ", nextDungeon.DungeonID, " mit der Ebene ", nextDungeon.DungeonEbene, " versucht (MonsterLvl ist ", nextDungeon.DungeonMonsterLvl, ")"));
 
