@@ -28,7 +28,7 @@ namespace SFBotyCore.Mechanic {
 		public Bot(Account.Account account) {
 			this.Account = account;
 			this.CurrentThread = new Thread(new ThreadStart(PerformAction));
-			
+
 			this.Client = new WebClient();
 			Client.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:26.0) Gecko/20100101 Firefox/26.0");
 			Client.Headers.Add(HttpRequestHeader.AcceptLanguage, "de-DE,de;q=0.8,en-US;q=0.6,en;q=0.4");
@@ -85,10 +85,6 @@ namespace SFBotyCore.Mechanic {
 				while (running) {
 					try {
 						Menus.ForEach(x => x.PerformArea());
-					} catch (BotSleepException bse) {
-						Account.Logout();
-						Thread.Sleep(Convert.ToInt32(bse.Time * 1000f));
-						Account.ChatHistoryIndex = 0;
 					} catch (ThreadAbortException tae) {
 						if (tae.ExceptionState != null && tae.ExceptionState.GetType() == typeof(BotSleepException)) {
 							BotSleepException bse = (BotSleepException)tae.ExceptionState;
@@ -181,7 +177,7 @@ namespace SFBotyCore.Mechanic {
 				if (MessageOutput != null) {
 					MessageOutput(this, new MessageEventsArgs("Mail konnte nicht gesendet werden."));
 				}
-				
+
 				if (Error != null) {
 					Error(this, new MessageEventsArgs("Mail konnte nicht gesendet werden." + Environment.NewLine + ex.ToString()));
 				}
