@@ -239,6 +239,7 @@ namespace SFBoty {
 				string key = String.Concat(e.Settings[0].Username, e.Settings[0].Server);
 				this.SelectedBotKey = key;
 				WriteLogToConsole(SelectedBotKey);
+				WriteChatLogToConsole(SelectedBotKey);
 			}
 		}
 
