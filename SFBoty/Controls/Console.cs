@@ -70,6 +70,20 @@ namespace SFBoty.Controls {
 			}
 		}
 
+		public void SetMessages(HashSet<string> messages) {
+			try {
+				lock (messages) {
+					txtConsole.Text = "";
+
+					foreach (string s in messages) {
+						txtConsole.Text += s + Environment.NewLine;
+					}
+				}
+			} catch {
+				//nothing to do
+			}
+		}
+
 		private void txtSendLine_KeyUp(object sender, KeyEventArgs e) {
 			if (e.KeyCode == Keys.Enter) {
 				if (MessageEnter != null) {

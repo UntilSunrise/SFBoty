@@ -185,6 +185,8 @@ namespace SFBoty {
 			while (ChatLogs[key].Count > 20) {
 				ChatLogs[key].Remove(ChatLogs[key].First());
 			}
+
+			WriteChatLogToConsole(SelectedBotKey);
 		}
 
 		void bot_MessageOutput(object sender, MessageEventsArgs e) {
@@ -245,6 +247,16 @@ namespace SFBoty {
 				lock (console1) {
 					if (BotLogs.Keys.Any(x => x == key) && BotLogs[key] != null && BotLogs[key].Count() > 0) {
 						console1.Invoke(() => console1.SetMessages(BotLogs[key]));
+					}
+				}
+			} catch { }
+		}
+
+		private void WriteChatLogToConsole(string key) {
+			try {
+				lock (console2) {
+					if (ChatLogs.Keys.Any(x => x == key) && ChatLogs[key] != null && ChatLogs[key].Count() > 0) {
+						console2.Invoke(() => console2.SetMessages(ChatLogs[key]));
 					}
 				}
 			} catch { }
