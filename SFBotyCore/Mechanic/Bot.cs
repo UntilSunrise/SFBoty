@@ -80,11 +80,15 @@ namespace SFBotyCore.Mechanic {
 					} catch (ThreadAbortException tae) {
 						throw tae;
 					} catch (Exception exc) {
-						if (Error != null) {
-							Error(this, new MessageEventsArgs(exc.ToString()));
-						}
-						
 						if (this.Account.Settings.IgnoreErrors) {
+							if (Error != null) {
+								Error(this, new MessageEventsArgs(exc.ToString()));
+							}
+
+							if (Account.Settings.SendErrorMail) {
+								SendErrorMail(string.Concat("Programm läuft weiter, Fehler wurde übersprungen", Environment.NewLine, Environment.NewLine, exc.ToString()));
+							}
+
 							if (errorCount == 0) {
 								errorCount = 1;
 								lastError = DateTime.Now;
