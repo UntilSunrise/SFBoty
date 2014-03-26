@@ -248,6 +248,8 @@ namespace SFBoty {
 				lock (console1) {
 					if (BotLogs.Keys.Any(x => x == key) && BotLogs[key] != null && BotLogs[key].Count() > 0) {
 						console1.Invoke(() => console1.SetMessages(BotLogs[key]));
+					} else {
+						console1.Invoke(() => console1.SetMessages(new List<string>()));
 					}
 				}
 			} catch { }
@@ -258,6 +260,8 @@ namespace SFBoty {
 				lock (console2) {
 					if (ChatLogs.Keys.Any(x => x == key) && ChatLogs[key] != null && ChatLogs[key].Count() > 0) {
 						console2.Invoke(() => console2.SetMessages(ChatLogs[key]));
+					} else {
+						console2.Invoke(() => console2.SetMessages(new List<string>()));
 					}
 				}
 			} catch { }
