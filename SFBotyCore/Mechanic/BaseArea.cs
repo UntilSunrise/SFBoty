@@ -119,7 +119,7 @@ namespace SFBotyCore.Mechanic {
 
 			s = SendRequest(ActionTypes.LoginToSF);
 			LoginArea.UpdateLoginData(s, Account);
-			ThreadSleep(5f, 6f);
+			ThreadSleep(60f * 5f, 60f * 6f);
 			count -= 1;
 		}
 
