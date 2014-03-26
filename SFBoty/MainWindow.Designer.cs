@@ -26,9 +26,9 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.accountOverview1 = new SFBoty.Controls.AccountOverview();
 			this.console1 = new SFBoty.Controls.Console();
+			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -52,11 +52,6 @@
 			this.splitContainer1.SplitterDistance = 353;
 			this.splitContainer1.TabIndex = 0;
 			// 
-			// notifyIcon
-			// 
-			this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
-			this.notifyIcon.Text = "SFBoty";
-			// 
 			// accountOverview1
 			// 
 			this.accountOverview1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -72,6 +67,11 @@
 			this.console1.Name = "console1";
 			this.console1.Size = new System.Drawing.Size(703, 507);
 			this.console1.TabIndex = 0;
+			// 
+			// notifyIcon
+			// 
+			this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+			this.notifyIcon.Text = "SFBoty";
 			// 
 			// MainWindow
 			// 

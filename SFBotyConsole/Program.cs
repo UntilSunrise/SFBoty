@@ -49,6 +49,40 @@ namespace SFBotyConsole {
 			ClearLogs();
 
 			bots.ForEach(b => b.Run());
+
+			string command = "";
+			while (command != "exit") {
+				command = Console.ReadLine();
+
+				switch (command.ToLower()) {
+					case "exit":
+						bots.ForEach(b => b.Stop());
+						break;
+					case "help":
+						Console.WriteLine("Folgende Befehlt gibt es: exit, sleep, help");
+						break;
+					case "sleep":
+						Console.WriteLine("use: [sleep]_[server]_[user]_[timeMinute]");
+						break;
+					default:
+						Console.WriteLine("Ungültiger Befehl versuche es mit dem Befehl \"help\"");
+						break;
+				}
+
+				if (command.StartsWith("sleep ")) {
+					string[] commandParts = command.Split(' ');
+					if (commandParts.Count() == 4) {
+						List<Bot> tmp = bots.Where(b => b.Account.Settings.Username.ToLower() == commandParts[2].ToLower() && b.Account.Settings.Server.ToLower() == commandParts[1].ToLower()).ToList();
+						if (tmp.Count > 0) {
+							Bot bot = tmp.First();
+							if (bot != null) {
+								bot.Break(Convert.ToSingle(commandParts[3]) * 60f);
+								Console.WriteLine(string.Concat("Bot ", bot.Account.Settings.Server, " ", bot.Account.Settings.Username, " unterbricht"));
+							}
+						}
+					}
+				}
+			}
 		}
 
 		private static List<AccountSettings> LoadSettings() {

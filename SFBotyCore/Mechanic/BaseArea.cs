@@ -99,7 +99,7 @@ namespace SFBotyCore.Mechanic {
 				streamReader = new StreamReader(streamData);
 				s = streamReader.ReadToEnd();
 
-				if (ExtendedLog != null) {
+				if (ExtendedLog != null && !action.StartsWith("517")) {
 					ExtendedLog(this, new MessageEventsArgs(action + Environment.NewLine + s));
 				}
 			} while (s == "E065" || s == "+E065");

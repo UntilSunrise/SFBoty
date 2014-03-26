@@ -36,7 +36,29 @@ namespace SFBoty {
 			accountOverview1.StartAllBots += new EventHandler<SFBoty.Controls.EventSettingsArgs>(accountOverview1_StartAllBots);
 			accountOverview1.SelectedAccountChanged += new EventHandler<EventSettingsArgs>(accountOverview1_SelectedAccountChanged);
 
+			console1.MessageEnter += new EventHandler<MessageEnterEventArgs>(console1_MessageEnter);
+
 			ClearLogs();
+		}
+
+		void console1_MessageEnter(object sender, MessageEnterEventArgs e) {
+			string command = e.Text;
+			if (command.StartsWith("sleep ")) {
+				string[] commandParts = command.Split(' ');
+				if (commandParts.Count() == 4) {
+					List<KeyValuePair<string, Bot>> tmp = Bots.Where(b => b.Key.ToLower() == commandParts[2].ToLower() + commandParts[1].ToLower()).ToList();
+					if (tmp.Count > 0) {
+						Bot bot = tmp.First().Value;
+						if (bot != null) {
+							bot.Break(Convert.ToSingle(commandParts[3]) * 60f);
+							BotLogs[SelectedBotKey].Add(string.Concat("Bot ", bot.Account.Settings.Server, " ", bot.Account.Settings.Username, " unterbricht"));
+							WriteLogToConsole(SelectedBotKey);
+						}
+					}
+				}			
+			} else {
+				MessageBox.Show("ungültiger Befehl (use: [sleep]_[server]_[user]_[timeMinute]");
+			}
 		}
 
 		void Form1_FormClosing(object sender, FormClosingEventArgs e) {
@@ -225,7 +247,7 @@ namespace SFBoty {
 						console1.Invoke(() => console1.SetMessages(BotLogs[key]));
 					}
 				}
-			} catch {}
+			} catch { }
 		}
 		#endregion
 
@@ -271,6 +293,5 @@ namespace SFBoty {
 			this.WindowState = FormWindowState.Normal;
 			notifyIcon.Visible = false;
 		}
-
 	}
 }

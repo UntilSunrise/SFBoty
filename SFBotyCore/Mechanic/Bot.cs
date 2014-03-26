@@ -65,6 +65,14 @@ namespace SFBotyCore.Mechanic {
 			CurrentThread.Abort();
 		}
 
+		/// <summary>
+		/// Lässt den Programmablauf unterbrechen/pausieren
+		/// </summary>
+		/// <param name="time">Zeit in Sekunden</param>
+		public void Break(float time) {
+			CurrentThread.Abort(new BotSleepException(time));
+		}
+
 		#region Thread
 		/// <summary>
 		/// Ausführung des Bots über den eigenen Thread
@@ -77,8 +85,19 @@ namespace SFBotyCore.Mechanic {
 				while (running) {
 					try {
 						Menus.ForEach(x => x.PerformArea());
+					} catch (BotSleepException bse) {
+						Account.Logout();
+						Thread.Sleep(Convert.ToInt32(bse.Time * 1000f));
+						Account.ChatHistoryIndex = 0;
 					} catch (ThreadAbortException tae) {
-						throw tae;
+						if (tae.ExceptionState != null && tae.ExceptionState.GetType() == typeof(BotSleepException)) {
+							BotSleepException bse = (BotSleepException)tae.ExceptionState;
+							Thread.ResetAbort();
+							Account.Logout();
+							Thread.Sleep(Convert.ToInt32(bse.Time * 1000f));
+						} else {
+							throw tae;
+						}
 					} catch (Exception exc) {
 						if (this.Account.Settings.IgnoreErrors) {
 							if (Error != null) {
@@ -178,6 +197,14 @@ namespace SFBotyCore.Mechanic {
 			this.CurrentThread.Abort();
 			Client.Dispose();
 			Menus.ForEach(x => x.Dispose());
+		}
+	}
+
+	public class BotSleepException : Exception {
+		public float Time;
+
+		public BotSleepException(float time) {
+			this.Time = time;
 		}
 	}
 }

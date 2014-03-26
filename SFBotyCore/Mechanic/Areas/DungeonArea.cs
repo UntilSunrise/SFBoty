@@ -197,34 +197,6 @@ namespace SFBotyCore.Mechanic.Areas {
 				string s = SendRequest(ActionTypes.JoinDungeon);
 				string[] answerRequest = s.Split('/');
 
-				/*
-				 *  if (DungeonNr == 100){
-						DungeonLevel = String((towerLevel + 1));
-					} else {
-						if (DungeonNr == 12){
-							DungeonLevel = String((int(Savegame[SG_DUNGEON_13]) - 121));
-						} else {
-							if (DungeonNr >= 10){
-								DungeonLevel = String((int(Savegame[((SG_NEW_DUNGEONS + DungeonNr) - 10)]) - 1));
-							} else {
-								DungeonLevel = String((int(Savegame[(SG_DUNGEON_LEVEL + DungeonNr)]) - 1));
-							};
-						};
-					};
-
-
-					für 1-9 = 481 + (1-9) - 1 (-1 für index)
-					für 10 = 442 + 10 - 10 - 1 (-1 für index)
-					für 11 = 442 + 11 - 10 - 1 (-1 für index)
-					für 12 = 491 - 121 (-1 für index)
-					für 13 = 442 + 13 - 10 - 1 (-1 für index)
-
-
-					public const SG_DUNGEON_LEVEL = 481;
-					public const SG_DUNGEON_13 = 491;
-					public const SG_NEW_DUNGEONS = 442;
-				 */
-
 				int d1Lvl = Convert.ToInt32(answerRequest[480]) - 1;
 				int d2Lvl = Convert.ToInt32(answerRequest[481]) - 1;
 				int d3Lvl = Convert.ToInt32(answerRequest[482]) - 1;
