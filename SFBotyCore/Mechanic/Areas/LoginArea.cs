@@ -61,10 +61,10 @@ namespace SFBotyCore.Mechanic.Areas {
 			string actionStatus = answer[ResponseTypes.ActionStatus];
 			if (DateTime.Now < actionDate) {
 				if (actionStatus == ActionStatusTypes.TownWatchTaken) {
-					acc.TownWatchEndTime = actionDate;
+					acc.TownWatchEndTime = actionDate.AddHours(-1);
 					acc.TownWatchIsStarted = true;
 				} else {
-					acc.QuestEndTime = actionDate;
+					acc.QuestEndTime = actionDate.AddHours(-1);
 					acc.QuestIsStarted = true;
 				}
 			}
