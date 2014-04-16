@@ -41,9 +41,15 @@ namespace SFBotyCore.Mechanic.Areas {
 				RaiseMessageEvent("Betrete Zauberladen");
 				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				s = SendRequest(ActionTypes.JoinMagicshop);
-				int backpackslotWithLowestItemValue = Account.BackpackItems.Where(b => b.SilverValue != 0 && b.Typ != ItemTypes.Buff && b.IsEpic == false).OrderBy(b => b.SilverValue).First().InventoryID;
 
-				s = SellItemWithLowestValue(backpackslotWithLowestItemValue, s);
+				if (Account.BackpackItems.Where(b => b.SilverValue != 0 && b.Typ != ItemTypes.Buff && b.IsEpic == false).Count() > 0) {
+					int backpackslotWithLowestItemValue = Account.BackpackItems.Where(b => b.SilverValue != 0 && b.Typ != ItemTypes.Buff && b.IsEpic == false).OrderBy(b => b.SilverValue).First().InventoryID;
+
+					s = SellItemWithLowestValue(backpackslotWithLowestItemValue, s);
+				} else {
+					s = SellItemWithLowestValue(0, s);
+				}
+				
 
 				CharScreenArea.UpdateAccountStats(s, Account);
 
