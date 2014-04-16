@@ -44,10 +44,9 @@ namespace SFBotyCore.Mechanic.Areas {
 
 				if (Account.BackpackItems.Where(b => b.SilverValue != 0 && b.Typ != ItemTypes.Buff && b.IsEpic == false).Count() > 0) {
 					int backpackslotWithLowestItemValue = Account.BackpackItems.Where(b => b.SilverValue != 0 && b.Typ != ItemTypes.Buff && b.IsEpic == false).OrderBy(b => b.SilverValue).First().InventoryID;
-
 					s = SellItemWithLowestValue(backpackslotWithLowestItemValue, s);
 				} else {
-					s = SellItemWithLowestValue(0, s);
+					s = SellItemWithLowestValue(1, s);
 				}
 				
 
