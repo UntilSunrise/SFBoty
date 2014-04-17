@@ -130,6 +130,9 @@ namespace SFBotyCore.Mechanic {
 
 			do {
 				try {
+					if (ExtendedLog != null) {
+						ExtendedLog(this, new MessageEventsArgs("Check Server Connecton"));
+					}
 					responseCount += 1;
 					HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
 					responseCode = (int)response.StatusCode;

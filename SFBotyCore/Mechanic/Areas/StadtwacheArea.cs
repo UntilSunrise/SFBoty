@@ -71,8 +71,15 @@ namespace SFBotyCore.Mechanic.Areas {
 				RaiseMessageEvent("1h Stadtwache ausführen. Stadtwache ende: " + Account.TownWatchEndTime.ToString());
 			} else {
 				DateTime targetDate = DateTime.Now;
+				
+				int counter = 0;
 				while (!targetDate.Hour.IsBetween(Account.Settings.TownWatchMinHourForShortWork, Account.Settings.TownWatchMaxHourForShortWork)) {
 					targetDate = targetDate.AddHours(1);
+					counter += 1;
+
+					if (counter >= 24) {
+						throw new Exception("Fehler in der Stadtwache");
+					}
 				}
 
 				int hourToWork = Math.Min(Convert.ToInt32((targetDate - DateTime.Now).TotalHours), 10);
