@@ -130,17 +130,19 @@ namespace SFBotyCore.Mechanic {
 
 			do {
 				try {
-					if (ExtendedLog != null) {
-						ExtendedLog(this, new MessageEventsArgs("Check Server Connecton"));
-					}
 					responseCount += 1;
 					HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
 					responseCode = (int)response.StatusCode;
 
-					if (responseCount > 1) {
-						ExtendedLog(this, new MessageEventsArgs("ResponseCode: " + responseCode.ToString()));
+					if (responseCount > 2 && ExtendedLog != null) {
+						ExtendedLog(this, new MessageEventsArgs(string.Concat("CheckServerConnection, ResponseCode: ", responseCode)));
+						Thread.Sleep(5000);
 					}
-				} catch {
+				} catch (Exception ex) {
+					if (responseCount > 2 && ExtendedLog != null) {
+						ExtendedLog(this, new MessageEventsArgs(string.Concat("CheckServerConnection, ResponseCode: ", responseCode, ", Exeption: ", ex.Message)));
+						Thread.Sleep(5000);
+					}
 				}
 			} while (responseCode != 200);
 
