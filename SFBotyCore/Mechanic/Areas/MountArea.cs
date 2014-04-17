@@ -59,13 +59,13 @@ namespace SFBotyCore.Mechanic.Areas {
 				//try To Buy A Cheaper One
 				MountTypes nextMount = Account.Settings.MountToBuy;
 				while ((int)nextMount > 1 && !canBuyMount) {
-					nextMount = ((int)Account.Settings.MountToBuy - 1).ToString().ToEnum<MountTypes>();
+					nextMount = ((int)nextMount - 1).ToString().ToEnum<MountTypes>();
 					if (CanBuyAMount(nextMount)) {
 						canBuyMount = true;
 					}
 				}
 
-				if (canBuyMount) {
+				if (canBuyMount && nextMount > Account.Mount) {
 					RaiseMessageEvent(String.Concat("Buy Mount ", nextMount.ToString()));
 					ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 					s = SendRequest(String.Concat(ActionTypes.BuyMount, (int)nextMount));
@@ -76,6 +76,8 @@ namespace SFBotyCore.Mechanic.Areas {
 					canBuyMount = false;
 					Account.MountDuration = Account.MountDuration.AddDays(14d);
 					Account.Mount = nextMount;
+
+					RemoveMountCost(nextMount);
 				}
 			}
 		}
@@ -90,29 +92,21 @@ namespace SFBotyCore.Mechanic.Areas {
 				case MountTypes.Schwein:
 					if (Account.Silver >= pigCostSilver && Account.Mushroom >= pigCostMushroom) {
 						canBuyMount = true;
-						Account.Silver -= pigCostSilver;
-						Account.Mushroom -= pigCostMushroom;
 					}
 					break;
 				case MountTypes.Wolf:
 					if (Account.Silver >= wolfCostSilver && Account.Mushroom >= wolfCostMushroom) {
 						canBuyMount = true;
-						Account.Silver -= wolfCostSilver;
-						Account.Mushroom -= wolfCostMushroom;
 					}
 					break;
 				case MountTypes.Raptor:
 					if (Account.Silver >= raptorCostSilver && Account.Mushroom >= raptorCostMushroom) {
 						canBuyMount = true;
-						Account.Silver -= raptorCostSilver;
-						Account.Mushroom -= raptorCostMushroom;
 					}
 					break;
 				case MountTypes.Drachengreif:
 					if (Account.Silver >= dragonCostSilver && Account.Mushroom >= dragonCostMushroom) {
 						canBuyMount = true;
-						Account.Silver -= dragonCostSilver;
-						Account.Mushroom -= dragonCostMushroom;
 					}
 					break;
 				default:
@@ -121,6 +115,37 @@ namespace SFBotyCore.Mechanic.Areas {
 			}
 
 			return canBuyMount;
+		}
+
+		private void RemoveMountCost(MountTypes type) {
+			switch (type) {
+				case MountTypes.Schwein:
+					if (Account.Silver >= pigCostSilver && Account.Mushroom >= pigCostMushroom) {
+						Account.Silver -= pigCostSilver;
+						Account.Mushroom -= pigCostMushroom;
+					}
+					break;
+				case MountTypes.Wolf:
+					if (Account.Silver >= wolfCostSilver && Account.Mushroom >= wolfCostMushroom) {
+						Account.Silver -= wolfCostSilver;
+						Account.Mushroom -= wolfCostMushroom;
+					}
+					break;
+				case MountTypes.Raptor:
+					if (Account.Silver >= raptorCostSilver && Account.Mushroom >= raptorCostMushroom) {
+						Account.Silver -= raptorCostSilver;
+						Account.Mushroom -= raptorCostMushroom;
+					}
+					break;
+				case MountTypes.Drachengreif:
+					if (Account.Silver >= dragonCostSilver && Account.Mushroom >= dragonCostMushroom) {
+						Account.Silver -= dragonCostSilver;
+						Account.Mushroom -= dragonCostMushroom;
+					}
+					break;
+				default:
+					break;
+			}
 		}
 
 	}
