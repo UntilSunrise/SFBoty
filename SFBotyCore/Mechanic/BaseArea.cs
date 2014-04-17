@@ -136,6 +136,10 @@ namespace SFBotyCore.Mechanic {
 					responseCount += 1;
 					HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
 					responseCode = (int)response.StatusCode;
+
+					if (responseCount > 1) {
+						ExtendedLog(this, new MessageEventsArgs("ResponseCode: " + responseCode.ToString()));
+					}
 				} catch {
 				}
 			} while (responseCode != 200);
