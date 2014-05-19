@@ -8,6 +8,8 @@ using System.Net;
 using System.IO;
 using SFBotyCore.Mechanic.Areas;
 using System.Net.Mail;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
 
 namespace SFBotyCore.Mechanic {
 	public class Bot {
@@ -168,6 +170,7 @@ namespace SFBotyCore.Mechanic {
 			SmtpClient smtp = new SmtpClient(smtpAddress, port);
 			smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
 			smtp.EnableSsl = true;
+			ServicePointManager.ServerCertificateValidationCallback = delegate(object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
 			smtp.Credentials = new NetworkCredential(userName, passwort);
 			smtp.Timeout = 30000;
 
