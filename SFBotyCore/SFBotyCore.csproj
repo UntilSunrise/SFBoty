@@ -55,14 +55,14 @@
     <Compile Include="Mechanic\Account\AccountSettings.cs" />
     <Compile Include="Constants\ActionTypes.cs" />
     <Compile Include="Mechanic\Account\Guild.cs" />
-    <Compile Include="Mechanic\Areas\BlacksmithArea.cs" />
+    <Compile Include="Mechanic\Areas\WeaponShopArea.cs" />
     <Compile Include="Mechanic\Areas\CharScreenArea.cs" />
     <Compile Include="Mechanic\Areas\DungeonArea.cs" />
     <Compile Include="Mechanic\Areas\ArenaArea.cs" />
     <Compile Include="Mechanic\Areas\GuildArea.cs" />
     <Compile Include="Mechanic\Areas\MountArea.cs" />
     <Compile Include="Mechanic\Areas\MagicShopArea.cs" />
-    <Compile Include="Mechanic\Areas\StadtwacheArea.cs" />
+    <Compile Include="Mechanic\Areas\TownwatchArea.cs" />
     <Compile Include="Mechanic\Areas\LoginArea.cs" />
     <Compile Include="Mechanic\Areas\TavernArea.cs" />
     <Compile Include="Mechanic\Areas\ToiletArea.cs" />

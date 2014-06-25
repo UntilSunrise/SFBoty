@@ -25,7 +25,7 @@ namespace SFBotyCore.Mechanic.Account {
 
 		public bool PerformQuesten { get; set; }
 		public bool PerformBuyStats { get; set; }
-		public bool PerformStadtwache { get; set; }
+		public bool PerformTownwatch { get; set; }
 		public bool PerformDungeons { get; set; }
 		public bool PerformToilet { get; set; }
 		public bool PerformArena { get; set; }
@@ -73,6 +73,7 @@ namespace SFBotyCore.Mechanic.Account {
 		public bool BuyMount { get; set; }
 
 		public bool BuyItemsInMagicShop { get; set; }
+		public bool BuyBuffs { get; set; }
 		public bool UseMushroomsForBuying { get; set; }
 		/// <summary>
 		/// false = Jens Variante wird für den Item-Vergleich verwendet;
@@ -115,7 +116,7 @@ namespace SFBotyCore.Mechanic.Account {
 
 			this.PerformQuesten = true;
 			this.PerformBuyStats = true;
-			this.PerformStadtwache = true;
+			this.PerformTownwatch = true;
 			this.PerformDungeons = true;
 
 			this.PerformToilet = true;
@@ -160,6 +161,7 @@ namespace SFBotyCore.Mechanic.Account {
 			this.BuyMount = true;
 
 			this.BuyItemsInMagicShop = false;
+			this.BuyBuffs = false;
 			this.UseAlternativeIventoryChecking = false;
 			this.UseMushroomsForBuying = false;
 
@@ -202,7 +204,7 @@ namespace SFBotyCore.Mechanic.Account {
 			this.PerformDungeons = tmp.PerformDungeons;
 			this.PerformGuild = tmp.PerformGuild;
 			this.PerformQuesten = tmp.PerformQuesten;
-			this.PerformStadtwache = tmp.PerformStadtwache;
+			this.PerformTownwatch = tmp.PerformTownwatch;
 			this.PerformToilet = tmp.PerformToilet;
 			this.QuestMode = tmp.QuestMode;
 			this.SellToiletItemIfNotEpic = tmp.SellToiletItemIfNotEpic;
@@ -221,6 +223,7 @@ namespace SFBotyCore.Mechanic.Account {
 			this.MountToBuy = tmp.MountToBuy;
 			this.BuyMount = tmp.BuyMount;
 			this.BuyItemsInMagicShop = tmp.BuyItemsInMagicShop;
+			this.BuyBuffs = tmp.BuyBuffs;
 			this.UseAlternativeIventoryChecking = tmp.UseAlternativeIventoryChecking;
 			this.UseMushroomsForBuying = tmp.UseMushroomsForBuying;
 			this.SendErrorMail = tmp.SendErrorMail;
@@ -259,7 +262,7 @@ namespace SFBotyCore.Mechanic.Account {
 			tmp.PerformDungeons = this.PerformDungeons;
 			tmp.PerformGuild = this.PerformGuild;
 			tmp.PerformQuesten = this.PerformQuesten;
-			tmp.PerformStadtwache = this.PerformStadtwache;
+			tmp.PerformTownwatch = this.PerformTownwatch;
 			tmp.PerformToilet = this.PerformToilet;
 			tmp.QuestMode = this.QuestMode;
 			tmp.SellToiletItemIfNotEpic = this.SellToiletItemIfNotEpic;
@@ -278,6 +281,7 @@ namespace SFBotyCore.Mechanic.Account {
 			tmp.MountToBuy = this.MountToBuy;
 			tmp.BuyMount = this.BuyMount;
 			tmp.BuyItemsInMagicShop = this.BuyItemsInMagicShop;
+			tmp.BuyBuffs = this.BuyBuffs;
 			tmp.UseAlternativeIventoryChecking = this.UseAlternativeIventoryChecking;
 			tmp.UseMushroomsForBuying = this.UseMushroomsForBuying;
 			tmp.SendErrorMail = this.SendErrorMail;

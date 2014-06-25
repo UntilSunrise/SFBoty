@@ -161,13 +161,13 @@ namespace SFBoty.Controls {
 		public void SetSettings(AccountSettings settings) {
 			Settings = settings;
 
-			ckbPerfomTownWatch.Checked = Settings.PerformStadtwache;
+			ckbPerfomTownWatch.Checked = Settings.PerformTownwatch;
 			numMinTime.Value = Settings.TownWatchMinHourForShortWork;
 			numMaxTime.Value = Settings.TownWatchMaxHourForShortWork;
 		}
 
 		private void ckbPerfomTownWatch_CheckedChanged(object sender, EventArgs e) {
-			Settings.PerformStadtwache = ckbPerfomTownWatch.Checked;
+			Settings.PerformTownwatch = ckbPerfomTownWatch.Checked;
 		}
 
 		private void numMinTime_ValueChanged(object sender, EventArgs e) {

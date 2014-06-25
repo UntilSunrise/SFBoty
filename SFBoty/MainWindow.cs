@@ -101,7 +101,7 @@ namespace SFBoty {
 
 				bot.AddMenu(new LoginArea());
 				bot.AddMenu(new MagicShopArea());
-				bot.AddMenu(new BlacksmithArea());
+				bot.AddMenu(new WeaponShopArea());
 				bot.AddMenu(new MountArea());
 				bot.AddMenu(new TavernArea());
 				bot.AddMenu(new ToiletArea());
@@ -109,7 +109,7 @@ namespace SFBoty {
 				bot.AddMenu(new GuildArea());
 				bot.AddMenu(new CharScreenArea());
 				bot.AddMenu(new DungeonArea());
-				bot.AddMenu(new StadtwacheArea());
+				bot.AddMenu(new TownwatchArea());
 
 				Bots.Add(key, bot);
 				Bots[key].Run();

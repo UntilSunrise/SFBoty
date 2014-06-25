@@ -32,7 +32,7 @@ namespace SFBotyConsole {
 
 				bot.AddMenu(new LoginArea());
 				bot.AddMenu(new MagicShopArea());
-				bot.AddMenu(new BlacksmithArea());
+				bot.AddMenu(new WeaponShopArea());
 				bot.AddMenu(new MountArea());
 				bot.AddMenu(new TavernArea());
 				bot.AddMenu(new ToiletArea());
@@ -40,7 +40,7 @@ namespace SFBotyConsole {
 				bot.AddMenu(new GuildArea());
 				bot.AddMenu(new CharScreenArea());
 				bot.AddMenu(new DungeonArea());
-				bot.AddMenu(new StadtwacheArea());
+				bot.AddMenu(new TownwatchArea());
 
 				bots.Add(bot);
 			}
