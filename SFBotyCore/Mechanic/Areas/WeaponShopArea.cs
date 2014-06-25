@@ -44,8 +44,8 @@ namespace SFBotyCore.Mechanic.Areas {
 				s = GetOneBackpackSlotTroughWeaponShop();
 			}
 
-			if (Account.Settings.BuyItemsInMagicShop && Account.WeaponShopLastVisitingForBuying.IsOtherDay(DateTime.Now) && Account.ALU_Seconds == 0) { //betrette den shop um ein Item zu kaufen
-				Account.WeaponShopLastVisitingForBuying = DateTime.Now;
+			if (Account.Settings.BuyItemsInMagicShop && Account.LastWeaponShopBuyTime.IsOtherDay(DateTime.Now) && Account.ALU_Seconds == 0) { //betrette den shop um ein Item zu kaufen
+				Account.LastWeaponShopBuyTime = DateTime.Now;
 
 				bool checkForAnotherItem = true;
 
@@ -74,7 +74,7 @@ namespace SFBotyCore.Mechanic.Areas {
 						ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 						s = SendRequest(ActionTypes.JoinCharacter);
 						CharScreenArea.UpdateAccountStats(s, Account);
-						s = ItemsBuckleOn();
+						s = EquipItems();
 
 						if (Account.BackpackIsFull) {
 							s = GetOneBackpackSlotTroughWeaponShop();
@@ -114,7 +114,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			return inventoryID;
 		}
 
-		public string ItemsBuckleOn() {
+		public string EquipItems() {
 			string s = "";
 			foreach (Item bpItem in Account.BackpackItems) {
 				if (bpItem.Typ != ItemTypes.SpiegelOderSchlüssel && bpItem.Typ != ItemTypes.Buff && bpItem.Typ != ItemTypes.Leer) {

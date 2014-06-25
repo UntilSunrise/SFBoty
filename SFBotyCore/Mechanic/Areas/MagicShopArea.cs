@@ -8,7 +8,7 @@ using SFBotyCore.Mechanic;
 
 namespace SFBotyCore.Mechanic.Areas {
 	public class MagicShopArea : BaseArea {
-	
+
 		#region Events
 		public override event EventHandler<MessageEventsArgs> MessageOutput;
 		#endregion
@@ -29,61 +29,57 @@ namespace SFBotyCore.Mechanic.Areas {
 		public override void PerformArea() {
 			base.PerformArea();
 
-            string s;
-            if (Account.BackpackItems.Count == 0 || Account.InventoryItems.Count == 0) {
-                RaiseMessageEvent("Charakterübersicht betreten");
-                ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
-                s = SendRequest(ActionTypes.JoinCharacter);
-                CharScreenArea.UpdateAccountStats(s, Account);
-            }
+			string s;
+			if (Account.BackpackItems.Count == 0 || Account.InventoryItems.Count == 0) {
+				RaiseMessageEvent("Charakterübersicht betreten");
+				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
+				s = SendRequest(ActionTypes.JoinCharacter);
+				CharScreenArea.UpdateAccountStats(s, Account);
+			}
 
 			if (Account.BackpackIsFull) {
-				RaiseMessageEvent("Betrete Zauberladen");
-				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
-				s = SendRequest(ActionTypes.JoinMagicshop);
+				s = GetOneBackpackSlotTroughMagicShop();
+			}
 
-				if (Account.BackpackItems.Where(b => b.SilverValue != 0 && b.Typ != ItemTypes.Buff && b.IsEpic == false).Count() > 0) {
-					int backpackslotWithLowestItemValue = Account.BackpackItems.Where(b => b.SilverValue != 0 && b.Typ != ItemTypes.Buff && b.IsEpic == false).OrderBy(b => b.SilverValue).First().InventoryID;
-					s = SellItemWithLowestValue(backpackslotWithLowestItemValue, s);
-				} else {
-					s = SellItemWithLowestValue(1, s);
-				}
-				
+			if (Account.Settings.BuyItemsInMagicShop && Account.LastMagicShopBuyTime.IsOtherDay(DateTime.Now) && Account.ALU_Seconds == 0) { //betrette den shop um ein Item zu kaufen
+				Account.LastMagicShopBuyTime = DateTime.Now;
 
-				CharScreenArea.UpdateAccountStats(s, Account);
+				bool checkForAnotherItem = true;
 
-			} else if(Account.Settings.BuyItemsInMagicShop && Account.MagicShopLastVisitingForBuying.IsOtherDay(DateTime.Now) && Account.ALU_Seconds == 0) { //betrette den shop um ein Item zu kaufen
-				Account.MagicShopLastVisitingForBuying = DateTime.Now;
-				RaiseMessageEvent("Betrete Zauberladen");
-				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
-				s = SendRequest(ActionTypes.JoinMagicshop);
-
-				List<Item> shopItems = new List<Item>();
-				for(int i = 0; i < ResponseTypes.ShopSize; i++) {
-					shopItems.Add(new Item(s.Split('/'), ResponseTypes.FidgetFirstItemPosition + (i * ResponseTypes.ItemSize), ResponseTypes.MagicShopInventoryIDOffset));
-				}
-
-				string inventoryIDForBuying = GetInventoryIDFormMagicShopWithBetterItem(shopItems, Account.Settings.UseMushroomsForBuying);
-				bool hasBuyedOneItem = false;
-				if (Convert.ToInt32(inventoryIDForBuying) > 0) {
-					ThreadSleep(Account.Settings.minLongTime, Account.Settings.maxLongTime);
-					s = SendRequest(string.Concat("5044", "%3B", inventoryIDForBuying, "%3B2%3B", Account.FreeBackpackInventoryID));
-					hasBuyedOneItem = true;
-					RaiseMessageEvent(string.Format("Es wurde Item {0} gekauft und in den Rucksackslot {1} verstaut", inventoryIDForBuying, Account.FreeBackpackInventoryID));
-				}
-
-				//check for next item to buy
-				if (hasBuyedOneItem) { 
-					//todo
-				}
-
-				//goto charscreen um items auszurüsten
-				if (hasBuyedOneItem) {
-					RaiseMessageEvent("Charakterübersicht betreten");
+				while (checkForAnotherItem) {
+					RaiseMessageEvent("Betrete Zauberladen");
 					ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
-					s = SendRequest(ActionTypes.JoinCharacter);
-					CharScreenArea.UpdateAccountStats(s, Account);
-					s = ItemsBuckleOn();
+					s = SendRequest(ActionTypes.JoinMagicshop);
+
+					List<Item> shopItems = new List<Item>();
+					for (int i = 0; i < ResponseTypes.ShopSize; i++) {
+						shopItems.Add(new Item(s.Split('/'), ResponseTypes.FidgetFirstItemPosition + (i * ResponseTypes.ItemSize), ResponseTypes.MagicShopInventoryIDOffset));
+					}
+
+					string inventoryIDForBuying = GetInventoryIDFormMagicShopWithBetterItem(shopItems, Account.Settings.UseMushroomsForBuying);
+					bool hasBuyedOneItem = false;
+					if (Convert.ToInt32(inventoryIDForBuying) > 0) {
+						ThreadSleep(Account.Settings.minLongTime, Account.Settings.maxLongTime);
+						s = SendRequest(string.Concat("5044", "%3B", inventoryIDForBuying, "%3B2%3B", Account.FreeBackpackInventoryID));
+						hasBuyedOneItem = true;
+						RaiseMessageEvent(string.Format("Es wurde Item {0} gekauft und in den Rucksackslot {1} verstaut", inventoryIDForBuying, Account.FreeBackpackInventoryID));
+					}
+
+					//goto charscreen um items auszurüsten
+					if (hasBuyedOneItem) {
+						RaiseMessageEvent("Charakterübersicht betreten");
+						ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
+						s = SendRequest(ActionTypes.JoinCharacter);
+						CharScreenArea.UpdateAccountStats(s, Account);
+						s = ItemsBuckleOn();
+
+						if (Account.BackpackIsFull) {
+							s = GetOneBackpackSlotTroughMagicShop();
+						}
+					} else {
+						//check for next item to buy
+						checkForAnotherItem = false;
+					}
 				}
 			}
 		}
@@ -101,7 +97,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			List<Item> avaibleItems = shopItems.Where(si => si.SilverValue <= Account.Silver && si.MushroomValue <= Account.Mushroom && si.Typ != ItemTypes.Buff).ToList();
 			//darf ich pilze verwenden
 			if (!useMushrooms) {
-				avaibleItems = avaibleItems.Where(ai => ai.MushroomValue == 0).ToList();	
+				avaibleItems = avaibleItems.Where(ai => ai.MushroomValue == 0).ToList();
 			}
 
 			//welche Items sind besser
@@ -133,6 +129,23 @@ namespace SFBotyCore.Mechanic.Areas {
 					}
 				}
 			}
+			return s;
+		}
+
+		public string GetOneBackpackSlotTroughMagicShop() {
+			RaiseMessageEvent("Betrete Zauberladen");
+			ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
+			string s = SendRequest(ActionTypes.JoinMagicshop);
+
+			if (Account.BackpackItems.Where(b => b.SilverValue != 0 && b.Typ != ItemTypes.Buff && b.IsEpic == false).Count() > 0) {
+				int backpackslotWithLowestItemValue = Account.BackpackItems.Where(b => b.SilverValue != 0 && b.Typ != ItemTypes.Buff && b.IsEpic == false).OrderBy(b => b.SilverValue).First().InventoryID;
+				s = SellItemWithLowestValue(backpackslotWithLowestItemValue, s);
+			} else {
+				s = SellItemWithLowestValue(1, s);
+			}
+
+			CharScreenArea.UpdateAccountStats(s, Account);
+
 			return s;
 		}
 	}
