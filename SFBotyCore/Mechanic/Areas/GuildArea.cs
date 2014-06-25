@@ -36,10 +36,10 @@ namespace SFBotyCore.Mechanic.Areas {
 				return;
 			}
 
-			if (Account.HasAGuild && Account.Settings.GetChatHistory && DateTime.Now > Account.LastChatHistoryUpdate.AddSeconds(1d)) {
+			if (Account.HasAGuild && Account.Settings.GetChatHistory && DateTime.Now > Account.LastChatHistoryUpdateTime.AddSeconds(1d)) {
 				string chatHistory = "";
 				if (Account.ChatHistoryIndex == 0) {
-					chatHistory = SendRequest("517");
+					chatHistory = SendRequest(ActionTypes.CheckGuildChat);
 				} else {
 					chatHistory = SendRequest(string.Concat("517", Account.ChatHistoryIndex));
 				}
@@ -48,13 +48,13 @@ namespace SFBotyCore.Mechanic.Areas {
 					RaiseMessageEvent(chatHistory.Split(';')[0].Replace("�", "").Replace("/", Environment.NewLine).Substring(4), true);
 					Account.ChatHistoryIndex = Convert.ToInt32(chatHistory.Split(';')[1]);
 				}
-				Account.LastChatHistoryUpdate = DateTime.Now;
+				Account.LastChatHistoryUpdateTime = DateTime.Now;
 			}
 
 			string s = "";
 			bool hasJoinIn = false;
 			if ((Account.ALU_Seconds == 0 || !Account.Settings.PerformQuesten) && !Account.TownWatchIsStarted && !Account.QuestIsStarted && Account.LastDonateTime.IsOtherDay(DateTime.Now) && Account.Settings.DonateGold) { //einmal spenden nach dem Questen am Tag
-				RaiseMessageEvent("Betrete die Gilde");
+				RaiseMessageEvent("Betrete Gilde");
 				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				s = SendRequest(ActionTypes.JoinGuild);
 
@@ -65,9 +65,9 @@ namespace SFBotyCore.Mechanic.Areas {
 
 				Account.LastDonateTime = DateTime.Now;
 				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
-				int silver = Convert.ToInt32(Account.Silver * Account.Settings.FactorToDonate);
+				Int64 silver = Convert.ToInt64(Account.Silver * Account.Settings.FactorToDonate);
 				silver = silver - silver % 100; //silbertrennung vom gold abziehen
-				silver = silver - silver % Convert.ToInt32(Math.Pow(10d, Convert.ToDouble(silver.ToString().Length - 1))); // auf eine glate summe abrunden statt 5487 Gold lieber 5000 gold spenden
+				silver = silver - silver % Convert.ToInt64(Math.Pow(10d, Convert.ToDouble(silver.ToString().Length - 1))); // auf eine glate summe abrunden statt 5487 Gold lieber 5000 gold spenden
 
 				if (silver > (1000000000 - Account.Guild.Silver)) {
 					//Spende nur den Betrag, der zum Gold-Cap der Gilde benötigt wird
@@ -79,15 +79,15 @@ namespace SFBotyCore.Mechanic.Areas {
 				if (silver > 0) {
 					SendRequest(String.Concat(ActionTypes.GuildDonateGold, silver));
 					Account.Silver -= silver;
-					RaiseMessageEvent(String.Concat("Es wurde ", Convert.ToInt32(silver / 100), " Gold an die Gilde ", Account.Guild.Name, " gespendet"));
+					RaiseMessageEvent(String.Concat("Es wurde ", Convert.ToInt64(silver / 100), " Gold an die Gilde ", Account.Guild.Name, " gespendet"));
 				}
 				
 				hasJoinIn = true;
 			}
 
-			if (DateTime.Now > Account.NextGuildVisit) {
+			if (DateTime.Now > Account.NextGuildVisitTime) {
 				if (!hasJoinIn) {
-					RaiseMessageEvent("Betrete die Gilde");
+					RaiseMessageEvent("Betrete Gilde");
 					ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 					s = SendRequest(ActionTypes.JoinGuild);
 
@@ -154,7 +154,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					Account.HasJoinDefence = false;
 				}
 
-				Account.NextGuildVisit = DateTime.Now.AddSeconds(Account.Settings.guildVisitInterval);
+				Account.NextGuildVisitTime = DateTime.Now.AddSeconds(Account.Settings.guildVisitInterval);
 			}
 		}
 	}

@@ -50,7 +50,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			string s;
 			if ((Account.Level >= 100 && Account.ToiletIsAvailable)) {
 				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
-				RaiseMessageEvent("WC betreten");
+				RaiseMessageEvent("Betrete WC");
 				s = SendRequest(ActionTypes.JoinToilet);
 				string[] answerToilet = s.Split('/');
 				answerToilet = answerToilet[answerToilet.Length - 1].Split(';');

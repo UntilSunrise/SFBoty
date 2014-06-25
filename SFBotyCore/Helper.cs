@@ -169,10 +169,10 @@ namespace SFBotyCore {
 			int invDMG = inventoryItem.Typ == ItemTypes.Waffe ? (inventoryItem.DamageMin + inventoryItem.DamageMax) / 2 : 0;
 
 			int mainMultiplier = 10;
+			int dmgMultiplier = 9;
 			int ausMultiplier = 8;
 			int luckMultiplier = 6;
-			int dmgMultiplier = 4;
-			int armorMultiplier = 2;
+			int armorMultiplier = charClass == ClassTypes.Warrior ? 7 : charClass == ClassTypes.Scout ? 5 : 2;
 
 			int bpSummary = 0;
 			int invSummary = 0;

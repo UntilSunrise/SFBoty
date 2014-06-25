@@ -39,17 +39,17 @@ namespace SFBotyCore.Mechanic.Areas {
 			string s;
 			if ((Account.ALU_Seconds == 0 || !Account.Settings.PerformQuesten) && !Account.QuestIsStarted && !Account.TownWatchIsStarted) {
 				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
-				RaiseMessageEvent("Townwatch betreten");
+				RaiseMessageEvent("Betrete Stadtwache");
 				s = SendRequest(ActionTypes.JoinTownWatch);
 
 				s = DoWork(s);
 			} else {
 				if (DateTime.Now > Account.TownWatchEndTime && Account.TownWatchIsStarted) {
 					ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
-					RaiseMessageEvent("Townwatch betreten");
+					RaiseMessageEvent("Betrete Stadtwache");
 
 					s = SendRequest(ActionTypes.JoinTownWatch);
-					RaiseMessageEvent("Townwatch beendet");
+					RaiseMessageEvent("Stadtwache beendet");
 					ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 					s = SendRequest(ActionTypes.JoinCharacter);
 					Account.TownWatchIsStarted = false;
@@ -68,7 +68,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				s = SendRequest(ActionTypes.DoTownWatch1Hour);
 				Account.TownWatchIsStarted = true;
 				Account.TownWatchEndTime = DateTime.Now.AddHours(1);
-				RaiseMessageEvent("1h Townwatch ausführen. Townwatch ende: " + Account.TownWatchEndTime.ToString());
+				RaiseMessageEvent("1h Stadtwache ausführen. Townwatch ende: " + Account.TownWatchEndTime.ToString());
 			} else {
 				DateTime targetDate = DateTime.Now;
 				
@@ -78,20 +78,20 @@ namespace SFBotyCore.Mechanic.Areas {
 					counter += 1;
 
 					if (counter >= 24) {
-						throw new Exception("Fehler in der Townwatch");
+						throw new Exception("Fehler in der Stadtwache");
 					}
 				}
 
 				int hourToWork = Math.Min(Convert.ToInt32((targetDate - DateTime.Now).TotalHours), 10);
 				if (hourToWork == 0) {
 					hourToWork = 1;
-					SendRequest("!!!Fehler in der Townwatch!!!");
+					SendRequest("!!!Fehler in der Stadtwache!!!");
 				}
 
 				s = SendRequest(String.Concat(ActionTypes.DoTownWatchHour, hourToWork));
 				Account.TownWatchIsStarted = true;
 				Account.TownWatchEndTime = DateTime.Now.AddHours(hourToWork);
-				RaiseMessageEvent(String.Concat(hourToWork, "h Townwatch ausführen. Townwatch ende: ", Account.TownWatchEndTime.ToString()));
+				RaiseMessageEvent(String.Concat(hourToWork, "h Stadtwache ausführen. Stadtwache ende: ", Account.TownWatchEndTime.ToString()));
 
 				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				s = SendRequest(ActionTypes.LogOut);

@@ -54,7 +54,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			string enemyNick = "";
 			string enemyGuildNick = "";
 
-			RaiseMessageEvent("Arena betreten");
+			RaiseMessageEvent("Betrete Arena");
 
 			int tries = 1;
 			do {

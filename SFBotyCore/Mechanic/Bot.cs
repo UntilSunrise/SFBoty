@@ -127,7 +127,7 @@ namespace SFBotyCore.Mechanic {
 
 					//at the end oh an Threadloop sleep for 1 Secound
 					Thread.Sleep(1000);
-					if ((DateTime.Now - Account.LastAction).TotalHours > 12d) {
+					if ((DateTime.Now - Account.LastActionTime).TotalHours > 12d) {
 						if (Error != null) {
 							Error(this, new MessageEventsArgs("Bot steht still und arbeitet nicht mehr. Programmlogikfehler"));
 							running = false;

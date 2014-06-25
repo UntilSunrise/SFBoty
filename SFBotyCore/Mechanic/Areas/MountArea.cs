@@ -39,7 +39,7 @@ namespace SFBotyCore.Mechanic.Areas {
 		public override void PerformArea() {
 			base.PerformArea();
 
-			if (!Account.Settings.BuyMount || DateTime.Now < Account.MountDuration && Account.Mount == Account.Settings.MountToBuy || Account.Settings.MountToBuy == MountTypes.None) {
+			if (!Account.Settings.BuyMount || DateTime.Now < Account.MountDurationTime && Account.Mount == Account.Settings.MountToBuy || Account.Settings.MountToBuy == MountTypes.None) {
 				return;
 			}
 
@@ -48,7 +48,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			}
 
 			if (!Account.QuestIsStarted && !Account.TownWatchIsStarted || Account.MirrorIsCompleted) {
-				RaiseMessageEvent("Join Mount Shop");
+				RaiseMessageEvent("Betrete Stall");
 				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				string s = SendRequest(ActionTypes.JoinMountShop);
 
@@ -66,7 +66,7 @@ namespace SFBotyCore.Mechanic.Areas {
 				}
 
 				if (canBuyMount && nextMount > Account.Mount) {
-					RaiseMessageEvent(String.Concat("Buy Mount ", nextMount.ToString()));
+					RaiseMessageEvent(String.Concat("Kaufe Mount ", nextMount.ToString()));
 					ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 					s = SendRequest(String.Concat(ActionTypes.BuyMount, (int)nextMount));
 
@@ -74,7 +74,7 @@ namespace SFBotyCore.Mechanic.Areas {
 					s = SendRequest(ActionTypes.JoinCharacter);
 
 					canBuyMount = false;
-					Account.MountDuration = Account.MountDuration.AddDays(14d);
+					Account.MountDurationTime = Account.MountDurationTime.AddDays(14d);
 					Account.Mount = nextMount;
 
 					RemoveMountCost(nextMount);

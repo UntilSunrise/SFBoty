@@ -29,9 +29,9 @@ namespace SFBotyCore.Mechanic.Account {
 
 		public DateTime DungeonEndTime { get; set; }
 		public DateTime ArenaEndTime { get; set; }
-		public DateTime NextGuildVisit { get; set; }
-		public DateTime MagicShopLastVisitingForBuying { get; set; }
-		public DateTime WeaponShopLastVisitingForBuying { get; set; }
+		public DateTime NextGuildVisitTime { get; set; }
+		public DateTime LastMagicShopBuyTime { get; set; }
+		public DateTime LastWeaponShopBuyTime { get; set; }
 
 		public int BaseStr { get; set; }
 		public int BaseDex { get; set; }
@@ -63,16 +63,16 @@ namespace SFBotyCore.Mechanic.Account {
 		public bool HasAGuild { get; set; }
 		public DateTime LastDonateTime { get; set; }
 		public int ChatHistoryIndex { get; set; }
-		public DateTime LastChatHistoryUpdate { get; set; }
+		public DateTime LastChatHistoryUpdateTime { get; set; }
 
 		public bool HasJoinAttack { get; set; }
 		public bool HasJoinDefence { get; set; }
 		public bool BackpackIsFull { get { return BackpackItems.Where(b => b.Typ != ItemTypes.Leer).Count() == 5; } }
 
-		public DateTime LastAction { get; set; } //Wann hat der Bot das letzte mal eine Nachricht an den Server gesendet
+		public DateTime LastActionTime { get; set; } //Wann hat der Bot das letzte mal eine Nachricht an den Server gesendet
 
 		public MountTypes Mount { get; set; }
-		public DateTime MountDuration { get; set; }
+		public DateTime MountDurationTime { get; set; }
 
 		public bool BackpackHasToiletItem {
 			get {
@@ -109,7 +109,7 @@ namespace SFBotyCore.Mechanic.Account {
 			TownWatchEndTime = DateTime.Now;
 			DungeonEndTime = DateTime.Now;
 			ArenaEndTime = DateTime.Now;
-			NextGuildVisit = DateTime.Now;
+			NextGuildVisitTime = DateTime.Now;
 
 			BaseStr = 0;
 			BaseDex = 0;
@@ -135,16 +135,16 @@ namespace SFBotyCore.Mechanic.Account {
 			HasJoinAttack = false;
 			HasJoinDefence = false;
 			ChatHistoryIndex = 0;
-			LastChatHistoryUpdate = DateTime.Now;
+			LastChatHistoryUpdateTime = DateTime.Now;
 
 			LastDonateTime = DateTime.Now;
-			LastAction = DateTime.Now;
+			LastActionTime = DateTime.Now;
 
 			Mount = MountTypes.None;
-			MountDuration = DateTime.Now;
+			MountDurationTime = DateTime.Now;
 
-			MagicShopLastVisitingForBuying = DateTime.Now.AddDays(-1);
-			WeaponShopLastVisitingForBuying = DateTime.Now.AddDays(-1);
+			LastMagicShopBuyTime = DateTime.Now.AddDays(-1);
+			LastWeaponShopBuyTime = DateTime.Now.AddDays(-1);
 		}
 
 		public void Logout() {

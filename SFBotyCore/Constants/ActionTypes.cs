@@ -37,6 +37,7 @@ namespace SFBotyCore.Constants {
 		public static string GuildDonateMushroom = "1112%3B";
 		public static string GuildJoinAttack = "112";
 		public static string GuildJoinDefence = "113";
+		public static string CheckGuildChat = "517";
 
 		/// <summary>
 		/// Es muss noch der Nick des Spielers angehangen werden.

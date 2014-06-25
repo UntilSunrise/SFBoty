@@ -193,7 +193,7 @@ namespace SFBotyCore.Mechanic.Areas {
 
 			if (!Account.QuestIsStarted && !Account.TownWatchIsStarted || Account.MirrorIsCompleted) {
 				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
-				RaiseMessageEvent("Dungeonübersicht betreten");
+				RaiseMessageEvent("Betrete Dungeonübersicht");
 				string s = SendRequest(ActionTypes.JoinDungeon);
 				string[] answerRequest = s.Split('/');
 

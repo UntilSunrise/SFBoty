@@ -33,7 +33,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			//wenn stadtwache läuft tue nichts
 			string s;
 			if ((Account.ALU_Seconds == 0 || !Account.Settings.PerformQuesten) && !Account.QuestIsStarted && !Account.TownWatchIsStarted) {
-				RaiseMessageEvent("Charakterübersicht betreten");
+				RaiseMessageEvent("Betrete Charakterübersicht");
 				ThreadSleep(Account.Settings.minShortTime, Account.Settings.maxShortTime);
 				s = SendRequest(ActionTypes.JoinCharacter);
 				CharScreenArea.UpdateAccountStats(s, Account);
@@ -234,7 +234,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			acc.Rang = Convert.ToInt32(answer[ResponseTypes.Rang]);
 
 			acc.Mount = selectedMount.ToEnum<MountTypes>();
-			acc.MountDuration = selectedMountDuration.MillisecondsToDateTime();
+			acc.MountDurationTime = selectedMountDuration.MillisecondsToDateTime();
 
 			int i = 1;
 			acc.BackpackItems.Clear();
