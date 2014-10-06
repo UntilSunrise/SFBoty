@@ -9,6 +9,33 @@ using SFBotyCore.Mechanic.Account;
 namespace SFBotyCore {
 	public static class Helper {
 
+		public static Boolean IsToday(String reqTime){
+			DateTime lastGuildPortalDone = reqTime.MillisecondsToDateTime();
+			Boolean isToday = false;
+
+			if (lastGuildPortalDone.Day == DateTime.Now.Day && lastGuildPortalDone.Month == DateTime.Now.Month) {
+				isToday = true;
+			}
+
+			return isToday;
+		}
+
+		public static Boolean doyNotToday(int doy) {
+			int[] days = new int[] {31, ((isLeap(DateTime.Now.Year)) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+			int doyToday = DateTime.Now.Day;
+			int month = 0;
+
+			while (month < DateTime.Now.Month - 1) {
+				doyToday = (doyToday + days[month]);
+				month++;
+			};
+			return (!((doy == doyToday)));
+		}
+
+		public static Boolean isLeap (int year) {
+			return (((((year % 4) == 0)) && (((!(((year % 100) == 0))) || (((year % 400) == 0))))));
+		}
+
 		public static int GetGoldMountFromGoldCurve(int statAmount, int[] goldCurve) {
 			int gold = goldCurve[statAmount];
 			return gold <= 0 || gold > 10000000 || statAmount > 15000 ? 10000000 : gold;
