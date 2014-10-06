@@ -124,6 +124,21 @@ namespace SFBotyCore.Mechanic.Areas {
 				string guildSilver = answer[1];
 				string guildMushrooms = answer[2];
 
+				string[] par = s.Split (';');
+				string[] guildData = par[0].Split('/');
+
+				int i = 0;
+				int myOwnGuildPos = -1;
+
+				string[] memberArray = members.Split('/');
+
+				while (i < memberArray.Length) {
+					if (memberArray[i] == Account.Settings.Username){
+						myOwnGuildPos = i - 1;
+					};
+					i++;
+				};
+
 				Account.Guild.MemberNames = members.Split('/');
 				Account.Guild.WellcomeText = wellcomeText;
 				Account.Guild.Name = guildName;
@@ -141,6 +156,11 @@ namespace SFBotyCore.Mechanic.Areas {
 					}
 				} else {
 					Account.HasJoinAttack = false;
+				}
+
+				if (((int.Parse(guildData[(164 + myOwnGuildPos)]) == 0)) || (!(Helper.IsToday(guildData[(164 + myOwnGuildPos)])))) {
+					SendRequest(ActionTypes.DoGuildPortalFight);
+					RaiseMessageEvent ("Hat am Gildenportalkampf teilgenommen");
 				}
 
 				if (answer[367].MillisecondsToDateTime() > DateTime.Now) {

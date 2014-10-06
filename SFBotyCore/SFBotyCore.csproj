@@ -72,6 +72,7 @@
     <Compile Include="Mechanic\IMenuArea.cs" />
     <Compile Include="Mechanic\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Mechanic\Areas\SinglePortalArea.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Docs\SfConstantsOriginal.txt" />

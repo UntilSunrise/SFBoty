@@ -74,6 +74,8 @@ namespace SFBotyCore.Mechanic.Account {
 		public MountTypes Mount { get; set; }
 		public DateTime MountDurationTime { get; set; }
 
+		public Boolean SinglePortalCanBeVisit { get; set; }
+
 		public bool BackpackHasToiletItem {
 			get {
 				return BackpackItems.Where(
@@ -142,6 +144,8 @@ namespace SFBotyCore.Mechanic.Account {
 
 			Mount = MountTypes.None;
 			MountDurationTime = DateTime.Now;
+
+			SinglePortalCanBeVisit = true;
 
 			LastMagicShopBuyTime = DateTime.Now.AddDays(-1);
 			LastWeaponShopBuyTime = DateTime.Now.AddDays(-1);

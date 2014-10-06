@@ -209,6 +209,8 @@ namespace SFBotyCore.Mechanic.Areas {
 			string selectedMount = answer[ResponseTypes.mount];
 			string selectedMountDuration = answer[ResponseTypes.mountDuration];
 
+			Boolean singlePortalCanBeVisit = Helper.doyNotToday(Int32.Parse(answer[ResponseTypes.LastSinglePortalFightTimestamp]) / 65536);
+
 			acc.BaseStr = Convert.ToInt32(str);
 			acc.BaseDex = Convert.ToInt32(ges);
 			acc.BaseInt = Convert.ToInt32(inte);
@@ -235,6 +237,8 @@ namespace SFBotyCore.Mechanic.Areas {
 
 			acc.Mount = selectedMount.ToEnum<MountTypes>();
 			acc.MountDurationTime = selectedMountDuration.MillisecondsToDateTime();
+
+			acc.SinglePortalCanBeVisit = singlePortalCanBeVisit;
 
 			int i = 1;
 			acc.BackpackItems.Clear();
