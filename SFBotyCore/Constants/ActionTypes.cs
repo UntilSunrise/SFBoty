@@ -60,6 +60,9 @@ namespace SFBotyCore.Constants {
 		public static string ResponseToiletFull = "306";
 		public static string ResponseToiletLocked = "304";
 
+		public static string DoGuildPortalFight = "358";
+		public static string DoSinglePortalFight = "360";
+
 		/// <summary>
 		/// Achtung die Item Rucksackslot Nummer muss noch angehangen werden (1-5) und die entsprechende Action
 		/// ";0;0" verkauft ein Item 

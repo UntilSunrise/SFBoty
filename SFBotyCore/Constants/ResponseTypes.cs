@@ -11,6 +11,8 @@ namespace SFBotyCore.Constants {
 
 		public static int Silver = 13;
 		public static int Mushrooms = 14;
+		public static int LastSinglePortalFightTimestamp = 29; //muss mit der Helper.doy Methode behandelt werden.
+		public static int SinglePortalLifePercent = 12; // muss noch durch 65536 geteilt werden.
 		public static int ALU = 456;
 		public static int Level = 7;
 		public static int Rang = 11;
