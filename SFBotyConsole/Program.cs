@@ -41,6 +41,7 @@ namespace SFBotyConsole {
 				bot.AddMenu(new CharScreenArea());
 				bot.AddMenu(new DungeonArea());
 				bot.AddMenu(new TownwatchArea());
+				bot.AddMenu(new SinglePortalArea());
 
 				bots.Add(bot);
 			}

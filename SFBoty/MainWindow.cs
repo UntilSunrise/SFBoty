@@ -110,6 +110,7 @@ namespace SFBoty {
 				bot.AddMenu(new CharScreenArea());
 				bot.AddMenu(new DungeonArea());
 				bot.AddMenu(new TownwatchArea());
+				bot.AddMenu(new SinglePortalArea());
 
 				Bots.Add(key, bot);
 				Bots[key].Run();
