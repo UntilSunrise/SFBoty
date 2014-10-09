@@ -50,7 +50,7 @@ namespace SFBotyCore.Mechanic.Areas {
 
 				RaiseMessageEvent(String.Format("Privates Portalmonster hat {0}% Leben verloren.", beforeFightLifePercent - afterFightLifePercent));
 
-				CharScreenArea.UpdateAccountStats(s, Account);
+				Account.SinglePortalCanBeVisit = false;
 
 			}
 		}
