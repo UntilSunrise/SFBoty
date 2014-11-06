@@ -206,7 +206,7 @@ namespace SFBotyCore.Mechanic.Areas {
 			string inteBuyed = answer[ResponseTypes.inteBuyed];
 			string ausBuyed = answer[ResponseTypes.ausBuyed];
 			string luckBuyed = answer[ResponseTypes.luckBuyed];
-			string selectedMount = answer[ResponseTypes.mount];
+			string selectedMount = answer[ResponseTypes.mount].Length > 1 ? MountTypes.Drachengreif.ToString() : answer[ResponseTypes.mount];
 			string selectedMountDuration = answer[ResponseTypes.mountDuration];
 
 			Boolean singlePortalCanBeVisit = Helper.doyNotToday(Int32.Parse(answer[ResponseTypes.LastSinglePortalFightTimestamp]) / 65536);
